@@ -3,5 +3,10 @@
         "url": "https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/master/index.html",
         "name": "master",
         "id": "master"
+    },
+    {
+        "url": "https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/0.1.0/index.html",
+        "name": "0.1.0",
+        "id": "0.1.0"
     }
 ]

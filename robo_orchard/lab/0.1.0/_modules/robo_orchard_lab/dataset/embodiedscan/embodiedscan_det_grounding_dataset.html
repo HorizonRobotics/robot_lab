@@ -1,0 +1,1016 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset - RoboOrchard Lab</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../index.html"><div class="brand">RoboOrchard Lab</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../../../_static/logo/orchard_logo.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../../_static/logo/orchard_logo.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">RoboOrchard Lab</span>
+  
+</a>
+<meta name="current-version-id" content="0.1.0">
+
+<meta name="versions-json-url" content="https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/version.json">
+
+<div id="version-selector-wrapper"
+     style="visibility: hidden;
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+            padding: 0;
+            margin: 8px 5px;
+            display: inline-block;
+            background-color: transparent;
+            position: relative;">
+    <select id="version-selector"
+            style="padding: 6px 8px;
+                   border: none;
+                   background-color: transparent;
+                   font-size: 0.9em;
+                   display: block;
+                   min-width: 140px;
+                   width: 100%;
+                   cursor: pointer;
+                   text-align: center;
+                   text-align-last: center;
+                   line-height: 1.4;">
+        <!-- Populated dynamically by JavaScript -->
+    </select>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const wrapper = document.getElementById('version-selector-wrapper');
+    const selector = document.getElementById('version-selector');
+    const metaCurrentVersionIdTag = document.querySelector('meta[name="current-version-id"]');
+    const actualCurrentVersionId = metaCurrentVersionIdTag ? metaCurrentVersionIdTag.content : null;
+    const metaVersionsJsonUrlTag = document.querySelector('meta[name="versions-json-url"]');
+    const versionsJsonUrl = metaVersionsJsonUrlTag ? metaVersionsJsonUrlTag.content : null;
+    const versionsCacheKey = 'sphinxVersionsJsonCache_vHybrid';
+
+    function populateSelector(versionsData) {
+        if (!selector || !wrapper) return;
+        selector.innerHTML = '';
+
+        if (Array.isArray(versionsData) && versionsData.length > 0) {
+            versionsData.forEach(version => {
+                if (version && version.url && version.name && version.id) {
+                    const option = document.createElement('option');
+                    option.value = version.url;
+                    option.textContent = version.name;
+                    if (actualCurrentVersionId && version.id === actualCurrentVersionId) {
+                        option.selected = true;
+                    }
+                    selector.appendChild(option);
+                }
+            });
+        } else {
+            const fallbackOption = document.createElement('option');
+            fallbackOption.textContent = "No versions available";
+            fallbackOption.disabled = true;
+            selector.appendChild(fallbackOption);
+            console.warn("versions.json was empty, not loaded, or invalid.");
+        }
+        wrapper.style.visibility = 'visible';
+    }
+
+    if (!versionsJsonUrl) {
+        console.error("Cannot fetch versions: versions.json URL is missing.");
+        populateSelector(null);
+        return;
+    }
+
+    const cachedVersions = sessionStorage.getItem(versionsCacheKey);
+    if (cachedVersions) {
+        try {
+            const versions = JSON.parse(cachedVersions);
+            populateSelector(versions);
+        } catch (e) {
+            sessionStorage.removeItem(versionsCacheKey);
+            fetchAndPopulate();
+        }
+    } else {
+        fetchAndPopulate();
+    }
+
+    function fetchAndPopulate() {
+        fetch(versionsJsonUrl)
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error fetching versions.json! Status: ${response.status}`);
+                return response.json();
+            })
+            .then(versions => {
+                sessionStorage.setItem(versionsCacheKey, JSON.stringify(versions));
+                populateSelector(versions);
+            })
+            .catch(error => {
+                console.error('Failed to load or parse versions.json:', error);
+                populateSelector(null);
+            });
+    }
+
+    if (selector) {
+        selector.addEventListener('change', function() {
+            if (this.value) window.location.href = this.value;
+        });
+    }
+});
+</script><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../getting_started/index.html">Getting Started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Getting Started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../getting_started/install.html">Installation</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../overview/index.html">Overview</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Overview</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview/lab_arch.html">Framework Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../overview/hook_based_trainer_arch.html">Hook Based Trainer Architecture</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../model_zoo/index.html">Model Zoo</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Model Zoo</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../model_zoo/perception/index.html">Perception</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Perception</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../model_zoo/perception/bip3d.html">BIP3D: Bridging 2D Images and 3D Perception for Embodied Intelligence</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../model_zoo/manipulation/index.html">Manipulation</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Manipulation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../model_zoo/manipulation/sem.html">SEM: Enhancing Spatial Understanding for Robust Robot Manipulation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../build/trainer_tutorial/index.html">Trainer Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Trainer Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../build/trainer_tutorial/nonb-01_basic_run.html">Configuration &amp; Your First Basic Training Run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../build/trainer_tutorial/nonb-02_built_in_hooks.html">Leveraging Built-in Hooks for Common Training Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../build/trainer_tutorial/nonb-03_custom_hook.html">(Advanced) Creating Custom Hooks for Tailored Logic</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../api/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/dataset/index.html">dataset</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of dataset</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/dataset/lmdb.html">LMDB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/dataset/embodiedscan.html">Embediedscan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/dataset/robotwin.html">RoboTwin</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/models/index.html">models</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/models/layers.html">Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/models/modules.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/models/bip3d.html">BIP3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/models/sem.html">SEM</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/pipeline/index.html">pipeline</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of pipeline</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/pipeline/trainer.html">trainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/pipeline/batch_processor.html">batch processor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/pipeline/hooks.html">hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/utils/index.html">utils</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Project RoboOrchard</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2024 Horizon Robotics. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#       http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or</span>
+<span class="c1"># implied. See the License for the specific language governing</span>
+<span class="c1"># permissions and limitations under the License.</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tqdm</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.dataset.embodiedscan.utils</span> <span class="kn">import</span> <span class="n">sample</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.utils.build</span> <span class="kn">import</span> <span class="n">build</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.utils.misc</span> <span class="kn">import</span> <span class="n">as_sequence</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="c1"># fmt: off</span>
+<span class="n">DEFAULT_CLASSES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;adhesive tape&quot;</span><span class="p">,</span> <span class="s2">&quot;air conditioner&quot;</span><span class="p">,</span> <span class="s2">&quot;alarm&quot;</span><span class="p">,</span> <span class="s2">&quot;album&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;backpack&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bag&quot;</span><span class="p">,</span> <span class="s2">&quot;balcony&quot;</span><span class="p">,</span> <span class="s2">&quot;ball&quot;</span><span class="p">,</span> <span class="s2">&quot;banister&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;barricade&quot;</span><span class="p">,</span> <span class="s2">&quot;baseboard&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;basin&quot;</span><span class="p">,</span> <span class="s2">&quot;basket&quot;</span><span class="p">,</span> <span class="s2">&quot;bathtub&quot;</span><span class="p">,</span> <span class="s2">&quot;beam&quot;</span><span class="p">,</span> <span class="s2">&quot;beanbag&quot;</span><span class="p">,</span> <span class="s2">&quot;bed&quot;</span><span class="p">,</span> <span class="s2">&quot;bench&quot;</span><span class="p">,</span> <span class="s2">&quot;bicycle&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bidet&quot;</span><span class="p">,</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;blackboard&quot;</span><span class="p">,</span> <span class="s2">&quot;blanket&quot;</span><span class="p">,</span> <span class="s2">&quot;blinds&quot;</span><span class="p">,</span> <span class="s2">&quot;board&quot;</span><span class="p">,</span> <span class="s2">&quot;body loofah&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;book&quot;</span><span class="p">,</span> <span class="s2">&quot;boots&quot;</span><span class="p">,</span> <span class="s2">&quot;bottle&quot;</span><span class="p">,</span> <span class="s2">&quot;bowl&quot;</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">,</span> <span class="s2">&quot;bread&quot;</span><span class="p">,</span> <span class="s2">&quot;broom&quot;</span><span class="p">,</span> <span class="s2">&quot;brush&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bucket&quot;</span><span class="p">,</span> <span class="s2">&quot;cabinet&quot;</span><span class="p">,</span> <span class="s2">&quot;calendar&quot;</span><span class="p">,</span> <span class="s2">&quot;camera&quot;</span><span class="p">,</span> <span class="s2">&quot;can&quot;</span><span class="p">,</span> <span class="s2">&quot;candle&quot;</span><span class="p">,</span> <span class="s2">&quot;candlestick&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cap&quot;</span><span class="p">,</span> <span class="s2">&quot;car&quot;</span><span class="p">,</span> <span class="s2">&quot;carpet&quot;</span><span class="p">,</span> <span class="s2">&quot;cart&quot;</span><span class="p">,</span> <span class="s2">&quot;case&quot;</span><span class="p">,</span> <span class="s2">&quot;chair&quot;</span><span class="p">,</span> <span class="s2">&quot;chandelier&quot;</span><span class="p">,</span> <span class="s2">&quot;cleanser&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;clock&quot;</span><span class="p">,</span> <span class="s2">&quot;clothes&quot;</span><span class="p">,</span> <span class="s2">&quot;clothes dryer&quot;</span><span class="p">,</span> <span class="s2">&quot;coat hanger&quot;</span><span class="p">,</span> <span class="s2">&quot;coffee maker&quot;</span><span class="p">,</span> <span class="s2">&quot;coil&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;column&quot;</span><span class="p">,</span> <span class="s2">&quot;commode&quot;</span><span class="p">,</span> <span class="s2">&quot;computer&quot;</span><span class="p">,</span> <span class="s2">&quot;conducting wire&quot;</span><span class="p">,</span> <span class="s2">&quot;container&quot;</span><span class="p">,</span> <span class="s2">&quot;control&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;copier&quot;</span><span class="p">,</span> <span class="s2">&quot;cosmetics&quot;</span><span class="p">,</span> <span class="s2">&quot;couch&quot;</span><span class="p">,</span> <span class="s2">&quot;counter&quot;</span><span class="p">,</span> <span class="s2">&quot;countertop&quot;</span><span class="p">,</span> <span class="s2">&quot;crate&quot;</span><span class="p">,</span> <span class="s2">&quot;crib&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cube&quot;</span><span class="p">,</span> <span class="s2">&quot;cup&quot;</span><span class="p">,</span> <span class="s2">&quot;curtain&quot;</span><span class="p">,</span> <span class="s2">&quot;cushion&quot;</span><span class="p">,</span> <span class="s2">&quot;decoration&quot;</span><span class="p">,</span> <span class="s2">&quot;desk&quot;</span><span class="p">,</span> <span class="s2">&quot;detergent&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;device&quot;</span><span class="p">,</span> <span class="s2">&quot;dish rack&quot;</span><span class="p">,</span> <span class="s2">&quot;dishwasher&quot;</span><span class="p">,</span> <span class="s2">&quot;dispenser&quot;</span><span class="p">,</span> <span class="s2">&quot;divider&quot;</span><span class="p">,</span> <span class="s2">&quot;door&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;door knob&quot;</span><span class="p">,</span> <span class="s2">&quot;doorframe&quot;</span><span class="p">,</span> <span class="s2">&quot;doorway&quot;</span><span class="p">,</span> <span class="s2">&quot;drawer&quot;</span><span class="p">,</span> <span class="s2">&quot;dress&quot;</span><span class="p">,</span> <span class="s2">&quot;dresser&quot;</span><span class="p">,</span> <span class="s2">&quot;drum&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;duct&quot;</span><span class="p">,</span> <span class="s2">&quot;dumbbell&quot;</span><span class="p">,</span> <span class="s2">&quot;dustpan&quot;</span><span class="p">,</span> <span class="s2">&quot;dvd&quot;</span><span class="p">,</span> <span class="s2">&quot;eraser&quot;</span><span class="p">,</span> <span class="s2">&quot;excercise equipment&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;fan&quot;</span><span class="p">,</span> <span class="s2">&quot;faucet&quot;</span><span class="p">,</span> <span class="s2">&quot;fence&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;fire extinguisher&quot;</span><span class="p">,</span> <span class="s2">&quot;fireplace&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;flowerpot&quot;</span><span class="p">,</span> <span class="s2">&quot;flush&quot;</span><span class="p">,</span> <span class="s2">&quot;folder&quot;</span><span class="p">,</span> <span class="s2">&quot;food&quot;</span><span class="p">,</span> <span class="s2">&quot;footstool&quot;</span><span class="p">,</span> <span class="s2">&quot;frame&quot;</span><span class="p">,</span> <span class="s2">&quot;fruit&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;furniture&quot;</span><span class="p">,</span> <span class="s2">&quot;garage door&quot;</span><span class="p">,</span> <span class="s2">&quot;garbage&quot;</span><span class="p">,</span> <span class="s2">&quot;glass&quot;</span><span class="p">,</span> <span class="s2">&quot;globe&quot;</span><span class="p">,</span> <span class="s2">&quot;glove&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;grab bar&quot;</span><span class="p">,</span> <span class="s2">&quot;grass&quot;</span><span class="p">,</span> <span class="s2">&quot;guitar&quot;</span><span class="p">,</span> <span class="s2">&quot;hair dryer&quot;</span><span class="p">,</span> <span class="s2">&quot;hamper&quot;</span><span class="p">,</span> <span class="s2">&quot;handle&quot;</span><span class="p">,</span> <span class="s2">&quot;hanger&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;hat&quot;</span><span class="p">,</span> <span class="s2">&quot;headboard&quot;</span><span class="p">,</span> <span class="s2">&quot;headphones&quot;</span><span class="p">,</span> <span class="s2">&quot;heater&quot;</span><span class="p">,</span> <span class="s2">&quot;helmets&quot;</span><span class="p">,</span> <span class="s2">&quot;holder&quot;</span><span class="p">,</span> <span class="s2">&quot;hook&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;humidifier&quot;</span><span class="p">,</span> <span class="s2">&quot;ironware&quot;</span><span class="p">,</span> <span class="s2">&quot;jacket&quot;</span><span class="p">,</span> <span class="s2">&quot;jalousie&quot;</span><span class="p">,</span> <span class="s2">&quot;jar&quot;</span><span class="p">,</span> <span class="s2">&quot;kettle&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;keyboard&quot;</span><span class="p">,</span> <span class="s2">&quot;kitchen island&quot;</span><span class="p">,</span> <span class="s2">&quot;kitchenware&quot;</span><span class="p">,</span> <span class="s2">&quot;knife&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;ladder&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lamp&quot;</span><span class="p">,</span> <span class="s2">&quot;laptop&quot;</span><span class="p">,</span> <span class="s2">&quot;ledge&quot;</span><span class="p">,</span> <span class="s2">&quot;letter&quot;</span><span class="p">,</span> <span class="s2">&quot;light&quot;</span><span class="p">,</span> <span class="s2">&quot;luggage&quot;</span><span class="p">,</span> <span class="s2">&quot;machine&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;magazine&quot;</span><span class="p">,</span> <span class="s2">&quot;mailbox&quot;</span><span class="p">,</span> <span class="s2">&quot;map&quot;</span><span class="p">,</span> <span class="s2">&quot;mask&quot;</span><span class="p">,</span> <span class="s2">&quot;mat&quot;</span><span class="p">,</span> <span class="s2">&quot;mattress&quot;</span><span class="p">,</span> <span class="s2">&quot;menu&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;microwave&quot;</span><span class="p">,</span> <span class="s2">&quot;mirror&quot;</span><span class="p">,</span> <span class="s2">&quot;molding&quot;</span><span class="p">,</span> <span class="s2">&quot;monitor&quot;</span><span class="p">,</span> <span class="s2">&quot;mop&quot;</span><span class="p">,</span> <span class="s2">&quot;mouse&quot;</span><span class="p">,</span> <span class="s2">&quot;napkins&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;notebook&quot;</span><span class="p">,</span> <span class="s2">&quot;ottoman&quot;</span><span class="p">,</span> <span class="s2">&quot;oven&quot;</span><span class="p">,</span> <span class="s2">&quot;pack&quot;</span><span class="p">,</span> <span class="s2">&quot;package&quot;</span><span class="p">,</span> <span class="s2">&quot;pad&quot;</span><span class="p">,</span> <span class="s2">&quot;pan&quot;</span><span class="p">,</span> <span class="s2">&quot;panel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="s2">&quot;paper cutter&quot;</span><span class="p">,</span> <span class="s2">&quot;partition&quot;</span><span class="p">,</span> <span class="s2">&quot;pedestal&quot;</span><span class="p">,</span> <span class="s2">&quot;pen&quot;</span><span class="p">,</span> <span class="s2">&quot;person&quot;</span><span class="p">,</span> <span class="s2">&quot;piano&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;picture&quot;</span><span class="p">,</span> <span class="s2">&quot;pillar&quot;</span><span class="p">,</span> <span class="s2">&quot;pillow&quot;</span><span class="p">,</span> <span class="s2">&quot;pipe&quot;</span><span class="p">,</span> <span class="s2">&quot;pitcher&quot;</span><span class="p">,</span> <span class="s2">&quot;plant&quot;</span><span class="p">,</span> <span class="s2">&quot;plate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;player&quot;</span><span class="p">,</span> <span class="s2">&quot;plug&quot;</span><span class="p">,</span> <span class="s2">&quot;plunger&quot;</span><span class="p">,</span> <span class="s2">&quot;pool&quot;</span><span class="p">,</span> <span class="s2">&quot;pool table&quot;</span><span class="p">,</span> <span class="s2">&quot;poster&quot;</span><span class="p">,</span> <span class="s2">&quot;pot&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;price tag&quot;</span><span class="p">,</span> <span class="s2">&quot;printer&quot;</span><span class="p">,</span> <span class="s2">&quot;projector&quot;</span><span class="p">,</span> <span class="s2">&quot;purse&quot;</span><span class="p">,</span> <span class="s2">&quot;rack&quot;</span><span class="p">,</span> <span class="s2">&quot;radiator&quot;</span><span class="p">,</span> <span class="s2">&quot;radio&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rail&quot;</span><span class="p">,</span> <span class="s2">&quot;range hood&quot;</span><span class="p">,</span> <span class="s2">&quot;refrigerator&quot;</span><span class="p">,</span> <span class="s2">&quot;remote control&quot;</span><span class="p">,</span> <span class="s2">&quot;ridge&quot;</span><span class="p">,</span> <span class="s2">&quot;rod&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;roll&quot;</span><span class="p">,</span> <span class="s2">&quot;roof&quot;</span><span class="p">,</span> <span class="s2">&quot;rope&quot;</span><span class="p">,</span> <span class="s2">&quot;sack&quot;</span><span class="p">,</span> <span class="s2">&quot;salt&quot;</span><span class="p">,</span> <span class="s2">&quot;scale&quot;</span><span class="p">,</span> <span class="s2">&quot;scissors&quot;</span><span class="p">,</span> <span class="s2">&quot;screen&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;seasoning&quot;</span><span class="p">,</span> <span class="s2">&quot;shampoo&quot;</span><span class="p">,</span> <span class="s2">&quot;sheet&quot;</span><span class="p">,</span> <span class="s2">&quot;shelf&quot;</span><span class="p">,</span> <span class="s2">&quot;shirt&quot;</span><span class="p">,</span> <span class="s2">&quot;shoe&quot;</span><span class="p">,</span> <span class="s2">&quot;shovel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;shower&quot;</span><span class="p">,</span> <span class="s2">&quot;sign&quot;</span><span class="p">,</span> <span class="s2">&quot;sink&quot;</span><span class="p">,</span> <span class="s2">&quot;soap&quot;</span><span class="p">,</span> <span class="s2">&quot;soap dish&quot;</span><span class="p">,</span> <span class="s2">&quot;soap dispenser&quot;</span><span class="p">,</span> <span class="s2">&quot;socket&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;speaker&quot;</span><span class="p">,</span> <span class="s2">&quot;sponge&quot;</span><span class="p">,</span> <span class="s2">&quot;spoon&quot;</span><span class="p">,</span> <span class="s2">&quot;stairs&quot;</span><span class="p">,</span> <span class="s2">&quot;stall&quot;</span><span class="p">,</span> <span class="s2">&quot;stand&quot;</span><span class="p">,</span> <span class="s2">&quot;stapler&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;statue&quot;</span><span class="p">,</span> <span class="s2">&quot;steps&quot;</span><span class="p">,</span> <span class="s2">&quot;stick&quot;</span><span class="p">,</span> <span class="s2">&quot;stool&quot;</span><span class="p">,</span> <span class="s2">&quot;stopcock&quot;</span><span class="p">,</span> <span class="s2">&quot;stove&quot;</span><span class="p">,</span> <span class="s2">&quot;structure&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sunglasses&quot;</span><span class="p">,</span> <span class="s2">&quot;support&quot;</span><span class="p">,</span> <span class="s2">&quot;switch&quot;</span><span class="p">,</span> <span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="s2">&quot;tablet&quot;</span><span class="p">,</span> <span class="s2">&quot;teapot&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;telephone&quot;</span><span class="p">,</span> <span class="s2">&quot;thermostat&quot;</span><span class="p">,</span> <span class="s2">&quot;tissue&quot;</span><span class="p">,</span> <span class="s2">&quot;tissue box&quot;</span><span class="p">,</span> <span class="s2">&quot;toaster&quot;</span><span class="p">,</span> <span class="s2">&quot;toilet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;toilet paper&quot;</span><span class="p">,</span> <span class="s2">&quot;toiletry&quot;</span><span class="p">,</span> <span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="s2">&quot;toothbrush&quot;</span><span class="p">,</span> <span class="s2">&quot;toothpaste&quot;</span><span class="p">,</span> <span class="s2">&quot;towel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;toy&quot;</span><span class="p">,</span> <span class="s2">&quot;tray&quot;</span><span class="p">,</span> <span class="s2">&quot;treadmill&quot;</span><span class="p">,</span> <span class="s2">&quot;trophy&quot;</span><span class="p">,</span> <span class="s2">&quot;tube&quot;</span><span class="p">,</span> <span class="s2">&quot;tv&quot;</span><span class="p">,</span> <span class="s2">&quot;umbrella&quot;</span><span class="p">,</span> <span class="s2">&quot;urn&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;utensil&quot;</span><span class="p">,</span> <span class="s2">&quot;vacuum cleaner&quot;</span><span class="p">,</span> <span class="s2">&quot;vanity&quot;</span><span class="p">,</span> <span class="s2">&quot;vase&quot;</span><span class="p">,</span> <span class="s2">&quot;vent&quot;</span><span class="p">,</span> <span class="s2">&quot;ventilation&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;wardrobe&quot;</span><span class="p">,</span> <span class="s2">&quot;washbasin&quot;</span><span class="p">,</span> <span class="s2">&quot;washing machine&quot;</span><span class="p">,</span> <span class="s2">&quot;water cooler&quot;</span><span class="p">,</span> <span class="s2">&quot;water heater&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;window&quot;</span><span class="p">,</span> <span class="s2">&quot;window frame&quot;</span><span class="p">,</span> <span class="s2">&quot;windowsill&quot;</span><span class="p">,</span> <span class="s2">&quot;wine&quot;</span><span class="p">,</span> <span class="s2">&quot;wire&quot;</span><span class="p">,</span> <span class="s2">&quot;wood&quot;</span><span class="p">,</span> <span class="s2">&quot;wrap&quot;</span>
+<span class="p">)</span>
+
+<span class="n">HEAD_LABELS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="mi">48</span><span class="p">,</span> <span class="mi">177</span><span class="p">,</span> <span class="mi">82</span><span class="p">,</span> <span class="mi">179</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">277</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">215</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">182</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="mi">141</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">257</span><span class="p">,</span> <span class="mi">221</span><span class="p">,</span> <span class="mi">225</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">231</span><span class="p">,</span> <span class="mi">158</span><span class="p">,</span> <span class="mi">236</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">242</span><span class="p">,</span>
+    <span class="mi">217</span><span class="p">,</span> <span class="mi">251</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">263</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">278</span><span class="p">,</span> <span class="mi">198</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">196</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span>
+    <span class="mi">229</span><span class="p">,</span> <span class="mi">183</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">272</span><span class="p">,</span> <span class="mi">246</span><span class="p">,</span> <span class="mi">269</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">279</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">258</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span>
+    <span class="mi">88</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">137</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">238</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">219</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span>
+    <span class="mi">142</span><span class="p">,</span> <span class="mi">201</span><span class="p">,</span> <span class="mi">274</span><span class="p">,</span> <span class="mi">249</span><span class="p">,</span> <span class="mi">178</span><span class="p">,</span> <span class="mi">192</span>
+<span class="p">)</span>
+
+<span class="n">COMMON_LABELS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="mi">189</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">205</span><span class="p">,</span> <span class="mi">273</span><span class="p">,</span> <span class="mi">233</span><span class="p">,</span> <span class="mi">131</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">220</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">268</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span>
+    <span class="mi">203</span><span class="p">,</span> <span class="mi">237</span><span class="p">,</span> <span class="mi">226</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">248</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">199</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">234</span><span class="p">,</span>
+    <span class="mi">194</span><span class="p">,</span> <span class="mi">253</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">223</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">262</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span>
+    <span class="mi">168</span><span class="p">,</span> <span class="mi">245</span><span class="p">,</span> <span class="mi">267</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">176</span><span class="p">,</span> <span class="mi">280</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">209</span><span class="p">,</span> <span class="mi">259</span><span class="p">,</span> <span class="mi">143</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">147</span><span class="p">,</span>
+    <span class="mi">117</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">207</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">171</span><span class="p">,</span> <span class="mi">204</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">211</span><span class="p">,</span>
+    <span class="mi">108</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">222</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">264</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">261</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">118</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="mi">124</span>
+<span class="p">)</span>
+
+<span class="n">TAIL_LABELS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="mi">76</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">173</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">275</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">266</span><span class="p">,</span> <span class="mi">283</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span> <span class="mi">186</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="mi">254</span><span class="p">,</span> <span class="mi">172</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">212</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">181</span><span class="p">,</span> <span class="mi">154</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">191</span><span class="p">,</span> <span class="mi">193</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">167</span><span class="p">,</span>
+    <span class="mi">126</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">228</span><span class="p">,</span> <span class="mi">239</span><span class="p">,</span> <span class="mi">247</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">244</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span>
+    <span class="mi">114</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">159</span><span class="p">,</span> <span class="mi">218</span><span class="p">,</span> <span class="mi">232</span><span class="p">,</span> <span class="mi">260</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">282</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span> <span class="mi">138</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">188</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span>
+    <span class="mi">150</span><span class="p">,</span> <span class="mi">197</span><span class="p">,</span> <span class="mi">271</span><span class="p">,</span> <span class="mi">169</span><span class="p">,</span> <span class="mi">206</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">235</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">281</span><span class="p">,</span> <span class="mi">184</span><span class="p">,</span> <span class="mi">208</span><span class="p">,</span> <span class="mi">216</span><span class="p">,</span> <span class="mi">202</span><span class="p">,</span> <span class="mi">214</span><span class="p">,</span> <span class="mi">241</span><span class="p">,</span>
+    <span class="mi">129</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">276</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">139</span><span class="p">,</span> <span class="mi">227</span><span class="p">,</span> <span class="mi">187</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span>
+    <span class="mi">265</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">39</span>
+<span class="p">)</span>
+<span class="c1"># fmt: on</span>
+
+
+<div class="viewcode-block" id="EmbodiedScanDetGroundingDataset">
+<a class="viewcode-back" href="../../../../api/dataset/embodiedscan.html#robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset.EmbodiedScanDetGroundingDataset">[docs]</a>
+<span class="k">class</span> <span class="nc">EmbodiedScanDetGroundingDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;EmbodiedScanDetGroundingDataset.</span>
+
+<span class="sd">    A dataset class for detection and grounding for EmbodiedScan.</span>
+<span class="sd">    Following EmbodiedScan, the data directory structure is as follows::</span>
+
+<span class="sd">        self.data_root</span>
+<span class="sd">        ├──embodiedscan</span>
+<span class="sd">        │   ├──embodiedscan_infos_train.pkl</span>
+<span class="sd">        │   ├──embodiedscan_infos_val.pkl</span>
+<span class="sd">        │   ├──embodiedscan_train_vg_all.json</span>
+<span class="sd">        │   ...</span>
+<span class="sd">        ├──3rscan</span>
+<span class="sd">        │   ├──00d42bed-778d-2ac6-86a7-0e0e5f5f5660</span>
+<span class="sd">        │   ...</span>
+<span class="sd">        ├──scannet</span>
+<span class="sd">        │   └──posed_images</span>
+<span class="sd">        ├──matterport3d</span>
+<span class="sd">        │   ├──17DRP5sb8fy</span>
+<span class="sd">        │   ...</span>
+<span class="sd">        └──arkitscenes</span>
+<span class="sd">            ├──Training</span>
+<span class="sd">            └──Validation</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ann_file (str): Path to the annotation file, e.g.,</span>
+<span class="sd">            ``&quot;embodiedscan/embodiedscan_infos_train.pkl&quot;``.</span>
+<span class="sd">        data_root (str): Root directory of the dataset.</span>
+<span class="sd">            Defaults to ``&quot;&quot;``.</span>
+<span class="sd">        test_mode (bool): Whether the dataset is in test mode.</span>
+<span class="sd">            Defaults to ``False``.</span>
+<span class="sd">        load_anns (bool): Whether to load annotations.</span>
+<span class="sd">            Defaults to ``True``.</span>
+<span class="sd">        remove_dontcare (bool): Whether to remove &quot;don&#39;t care&quot;</span>
+<span class="sd">            regions. Defaults to ``False``.</span>
+<span class="sd">        dataset_length (Optional[int]): Maximum length of the</span>
+<span class="sd">            dataset. Defaults to ``None``.</span>
+<span class="sd">        mode (Literal[&quot;detection&quot;, &quot;grounding&quot;]): Mode of the dataset.</span>
+<span class="sd">            Defaults to ``&quot;detection&quot;``.</span>
+<span class="sd">        max_refetch (int,): Maximum number of refetch attempts during</span>
+<span class="sd">            data loading. Defaults to ``100``.</span>
+<span class="sd">        part (Optional[str]): Specific part of the dataset to load.</span>
+<span class="sd">            For example, set it to ``&quot;scannet&quot;`` to load ScanNet data only.</span>
+<span class="sd">            Defaults to ``None``.</span>
+<span class="sd">        transforms (List[Union[dict, Callable]]): List of transforms</span>
+<span class="sd">            to apply. Defaults to ``[]``.</span>
+<span class="sd">        vg_file (Optional[str]): Path to the visual grounding file,</span>
+<span class="sd">            e.g., ``&quot;embodiedscan/embodiedscan_train_vg_all.json&quot;``.</span>
+<span class="sd">            Defaults to ``None``.</span>
+<span class="sd">        num_text (int): Max number of text descriptions per sample</span>
+<span class="sd">            from the grounding task. Defaults to ``1``.</span>
+<span class="sd">        tokens_positive_rebuild (bool, optional): Whether to rebuild positive</span>
+<span class="sd">            tokens. Defaults to ``True``.</span>
+<span class="sd">        sep_token (str): Separator token for text processing.</span>
+<span class="sd">            Defaults to ``&quot;[SEP]&quot;``.</span>
+<span class="sd">        lazy_init (bool): Whether to initialize the dataset lazily.</span>
+<span class="sd">            Defaults to ``False``.</span>
+<span class="sd">        classes (Optional[List[str]]): List of class names.</span>
+<span class="sd">            If ``None``, ``DEFAULT_CLASSES`` will be used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">ann_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">data_root</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">test_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">load_anns</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">remove_dontcare</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">dataset_length</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;detection&quot;</span><span class="p">,</span> <span class="s2">&quot;grounding&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;detection&quot;</span><span class="p">,</span>
+        <span class="n">max_refetch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">part</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">transforms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">vg_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">num_text</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">tokens_positive_rebuild</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">sep_token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;[SEP]&quot;</span><span class="p">,</span>
+        <span class="n">lazy_init</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">classes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">transforms</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">transforms</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ann_file</span> <span class="o">=</span> <span class="n">ann_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_root</span> <span class="o">=</span> <span class="n">data_root</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_mode</span> <span class="o">=</span> <span class="n">test_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_anns</span> <span class="o">=</span> <span class="n">load_anns</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_dontcare</span> <span class="o">=</span> <span class="n">remove_dontcare</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataset_length</span> <span class="o">=</span> <span class="n">dataset_length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;detection&quot;</span><span class="p">,</span> <span class="s2">&quot;grounding&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_refetch</span> <span class="o">=</span> <span class="n">max_refetch</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="n">part</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transforms</span> <span class="o">=</span> <span class="p">[</span><span class="n">build</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">as_sequence</span><span class="p">(</span><span class="n">transforms</span><span class="p">)]</span>
+
+        <span class="c1"># grounding kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vg_file</span> <span class="o">=</span> <span class="n">vg_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_text</span> <span class="o">=</span> <span class="n">num_text</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tokens_positive_rebuild</span> <span class="o">=</span> <span class="n">tokens_positive_rebuild</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sep_token</span> <span class="o">=</span> <span class="n">sep_token</span>
+
+        <span class="k">if</span> <span class="n">classes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">classes</span> <span class="o">=</span> <span class="n">DEFAULT_CLASSES</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">classes</span> <span class="o">=</span> <span class="n">classes</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">lazy_init</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_init</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_data_list</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;grounding&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_grounding_data</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dataset length : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_init</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_list</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">load_data_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">annotations</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+            <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ann_file</span><span class="p">),</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">metainfo</span> <span class="o">=</span> <span class="n">annotations</span><span class="p">[</span><span class="s2">&quot;metainfo&quot;</span><span class="p">]</span>
+        <span class="n">raw_data_list</span> <span class="o">=</span> <span class="n">annotations</span><span class="p">[</span><span class="s2">&quot;data_list&quot;</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_mapping</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span>
+            <span class="nb">max</span><span class="p">(</span><span class="n">metainfo</span><span class="p">[</span><span class="s2">&quot;categories&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">metainfo</span><span class="p">[</span><span class="s2">&quot;categories&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">label_mapping</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+        <span class="n">data_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">raw_data_info</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span>
+            <span class="n">raw_data_list</span><span class="p">,</span>
+            <span class="n">mininterval</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">desc</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Loading </span><span class="si">{</span><span class="s1">&#39;Test&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">test_mode</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;Train&#39;</span><span class="si">}</span><span class="s2"> dataset&quot;</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">valid</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">x</span> <span class="ow">in</span> <span class="n">raw_data_info</span><span class="p">[</span><span class="s2">&quot;sample_idx&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">valid</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+            <span class="n">data_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_data_info</span><span class="p">(</span><span class="n">raw_data_info</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">data_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">data_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_info</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dataset_length</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset_length</span>
+            <span class="p">):</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="n">data_list</span>
+
+    <span class="k">def</span> <span class="nf">parse_data_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;scan_id&quot;</span><span class="p">:</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;sample_idx&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;sample_idx&quot;</span><span class="p">:</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;sample_idx&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;img_path&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;depth_img_path&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="s2">&quot;matterport3d&quot;</span> <span class="ow">in</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;sample_idx&quot;</span><span class="p">]:</span>
+            <span class="n">output</span><span class="p">[</span><span class="s2">&quot;depth_shift&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">4000.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output</span><span class="p">[</span><span class="s2">&quot;depth_shift&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1000.0</span>
+
+        <span class="n">img_path</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">depth_path</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="s2">&quot;cam2img&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">info</span><span class="p">:</span>
+            <span class="n">intrinsic</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">intrinsic</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;cam2img&quot;</span><span class="p">]</span>
+        <span class="n">extrinsic</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">axis_align_matrix</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;axis_align_matrix&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">img_info</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;images&quot;</span><span class="p">]):</span>
+            <span class="n">img_path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_root</span><span class="p">,</span> <span class="n">img_info</span><span class="p">[</span><span class="s2">&quot;img_path&quot;</span><span class="p">]))</span>
+            <span class="n">depth_path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_root</span><span class="p">,</span> <span class="n">img_info</span><span class="p">[</span><span class="s2">&quot;depth_path&quot;</span><span class="p">])</span>
+            <span class="p">)</span>
+            <span class="n">extrinsic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span>
+                    <span class="n">axis_align_matrix</span> <span class="o">@</span> <span class="n">img_info</span><span class="p">[</span><span class="s2">&quot;cam2global&quot;</span><span class="p">]</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;cam2img&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">info</span><span class="p">:</span>
+                <span class="n">intrinsic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img_info</span><span class="p">[</span><span class="s2">&quot;cam2img&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+
+        <span class="n">output</span><span class="p">[</span><span class="s2">&quot;img_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">img_path</span>
+        <span class="n">output</span><span class="p">[</span><span class="s2">&quot;depth_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">depth_path</span>
+        <span class="n">output</span><span class="p">[</span><span class="s2">&quot;intrinsic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intrinsic</span>
+        <span class="n">output</span><span class="p">[</span><span class="s2">&quot;extrinsic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extrinsic</span>
+        <span class="k">if</span> <span class="s2">&quot;depth_cam2img&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">info</span><span class="p">:</span>
+            <span class="n">output</span><span class="p">[</span><span class="s2">&quot;depth_intrinsic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intrinsic</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output</span><span class="p">[</span><span class="s2">&quot;depth_intrinsic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;depth_cam2img&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_anns</span><span class="p">:</span>
+            <span class="n">output</span><span class="p">[</span><span class="s2">&quot;ann_info&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_ann_info</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="k">def</span> <span class="nf">parse_ann_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">instances</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;instances&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">num_instances</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span>
+        <span class="n">ann_info</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">gt_bboxes_3d</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_instances</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+            <span class="n">gt_labels_3d</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_instances</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span>
+            <span class="n">gt_names</span><span class="o">=</span><span class="p">[],</span>
+            <span class="n">bbox_id</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_instances</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;instances&quot;</span><span class="p">]):</span>
+            <span class="n">ann_info</span><span class="p">[</span><span class="s2">&quot;gt_bboxes_3d&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;bbox_3d&quot;</span><span class="p">]</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_mapping</span><span class="p">[</span><span class="n">instance</span><span class="p">[</span><span class="s2">&quot;bbox_label_3d&quot;</span><span class="p">]]</span>
+            <span class="n">ann_info</span><span class="p">[</span><span class="s2">&quot;gt_labels_3d&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
+            <span class="k">if</span> <span class="n">label</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;others&quot;</span>
+            <span class="n">ann_info</span><span class="p">[</span><span class="s2">&quot;gt_names&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+            <span class="n">ann_info</span><span class="p">[</span><span class="s2">&quot;bbox_id&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span><span class="p">[</span><span class="s2">&quot;bbox_id&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="s2">&quot;visible_instance_ids&quot;</span> <span class="ow">in</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;images&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">masks</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;images&quot;</span><span class="p">])):</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_instances</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+                <span class="n">visible_id</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;images&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;visible_instance_ids&quot;</span><span class="p">]</span>
+                <span class="n">mask</span><span class="p">[</span><span class="n">visible_id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">masks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+            <span class="n">ann_info</span><span class="p">[</span><span class="s2">&quot;visible_instance_masks&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">masks</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_dontcare</span><span class="p">:</span>
+            <span class="n">filter_mask</span> <span class="o">=</span> <span class="n">ann_info</span><span class="p">[</span><span class="s2">&quot;gt_labels_3d&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="c1"># type: ignore</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>
+                <span class="s2">&quot;gt_bboxes_3d&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;gt_labels_3d&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;bbox_id&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;visible_instance_masks&quot;</span><span class="p">,</span>
+            <span class="p">]:</span>
+                <span class="n">ann_info</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">ann_info</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">filter_mask</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+            <span class="n">ann_info</span><span class="p">[</span><span class="s2">&quot;gt_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">x</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ann_info</span><span class="p">[</span><span class="s2">&quot;gt_names&quot;</span><span class="p">])</span> <span class="k">if</span> <span class="n">filter_mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="p">]</span>
+        <span class="k">return</span> <span class="n">ann_info</span>
+
+    <span class="k">def</span> <span class="nf">load_grounding_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scans</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_list</span><span class="p">:</span>
+            <span class="n">scan_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;scan_id&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scans</span><span class="p">[</span><span class="n">scan_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scan_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scans</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">vg_file</span> <span class="ow">in</span> <span class="n">as_sequence</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vg_file</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_root</span><span class="p">,</span> <span class="n">vg_file</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">))</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset_length</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">interval</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_list</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset_length</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset_length</span><span class="p">):</span>
+                <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_list</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">interval</span> <span class="o">*</span> <span class="n">i</span><span class="p">)])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_list</span> <span class="o">=</span> <span class="n">output</span>
+
+        <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;distractor_ids&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="s2">&quot;is_unique&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;distractor_ids&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span>
+                <span class="n">data</span><span class="p">[</span><span class="s2">&quot;is_hard&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;distractor_ids&quot;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">3</span>
+            <span class="k">if</span> <span class="s2">&quot;text&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="s2">&quot;is_view_dep&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_view_dep</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">scan_id_to_data_idx</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">scan_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_ids</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scan_id_to_data_idx</span><span class="p">[</span><span class="n">scan_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_list</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scan_id_to_data_idx</span><span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;scan_id&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_is_view_dep</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+        <span class="n">rels</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;front&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;behind&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;back&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;left&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;right&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;facing&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;leftmost&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;rightmost&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;looking&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;across&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">rel</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">for</span> <span class="n">rel</span> <span class="ow">in</span> <span class="n">rels</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">merge_grounding_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_infos</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">scan_id</span><span class="o">=</span><span class="n">data_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;scan_id&quot;</span><span class="p">),</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;target_id&quot;</span> <span class="ow">in</span> <span class="n">data_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>
+                <span class="s2">&quot;target_id&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;distractor_ids&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;target&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;anchors&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;anchor_ids&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tokens_positive&quot;</span><span class="p">,</span>
+            <span class="p">]:</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">output</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># type: ignore</span>
+
+        <span class="k">for</span> <span class="n">data_info</span> <span class="ow">in</span> <span class="n">data_infos</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="s2">&quot;target_id&quot;</span> <span class="ow">in</span> <span class="n">data_info</span>
+                <span class="ow">and</span> <span class="n">data_info</span><span class="p">[</span><span class="s2">&quot;target_id&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">output</span><span class="p">[</span><span class="s2">&quot;target_id&quot;</span><span class="p">]</span>
+            <span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokens_positive_rebuild</span> <span class="ow">and</span> <span class="s2">&quot;target&quot;</span> <span class="ow">in</span> <span class="n">data_info</span><span class="p">:</span>
+                <span class="n">start_idx</span> <span class="o">=</span> <span class="n">data_info</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">data_info</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">])</span>
+                <span class="n">end_idx</span> <span class="o">=</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_info</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">])</span>
+                <span class="n">tokens_positive</span> <span class="o">=</span> <span class="p">[[</span><span class="n">start_idx</span><span class="p">,</span> <span class="n">end_idx</span><span class="p">]]</span>
+            <span class="k">elif</span> <span class="s2">&quot;tokens_positive&quot;</span> <span class="ow">in</span> <span class="n">data_info</span><span class="p">:</span>
+                <span class="n">tokens_positive</span> <span class="o">=</span> <span class="n">data_info</span><span class="p">[</span><span class="s2">&quot;tokens_positive&quot;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tokens_positive</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">output</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_info</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">tokens_positive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">tokens_positive</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tokens_positive</span><span class="p">)</span>
+                    <span class="n">tokens_positive</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">sep_token</span>
+                    <span class="p">)</span>
+                    <span class="n">tokens_positive</span> <span class="o">=</span> <span class="n">tokens_positive</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="n">output</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sep_token</span> <span class="o">+</span> <span class="n">data_info</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">tokens_positive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">output</span><span class="p">[</span><span class="s2">&quot;tokens_positive&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tokens_positive</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span>
+                <span class="s2">&quot;target_id&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;distractor_ids&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;target&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;anchors&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;anchor_ids&quot;</span><span class="p">,</span>
+            <span class="p">]:</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data_info</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">output</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_info</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>  <span class="c1"># type: ignore</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="k">def</span> <span class="nf">get_data_grounding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_info</span><span class="p">):</span>
+        <span class="n">scan_id</span> <span class="o">=</span> <span class="n">data_info</span><span class="p">[</span><span class="s2">&quot;scan_id&quot;</span><span class="p">]</span>
+        <span class="n">scan_data</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scans</span><span class="p">[</span><span class="n">scan_id</span><span class="p">])</span>
+        <span class="n">data_info</span> <span class="o">=</span> <span class="p">[</span><span class="n">data_info</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_text</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">data_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_id_to_data_idx</span><span class="p">[</span><span class="n">scan_id</span><span class="p">]</span>
+            <span class="n">num_sample</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_text</span><span class="p">)</span>
+            <span class="n">num_sample</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">num_sample</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_idx</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">sample_idx</span> <span class="o">=</span> <span class="n">sample</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_idx</span><span class="p">),</span> <span class="n">num_sample</span><span class="p">,</span> <span class="n">fix_interval</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sample_idx</span><span class="p">:</span>
+                <span class="n">data_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_list</span><span class="p">[</span><span class="n">data_idx</span><span class="p">[</span><span class="n">i</span><span class="p">]]))</span>
+
+        <span class="n">data_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge_grounding_data</span><span class="p">(</span><span class="n">data_info</span><span class="p">)</span>
+        <span class="n">scan_data</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_info</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="s2">&quot;ann_info&quot;</span> <span class="ow">in</span> <span class="n">scan_data</span> <span class="ow">and</span> <span class="s2">&quot;target_id&quot;</span> <span class="ow">in</span> <span class="n">data_info</span><span class="p">:</span>
+            <span class="n">tokens_positive</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">obj_idx</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">target_name</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+                <span class="nb">zip</span><span class="p">(</span><span class="n">data_info</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">],</span> <span class="n">data_info</span><span class="p">[</span><span class="s2">&quot;target_id&quot;</span><span class="p">],</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
+                    <span class="n">scan_data</span><span class="p">[</span><span class="s2">&quot;ann_info&quot;</span><span class="p">][</span><span class="s2">&quot;bbox_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="nb">id</span><span class="p">,</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scan_data</span><span class="p">[</span><span class="s2">&quot;ann_info&quot;</span><span class="p">][</span><span class="s2">&quot;gt_names&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="n">target_name</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">obj_idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">tokens_positive</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_info</span><span class="p">[</span><span class="s2">&quot;tokens_positive&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">obj_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obj_idx</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+            <span class="n">scan_data</span><span class="p">[</span><span class="s2">&quot;ann_info&quot;</span><span class="p">][</span><span class="s2">&quot;gt_bboxes_3d&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scan_data</span><span class="p">[</span><span class="s2">&quot;ann_info&quot;</span><span class="p">][</span>
+                <span class="s2">&quot;gt_bboxes_3d&quot;</span>
+            <span class="p">][</span><span class="n">obj_idx</span><span class="p">]</span>
+            <span class="n">scan_data</span><span class="p">[</span><span class="s2">&quot;ann_info&quot;</span><span class="p">][</span><span class="s2">&quot;gt_labels_3d&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scan_data</span><span class="p">[</span><span class="s2">&quot;ann_info&quot;</span><span class="p">][</span>
+                <span class="s2">&quot;gt_labels_3d&quot;</span>
+            <span class="p">][</span><span class="n">obj_idx</span><span class="p">]</span>
+            <span class="n">scan_data</span><span class="p">[</span><span class="s2">&quot;ann_info&quot;</span><span class="p">][</span><span class="s2">&quot;gt_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">scan_data</span><span class="p">[</span><span class="s2">&quot;ann_info&quot;</span><span class="p">][</span><span class="s2">&quot;gt_names&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">obj_idx</span>
+            <span class="p">]</span>
+            <span class="k">if</span> <span class="s2">&quot;visible_instance_masks&quot;</span> <span class="ow">in</span> <span class="n">scan_data</span><span class="p">[</span><span class="s2">&quot;ann_info&quot;</span><span class="p">]:</span>
+                <span class="n">scan_data</span><span class="p">[</span><span class="s2">&quot;ann_info&quot;</span><span class="p">][</span><span class="s2">&quot;visible_instance_masks&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scan_data</span><span class="p">[</span>
+                    <span class="s2">&quot;ann_info&quot;</span>
+                <span class="p">][</span><span class="s2">&quot;visible_instance_masks&quot;</span><span class="p">][</span><span class="n">obj_idx</span><span class="p">]</span>
+            <span class="n">scan_data</span><span class="p">[</span><span class="s2">&quot;tokens_positive&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tokens_positive</span>
+        <span class="k">elif</span> <span class="s2">&quot;tokens_positive&quot;</span> <span class="ow">in</span> <span class="n">data_info</span><span class="p">:</span>
+            <span class="n">scan_data</span><span class="p">[</span><span class="s2">&quot;tokens_positive&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tokens_positive&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">scan_data</span>
+
+    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_list</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;grounding&quot;</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data_grounding</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">transform</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">transforms</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">transform</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_init</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_mode</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                    <span class="s2">&quot;Test time pipline should not get `None` data_sample&quot;</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">data</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_refetch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+            <span class="c1"># Broken images or random augmentations may cause the returned data</span>
+            <span class="c1"># to be None</span>
+            <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+                <span class="k">continue</span>
+            <span class="k">return</span> <span class="n">data</span>
+
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Cannot find valid image after </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">max_refetch</span><span class="si">}</span><span class="s2">! &quot;</span>
+            <span class="s2">&quot;Please check your image path and pipeline&quot;</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, Horizon Robotics Developers
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/HorizonRobotics/robo_orchard_lab" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../../_static/documentation_options.js?v=38b66d78"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../_static/google_analytics.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

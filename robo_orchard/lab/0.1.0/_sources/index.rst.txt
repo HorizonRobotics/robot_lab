@@ -1,0 +1,34 @@
+.. include:: readme.md
+   :parser: myst_parser.sphinx_
+
+
+Contents
+-------------------
+
+.. toctree::
+    :maxdepth: 3
+
+    getting_started/index
+
+.. toctree::
+    :maxdepth: 3
+
+    overview/index
+
+.. toctree::
+    :maxdepth: 3
+
+    model_zoo/index
+
+
+
+.. toctree::
+    :maxdepth: 3
+
+    build/trainer_tutorial/index
+
+
+.. toctree::
+    :maxdepth: 3
+
+    api/index
