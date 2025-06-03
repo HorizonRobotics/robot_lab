@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="RoboTransfer: Geometry-Consistent Video Diffusion for Robotic Visual Policy Transfer">
+        content="RoboTransfer : Geometry-Consistent Video Diffusion for Robotic Visual Policy Transfer">
   <meta name="keywords" content="Robotic, Video Generation, Imitation Learning, Data Augmentation">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RoboTransfer: Geometry-Consistent Video Diffusion for Robotic Visual Policy Transfer</title>
@@ -95,7 +95,7 @@
          
           <div style="display: flex; align-items: left; max-width: 100%; gap: 4px;">
               <h1 class="title is-1 publication-title" style="margin: 0; flex: 1; min-width: 0;">
-              <p>RoboTransfer:</p>
+              <p>RoboTransfer :</p>
               Geometry-Consistent Video Diffusion for Robotic Visual Policy Transfer
             </h1>
           </div>
@@ -237,7 +237,7 @@
             Therefore, we introduce RoboTransfer, a diffusion-based video generation framework for robotic data synthesis. 
             Unlike previous methods, RoboTransfer integrates multi-view geometry with explicit control over scene components, 
             such as background and object attributes. 
-            By incorporating cross-view feature interactions and global depth/normal conditions,
+            By incorporating cross-view feature interactions and global depth-normal conditions,
             RoboTransfer ensures geometry consistency across views. 
             This framework allows fine-grained control, including background edits and object swaps. 
           </p> 
@@ -253,7 +253,6 @@
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
 
   </div>
 </section>
@@ -343,7 +342,13 @@
               </figure>
             </div>
 
-            <p>Meanwhile, the appearance of foreground objects, including their color, can also be effectively modified.</p>
+            <p>Meanwhile, the appearance of foreground objects, including their color, can be effectively modified.
+              The first row displays the raw data.
+              The second and third rows show the construction constraints pre-labeled from the raw input.
+              The fourth row presents the specified foreground appearance conditions.
+              The fifth row shows the generated results, which can be flexibly edited to alter the appearance of foreground objects.
+              Finally, the sixth row illustrates the background appearance conditions.
+            </p>
             <div class="video-grid" style="
             display: flex;
             flex-wrap: wrap;
@@ -371,11 +376,10 @@
           
           <!-- Sim2Real -->
           <h3 class="title is-4">2. Sim2Real Transfer</h3>
-          <p>RoboTransfer generates photorealistic videos from simulated structural inputs, including
-            out-of-distribution cases. This Sim-to-Real paradigm reduces dependency on structured information from
-            real-world datasets, thereby better supporting downstream robotic learning tasks. 
-            The first row shows the simulator-rendered results. 
-            The second and third rows present the construction constraints imposed by the simulator. 
+          <p>RoboTransfer generates photorealistic videos from simulated structural inputs, including out-of-distribution cases. 
+            This sim-to-real paradigm reduces reliance on structured annotations from real-world datasets, thereby facilitating more scalable and flexible robotic learning.
+            The first row shows the simulator-rendered outputs.
+            The second and third rows present the construction constraints imposed by the simulator.
             The fourth row displays the generated results, and the fifth row illustrates the appearance conditions.
           </p>
           <div class="video-grid" style="
@@ -450,10 +454,6 @@
           
         </div>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 43c491be3d150492c91fa34de99c43eb2611bdb0
           <!-- Compare -->
           <!-- <h3 class="title is-4">3. Compare Comparison</h3>
           <p>Placeholder for comparison results between methods.</p>
@@ -465,7 +465,7 @@
           </figure> -->
 
         <!-- Comparison Section -->
-        <h3 class="title is-4">3. Method Comparison</h3>
+        <h3 class="title is-4">3. Comparison</h3>
         <p>This section presents a side-by-side comparison of results produced by different methods. The video below illustrates qualitative differences in generation or performance across approaches.</p>
         <figure style="margin: 0;">
           <video controls muted loop style="width: 100%; height: auto;">
