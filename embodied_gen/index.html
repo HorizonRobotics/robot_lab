@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="EmbodiedGen: Towards a Generative 3D World Engine for Embodied Intelligence">
+  <meta name="keywords" content="Robotic, 3D Object Generation, 3D Scene Generation, 3D World Generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EmbodiedGen: Towards a Generative 3D World Engine for Embodied Intelligence</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL'); -->
+  <!-- </script> -->
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #f9fafe, #eaf3ff);
+      color: #222;
+    }
+
+    .container-custom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .hero {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .hero img {
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1a1a1a;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #4a4a4a;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    .authors, .affiliations {
+      font-size: 0.95rem;
+      color: #555;
+      margin-top: 1rem;
+    }
+
+    .author-block {
+      margin: 0 0.5em;
+      display: inline-block;
+    }
+
+    .btn-group {
+      margin-top: 1.2rem;
+    }
+
+    .main-section {
+      margin-top: -120px;
+    }
+
+    .btn-group a {
+      margin: 0.4rem;
+      border: none;
+      background: linear-gradient(90deg, #5d8eff, #8fa7ff);
+      color: white;
+      border-radius: 999px;
+      padding: 0.7em 1.5em;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+      font-size: 0.87em;
+      margin-right: 4px;
+    }
+
+    .btn-group a:hover {
+      background: linear-gradient(90deg, #4b7bff, #7992ff);
+      transform: translateY(-2px);
+    }
+
+    .btn-group i {
+      margin-right: 0.5em;
+    }
+
+    .main-section {
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    .main-section img {
+      max-width: 80%;
+      height: auto;
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .main-section p {
+      color: #444;
+      font-size: 1.1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .model-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const swiper = new Swiper('.swiper1', {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: false,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const swiper = new Swiper('.swiper2', {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    });
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+
+</head>
+<body>
+
+  
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+
+          <div style="display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 100%; margin-top: -80px;">
+            <img src="./static/images/logo.png" alt="Logo" style="height: 5cm; margin-bottom: 1rem;"/>
+            <h1 class="title is-1 publication-title" style="margin: 0; font-size: 1.8rem;">
+              <!-- <span style="display: block; font-weight: bold; font-size: 1.2em;">EmbodiedGen</span> -->
+              <span style="display: block; font-size: 0.95em; margin-top: -1.2em;">
+                Towards a Generative 3D World Engine for Embodied Intelligence
+              </span>
+            </h1>
+          </div>
+
+
+          <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                  Xinjie Wang</a><sup>1</sup>,</span>
+              <span class="author-block">
+                  Liu Liu</a><sup>1</sup>,</span>
+              <span class="author-block">
+                  Yu Cao<sup>2</sup>,</span>
+              <span class="author-block">
+                  Ruiqi Wu<sup>5,1</sup>,</span>
+              <span class="author-block">
+                  Wenkang Qin<sup>2</sup>,</span></p>
+              <span class="author-block">
+                  Dehui Wang<sup>4,3</sup>,</span>
+              <!-- <span class="author-block">
+                  Yao Mu<sup>3</sup>,</span> -->
+              <span class="author-block">
+                  Wei Sui<sup>3</sup>,</span>
+              <span class="author-block">
+                  Zhizhong Su<sup>1</sup>
+              </span>
+          </div>
+      
+          <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Horizon Robotics,</span>
+              <span class="author-block"><sup>2</sup>GigaAI,</span>
+              <span class="author-block"><sup>3</sup>D-Robotics,</span>
+              <span class="author-block"><sup>4</sup>Shanghai Jiao Tong University,</span>
+              <span class="author-block"><sup>5</sup>VCIP, CS, Nankai University</span>
+          </div>
+
+          <div class="btn-group">
+            <a href="https://arxiv.org/abs/2011.12948" target="_blank" rel="noopener">
+              <i class="ai ai-arxiv"></i>arXiv
+            </a>
+            <a href="todo: url" target="_blank" rel="noopener">
+              <i class="fab fa-youtube"></i>Video
+            </a>
+            <a href="todo: url" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>Code
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="main-section">
+  <div class="container-custom">
+    <img src="./static/images/overall2.png" alt="Overview" />
+    <p style="margin-top: -20px;"><strong><em>EmbodiedGen</em></strong> generates interactive 3D worlds with real-world scale and physical realism at low cost.</p>
+  </div>
+</section>
+
+<section class="main-section" style="margin-top: -130px;">
+  <div class="container-custom">
+    <h2 class="title is-3">Framework</h2>
+    <img  style="margin-top: -15px;" src="./static/images/overall_method.png" alt="Framework Overview" />
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Method Section -->
+    <div class="columns is-centered has-text-centered">
+      <div class="container-custom">
+        <h2 class="title is-3" style="margin-top: -130px;">Results</h2>
+        <div class="content has-text-justified">
+          <h3 class="title is-4">Overall</h3>
+          <div class="publication-video" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+            <iframe 
+              src="https://www.youtube.com/embed/SnHhzHeb_aI?rel=0&modestbranding=1" 
+              frameborder="0" 
+              allow="autoplay; encrypted-media" 
+              allowfullscreen 
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+            </iframe>
+          </div>
+          
+          <h3 class="title is-4">Image-to-3D</h3>
+          <!-- <video controls autoplay muted loop>
+            <source src="static/videos/image_to_3d.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video> -->
+          <div class="swiper-container swiper1" style="max-width: 1000px; margin: 0 auto;">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="static/models/image/desk.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 200px; border-radius: 12px;"
+                  >
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="static/models/image/vase.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 200px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="static/models/image/desk2.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 200px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="static/models/image/robot_i.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 200px;">
+                </model-viewer>
+              </div>
+              
+            </div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-prev swiper1-prev"></div>
+            <div class="swiper-button-next swiper1-next"></div>
+          </div>
+
+          <h3 class="title is-4">Text-to-3D</h3>
+          <!-- <video controls autoplay muted loop>
+            <source src="static/videos/text_to_3d.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video> -->
+          <div class="swiper-container swiper1" style="max-width: 1000px; margin: 0 auto;">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="static/models/text/c2.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 160px; border-radius: 12px;"
+                  >
+                </model-viewer>
+                <p style="text-align: center; margin-top: 8px; font-size: 14px;">"Antique brass key, intricate filigree"</p>
+
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="static/models/text/c3.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 160px;">
+                </model-viewer>
+                <p style="text-align: center; margin-top: 8px; font-size: 14px;">"Rusty old wrench, peeling paint"</p>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="static/models/text/c4.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 160px;">
+                </model-viewer>
+                <p style="text-align: center; margin-top: 8px; font-size: 14px;">"Sleek black drone, red sensors"</p>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="static/models/text/c7.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 160px;">
+                </model-viewer>
+                <p style="text-align: center; margin-top: 8px; font-size: 14px;">"Miniature screwdriver with bright orange handle"</p>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="static/models/text/c9.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 160px;">
+                </model-viewer>
+                <p style="text-align: center; margin-top: 8px; font-size: 14px;">"European style wooden dressing table"</p>
+              </div>
+            </div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-prev swiper1-prev"></div>
+            <div class="swiper-button-next swiper1-next"></div>
+          </div>
+
+          <h3 class="title is-4">Texture Generation</h3>
+          <div class="swiper-container swiper1" style="max-width: 1000px; margin: 0 auto;">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="./static/models/edit/rotate/hello2.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 250px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="./static/models/edit/rotate/love4.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 250px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="./static/models/edit/rotate/robot_china.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 250px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="./static/models/edit/rotate/horse1.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 250px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="./static/models/edit/rotate/horse2.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 250px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="./static/models/edit/rotate/shoe_0_0.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 250px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="./static/models/edit/rotate/shoe_0_3.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 250px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="./static/models/edit/rotate/clock_num.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 250px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="./static/models/edit/rotate/clock5.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 250px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="./static/models/edit/rotate/vase1.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 250px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="./static/models/edit/rotate/vase2.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 250px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="./static/models/edit/rotate/drill1.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 250px;">
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="./static/models/edit/rotate/drill4.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 250px;">
+                </model-viewer>
+              </div>
+              
+            </div>
+
+            <!-- Navigation buttons -->
+            <div class="swiper-button-prev swiper1-prev"></div>
+            <div class="swiper-button-next swiper1-next"></div>
+          </div>
+
+          <h3 class="title is-4">Articulated Object Generation</h3>
+          <!-- <video controls autoplay muted loop>
+            <source src="static/videos/visual_animated.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video> -->
+          <video autoplay muted loop playsinline
+                style="height: 280px; width: auto; display: block; margin: 0 auto;" >
+            <source src="static/videos/visual_animated.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+
+          <h3 class="title is-4">Scene Generation</h3>
+          <video playsinline autoplay muted loop >
+            <source src="static/videos/bg_combined_2x4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+
+          <h3 class="title is-4">Layout Generation</h3>
+          <video controls autoplay muted loop>
+            <source src="static/videos/layout_gen.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <!-- <div class="swiper-container swiper2" style="max-width: 1000px; margin: 0 auto;">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="static/images/layout/layout1.png" alt="layout1">
+              </div>
+              <div class="swiper-slide">
+                <img src="static/images/layout/layout2.png" alt="layout2">
+              </div>
+              <div class="swiper-slide">
+                <img src="static/images/layout/layout3.png" alt="layout3">
+              </div>
+              <div class="swiper-slide">
+                <img src="static/images/layout/layout4.png" alt="layout4">
+              </div>
+            </div>
+            <div class="swiper-button-prev swiper2-prev"></div>
+            <div class="swiper-button-next swiper2-next"></div>
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{todo}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
