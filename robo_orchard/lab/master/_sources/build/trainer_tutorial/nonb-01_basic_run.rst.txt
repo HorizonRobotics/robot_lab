@@ -439,15 +439,15 @@ Begin training
 
  .. code-block:: none
 
-    Rank[0/1] 05/30/2025 16:04:32 INFO robo_orchard_lab.pipeline.hook_based_trainer:323 
+    Rank[0/1] 06/06/2025 14:12:23 INFO robo_orchard_lab.pipeline.hook_based_trainer:323 
     ==================================================BEGIN TRAINING==================================================
-    Rank[0/1] 05/30/2025 16:04:32 INFO robo_orchard_lab.pipeline.hook_based_trainer:327 Start training loop from epoch 0 and step 0
-    Rank[0/1] 05/30/2025 16:04:38 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[0] completed. Training Speed: 169.76 samples/sec across all devices. Epoch Time: 6.03 sec.   Average Epoch Time: 6.03 sec.   Average Step Time: 0.75 sec.    Estimated Remaining Time: 0:00:24.      Learning Rate: 1.00000e-01.     
-    Rank[0/1] 05/30/2025 16:04:44 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[1] completed. Training Speed: 184.58 samples/sec across all devices. Epoch Time: 5.55 sec.   Average Epoch Time: 5.55 sec.   Average Step Time: 0.69 sec.    Estimated Remaining Time: 0:00:17.      Learning Rate: 1.00000e-01.     
-    Rank[0/1] 05/30/2025 16:04:49 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[2] completed. Training Speed: 186.15 samples/sec across all devices. Epoch Time: 5.50 sec.   Average Epoch Time: 5.50 sec.   Average Step Time: 0.69 sec.    Estimated Remaining Time: 0:00:11.      Learning Rate: 1.00000e-01.     
-    Rank[0/1] 05/30/2025 16:04:55 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[3] completed. Training Speed: 181.18 samples/sec across all devices. Epoch Time: 5.65 sec.   Average Epoch Time: 5.65 sec.   Average Step Time: 0.71 sec.    Estimated Remaining Time: 0:00:05.      Learning Rate: 1.00000e-02.     
-    Rank[0/1] 05/30/2025 16:05:01 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[4] completed. Training Speed: 174.93 samples/sec across all devices. Epoch Time: 5.85 sec.   Average Epoch Time: 5.85 sec.   Average Step Time: 0.73 sec.    Estimated Remaining Time: 0:00:00.      Learning Rate: 1.00000e-02.     
-    Rank[0/1] 05/30/2025 16:05:01 INFO robo_orchard_lab.pipeline.hook_based_trainer:396 
+    Rank[0/1] 06/06/2025 14:12:23 INFO robo_orchard_lab.pipeline.hook_based_trainer:327 Start training loop from epoch 0 and step 0
+    Rank[0/1] 06/06/2025 14:12:29 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[0] completed. Training Speed: 159.39 samples/sec across all devices. Epoch Time: 6.42 sec.   Average Epoch Time: 6.42 sec.   Average Step Time: 0.80 sec.    Estimated Remaining Time: 0:00:25.      Learning Rate: 1.00000e-01.     
+    Rank[0/1] 06/06/2025 14:12:35 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[1] completed. Training Speed: 187.88 samples/sec across all devices. Epoch Time: 5.45 sec.   Average Epoch Time: 5.45 sec.   Average Step Time: 0.68 sec.    Estimated Remaining Time: 0:00:17.      Learning Rate: 1.00000e-01.     
+    Rank[0/1] 06/06/2025 14:12:39 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[2] completed. Training Speed: 222.49 samples/sec across all devices. Epoch Time: 4.60 sec.   Average Epoch Time: 4.60 sec.   Average Step Time: 0.58 sec.    Estimated Remaining Time: 0:00:10.      Learning Rate: 1.00000e-01.     
+    Rank[0/1] 06/06/2025 14:12:43 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[3] completed. Training Speed: 257.40 samples/sec across all devices. Epoch Time: 3.98 sec.   Average Epoch Time: 3.98 sec.   Average Step Time: 0.50 sec.    Estimated Remaining Time: 0:00:05.      Learning Rate: 1.00000e-02.     
+    Rank[0/1] 06/06/2025 14:12:48 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[4] completed. Training Speed: 239.15 samples/sec across all devices. Epoch Time: 4.28 sec.   Average Epoch Time: 4.28 sec.   Average Step Time: 0.54 sec.    Estimated Remaining Time: 0:00:00.      Learning Rate: 1.00000e-02.     
+    Rank[0/1] 06/06/2025 14:12:48 INFO robo_orchard_lab.pipeline.hook_based_trainer:396 
     ==================================================FINISH TRAINING==================================================
 
 
@@ -456,7 +456,7 @@ Begin training
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 29.367 seconds)
+   **Total running time of the script:** (0 minutes 25.676 seconds)
 
 
 .. _sphx_glr_download_build_trainer_tutorial_nonb-01_basic_run.py:

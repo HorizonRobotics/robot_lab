@@ -1,0 +1,7 @@
+robo\_orchard\_lab.pipeline.trainer module
+==========================================
+
+.. automodule:: robo_orchard_lab.pipeline.trainer
+   :members:
+   :undoc-members:
+   :show-inheritance:

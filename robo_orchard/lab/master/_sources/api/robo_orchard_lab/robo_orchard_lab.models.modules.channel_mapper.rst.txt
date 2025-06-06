@@ -1,0 +1,7 @@
+robo\_orchard\_lab.models.modules.channel\_mapper module
+========================================================
+
+.. automodule:: robo_orchard_lab.models.modules.channel_mapper
+   :members:
+   :undoc-members:
+   :show-inheritance:

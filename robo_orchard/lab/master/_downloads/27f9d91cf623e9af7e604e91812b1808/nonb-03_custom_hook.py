@@ -2,7 +2,7 @@
 
 # Project RoboOrchard
 #
-# Copyright (c) 2024 Horizon Robotics. All Rights Reserved.
+# Copyright (c) 2024-2025 Horizon Robotics. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -368,6 +368,7 @@ class MyHook(PipelineHooks):
 # class as its ``class_type``. It will also hold any parameters our hook needs,
 # like logging frequencies.
 #
+
 
 class MyHookConfig(PipelineHooksConfig[MyHook]):
     class_type: type[MyHook] = MyHook

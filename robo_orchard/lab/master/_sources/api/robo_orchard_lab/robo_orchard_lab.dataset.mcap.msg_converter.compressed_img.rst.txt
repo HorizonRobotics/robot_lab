@@ -1,0 +1,7 @@
+robo\_orchard\_lab.dataset.mcap.msg\_converter.compressed\_img module
+=====================================================================
+
+.. automodule:: robo_orchard_lab.dataset.mcap.msg_converter.compressed_img
+   :members:
+   :undoc-members:
+   :show-inheritance:

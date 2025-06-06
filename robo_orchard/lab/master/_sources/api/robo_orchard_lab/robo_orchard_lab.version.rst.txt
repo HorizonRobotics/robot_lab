@@ -1,0 +1,7 @@
+robo\_orchard\_lab.version module
+=================================
+
+.. automodule:: robo_orchard_lab.version
+   :members:
+   :undoc-members:
+   :show-inheritance:

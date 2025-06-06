@@ -1,0 +1,19 @@
+robo\_orchard\_lab.pipeline.batch\_processor package
+====================================================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   robo_orchard_lab.pipeline.batch_processor.mixin
+   robo_orchard_lab.pipeline.batch_processor.simple
+
+Module contents
+---------------
+
+.. automodule:: robo_orchard_lab.pipeline.batch_processor
+   :members:
+   :undoc-members:
+   :show-inheritance:

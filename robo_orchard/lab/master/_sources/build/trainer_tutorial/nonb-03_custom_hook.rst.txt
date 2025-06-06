@@ -397,9 +397,10 @@ class as its ``class_type``. It will also hold any parameters our hook needs,
 like logging frequencies.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 371-383
+.. GENERATED FROM PYTHON SOURCE LINES 371-384
 
 .. code-block:: Python
+
 
 
     class MyHookConfig(PipelineHooksConfig[MyHook]):
@@ -420,13 +421,13 @@ like logging frequencies.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 384-387
+.. GENERATED FROM PYTHON SOURCE LINES 385-388
 
 Orchestrating the Training
 ------------------------------------------------------------------------
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 387-401
+.. GENERATED FROM PYTHON SOURCE LINES 388-402
 
 .. code-block:: Python
 
@@ -451,12 +452,12 @@ Orchestrating the Training
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 402-404
+.. GENERATED FROM PYTHON SOURCE LINES 403-405
 
 Show hooks
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 404-407
+.. GENERATED FROM PYTHON SOURCE LINES 405-408
 
 .. code-block:: Python
 
@@ -478,16 +479,16 @@ Show hooks
           hooks=[
             0: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
-              before=<FunctionInfo bound method MyHook(id=140692434237904)._on_loop_begin from nonb-03_custom_hook.py:337>, 
-              after=<FunctionInfo bound method MyHook(id=140692434237904)._on_loop_end from nonb-03_custom_hook.py:340>)>
+              before=<FunctionInfo bound method MyHook(id=140409406477104)._on_loop_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:337>, 
+              after=<FunctionInfo bound method MyHook(id=140409406477104)._on_loop_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:340>)>
           ])>, 
         on_epoch: <robo_orchard_core.utils.hook.HookContextChannel(
           name=on_epoch, 
           hooks=[
             0: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
-              before=<FunctionInfo bound method MyHook(id=140692434237904)._on_epoch_begin from nonb-03_custom_hook.py:352>, 
-              after=<FunctionInfo bound method MyHook(id=140692434237904)._on_epoch_end from nonb-03_custom_hook.py:357>)>
+              before=<FunctionInfo bound method MyHook(id=140409406477104)._on_epoch_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:352>, 
+              after=<FunctionInfo bound method MyHook(id=140409406477104)._on_epoch_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:357>)>
           ])>, 
         on_step: <robo_orchard_core.utils.hook.HookContextChannel(
           name=on_step, 
@@ -495,23 +496,23 @@ Show hooks
             0: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
               before=None, 
-              after=<FunctionInfo bound method OptimizerHook(id=140692434229936)._optimizer_step from ../../robo_orchard_lab/pipeline/hooks/optimizer.py:45>)>,
+              after=<FunctionInfo bound method OptimizerHook(id=140409406629312)._optimizer_step from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/optimizer.py:45>)>,
             1: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
-              before=<FunctionInfo bound method MyHook(id=140692434237904)._on_step_begin from nonb-03_custom_hook.py:343>, 
-              after=<FunctionInfo bound method MyHook(id=140692434237904)._on_step_end from nonb-03_custom_hook.py:348>)>
+              before=<FunctionInfo bound method MyHook(id=140409406477104)._on_step_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:343>, 
+              after=<FunctionInfo bound method MyHook(id=140409406477104)._on_step_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:348>)>
           ])>, 
       })>
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 408-410
+.. GENERATED FROM PYTHON SOURCE LINES 409-411
 
 Begin training
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 410-412
+.. GENERATED FROM PYTHON SOURCE LINES 411-413
 
 .. code-block:: Python
 
@@ -527,7 +528,7 @@ Begin training
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 21.632 seconds)
+   **Total running time of the script:** (0 minutes 20.141 seconds)
 
 
 .. _sphx_glr_download_build_trainer_tutorial_nonb-03_custom_hook.py:

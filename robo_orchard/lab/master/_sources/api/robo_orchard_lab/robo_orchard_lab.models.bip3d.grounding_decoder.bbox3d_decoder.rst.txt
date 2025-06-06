@@ -1,0 +1,7 @@
+robo\_orchard\_lab.models.bip3d.grounding\_decoder.bbox3d\_decoder module
+=========================================================================
+
+.. automodule:: robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder
+   :members:
+   :undoc-members:
+   :show-inheritance:

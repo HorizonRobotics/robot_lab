@@ -1,0 +1,7 @@
+robo\_orchard\_lab.dataset.collates module
+==========================================
+
+.. automodule:: robo_orchard_lab.dataset.collates
+   :members:
+   :undoc-members:
+   :show-inheritance:

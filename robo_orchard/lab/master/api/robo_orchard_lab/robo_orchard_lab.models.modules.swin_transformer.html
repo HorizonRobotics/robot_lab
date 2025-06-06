@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+
+<html class="no-js" data-content_root="../../" lang="en">
+<head><meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="light dark" name="color-scheme"/><meta content="width=device-width, initial-scale=1" name="viewport">
+<link href="../../genindex.html" rel="index" title="Index"/><link href="../../search.html" rel="search" title="Search"/><link href="robo_orchard_lab.models.sem_modules.html" rel="next" title="robo_orchard_lab.models.sem_modules package"/><link href="robo_orchard_lab.models.modules.resnet.html" rel="prev" title="robo_orchard_lab.models.modules.resnet module"/>
+<!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+<title>robo_orchard_lab.models.modules.swin_transformer module - RoboOrchard Lab</title>
+<link href="../../_static/pygments.css?v=80d5e7a1" rel="stylesheet" type="text/css"/>
+<link href="../../_static/styles/furo.css?v=354aac6f" rel="stylesheet" type="text/css"/>
+<link href="../../_static/autodoc_pydantic.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="../../_static/sphinx-codeautolink.css?v=b2176991" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/sg_gallery.css?v=d2d258e8" rel="stylesheet" type="text/css"/>
+<link href="../../_static/sg_gallery-binder.css?v=f4aeca0c" rel="stylesheet" type="text/css"/>
+<link href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" rel="stylesheet" type="text/css"/>
+<link href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" rel="stylesheet" type="text/css"/>
+<link href="../../_static/styles/furo-extensions.css?v=302659d7" rel="stylesheet" type="text/css"/>
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></meta></head>
+<body>
+<script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+<svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
+<symbol id="svg-toc" viewbox="0 0 24 24">
+<title>Contents</title>
+<svg fill="currentColor" stroke="currentColor" stroke-width="0" viewbox="0 0 1024 1024">
+<path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"></path>
+</svg>
+</symbol>
+<symbol id="svg-menu" viewbox="0 0 24 24">
+<title>Menu</title>
+<svg class="feather-menu" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<line x1="3" x2="21" y1="12" y2="12"></line>
+<line x1="3" x2="21" y1="6" y2="6"></line>
+<line x1="3" x2="21" y1="18" y2="18"></line>
+</svg>
+</symbol>
+<symbol id="svg-arrow-right" viewbox="0 0 24 24">
+<title>Expand</title>
+<svg class="feather-chevron-right" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</symbol>
+<symbol id="svg-sun" viewbox="0 0 24 24">
+<title>Light mode</title>
+<svg class="feather-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+</symbol>
+<symbol id="svg-moon" viewbox="0 0 24 24">
+<title>Dark mode</title>
+<svg class="icon-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
+<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+</svg>
+</symbol>
+<symbol id="svg-sun-with-moon" viewbox="0 0 24 24">
+<title>Auto light/dark, in light mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z" style="opacity: 50%"></path>
+<line x1="14.5" x2="14.5" y1="3.25" y2="1.25"></line>
+<line x1="14.5" x2="14.5" y1="15.85" y2="17.85"></line>
+<line x1="10.044" x2="8.63" y1="5.094" y2="3.68"></line>
+<line x1="19" x2="20.414" y1="14.05" y2="15.464"></line>
+<line x1="8.2" x2="6.2" y1="9.55" y2="9.55"></line>
+<line x1="20.8" x2="22.8" y1="9.55" y2="9.55"></line>
+<line x1="10.044" x2="8.63" y1="14.006" y2="15.42"></line>
+<line x1="19" x2="20.414" y1="5.05" y2="3.636"></line>
+<circle cx="14.5" cy="9.55" r="3.6"></circle>
+</svg>
+</symbol>
+<symbol id="svg-moon-with-sun" viewbox="0 0 24 24">
+<title>Auto light/dark, in dark mode</title>
+<svg class="icon-custom-derived-from-feather-sun-and-tabler-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"></path>
+<line style="opacity: 50%" x1="18" x2="18" y1="3.705" y2="2.5"></line>
+<line style="opacity: 50%" x1="18" x2="18" y1="11.295" y2="12.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="4.816" y2="3.964"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="10.212" y2="11.063"></line>
+<line style="opacity: 50%" x1="14.205" x2="13.001" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="21.795" x2="23" y1="7.5" y2="7.5"></line>
+<line style="opacity: 50%" x1="15.316" x2="14.464" y1="10.184" y2="11.036"></line>
+<line style="opacity: 50%" x1="20.711" x2="21.563" y1="4.789" y2="3.937"></line>
+<circle cx="18" cy="7.5" r="2.169" style="opacity: 50%"></circle>
+</svg>
+</symbol>
+<symbol id="svg-pencil" viewbox="0 0 24 24">
+<svg class="icon-tabler-pencil-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"></path>
+<path d="M13.5 6.5l4 4"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
+</svg>
+</symbol>
+<symbol id="svg-eye" viewbox="0 0 24 24">
+<svg class="icon-tabler-eye-code" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
+<path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+<path d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008"></path>
+<path d="M20 21l2 -2l-2 -2"></path>
+<path d="M17 17l-2 2l2 2"></path>
+</svg>
+</symbol>
+</svg>
+<input class="sidebar-toggle" id="__navigation" name="__navigation" type="checkbox"/>
+<input class="sidebar-toggle" id="__toc" name="__toc" type="checkbox"/>
+<label class="overlay sidebar-overlay" for="__navigation">
+<div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+<div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+<div class="page">
+<header class="mobile-header">
+<div class="header-left">
+<label class="nav-overlay-icon" for="__navigation">
+<div class="visually-hidden">Toggle site navigation sidebar</div>
+<i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+</label>
+</div>
+<div class="header-center">
+<a href="../../index.html"><div class="brand">RoboOrchard Lab</div></a>
+</div>
+<div class="header-right">
+<div class="theme-toggle-container theme-toggle-header">
+<button class="theme-toggle">
+<div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+<svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+<svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+</button>
+</div>
+<label class="toc-overlay-icon toc-header-icon" for="__toc">
+<div class="visually-hidden">Toggle table of contents sidebar</div>
+<i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+</label>
+</div>
+</header>
+<aside class="sidebar-drawer">
+<div class="sidebar-container">
+<div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+<div class="sidebar-logo-container">
+<img alt="Light Logo" class="sidebar-logo only-light" src="../../_static/logo/orchard_logo.png"/>
+<img alt="Dark Logo" class="sidebar-logo only-dark" src="../../_static/logo/orchard_logo.png"/>
+</div>
+<span class="sidebar-brand-text">RoboOrchard Lab</span>
+</a>
+<meta content="master" name="current-version-id"/>
+<meta content="https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/version.json" name="versions-json-url"/>
+<div id="version-selector-wrapper" style="visibility: hidden;
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+            padding: 0;
+            margin: 8px 5px;
+            display: inline-block;
+            background-color: transparent;
+            position: relative;">
+<select id="version-selector" style="padding: 6px 8px;
+                   border: none;
+                   background-color: transparent;
+                   font-size: 0.9em;
+                   display: block;
+                   min-width: 140px;
+                   width: 100%;
+                   cursor: pointer;
+                   text-align: center;
+                   text-align-last: center;
+                   line-height: 1.4;">
+<!-- Populated dynamically by JavaScript -->
+</select>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const wrapper = document.getElementById('version-selector-wrapper');
+    const selector = document.getElementById('version-selector');
+    const metaCurrentVersionIdTag = document.querySelector('meta[name="current-version-id"]');
+    const actualCurrentVersionId = metaCurrentVersionIdTag ? metaCurrentVersionIdTag.content : null;
+    const metaVersionsJsonUrlTag = document.querySelector('meta[name="versions-json-url"]');
+    const versionsJsonUrl = metaVersionsJsonUrlTag ? metaVersionsJsonUrlTag.content : null;
+    const versionsCacheKey = 'sphinxVersionsJsonCache_vHybrid';
+
+    function populateSelector(versionsData) {
+        if (!selector || !wrapper) return;
+        selector.innerHTML = '';
+
+        if (Array.isArray(versionsData) && versionsData.length > 0) {
+            versionsData.forEach(version => {
+                if (version && version.url && version.name && version.id) {
+                    const option = document.createElement('option');
+                    option.value = version.url;
+                    option.textContent = version.name;
+                    if (actualCurrentVersionId && version.id === actualCurrentVersionId) {
+                        option.selected = true;
+                    }
+                    selector.appendChild(option);
+                }
+            });
+        } else {
+            const fallbackOption = document.createElement('option');
+            fallbackOption.textContent = "No versions available";
+            fallbackOption.disabled = true;
+            selector.appendChild(fallbackOption);
+            console.warn("versions.json was empty, not loaded, or invalid.");
+        }
+        wrapper.style.visibility = 'visible';
+    }
+
+    if (!versionsJsonUrl) {
+        console.error("Cannot fetch versions: versions.json URL is missing.");
+        populateSelector(null);
+        return;
+    }
+
+    const cachedVersions = sessionStorage.getItem(versionsCacheKey);
+    if (cachedVersions) {
+        try {
+            const versions = JSON.parse(cachedVersions);
+            populateSelector(versions);
+        } catch (e) {
+            sessionStorage.removeItem(versionsCacheKey);
+            fetchAndPopulate();
+        }
+    } else {
+        fetchAndPopulate();
+    }
+
+    function fetchAndPopulate() {
+        fetch(versionsJsonUrl)
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error fetching versions.json! Status: ${response.status}`);
+                return response.json();
+            })
+            .then(versions => {
+                sessionStorage.setItem(versionsCacheKey, JSON.stringify(versions));
+                populateSelector(versions);
+            })
+            .catch(error => {
+                console.error('Failed to load or parse versions.json:', error);
+                populateSelector(null);
+            });
+    }
+
+    if (selector) {
+        selector.addEventListener('change', function() {
+            if (this.value) window.location.href = this.value;
+        });
+    }
+});
+</script><form action="../../search.html" class="sidebar-search-container" method="get" role="search">
+<input aria-label="Search" class="sidebar-search" name="q" placeholder="Search"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Getting Started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../getting_started/install.html">Installation</a></li>
+</ul>
+</input></li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../overview/index.html">Overview</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Overview</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/lab_arch.html">Framework Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview/hook_based_trainer_arch.html">Hook Based Trainer Architecture</a></li>
+</ul>
+</input></li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../model_zoo/index.html">Model Zoo</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Model Zoo</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../model_zoo/perception/index.html">Perception</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Perception</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../model_zoo/perception/bip3d.html">BIP3D: Bridging 2D Images and 3D Perception for Embodied Intelligence</a></li>
+</ul>
+</input></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../model_zoo/manipulation/index.html">Manipulation</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Manipulation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../model_zoo/manipulation/sem.html">SEM: Enhancing Spatial Understanding for Robust Robot Manipulation</a></li>
+</ul>
+</input></li>
+</ul>
+</input></li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../build/trainer_tutorial/index.html">Trainer Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Trainer Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../build/trainer_tutorial/nonb-01_basic_run.html">Configuration &amp; Your First Basic Training Run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../build/trainer_tutorial/nonb-02_built_in_hooks.html">Leveraging Built-in Hooks for Common Training Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../build/trainer_tutorial/nonb-03_custom_hook.html">(Advanced) Creating Custom Hooks for Tailored Logic</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="robo_orchard_lab.html">robo_orchard_lab package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of robo_orchard_lab package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="robo_orchard_lab.dataset.html">robo_orchard_lab.dataset package</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.dataset package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="robo_orchard_lab.dataset.embodiedscan.html">robo_orchard_lab.dataset.embodiedscan package</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.dataset.embodiedscan package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset.html">robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.dataset.embodiedscan.metrics.html">robo_orchard_lab.dataset.embodiedscan.metrics module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.dataset.embodiedscan.transforms.html">robo_orchard_lab.dataset.embodiedscan.transforms module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.dataset.embodiedscan.utils.html">robo_orchard_lab.dataset.embodiedscan.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="robo_orchard_lab.dataset.lmdb.html">robo_orchard_lab.dataset.lmdb package</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.dataset.lmdb package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.dataset.lmdb.base_lmdb_dataset.html">robo_orchard_lab.dataset.lmdb.base_lmdb_dataset module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.dataset.lmdb.lmdb_wrapper.html">robo_orchard_lab.dataset.lmdb.lmdb_wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="robo_orchard_lab.dataset.mcap.html">robo_orchard_lab.dataset.mcap package</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.dataset.mcap package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="robo_orchard_lab.dataset.mcap.decoder.html">robo_orchard_lab.dataset.mcap.decoder package</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.dataset.mcap.decoder package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="robo_orchard_lab.dataset.mcap.decoder.decoder_ctx.html">robo_orchard_lab.dataset.mcap.decoder.decoder_ctx module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="robo_orchard_lab.dataset.mcap.decoder.factory.html">robo_orchard_lab.dataset.mcap.decoder.factory module</a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="robo_orchard_lab.dataset.mcap.msg_converter.html">robo_orchard_lab.dataset.mcap.msg_converter package</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.dataset.mcap.msg_converter package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="robo_orchard_lab.dataset.mcap.msg_converter.base.html">robo_orchard_lab.dataset.mcap.msg_converter.base module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="robo_orchard_lab.dataset.mcap.msg_converter.compressed_img.html">robo_orchard_lab.dataset.mcap.msg_converter.compressed_img module</a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="robo_orchard_lab.dataset.mcap.reader.html">robo_orchard_lab.dataset.mcap.reader package</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.dataset.mcap.reader package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="robo_orchard_lab.dataset.mcap.reader.batch_split.html">robo_orchard_lab.dataset.mcap.reader.batch_split module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="robo_orchard_lab.dataset.mcap.reader.data_record.html">robo_orchard_lab.dataset.mcap.reader.data_record module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="robo_orchard_lab.dataset.mcap.reader.reader.html">robo_orchard_lab.dataset.mcap.reader.reader module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="robo_orchard_lab.dataset.robotwin.html">robo_orchard_lab.dataset.robotwin package</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.dataset.robotwin package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.dataset.robotwin.close_loop_eval.html">robo_orchard_lab.dataset.robotwin.close_loop_eval module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.dataset.robotwin.robotwin_lmdb_dataset.html">robo_orchard_lab.dataset.robotwin.robotwin_lmdb_dataset module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.dataset.robotwin.robotwin_packer.html">robo_orchard_lab.dataset.robotwin.robotwin_packer module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.dataset.robotwin.transforms.html">robo_orchard_lab.dataset.robotwin.transforms module</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="robo_orchard_lab.dataset.collates.html">robo_orchard_lab.dataset.collates module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="robo_orchard_lab.distributed.html">robo_orchard_lab.distributed package</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.distributed package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="robo_orchard_lab.distributed.utils.html">robo_orchard_lab.distributed.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="robo_orchard_lab.metrics.html">robo_orchard_lab.metrics package</a></li>
+<li class="toctree-l3 current has-children"><a class="reference internal" href="robo_orchard_lab.models.html">robo_orchard_lab.models package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l4 has-children"><a class="reference internal" href="robo_orchard_lab.models.bip3d.html">robo_orchard_lab.models.bip3d package</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.models.bip3d package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="robo_orchard_lab.models.bip3d.grounding_decoder.html">robo_orchard_lab.models.bip3d.grounding_decoder package</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.models.bip3d.grounding_decoder package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.html">robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="robo_orchard_lab.models.bip3d.grounding_decoder.deformable_aggregation.html">robo_orchard_lab.models.bip3d.grounding_decoder.deformable_aggregation module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="robo_orchard_lab.models.bip3d.grounding_decoder.instance_bank.html">robo_orchard_lab.models.bip3d.grounding_decoder.instance_bank module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="robo_orchard_lab.models.bip3d.grounding_decoder.target.html">robo_orchard_lab.models.bip3d.grounding_decoder.target module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="robo_orchard_lab.models.bip3d.grounding_decoder.utils.html">robo_orchard_lab.models.bip3d.grounding_decoder.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.models.bip3d.bert.html">robo_orchard_lab.models.bip3d.bert module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.models.bip3d.feature_enhancer.html">robo_orchard_lab.models.bip3d.feature_enhancer module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.models.bip3d.layers.html">robo_orchard_lab.models.bip3d.layers module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.models.bip3d.spatial_enhancer.html">robo_orchard_lab.models.bip3d.spatial_enhancer module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.models.bip3d.structure.html">robo_orchard_lab.models.bip3d.structure module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.models.bip3d.utils.html">robo_orchard_lab.models.bip3d.utils module</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="robo_orchard_lab.models.layers.html">robo_orchard_lab.models.layers package</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.models.layers package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.models.layers.data_preprocessors.html">robo_orchard_lab.models.layers.data_preprocessors module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.models.layers.transformer_layers.html">robo_orchard_lab.models.layers.transformer_layers module</a></li>
+</ul>
+</li>
+<li class="toctree-l4 current has-children"><a class="reference internal" href="robo_orchard_lab.models.modules.html">robo_orchard_lab.models.modules package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.models.modules package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.models.modules.channel_mapper.html">robo_orchard_lab.models.modules.channel_mapper module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.models.modules.resnet.html">robo_orchard_lab.models.modules.resnet module</a></li>
+<li class="toctree-l5 current current-page"><a class="current reference internal" href="#">robo_orchard_lab.models.modules.swin_transformer module</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="robo_orchard_lab.models.sem_modules.html">robo_orchard_lab.models.sem_modules package</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.models.sem_modules package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.models.sem_modules.action_decoder.html">robo_orchard_lab.models.sem_modules.action_decoder module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.models.sem_modules.layers.html">robo_orchard_lab.models.sem_modules.layers module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.models.sem_modules.robot_state_encoder.html">robo_orchard_lab.models.sem_modules.robot_state_encoder module</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="robo_orchard_lab.models.mixin.html">robo_orchard_lab.models.mixin module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="robo_orchard_lab.ops.html">robo_orchard_lab.ops package</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.ops package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="robo_orchard_lab.ops.deformable_aggregation.html">robo_orchard_lab.ops.deformable_aggregation package</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.ops.deformable_aggregation package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.ops.deformable_aggregation.deformable_aggregation.html">robo_orchard_lab.ops.deformable_aggregation.deformable_aggregation module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.ops.deformable_aggregation.deformable_aggregation_ext.html">robo_orchard_lab.ops.deformable_aggregation.deformable_aggregation_ext module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.ops.deformable_aggregation.deformable_aggregation_with_depth_ext.html">robo_orchard_lab.ops.deformable_aggregation.deformable_aggregation_with_depth_ext module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.ops.deformable_aggregation.setup.html">robo_orchard_lab.ops.deformable_aggregation.setup module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="robo_orchard_lab.pipeline.html">robo_orchard_lab.pipeline package</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.pipeline package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="robo_orchard_lab.pipeline.batch_processor.html">robo_orchard_lab.pipeline.batch_processor package</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.pipeline.batch_processor package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.pipeline.batch_processor.mixin.html">robo_orchard_lab.pipeline.batch_processor.mixin module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.pipeline.batch_processor.simple.html">robo_orchard_lab.pipeline.batch_processor.simple module</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="robo_orchard_lab.pipeline.hooks.html">robo_orchard_lab.pipeline.hooks package</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.pipeline.hooks package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.pipeline.hooks.checkpoint.html">robo_orchard_lab.pipeline.hooks.checkpoint module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.pipeline.hooks.grad_clip.html">robo_orchard_lab.pipeline.hooks.grad_clip module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.pipeline.hooks.loss_tracker.html">robo_orchard_lab.pipeline.hooks.loss_tracker module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.pipeline.hooks.memory.html">robo_orchard_lab.pipeline.hooks.memory module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.pipeline.hooks.metric.html">robo_orchard_lab.pipeline.hooks.metric module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.pipeline.hooks.mixin.html">robo_orchard_lab.pipeline.hooks.mixin module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.pipeline.hooks.optimizer.html">robo_orchard_lab.pipeline.hooks.optimizer module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.pipeline.hooks.stats.html">robo_orchard_lab.pipeline.hooks.stats module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="robo_orchard_lab.pipeline.hooks.validation.html">robo_orchard_lab.pipeline.hooks.validation module</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="robo_orchard_lab.pipeline.hook_based_trainer.html">robo_orchard_lab.pipeline.hook_based_trainer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="robo_orchard_lab.pipeline.trainer.html">robo_orchard_lab.pipeline.trainer module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="robo_orchard_lab.transforms.html">robo_orchard_lab.transforms package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="robo_orchard_lab.utils.html">robo_orchard_lab.utils package</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of robo_orchard_lab.utils package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="robo_orchard_lab.utils.build.html">robo_orchard_lab.utils.build module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="robo_orchard_lab.utils.env.html">robo_orchard_lab.utils.env module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="robo_orchard_lab.utils.geometry.html">robo_orchard_lab.utils.geometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="robo_orchard_lab.utils.huggingface.html">robo_orchard_lab.utils.huggingface module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="robo_orchard_lab.utils.logging.html">robo_orchard_lab.utils.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="robo_orchard_lab.utils.misc.html">robo_orchard_lab.utils.misc module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="robo_orchard_lab.utils.path.html">robo_orchard_lab.utils.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="robo_orchard_lab.utils.pydantic.html">robo_orchard_lab.utils.pydantic module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="robo_orchard_lab.version.html">robo_orchard_lab.version module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<div class="main">
+<div class="content">
+<div class="article-container">
+<a class="back-to-top muted-link" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+</svg>
+<span>Back to top</span>
+</a>
+<div class="content-icon-container">
+<div class="view-this-page">
+<a class="muted-link" href="../../_sources/api/robo_orchard_lab/robo_orchard_lab.models.modules.swin_transformer.rst.txt" title="View this page">
+<svg><use href="#svg-eye"></use></svg>
+<span class="visually-hidden">View this page</span>
+</a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+<button class="theme-toggle">
+<div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+<svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+<svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+<svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+<svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+</button>
+</div>
+<label class="toc-overlay-icon toc-content-icon" for="__toc">
+<div class="visually-hidden">Toggle table of contents sidebar</div>
+<i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+</label>
+</div>
+<article id="furo-main-content" role="main">
+<section id="module-robo_orchard_lab.models.modules.swin_transformer">
+<span id="robo-orchard-lab-models-modules-swin-transformer-module"></span><h1>robo_orchard_lab.models.modules.swin_transformer module<a class="headerlink" href="#module-robo_orchard_lab.models.modules.swin_transformer" title="Link to this heading">¶</a></h1>
+<p><strong>Classes:</strong></p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding" title="robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AdaptivePadding</span></code></a>([kernel_size, stride, ...])</p></td>
+<td><p>AdaptivePadding.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.DropPath" title="robo_orchard_lab.models.modules.swin_transformer.DropPath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DropPath</span></code></a>([drop_prob])</p></td>
+<td><p>Drop path.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.PatchEmbed" title="robo_orchard_lab.models.modules.swin_transformer.PatchEmbed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PatchEmbed</span></code></a>([in_channels, embed_dims, ...])</p></td>
+<td><p>Image to Patch Embedding.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.PatchMerging" title="robo_orchard_lab.models.modules.swin_transformer.PatchMerging"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PatchMerging</span></code></a>(in_channels, out_channels[, ...])</p></td>
+<td><p>Merge patch feature map.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA" title="robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ShiftWindowMSA</span></code></a>(embed_dims, num_heads, ...[, ...])</p></td>
+<td><p>Shifted Window Multihead Self-Attention Module.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinBlock" title="robo_orchard_lab.models.modules.swin_transformer.SwinBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SwinBlock</span></code></a>(embed_dims, num_heads, ...[, ...])</p></td>
+<td><p>SwinBlock.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinBlockSequence" title="robo_orchard_lab.models.modules.swin_transformer.SwinBlockSequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SwinBlockSequence</span></code></a>(embed_dims, num_heads, ...)</p></td>
+<td><p>Implements one stage in Swin Transformer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinTransformer" title="robo_orchard_lab.models.modules.swin_transformer.SwinTransformer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SwinTransformer</span></code></a>([pretrain_img_size, ...])</p></td>
+<td><p>Swin Transformer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.WindowMSA" title="robo_orchard_lab.models.modules.swin_transformer.WindowMSA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WindowMSA</span></code></a>(embed_dims, num_heads, window_size)</p></td>
+<td><p>WindowMSA.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Functions:</strong></p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.drop_path" title="robo_orchard_lab.models.modules.swin_transformer.drop_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">drop_path</span></code></a>(x[, drop_prob, training])</p></td>
+<td><p>Drop path.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.to_2tuple" title="robo_orchard_lab.models.modules.swin_transformer.to_2tuple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_2tuple</span></code></a>(x)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.modules.swin_transformer.</span></span><span class="sig-name descname"><span class="pre">AdaptivePadding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'corner'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#AdaptivePadding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>AdaptivePadding.</p>
+<p>Applies padding to input (if needed) so that input can get fully covered
+by filter you specified. It support two modes “same” and “corner”. The
+“same” mode is same with “SAME” padding mode in TensorFlow, pad zero around
+input. The “corner”  mode would pad zero to bottom right.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kernel_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a>) – Size of the kernel:</p></li>
+<li><p><strong>stride</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a>) – Stride of the filter. Default: 1:</p></li>
+<li><p><strong>dilation</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a>) – Spacing between kernel elements.
+Default: 1</p></li>
+<li><p><strong>padding</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Support “same” and “corner”, “corner” mode
+would pad zero to bottom right, and “same” mode would
+pad zero around input. Default: “corner”.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">kernel_size</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stride</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dilation</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adap_pad</span> <span class="o">=</span> <span class="n">AdaptivePadding</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">dilation</span><span class="o">=</span><span class="n">dilation</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">padding</span><span class="o">=</span><span class="s2">"corner"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">adap_pad</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">==</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">adap_pad</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">==</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding.forward" title="robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
+<td><p>Define the computation performed at every call.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding.get_pad_shape" title="robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding.get_pad_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pad_shape</span></code></a>(input_shape)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#AdaptivePadding.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Define the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding.get_pad_shape">
+<span class="sig-name descname"><span class="pre">get_pad_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#AdaptivePadding.get_pad_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding.get_pad_shape" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.DropPath">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.modules.swin_transformer.</span></span><span class="sig-name descname"><span class="pre">DropPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">drop_prob</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#DropPath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.DropPath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>Drop path.</p>
+<p>Drop paths (Stochastic Depth) per sample  (when applied in main path of
+residual blocks).</p>
+<p>We follow the implementation
+<a class="reference external" href="https://github.com/rwightman/pytorch-image-models/blob/a2727c1bf78ba0d7b5727f5f95e37fb7f8866b1f/timm/models/layers/drop.py">https://github.com/rwightman/pytorch-image-models/blob/a2727c1bf78ba0d7b5727f5f95e37fb7f8866b1f/timm/models/layers/drop.py</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>drop_prob</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Probability of the path to be zeroed. Default: 0.1</p>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.DropPath.forward" title="robo_orchard_lab.models.modules.swin_transformer.DropPath.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
+<td><p>Define the computation performed at every call.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.DropPath.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#DropPath.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.DropPath.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Define the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.PatchEmbed">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.modules.swin_transformer.</span></span><span class="sig-name descname"><span class="pre">PatchEmbed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_dims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">768</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Conv2d'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><span class="pre">tuple</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'corner'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><span class="pre">tuple</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#PatchEmbed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.PatchEmbed" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>Image to Patch Embedding.</p>
+<p>We use a conv layer to implement PatchEmbed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_channels</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The num of input channels. Default: 3</p></li>
+<li><p><strong>embed_dims</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The dimensions of embedding. Default: 768</p></li>
+<li><p><strong>conv_type</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The config dict for embedding
+conv layer type selection. Default: “Conv2d.</p></li>
+<li><p><strong>kernel_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The kernel_size of embedding conv. Default: 16.</p></li>
+<li><p><strong>stride</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The slide stride of embedding conv.
+Default: None (Would be set as <cite>kernel_size</cite>).</p></li>
+<li><p><strong>padding</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em> | </em><em>string</em>) – The padding length of
+embedding conv. When it is a string, it means the mode
+of adaptive padding, support “same” and “corner” now.
+Default: “corner”.</p></li>
+<li><p><strong>dilation</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The dilation rate of embedding conv. Default: 1.</p></li>
+<li><p><strong>bias</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Bias of embed conv. Default: True.</p></li>
+<li><p><strong>norm_cfg</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Config dict for normalization layer.
+Default: None.</p></li>
+<li><p><strong>input_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em> | </em><em>None</em>) – The size of input, which will be
+used to calculate the out size. Only work when <cite>dynamic_size</cite>
+is False. Default: None.</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.PatchEmbed.forward" title="robo_orchard_lab.models.modules.swin_transformer.PatchEmbed.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
+<td><p>Forward Patch Embedding.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.PatchEmbed.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.5)"><span class="pre">torch.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.5)"><span class="pre">torch.Tensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#PatchEmbed.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.PatchEmbed.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Forward Patch Embedding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Tensor</em>) – Has shape (B, C, H, W). In most case, C is 3.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Contains merged results and its spatial shape.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>x (Tensor): Has shape (B, out_h * out_w, embed_dims)</p></li>
+<li><dl class="simple">
+<dt>out_size (tuple[int]): Spatial shape of x, arrange as</dt><dd><p>(out_h, out_w).</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.PatchMerging">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.modules.swin_transformer.</span></span><span class="sig-name descname"><span class="pre">PatchMerging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><span class="pre">tuple</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><span class="pre">tuple</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><span class="pre">tuple</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'corner'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><span class="pre">tuple</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#PatchMerging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.PatchMerging" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>Merge patch feature map.</p>
+<p>This layer groups feature map by kernel_size, and applies norm and linear
+layers to the grouped feature map. Our implementation uses <cite>nn.Unfold</cite> to
+merge patch, which is about 25% faster than original implementation.
+Instead, we need to modify pretrained models for compatibility.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_channels</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The num of input channels.
+to gets fully covered by filter and stride you specified..
+Default: True.</p></li>
+<li><p><strong>out_channels</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The num of output channels.</p></li>
+<li><p><strong>kernel_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><em>optional</em>) – the kernel size in the unfold
+layer. Defaults to 2.</p></li>
+<li><p><strong>stride</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><em>optional</em>) – the stride of the sliding blocks in the
+unfold layer. Default: None. (Would be set as <cite>kernel_size</cite>)</p></li>
+<li><p><strong>padding</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em> | </em><em>string</em>) – The padding length of
+embedding conv. When it is a string, it means the mode
+of adaptive padding, support “same” and “corner” now.
+Default: “corner”.</p></li>
+<li><p><strong>dilation</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><em>optional</em>) – dilation parameter in the unfold
+layer. Default: 1.</p></li>
+<li><p><strong>bias</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to add bias in linear layer or not.
+Defaults: False.</p></li>
+<li><p><strong>norm_cfg</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Config dict for normalization layer.
+Default: dict(type=’LN’).</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.PatchMerging.forward" title="robo_orchard_lab.models.modules.swin_transformer.PatchMerging.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x, input_size)</p></td>
+<td><p>Forward for patch merging.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.PatchMerging.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.5)"><span class="pre">torch.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.5)"><span class="pre">torch.Tensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#PatchMerging.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.PatchMerging.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Forward for patch merging.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) – Has shape (B, H*W, C_in).</p></li>
+<li><p><strong>input_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – The spatial shape of x, arrange as (H, W).
+Default: None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Has shape (B, Merged_H * Merged_W, C_out).
+Tuple[int]: Spatial shape of x, arrange as (Merged_H, Merged_W).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.modules.swin_transformer.</span></span><span class="sig-name descname"><span class="pre">ShiftWindowMSA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embed_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qkv_bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qk_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attn_drop_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proj_drop_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout_layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#ShiftWindowMSA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>Shifted Window Multihead Self-Attention Module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>embed_dims</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of input channels.</p></li>
+<li><p><strong>num_heads</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of attention heads.</p></li>
+<li><p><strong>window_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The height and width of the window.</p></li>
+<li><p><strong>shift_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – The shift step of each window towards
+right-bottom. If zero, act as regular window-msa. Defaults to 0.</p></li>
+<li><p><strong>qkv_bias</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, add a learnable bias to q, k, v.
+Default: True</p></li>
+<li><p><strong>qk_scale</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> | </em><em>None</em><em>, </em><em>optional</em>) – Override default qk scale of
+head_dim ** -0.5 if set. Defaults: None.</p></li>
+<li><p><strong>attn_drop_rate</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Dropout ratio of attention weight.
+Defaults: 0.</p></li>
+<li><p><strong>proj_drop_rate</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Dropout ratio of output.
+Defaults: 0.</p></li>
+<li><p><strong>dropout_layer</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – The dropout_layer used before output.
+Defaults: dict(type=DropPath, drop_prob=0.).</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.forward" title="robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(query, hw_shape)</p></td>
+<td><p>Define the computation performed at every call.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.window_partition" title="robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.window_partition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">window_partition</span></code></a>(x)</p></td>
+<td><p>The window partition.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.window_reverse" title="robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.window_reverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">window_reverse</span></code></a>(windows, H, W)</p></td>
+<td><p>Window reverse.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hw_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#ShiftWindowMSA.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Define the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.window_partition">
+<span class="sig-name descname"><span class="pre">window_partition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#ShiftWindowMSA.window_partition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.window_partition" title="Link to this definition">¶</a></dt>
+<dd><p>The window partition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> – (B, H, W, C)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(num_windows*B, window_size, window_size, C)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>windows</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.window_reverse">
+<span class="sig-name descname"><span class="pre">window_reverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">windows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">W</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#ShiftWindowMSA.window_reverse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.window_reverse" title="Link to this definition">¶</a></dt>
+<dd><p>Window reverse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>windows</strong> – (num_windows*B, window_size, window_size, C)</p></li>
+<li><p><strong>H</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Height of image</p></li>
+<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Width of image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(B, H, W, C)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>x</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.SwinBlock">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.modules.swin_transformer.</span></span><span class="sig-name descname"><span class="pre">SwinBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embed_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feedforward_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qkv_bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qk_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attn_drop_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_path_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">act_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_cp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#SwinBlock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.SwinBlock" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>SwinBlock.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>embed_dims</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The feature dimension.</p></li>
+<li><p><strong>num_heads</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Parallel attention heads.</p></li>
+<li><p><strong>feedforward_channels</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The hidden dimension for FFNs.</p></li>
+<li><p><strong>window_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – The local window scale. Default: 7.</p></li>
+<li><p><strong>shift</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – whether to shift window or not. Default False.</p></li>
+<li><p><strong>qkv_bias</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – enable bias for qkv if True. Default: True.</p></li>
+<li><p><strong>qk_scale</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> | </em><em>None</em><em>, </em><em>optional</em>) – Override default qk scale of
+head_dim ** -0.5 if set. Default: None.</p></li>
+<li><p><strong>drop_rate</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Dropout rate. Default: 0.</p></li>
+<li><p><strong>attn_drop_rate</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Attention dropout rate. Default: 0.</p></li>
+<li><p><strong>drop_path_rate</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Stochastic depth rate. Default: 0.</p></li>
+<li><p><strong>act_cfg</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – The config dict of activation function.
+Default: dict(type=’GELU’).</p></li>
+<li><p><strong>norm_cfg</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – The config dict of normalization.
+Default: dict(type=’LN’).</p></li>
+<li><p><strong>with_cp</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Use checkpoint or not. Using checkpoint
+will save some memory while slowing down the training speed.
+Default: False.</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinBlock.forward" title="robo_orchard_lab.models.modules.swin_transformer.SwinBlock.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x, hw_shape)</p></td>
+<td><p>Define the computation performed at every call.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.SwinBlock.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hw_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#SwinBlock.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.SwinBlock.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Define the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.SwinBlockSequence">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.modules.swin_transformer.</span></span><span class="sig-name descname"><span class="pre">SwinBlockSequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embed_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feedforward_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qkv_bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qk_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attn_drop_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_path_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downsample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">act_cfg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_cfg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_cp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#SwinBlockSequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.SwinBlockSequence" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>Implements one stage in Swin Transformer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>embed_dims</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The feature dimension.</p></li>
+<li><p><strong>num_heads</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Parallel attention heads.</p></li>
+<li><p><strong>feedforward_channels</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The hidden dimension for FFNs.</p></li>
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The number of blocks in this stage.</p></li>
+<li><p><strong>window_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – The local window scale. Default: 7.</p></li>
+<li><p><strong>qkv_bias</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – enable bias for qkv if True. Default: True.</p></li>
+<li><p><strong>qk_scale</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> | </em><em>None</em><em>, </em><em>optional</em>) – Override default qk scale of
+head_dim ** -0.5 if set. Default: None.</p></li>
+<li><p><strong>drop_rate</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Dropout rate. Default: 0.</p></li>
+<li><p><strong>attn_drop_rate</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Attention dropout rate. Default: 0.</p></li>
+<li><p><strong>drop_path_rate</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em><em>, </em><em>optional</em>) – Stochastic depth
+rate. Default: 0.</p></li>
+<li><p><strong>downsample</strong> (<em>nn.Module</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – The downsample operation
+module. Default: None.</p></li>
+<li><p><strong>act_cfg</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – The config dict of activation function.
+Default: dict(type=’GELU’).</p></li>
+<li><p><strong>norm_cfg</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – The config dict of normalization.
+Default: dict(type=’LN’).</p></li>
+<li><p><strong>with_cp</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Use checkpoint or not. Using checkpoint
+will save some memory while slowing down the training speed.
+Default: False.</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinBlockSequence.forward" title="robo_orchard_lab.models.modules.swin_transformer.SwinBlockSequence.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x, hw_shape)</p></td>
+<td><p>Define the computation performed at every call.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.SwinBlockSequence.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hw_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#SwinBlockSequence.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.SwinBlockSequence.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Define the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.SwinTransformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.modules.swin_transformer.</span></span><span class="sig-name descname"><span class="pre">SwinTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pretrain_img_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">224</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">96</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mlp_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(2,</span> <span class="pre">2,</span> <span class="pre">6,</span> <span class="pre">2)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(3,</span> <span class="pre">6,</span> <span class="pre">12,</span> <span class="pre">24)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(4,</span> <span class="pre">2,</span> <span class="pre">2,</span> <span class="pre">2)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qkv_bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qk_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attn_drop_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_path_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_abs_pos_embed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">act_cfg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_cfg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_cp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pretrained</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frozen_stages</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#SwinTransformer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.SwinTransformer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>Swin Transformer.</p>
+<p>A PyTorch implementation of <a class="reference external" href="https://arxiv.org/abs/2103.14030">Swin Transformer: Hierarchical Vision Transformer using Shifted Windows</a>.</p>
+<p>Inspired by the official implementation: &lt;<a class="reference external" href="https://github.com/microsoft/Swin-Transformer">https://github.com/microsoft/Swin-Transformer</a>&gt;_.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pretrain_img_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – The size of input image when
+pretrain. Defaults: 224.</p></li>
+<li><p><strong>in_channels</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The num of input channels.
+Defaults: 3.</p></li>
+<li><p><strong>embed_dims</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The feature dimension. Default: 96.</p></li>
+<li><p><strong>patch_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – Patch size. Default: 4.</p></li>
+<li><p><strong>window_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Window size. Default: 7.</p></li>
+<li><p><strong>mlp_ratio</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Ratio of mlp hidden dim to embedding dim.
+Default: 4.</p></li>
+<li><p><strong>depths</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – Depths of each Swin Transformer stage.
+Default: (2, 2, 6, 2).</p></li>
+<li><p><strong>num_heads</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – Parallel attention heads of each Swin
+Transformer stage. Default: (3, 6, 12, 24).</p></li>
+<li><p><strong>strides</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – The patch merging or patch embedding stride of
+each Swin Transformer stage. (In swin, we set kernel size equal to
+stride.) Default: (4, 2, 2, 2).</p></li>
+<li><p><strong>out_indices</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – Output from which stages.
+Default: (0, 1, 2, 3).</p></li>
+<li><p><strong>qkv_bias</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, add a learnable bias to query, key,
+value. Default: True</p></li>
+<li><p><strong>qk_scale</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> | </em><em>None</em>) – Override default qk scale of
+head_dim ** -0.5 if set. Default: None.</p></li>
+<li><p><strong>patch_norm</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If add a norm layer for patch embed and patch
+merging. Default: True.</p></li>
+<li><p><strong>drop_rate</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Dropout rate. Defaults: 0.</p></li>
+<li><p><strong>attn_drop_rate</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Attention dropout rate. Default: 0.</p></li>
+<li><p><strong>drop_path_rate</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Stochastic depth rate. Defaults: 0.1.</p></li>
+<li><p><strong>use_abs_pos_embed</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, add absolute position embedding to
+the patch embedding. Defaults: False.</p></li>
+<li><p><strong>act_cfg</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Config dict for activation layer.
+Default: dict(type=’GELU’).</p></li>
+<li><p><strong>norm_cfg</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Config dict for normalization layer at
+output of backone. Defaults: dict(type=’LN’).</p></li>
+<li><p><strong>with_cp</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Use checkpoint or not. Using checkpoint
+will save some memory while slowing down the training speed.
+Default: False.</p></li>
+<li><p><strong>pretrained</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> | </em><em>None</em>) – model pretrained path. Default: None.</p></li>
+<li><p><strong>convert_weights</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – The flag indicates whether the
+pre-trained model is from the original repo. We may need
+to convert some keys to make it compatible.
+Default: False.</p></li>
+<li><p><strong>frozen_stages</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Stages to be frozen (stop grad and set eval mode).
+Default: -1 (-1 means not freezing any parameters).</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinTransformer.forward" title="robo_orchard_lab.models.modules.swin_transformer.SwinTransformer.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
+<td><p>Define the computation performed at every call.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinTransformer.train" title="robo_orchard_lab.models.modules.swin_transformer.SwinTransformer.train"><code class="xref py py-obj docutils literal notranslate"><span class="pre">train</span></code></a>([mode])</p></td>
+<td><p>Convert the model into training mode while keep layers freezed.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.SwinTransformer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#SwinTransformer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.SwinTransformer.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Define the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.SwinTransformer.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#SwinTransformer.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.SwinTransformer.train" title="Link to this definition">¶</a></dt>
+<dd><p>Convert the model into training mode while keep layers freezed.</p>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.WindowMSA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.modules.swin_transformer.</span></span><span class="sig-name descname"><span class="pre">WindowMSA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embed_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qkv_bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qk_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attn_drop_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proj_drop_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#WindowMSA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.WindowMSA" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a></p>
+<p>WindowMSA.</p>
+<p>Window based multi-head self-attention (W-MSA) module with relative
+position bias.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>embed_dims</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of input channels.</p></li>
+<li><p><strong>num_heads</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of attention heads.</p></li>
+<li><p><strong>window_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – The height and width of the window.</p></li>
+<li><p><strong>qkv_bias</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, add a learnable bias to q, k, v.
+Default: True.</p></li>
+<li><p><strong>qk_scale</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> | </em><em>None</em><em>, </em><em>optional</em>) – Override default qk scale of
+head_dim ** -0.5 if set. Default: None.</p></li>
+<li><p><strong>attn_drop_rate</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Dropout ratio of attention weight.
+Default: 0.0</p></li>
+<li><p><strong>proj_drop_rate</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><em>optional</em>) – Dropout ratio of output. Default: 0.</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.WindowMSA.double_step_seq" title="robo_orchard_lab.models.modules.swin_transformer.WindowMSA.double_step_seq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">double_step_seq</span></code></a>(step1, len1, step2, len2)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.WindowMSA.forward" title="robo_orchard_lab.models.modules.swin_transformer.WindowMSA.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x[, mask])</p></td>
+<td><p>WindowMSA forward.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.WindowMSA.init_weights" title="robo_orchard_lab.models.modules.swin_transformer.WindowMSA.init_weights"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_weights</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.WindowMSA.double_step_seq">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">double_step_seq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#WindowMSA.double_step_seq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.WindowMSA.double_step_seq" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.WindowMSA.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.5)"><span class="pre">torch.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.5)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#WindowMSA.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.WindowMSA.forward" title="Link to this definition">¶</a></dt>
+<dd><p>WindowMSA forward.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) – Input features with shape of (num_windows*B, N, C)</p></li>
+<li><p><strong>mask</strong> (<em>Tensor</em><em> | </em><em>None</em>) – Mask with shape of (num_windows, Wh*Ww, Wh*Ww),
+value should be between (-inf, 0].</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.WindowMSA.init_weights">
+<span class="sig-name descname"><span class="pre">init_weights</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#WindowMSA.init_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.WindowMSA.init_weights" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.drop_path">
+<span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.modules.swin_transformer.</span></span><span class="sig-name descname"><span class="pre">drop_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_prob</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#drop_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.drop_path" title="Link to this definition">¶</a></dt>
+<dd><p>Drop path.</p>
+<p>Drop paths (Stochastic Depth) per sample (when applied in main path of
+residual blocks).</p>
+<p>We follow the implementation:
+<a class="reference external" href="https://github.com/rwightman/pytorch-image-models/blob/a2727c1bf78ba0d7b5727f5f95e37fb7f8866b1f/timm/models/layers/drop.py">https://github.com/rwightman/pytorch-image-models/blob/a2727c1bf78ba0d7b5727f5f95e37fb7f8866b1f/timm/models/layers/drop.py</a></p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.modules.swin_transformer.to_2tuple">
+<span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.modules.swin_transformer.</span></span><span class="sig-name descname"><span class="pre">to_2tuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/robo_orchard_lab/models/modules/swin_transformer.html#to_2tuple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.modules.swin_transformer.to_2tuple" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+</section>
+</article>
+</div>
+<footer>
+<div class="related-pages">
+<a class="next-page" href="robo_orchard_lab.models.sem_modules.html">
+<div class="page-info">
+<div class="context">
+<span>Next</span>
+</div>
+<div class="title">robo_orchard_lab.models.sem_modules package</div>
+</div>
+<svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+</a>
+<a class="prev-page" href="robo_orchard_lab.models.modules.resnet.html">
+<svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+<div class="page-info">
+<div class="context">
+<span>Previous</span>
+</div>
+<div class="title">robo_orchard_lab.models.modules.resnet module</div>
+</div>
+</a>
+</div>
+<div class="bottom-of-page">
+<div class="left-details">
+<div class="copyright">
+                Copyright © 2024, Horizon Robotics Developers
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+</div>
+<div class="right-details">
+<div class="icons">
+<a aria-label="GitHub" class="muted-link" href="https://github.com/HorizonRobotics/robo_orchard_lab">
+<svg fill="currentColor" stroke="currentColor" stroke-width="0" viewbox="0 0 16 16">
+<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z" fill-rule="evenodd"></path>
+</svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<aside class="toc-drawer">
+<div class="toc-sticky toc-scroll">
+<div class="toc-title-container">
+<span class="toc-title">
+            On this page
+          </span>
+</div>
+<div class="toc-tree-container">
+<div class="toc-tree">
+<ul>
+<li><a class="reference internal" href="#">robo_orchard_lab.models.modules.swin_transformer module</a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding"><code class="docutils literal notranslate"><span class="pre">AdaptivePadding</span></code></a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding.forward"><code class="docutils literal notranslate"><span class="pre">AdaptivePadding.forward()</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.AdaptivePadding.get_pad_shape"><code class="docutils literal notranslate"><span class="pre">AdaptivePadding.get_pad_shape()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.DropPath"><code class="docutils literal notranslate"><span class="pre">DropPath</span></code></a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.DropPath.forward"><code class="docutils literal notranslate"><span class="pre">DropPath.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.PatchEmbed"><code class="docutils literal notranslate"><span class="pre">PatchEmbed</span></code></a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.PatchEmbed.forward"><code class="docutils literal notranslate"><span class="pre">PatchEmbed.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.PatchMerging"><code class="docutils literal notranslate"><span class="pre">PatchMerging</span></code></a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.PatchMerging.forward"><code class="docutils literal notranslate"><span class="pre">PatchMerging.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA"><code class="docutils literal notranslate"><span class="pre">ShiftWindowMSA</span></code></a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.forward"><code class="docutils literal notranslate"><span class="pre">ShiftWindowMSA.forward()</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.window_partition"><code class="docutils literal notranslate"><span class="pre">ShiftWindowMSA.window_partition()</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.ShiftWindowMSA.window_reverse"><code class="docutils literal notranslate"><span class="pre">ShiftWindowMSA.window_reverse()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinBlock"><code class="docutils literal notranslate"><span class="pre">SwinBlock</span></code></a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinBlock.forward"><code class="docutils literal notranslate"><span class="pre">SwinBlock.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinBlockSequence"><code class="docutils literal notranslate"><span class="pre">SwinBlockSequence</span></code></a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinBlockSequence.forward"><code class="docutils literal notranslate"><span class="pre">SwinBlockSequence.forward()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinTransformer"><code class="docutils literal notranslate"><span class="pre">SwinTransformer</span></code></a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinTransformer.forward"><code class="docutils literal notranslate"><span class="pre">SwinTransformer.forward()</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.SwinTransformer.train"><code class="docutils literal notranslate"><span class="pre">SwinTransformer.train()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.WindowMSA"><code class="docutils literal notranslate"><span class="pre">WindowMSA</span></code></a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.WindowMSA.double_step_seq"><code class="docutils literal notranslate"><span class="pre">WindowMSA.double_step_seq()</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.WindowMSA.forward"><code class="docutils literal notranslate"><span class="pre">WindowMSA.forward()</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.WindowMSA.init_weights"><code class="docutils literal notranslate"><span class="pre">WindowMSA.init_weights()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.drop_path"><code class="docutils literal notranslate"><span class="pre">drop_path()</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.models.modules.swin_transformer.to_2tuple"><code class="docutils literal notranslate"><span class="pre">to_2tuple()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div><script src="../../_static/documentation_options.js?v=95e61db4"></script>
+<script src="../../_static/doctools.js?v=9bcbadda"></script>
+<script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
+<script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../../_static/copybutton.js?v=f281be69"></script>
+<script src="../../_static/google_analytics.js"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+</body>
+</html>

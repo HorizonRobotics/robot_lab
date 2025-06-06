@@ -1,0 +1,7 @@
+robo\_orchard\_lab.models.bip3d.utils module
+============================================
+
+.. automodule:: robo_orchard_lab.models.bip3d.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:

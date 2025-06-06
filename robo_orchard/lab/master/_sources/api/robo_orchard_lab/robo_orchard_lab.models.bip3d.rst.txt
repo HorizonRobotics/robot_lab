@@ -1,0 +1,31 @@
+robo\_orchard\_lab.models.bip3d package
+=======================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   robo_orchard_lab.models.bip3d.grounding_decoder
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   robo_orchard_lab.models.bip3d.bert
+   robo_orchard_lab.models.bip3d.feature_enhancer
+   robo_orchard_lab.models.bip3d.layers
+   robo_orchard_lab.models.bip3d.spatial_enhancer
+   robo_orchard_lab.models.bip3d.structure
+   robo_orchard_lab.models.bip3d.utils
+
+Module contents
+---------------
+
+.. automodule:: robo_orchard_lab.models.bip3d
+   :members:
+   :undoc-members:
+   :show-inheritance:

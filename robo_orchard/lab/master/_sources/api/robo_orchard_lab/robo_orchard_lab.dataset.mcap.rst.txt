@@ -1,0 +1,20 @@
+robo\_orchard\_lab.dataset.mcap package
+=======================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   robo_orchard_lab.dataset.mcap.decoder
+   robo_orchard_lab.dataset.mcap.msg_converter
+   robo_orchard_lab.dataset.mcap.reader
+
+Module contents
+---------------
+
+.. automodule:: robo_orchard_lab.dataset.mcap
+   :members:
+   :undoc-members:
+   :show-inheritance:

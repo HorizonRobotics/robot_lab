@@ -1,12 +1,7 @@
-
 API Reference
-======================
+-------------------
 
 .. toctree::
-    :maxdepth: 2
-    :includehidden:
+    :maxdepth: 3
 
-    dataset/index
-    models/index
-    pipeline/index
-    utils/index
+    robo_orchard_lab/robo_orchard_lab

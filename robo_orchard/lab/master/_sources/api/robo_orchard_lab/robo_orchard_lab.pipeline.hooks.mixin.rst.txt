@@ -1,0 +1,7 @@
+robo\_orchard\_lab.pipeline.hooks.mixin module
+==============================================
+
+.. automodule:: robo_orchard_lab.pipeline.hooks.mixin
+   :members:
+   :undoc-members:
+   :show-inheritance:

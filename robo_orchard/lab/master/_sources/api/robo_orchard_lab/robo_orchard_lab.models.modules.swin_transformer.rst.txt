@@ -1,0 +1,7 @@
+robo\_orchard\_lab.models.modules.swin\_transformer module
+==========================================================
+
+.. automodule:: robo_orchard_lab.models.modules.swin_transformer
+   :members:
+   :undoc-members:
+   :show-inheritance:

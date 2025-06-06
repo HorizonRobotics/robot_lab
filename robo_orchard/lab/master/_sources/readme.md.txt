@@ -1,6 +1,6 @@
 # RoboOrchard Lab
 
-[![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://docs.python.org/3/whatsnew/3.10.html)
+[![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://docs.python.org/3/whatsnew/3.10.html)
 [![Linux platform](https://img.shields.io/badge/platform-linux--64-green.svg)](https://releases.ubuntu.com/22.04/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/HorizonRobotics/robo_orchard_lab/blob/master/LICENSE)
 [![Documentation](https://img.shields.io/website/http/huggingface.co/docs/transformers/index.svg?down_color=red&down_message=offline&up_message=online)](https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/index.html)

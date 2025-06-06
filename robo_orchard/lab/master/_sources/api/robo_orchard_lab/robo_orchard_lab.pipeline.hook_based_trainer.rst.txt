@@ -1,0 +1,7 @@
+robo\_orchard\_lab.pipeline.hook\_based\_trainer module
+=======================================================
+
+.. automodule:: robo_orchard_lab.pipeline.hook_based_trainer
+   :members:
+   :undoc-members:
+   :show-inheritance:

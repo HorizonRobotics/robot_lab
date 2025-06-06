@@ -1,0 +1,21 @@
+robo\_orchard\_lab.ops.deformable\_aggregation package
+======================================================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   robo_orchard_lab.ops.deformable_aggregation.deformable_aggregation
+   robo_orchard_lab.ops.deformable_aggregation.deformable_aggregation_ext
+   robo_orchard_lab.ops.deformable_aggregation.deformable_aggregation_with_depth_ext
+   robo_orchard_lab.ops.deformable_aggregation.setup
+
+Module contents
+---------------
+
+.. automodule:: robo_orchard_lab.ops.deformable_aggregation
+   :members:
+   :undoc-members:
+   :show-inheritance:

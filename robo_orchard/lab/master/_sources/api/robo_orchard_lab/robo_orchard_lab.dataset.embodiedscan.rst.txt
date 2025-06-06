@@ -1,0 +1,21 @@
+robo\_orchard\_lab.dataset.embodiedscan package
+===============================================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset
+   robo_orchard_lab.dataset.embodiedscan.metrics
+   robo_orchard_lab.dataset.embodiedscan.transforms
+   robo_orchard_lab.dataset.embodiedscan.utils
+
+Module contents
+---------------
+
+.. automodule:: robo_orchard_lab.dataset.embodiedscan
+   :members:
+   :undoc-members:
+   :show-inheritance:

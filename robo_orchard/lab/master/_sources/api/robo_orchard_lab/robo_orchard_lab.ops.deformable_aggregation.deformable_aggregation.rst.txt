@@ -1,0 +1,7 @@
+robo\_orchard\_lab.ops.deformable\_aggregation.deformable\_aggregation module
+=============================================================================
+
+.. automodule:: robo_orchard_lab.ops.deformable_aggregation.deformable_aggregation
+   :members:
+   :undoc-members:
+   :show-inheritance:

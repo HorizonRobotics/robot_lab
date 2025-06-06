@@ -1,0 +1,7 @@
+robo\_orchard\_lab.dataset.mcap.decoder.factory module
+======================================================
+
+.. automodule:: robo_orchard_lab.dataset.mcap.decoder.factory
+   :members:
+   :undoc-members:
+   :show-inheritance:
