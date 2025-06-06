@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIP3D Paper Presentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .authors {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            color: #555;
+        }
+        .authors a {
+            color: #1a73e8;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        .authors a:hover {
+            text-decoration: underline;
+        }
+        .affiliation {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1em;
+            color: #777;
+        }
+        .buttons {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .buttons img {
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+        .abstract {
+            text-align: justify;
+            margin: 30px 0;
+            padding: 0;
+            font-size: 1.1em;
+            color: #444;
+            line-height: 1.8;
+        }
+        .structure-image {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .structure-image img {
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .structure-description {
+            text-align: center;
+            font-style: italic;
+            color: #555;
+            margin-top: 10px;
+        }
+        .video-intro {
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: #333;
+            line-height: 1.8;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 每行 4 列 */
+            gap: 20px; /* 视频项之间的间距 */
+        }
+        .video-item {
+            width: 100%; /* 视频项宽度占满父容器 */
+        }
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .citation {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-left: 5px solid #ccc;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 1. 论文大标题 -->
+        <h1>BIP3D: Bridging 2D Images and 3D Perception for Embodied Intelligence</h1>
+
+        <!-- 2. 作者名 -->
+        <div class="authors">
+            <a href="https://scholar.google.com/citations?user=pfXQwcQAAAAJ&hl=en" target="_blank">Xuewu Lin</a>,
+            <a href="https://wzmsltw.github.io/" target="_blank">Tianwei Lin</a>,
+            <a href="https://scholar.google.com/citations?user=F2e_jZMAAAAJ&hl=en" target="_blank">Lichao Huang</a>,
+            <a href="https://openreview.net/profile?id=~HONGYU_XIE2" target="_blank">Hongyu Xie</a>,
+            <a href="https://scholar.google.com/citations?user=HQfc8TEAAAAJ&hl=en" target="_blank">Zhizhong Su</a>
+        </div>
+
+        <!-- 3. 单位名 -->
+        <div class="affiliation">
+            Horizon Robotics, Beijing, China
+        </div>
+
+        <!-- 4. 跳转链接按钮 -->
+        <div class="buttons">
+            <a href="https://github.com/HorizonRobotics/BIP3D" target="_blank">
+                <img src="https://img.shields.io/badge/Code-Github-bule" alt="View Code">
+            </a>
+            <a href="https://linxuewu.github.io/BIP3D-page/" target="_blank">
+                <img src="https://img.shields.io/badge/Homepage-BIP3D-green" alt="Homepage">
+            </a>
+            <a href="https://huggingface.co/HorizonRobotics/BIP3D" target="_blank">
+                <img src="https://img.shields.io/badge/Models-Hugging%20 Face-yellow" alt="Hugging Face">
+            </a>
+            <a href="https://arxiv.org/abs/2411.14869" target="_blank">
+                <img src="https://img.shields.io/badge/Paper-Arxiv-red" alt="Read Paper">
+            </a>
+        </div>
+
+        <!-- 5. 论文摘要 -->
+        <div class="abstract">
+            <p>In embodied intelligence systems, a key component is 3D perception algorithm, which enables agents to understand their surrounding environments. Previous algorithms primarily rely on point cloud, which, despite offering precise geometric information, still constrain perception performance due to inherent sparsity, noise, and data scarcity. In this work, we introduce a novel image-centric 3D perception model, BIP3D, which leverages expressive image features with explicit 3D position encoding to overcome the limitations of point-centric methods. Specifically, we leverage pre-trained 2D vision foundation models to enhance semantic understanding, and introduce a spatial enhancer module to improve spatial understanding. Together, these modules enable BIP3D to achieve multi-view, multi-modal feature fusion and end-to-end 3D perception. BIP3D demonstrates exceptionally superior 3D perception capabilities, achieving state-of-the-art performance in both 3D detection and grounding tasks on public datasets.</p>
+        </div>
+
+        <!-- 6. 论文结构图 -->
+        <div class="structure-image">
+            <img src="images/bip3d_structure.png" alt="BIP3D Structure">
+            <p class="structure-description">
+                The Architecture Diagram of BIP3D, where the red stars indicate the parts that have been modified or added compared to the base model, GroundingDINO, and dashed lines indicate optional elements.
+            </p>
+        </div>
+
+        <!-- 7. 视频介绍 -->
+        <div class="video-intro">
+            <p>BIP3D is capable of handling a variety of scenarios, delivering robust perception capabilities in dense environments, as well as for small and oversized targets. Moreover, BIP3D exhibits excellent generalization across both intrinsic and extrinsic camera parameters, supporting multiple camera types. The following videos showcase its robust capabilities in diverse settings.</p>
+        </div>
+
+        <!-- 8. 视频部分 -->
+        <div class="video-grid">
+            <!-- 视频 3 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_3.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 4 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_4.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 5 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_5.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 6 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_6.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 7 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_7.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 8 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_8.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 9 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_9.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 10 -->
+            <div class="视频-item">
+                <video controls>
+                    <source src="videos/video_10.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 11 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_11.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 12 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_12.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 13 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_13.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 14 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_14.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 15 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_15.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 16 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_16.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 17 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_17.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 18 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_18.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 19 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_19.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 20 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_0.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 1 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- 视频 2 -->
+            <div class="video-item">
+                <video controls>
+                    <source src="videos/video_2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+
+        <!-- 9. 论文引用 -->
+        <div class="citation">
+            @article{lin2024bip3d,
+                title={BIP3D: Bridging 2D Images and 3D Perception for Embodied Intelligence},
+                author={Lin, Xuewu and Lin, Tianwei and Huang, Lichao and Xie, Hongyu and Su, Zhizhong},
+                journal={arXiv preprint arXiv:2411.14869},
+                year={2024}
+            }
+        </div>
+    </div>
+</body>
+</html>
