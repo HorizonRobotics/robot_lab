@@ -73,37 +73,43 @@
       display: inline-block;
     }
 
-    .btn-group {
-      margin-top: 1.2rem;
-    }
-
     .main-section {
       margin-top: -120px;
     }
-
+    
+    .btn-group {
+      margin-top: 1.2rem;
+    }
     .btn-group a {
-      margin: 0.4rem;
+      display: inline-flex;            
+      align-items: center;           
+      gap: 0.8em;              
+      margin: 0.5rem;
       border: none;
       background: linear-gradient(90deg, #5d8eff, #8fa7ff);
       color: white;
       border-radius: 999px;
-      padding: 0.7em 1.5em;
+      padding: 0.6em 1.2em;
       font-weight: 500;
       text-decoration: none;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       transition: all 0.2s ease;
-      font-size: 0.87em;
-      margin-right: 4px;
+      font-size: 0.8em;
+      margin-right: 9px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .huggingface-icon {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      background-image: url('https://huggingface.co/front/assets/huggingface_logo-noborder.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      vertical-align: middle;
+      margin-right: 0.4em;
     }
 
-    .btn-group a:hover {
-      background: linear-gradient(90deg, #4b7bff, #7992ff);
-      transform: translateY(-2px);
-    }
-
-    .btn-group i {
-      margin-right: 0.5em;
-    }
 
     .main-section {
       padding: 4rem 1.5rem;
@@ -135,6 +141,7 @@
       flex-direction: column;
       justify-content: space-between;
     }
+
 
   </style>
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
@@ -188,7 +195,6 @@
     });
   </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-
 </head>
 <body>
 
@@ -242,14 +248,17 @@
           </div>
 
           <div class="btn-group">
-            <a href="https://arxiv.org/abs/2011.12948" target="_blank" rel="noopener">
+            <a href="todo: url" target="_blank" rel="noopener">
               <i class="ai ai-arxiv"></i>arXiv
             </a>
-            <a href="todo: url" target="_blank" rel="noopener">
+            <a href="https://www.youtube.com/watch?v=SnHhzHeb_aI" target="_blank" rel="noopener">
               <i class="fab fa-youtube"></i>Video
             </a>
-            <a href="todo: url" target="_blank" rel="noopener">
+            <a href="https://github.com/HorizonRobotics/EmbodiedGen" target="_blank" rel="noopener">
               <i class="fab fa-github"></i>Code
+            </a>
+            <a href="https://huggingface.co/HorizonRobotics" target="_blank" rel="noopener">
+              <i class="huggingface-icon"></i>Hugging Face
             </a>
           </div>
         </div>
@@ -258,18 +267,61 @@
   </div>
 </section>
 
-
-<section class="main-section">
+<!-- <section class="main-section">
   <div class="container-custom">
     <img src="./static/images/overall2.png" alt="Overview" />
     <p style="margin-top: -20px;"><strong><em>EmbodiedGen</em></strong> generates interactive 3D worlds with real-world scale and physical realism at low cost.</p>
   </div>
+</section> -->
+
+<section class="main-section">
+  <div class="container-custom">
+    <div class="publication-video" style="max-width: 1000px; margin: 0 auto;">
+      <div class="youtube-thumbnail-wrapper" onclick="loadYoutube(this)" 
+          style="display: flex; justify-content: center; align-items: center;">
+        
+        <img src="static/images/overall2.jpg" style="max-width: 82%; max-height: 100%;" alt="Video thumbnail" />
+
+        <div class="play-button" 
+            style="position: absolute; width: 60px; height: 60px; background: rgba(0,0,0,0.6); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+          <span style="width: 0; height: 0; border-left: 20px solid white; border-top: 12px solid transparent; border-bottom: 12px solid transparent;"></span>
+        </div>
+
+        <iframe data-src="https://www.youtube.com/embed/SnHhzHeb_aI?rel=0&modestbranding=1&autoplay=1"
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen
+                style="max-width: 1000px; max-width: 100%; display: none; position: absolute; top: 0; left: 0;"></iframe>
+        
+      </div>
+    </div>
+
+    <script>
+      function loadYoutube(el) {
+        const iframe = el.querySelector('iframe');
+        iframe.src = iframe.dataset.src;
+        iframe.style.display = 'block';
+        el.querySelector('img').style.display = 'none';
+        el.querySelector('.play-button').style.display = 'none';
+      }
+    </script>
+
+  </div>
+  <p style="margin-top: -20px;"><strong><em>EmbodiedGen</em></strong> generates interactive 3D worlds with real-world scale and physical realism at low cost.</p>
 </section>
 
-<section class="main-section" style="margin-top: -130px;">
+<section class="main-section" style="margin-top: -120px;">
   <div class="container-custom">
     <h2 class="title is-3">Framework</h2>
-    <img  style="margin-top: -15px;" src="./static/images/overall_method.png" alt="Framework Overview" />
+    <img  style="margin-top: -15px;" src="./static/images/overall_method.jpg" alt="Framework Overview" />
+    <div style="text-align: left; margin-top: -20px;">  
+      <p>
+        <strong><em>EmbodiedGen</em></strong> is a toolkit to generate diverse and interactive 3D worlds composed of generative 3D assets 
+        with plausible physics, leveraging generative AI to address the challenges of 
+        generalization in embodied intelligence related research.
+        <strong><em>EmbodiedGen</em></strong> composed of six key modules:
+        <em>Image-to-3D</em>, <em>Text-to-3D</em>, <em>Texture Generation</em>,
+        <em>Articulated Object Generation</em>, <em>Scene Generation</em> and <em>Layout Generation</em>.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -280,7 +332,7 @@
       <div class="container-custom">
         <h2 class="title is-3" style="margin-top: -130px;">Results</h2>
         <div class="content has-text-justified">
-          <h3 class="title is-4">Overall</h3>
+          <!-- <h3 class="title is-4">Overall</h3>
           <div class="publication-video" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
             <iframe 
               src="https://www.youtube.com/embed/SnHhzHeb_aI?rel=0&modestbranding=1" 
@@ -289,39 +341,30 @@
               allowfullscreen 
               style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
             </iframe>
-          </div>
+          </div> -->
           
-          <h3 class="title is-4">Image-to-3D</h3>
-          <!-- <video controls autoplay muted loop>
-            <source src="static/videos/image_to_3d.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video> -->
+          <!-- <h3 class="title is-4">Image-to-3D</h3>
+          <div class="btn-group">
+            <a href="https://huggingface.co/spaces/HorizonRobotics/EmbodiedGen-Image-to-3D" target="_blank" rel="noopener">
+              <i class="huggingface-icon"></i>Demo
+            </a>
+          </div> -->
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="btn-group" style="margin-top: 2px;">
+              <a href="https://huggingface.co/spaces/HorizonRobotics/EmbodiedGen-Image-to-3D" 
+                target="_blank" 
+                rel="noopener" >
+                <i class="huggingface-icon"></i> Demo
+              </a>
+            </div>
+            <h3 class="title is-4" style="margin: 0;">Image-to-3D</h3>
+          </div>
+
           <div class="swiper-container swiper1" style="max-width: 1000px; margin: 0 auto;">
             <div class="swiper-wrapper">
               <div class="swiper-slide model-card">
                 <model-viewer 
-                  src="static/models/image/desk.glb" 
-                  alt="3D model" 
-                  auto-rotate 
-                  camera-controls 
-                  background-color="#ffffff" 
-                  style="width: 100%; height: 200px; border-radius: 12px;"
-                  >
-                </model-viewer>
-              </div>
-              <div class="swiper-slide model-card">
-                <model-viewer 
-                  src="static/models/image/vase.glb" 
-                  alt="3D model" 
-                  auto-rotate 
-                  camera-controls 
-                  background-color="#ffffff" 
-                  style="width: 100%; height: 200px;">
-                </model-viewer>
-              </div>
-              <div class="swiper-slide model-card">
-                <model-viewer 
-                  src="static/models/image/desk2.glb" 
+                  src="static/models/image/astronaut.glb" 
                   alt="3D model" 
                   auto-rotate 
                   camera-controls 
@@ -339,6 +382,39 @@
                   style="width: 100%; height: 200px;">
                 </model-viewer>
               </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="static/models/image/desk.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 200px; border-radius: 12px;"
+                  >
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="static/models/image/chair.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 200px; border-radius: 12px;"
+                  >
+                </model-viewer>
+              </div>
+              <div class="swiper-slide model-card">
+                <model-viewer 
+                  src="static/models/image/desk2.glb" 
+                  alt="3D model" 
+                  auto-rotate 
+                  camera-controls 
+                  background-color="#ffffff" 
+                  style="width: 100%; height: 200px;">
+                </model-viewer>
+              </div>
+              
               
             </div>
             <!-- Navigation buttons -->
@@ -346,11 +422,17 @@
             <div class="swiper-button-next swiper1-next"></div>
           </div>
 
-          <h3 class="title is-4">Text-to-3D</h3>
-          <!-- <video controls autoplay muted loop>
-            <source src="static/videos/text_to_3d.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video> -->
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="btn-group" style="margin-top: 2px;">
+              <a href="https://huggingface.co/spaces/HorizonRobotics/EmbodiedGen-Text-to-3D" 
+                target="_blank" 
+                rel="noopener" >
+                <i class="huggingface-icon"></i> Demo
+              </a>
+            </div>
+            <h3 class="title is-4" style="margin: 0;">Text-to-3D</h3>
+          </div>
+
           <div class="swiper-container swiper1" style="max-width: 1000px; margin: 0 auto;">
             <div class="swiper-wrapper">
               <div class="swiper-slide model-card">
@@ -416,7 +498,17 @@
             <div class="swiper-button-next swiper1-next"></div>
           </div>
 
-          <h3 class="title is-4">Texture Generation</h3>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="btn-group" style="margin-top: 2px;">
+              <a href="https://huggingface.co/spaces/HorizonRobotics/EmbodiedGen-Texture-Gen" 
+                target="_blank" 
+                rel="noopener" >
+                <i class="huggingface-icon"></i> Demo
+              </a>
+            </div>
+            <h3 class="title is-4" style="margin: 0;">Texture Generation</h3>
+          </div>
+
           <div class="swiper-container swiper1" style="max-width: 1000px; margin: 0 auto;">
             <div class="swiper-wrapper">
               <div class="swiper-slide model-card">
@@ -426,7 +518,7 @@
                   auto-rotate 
                   camera-controls 
                   background-color="#ffffff" 
-                  style="width: 100%; height: 250px;">
+                  style="width: 100%; height: 230px;">
                 </model-viewer>
               </div>
               <div class="swiper-slide model-card">
@@ -436,7 +528,7 @@
                   auto-rotate 
                   camera-controls 
                   background-color="#ffffff" 
-                  style="width: 100%; height: 250px;">
+                  style="width: 100%; height: 230px;">
                 </model-viewer>
               </div>
               <div class="swiper-slide model-card">
@@ -446,7 +538,7 @@
                   auto-rotate 
                   camera-controls 
                   background-color="#ffffff" 
-                  style="width: 100%; height: 250px;">
+                  style="width: 100%; height: 230px;">
                 </model-viewer>
               </div>
               <div class="swiper-slide model-card">
@@ -456,7 +548,7 @@
                   auto-rotate 
                   camera-controls 
                   background-color="#ffffff" 
-                  style="width: 100%; height: 250px;">
+                  style="width: 100%; height: 230px;">
                 </model-viewer>
               </div>
               <div class="swiper-slide model-card">
@@ -466,7 +558,7 @@
                   auto-rotate 
                   camera-controls 
                   background-color="#ffffff" 
-                  style="width: 100%; height: 250px;">
+                  style="width: 100%; height: 230px;">
                 </model-viewer>
               </div>
               <div class="swiper-slide model-card">
@@ -476,7 +568,7 @@
                   auto-rotate 
                   camera-controls 
                   background-color="#ffffff" 
-                  style="width: 100%; height: 250px;">
+                  style="width: 100%; height: 230px;">
                 </model-viewer>
               </div>
               <div class="swiper-slide model-card">
@@ -486,7 +578,7 @@
                   auto-rotate 
                   camera-controls 
                   background-color="#ffffff" 
-                  style="width: 100%; height: 250px;">
+                  style="width: 100%; height: 230px;">
                 </model-viewer>
               </div>
               <div class="swiper-slide model-card">
@@ -496,7 +588,7 @@
                   auto-rotate 
                   camera-controls 
                   background-color="#ffffff" 
-                  style="width: 100%; height: 250px;">
+                  style="width: 100%; height: 230px;">
                 </model-viewer>
               </div>
               <div class="swiper-slide model-card">
@@ -506,7 +598,7 @@
                   auto-rotate 
                   camera-controls 
                   background-color="#ffffff" 
-                  style="width: 100%; height: 250px;">
+                  style="width: 100%; height: 230px;">
                 </model-viewer>
               </div>
               <div class="swiper-slide model-card">
@@ -516,7 +608,7 @@
                   auto-rotate 
                   camera-controls 
                   background-color="#ffffff" 
-                  style="width: 100%; height: 250px;">
+                  style="width: 100%; height: 230px;">
                 </model-viewer>
               </div>
               <div class="swiper-slide model-card">
@@ -526,7 +618,7 @@
                   auto-rotate 
                   camera-controls 
                   background-color="#ffffff" 
-                  style="width: 100%; height: 250px;">
+                  style="width: 100%; height: 230px;">
                 </model-viewer>
               </div>
               <div class="swiper-slide model-card">
@@ -536,7 +628,7 @@
                   auto-rotate 
                   camera-controls 
                   background-color="#ffffff" 
-                  style="width: 100%; height: 250px;">
+                  style="width: 100%; height: 230px;">
                 </model-viewer>
               </div>
               <div class="swiper-slide model-card">
@@ -546,7 +638,7 @@
                   auto-rotate 
                   camera-controls 
                   background-color="#ffffff" 
-                  style="width: 100%; height: 250px;">
+                  style="width: 100%; height: 230px;">
                 </model-viewer>
               </div>
               
@@ -574,11 +666,11 @@
             Your browser does not support the video tag.
           </video>
 
-          <h3 class="title is-4">Layout Generation</h3>
+          <!-- <h3 class="title is-4">Layout Generation</h3>
           <video controls autoplay muted loop>
             <source src="static/videos/layout_gen.mp4" type="video/mp4">
             Your browser does not support the video tag.
-          </video>
+          </video> -->
           <!-- <div class="swiper-container swiper2" style="max-width: 1000px; margin: 0 auto;">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
@@ -612,32 +704,25 @@
 </section>
 
 
-<footer class="footer">
+<footer class="footer" style="max-height: 280px;">
   <div class="container">
     <div class="content has-text-centered">
       <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
+         href="todo: url">
         <i class="fas fa-file-pdf"></i>
       </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+      <a class="icon-link" href="https://github.com/HorizonRobotics/EmbodiedGen" class="external-link" disabled>
         <i class="fab fa-github"></i>
+      </a>
+      <a class="icon-link" href="https://huggingface.co/HorizonRobotics">
+        <i class="huggingface-icon"></i>
       </a>
     </div>
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
-          <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
-          </p>
+          <p><strong><em>EmbodiedGen</em></strong> Builds Upon the Following Amazing Projects and Models:</p>
+          🌟 <a href="https://github.com/microsoft/TRELLIS" target="_blank">Trellis</a> 🌟 <a href="https://huggingface.co/tencent/Hunyuan3D-2/tree/main/hunyuan3d-delight-v2-0" target="_blank">Hunyuan-Delight</a> 🌟 <a href="https://github.com/facebookresearch/segment-anything" target="_blank">Segment Anything Model</a> 🌟 <a href="https://github.com/danielgatis/rembg" target="_blank">Rembg: a tool to remove image backgrounds</a> 🌟 <a href="https://huggingface.co/briaai/RMBG-1.4" target="_blank">RMBG-1.4: BRIA Background Removal</a> 🌟 <a href="https://huggingface.co/stabilityai/stable-diffusion-x4-upscaler" target="_blank">stable-diffusion-x4-upscaler</a> 🌟 <a href="https://github.com/xinntao/Real-ESRGAN" target="_blank">Real-ESRGAN</a> 🌟 <a href="https://github.com/Kwai-Kolors/Kolors" target="_blank">Kolors</a> 🌟 <a href="https://github.com/THUDM/ChatGLM3" target="_blank">ChatGLM3</a> 🌟 <a href="http://captions.christoph-schuhmann.de/aesthetic_viz_laion_sac+logos+ava1-l14-linearMSE-en-2.37B.html" target="_blank">Aesthetic Score Model</a> 🌟 <a href="https://github.com/TrickyGo/Pano2Room" target="_blank">Pano2Room</a> 🌟 <a href="https://github.com/ArcherFMY/SD-T2I-360PanoImage" target="_blank">Diffusion360</a> 🌟 <a href="https://github.com/NVIDIAGameWorks/kaolin" target="_blank">kaolin</a> 🌟 <a href="https://github.com/huggingface/diffusers" target="_blank">diffusers</a> 🌟 GPT: QWEN2.5VL, GPT-4o 🌟 Website based on template from <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">nerfies</a>.
         </div>
       </div>
     </div>
