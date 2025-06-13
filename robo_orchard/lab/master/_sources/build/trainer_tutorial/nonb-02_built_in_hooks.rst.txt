@@ -457,11 +457,11 @@ Show hooks
           hooks=[
             0: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
-              before=<FunctionInfo bound method MyMetricTracker(id=140707702846512)._on_loop_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/metric.py:176>, 
+              before=<FunctionInfo bound method MyMetricTracker(id=139721737299968)._on_loop_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/metric.py:176>, 
               after=None)>,
             1: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
-              before=<FunctionInfo bound method StatsMonitor(id=140707702839360)._on_loop_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/stats.py:234>, 
+              before=<FunctionInfo bound method StatsMonitor(id=139721737300832)._on_loop_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/stats.py:234>, 
               after=None)>
           ])>, 
         on_epoch: <robo_orchard_core.utils.hook.HookContextChannel(
@@ -470,15 +470,15 @@ Show hooks
             0: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
               before=None, 
-              after=<FunctionInfo bound method MyMetricTracker(id=140707702846512)._on_epoch_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/metric.py:228>)>,
+              after=<FunctionInfo bound method MyMetricTracker(id=139721737299968)._on_epoch_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/metric.py:228>)>,
             1: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
-              before=<FunctionInfo bound method StatsMonitor(id=140707702839360)._on_epoch_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/stats.py:316>, 
-              after=<FunctionInfo bound method StatsMonitor(id=140707702839360)._on_epoch_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/stats.py:321>)>,
+              before=<FunctionInfo bound method StatsMonitor(id=139721737300832)._on_epoch_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/stats.py:316>, 
+              after=<FunctionInfo bound method StatsMonitor(id=139721737300832)._on_epoch_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/stats.py:321>)>,
             2: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
               before=None, 
-              after=<FunctionInfo bound method SaveCheckpoint(id=140707703192592)._on_epoch_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/checkpoint.py:116>)>
+              after=<FunctionInfo bound method SaveCheckpoint(id=139721737861776)._on_epoch_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/checkpoint.py:116>)>
           ])>, 
         on_step: <robo_orchard_core.utils.hook.HookContextChannel(
           name=on_step, 
@@ -486,19 +486,19 @@ Show hooks
             0: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
               before=None, 
-              after=<FunctionInfo bound method OptimizerHook(id=140707703014832)._optimizer_step from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/optimizer.py:47>)>,
+              after=<FunctionInfo bound method OptimizerHook(id=139721799919760)._optimizer_step from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/optimizer.py:47>)>,
             1: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
               before=None, 
-              after=<FunctionInfo bound method MyMetricTracker(id=140707702846512)._on_step_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/metric.py:200>)>,
+              after=<FunctionInfo bound method MyMetricTracker(id=139721737299968)._on_step_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/metric.py:200>)>,
             2: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
-              before=<FunctionInfo bound method StatsMonitor(id=140707702839360)._on_step_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/stats.py:245>, 
-              after=<FunctionInfo bound method StatsMonitor(id=140707702839360)._on_step_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/stats.py:249>)>,
+              before=<FunctionInfo bound method StatsMonitor(id=139721737300832)._on_step_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/stats.py:245>, 
+              after=<FunctionInfo bound method StatsMonitor(id=139721737300832)._on_step_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/stats.py:249>)>,
             3: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
               before=None, 
-              after=<FunctionInfo bound method SaveCheckpoint(id=140707703192592)._on_step_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/checkpoint.py:88>)>
+              after=<FunctionInfo bound method SaveCheckpoint(id=139721737861776)._on_step_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/checkpoint.py:88>)>
           ])>, 
         on_batch: <robo_orchard_core.utils.hook.HookContextChannel(
           name=on_batch, 
@@ -506,7 +506,7 @@ Show hooks
             0: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
               before=None, 
-              after=<FunctionInfo bound method MyMetricTracker(id=140707702846512)._on_batch_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/metric.py:189>)>
+              after=<FunctionInfo bound method MyMetricTracker(id=139721737299968)._on_batch_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/metric.py:189>)>
           ])>, 
       })>
 
@@ -600,7 +600,7 @@ All the checkpoints is saved to ``cfg.workspace``
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 26.912 seconds)
+   **Total running time of the script:** (0 minutes 24.482 seconds)
 
 
 .. _sphx_glr_download_build_trainer_tutorial_nonb-02_built_in_hooks.py:

@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.016** total execution time for 1 file **from build/model_api_tutorial**:
+**00:00.020** total execution time for 1 file **from build/model_api_tutorial**:
 
 .. container::
 
@@ -33,5 +33,5 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_build_model_api_tutorial_nonb-01_basic.py` (``nonb-01_basic.py``)
-     - 00:00.016
+     - 00:00.020
      - 0.0

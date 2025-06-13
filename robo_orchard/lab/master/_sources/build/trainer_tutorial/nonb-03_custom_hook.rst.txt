@@ -479,16 +479,16 @@ Show hooks
           hooks=[
             0: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
-              before=<FunctionInfo bound method MyHook(id=140707706356208)._on_loop_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:337>, 
-              after=<FunctionInfo bound method MyHook(id=140707706356208)._on_loop_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:340>)>
+              before=<FunctionInfo bound method MyHook(id=139721729301696)._on_loop_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:337>, 
+              after=<FunctionInfo bound method MyHook(id=139721729301696)._on_loop_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:340>)>
           ])>, 
         on_epoch: <robo_orchard_core.utils.hook.HookContextChannel(
           name=on_epoch, 
           hooks=[
             0: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
-              before=<FunctionInfo bound method MyHook(id=140707706356208)._on_epoch_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:352>, 
-              after=<FunctionInfo bound method MyHook(id=140707706356208)._on_epoch_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:357>)>
+              before=<FunctionInfo bound method MyHook(id=139721729301696)._on_epoch_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:352>, 
+              after=<FunctionInfo bound method MyHook(id=139721729301696)._on_epoch_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:357>)>
           ])>, 
         on_step: <robo_orchard_core.utils.hook.HookContextChannel(
           name=on_step, 
@@ -496,11 +496,11 @@ Show hooks
             0: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
               before=None, 
-              after=<FunctionInfo bound method OptimizerHook(id=140707702123120)._optimizer_step from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/optimizer.py:47>)>,
+              after=<FunctionInfo bound method OptimizerHook(id=139721810513344)._optimizer_step from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/pipeline/hooks/optimizer.py:47>)>,
             1: <robo_orchard_core.utils.hook.HookContextFromCallable(
               name=None, 
-              before=<FunctionInfo bound method MyHook(id=140707706356208)._on_step_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:343>, 
-              after=<FunctionInfo bound method MyHook(id=140707706356208)._on_step_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:348>)>
+              before=<FunctionInfo bound method MyHook(id=139721729301696)._on_step_begin from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:343>, 
+              after=<FunctionInfo bound method MyHook(id=139721729301696)._on_step_end from /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/trainer_tutorial/nonb-03_custom_hook.py:348>)>
           ])>, 
       })>
 
@@ -528,7 +528,7 @@ Begin training
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 23.317 seconds)
+   **Total running time of the script:** (0 minutes 20.628 seconds)
 
 
 .. _sphx_glr_download_build_trainer_tutorial_nonb-03_custom_hook.py:

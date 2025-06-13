@@ -14,7 +14,6 @@ Submodules
 
    /autoapi/robo_orchard_lab/dataset/collates/index
    /autoapi/robo_orchard_lab/dataset/embodiedscan/index
-   /autoapi/robo_orchard_lab/dataset/experimental/index
    /autoapi/robo_orchard_lab/dataset/lmdb/index
    /autoapi/robo_orchard_lab/dataset/robotwin/index
 

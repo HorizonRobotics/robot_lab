@@ -248,14 +248,14 @@ for seamless integration with the 🤗 Accelerate training library.
  .. code-block:: none
 
 
-    <torch.utils.hooks.RemovableHandle object at 0x7ff910e7ca30>
+    <torch.utils.hooks.RemovableHandle object at 0x7f137fe0b970>
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.016 seconds)
+   **Total running time of the script:** (0 minutes 0.020 seconds)
 
 
 .. _sphx_glr_download_build_model_api_tutorial_nonb-01_basic.py:
