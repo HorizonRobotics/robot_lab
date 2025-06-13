@@ -11,16 +11,6 @@ VERSION_POSTFIX
 .mypy_cache/
 version.py
 
-## docs
-docs/sg_execution_times.rst
-docs/index.rst
-docs/readme.md
-
-## build
-dist/
-docs/build/
-build/
-
 ## dev
 .coverage
 coverage.xml

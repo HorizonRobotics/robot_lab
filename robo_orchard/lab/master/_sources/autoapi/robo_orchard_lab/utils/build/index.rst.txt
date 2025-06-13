@@ -1,0 +1,76 @@
+build
+=====
+
+.. py:module:: robo_orchard_lab.utils.build
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.build.DelayInitDictType
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.build.build
+
+
+Module Contents
+---------------
+
+.. py:function:: build(obj: robo_orchard_core.utils.config.ClassConfig | dict | Any, *args) -> Any
+
+   Instantiates an object based on the provided configuration or object.
+
+   This function serves as a flexible factory. It can build an object
+   from a `ClassConfig` instance, a dictionary specifying the object's
+   type and parameters, or simply return the object if it's of any other type.
+
+   Special handling is implemented for `torch.nn.GroupNorm`, where if `*args`
+   are provided, the first argument is assumed to be `num_channels`.
+
+   :param obj: The configuration or object to build from.
+
+               - If `ClassConfig`: An instance of `ClassConfig` which contains
+                 the class type and initialization parameters.
+
+               - If `dict`: A dictionary containing a 'class_type' or 'type' key
+                 specifying the class to instantiate (either as a callable or
+                 a string like 'module.name:ClassName' or 'module.name'),
+                 and other keys as keyword arguments for the constructor.
+
+               - If any other type: The object itself is returned.
+   :param \*args: Additional positional arguments to pass to the constructor
+                  of the object being built.
+
+   :returns: The instantiated object, or `obj` itself if no instantiation logic
+             applies to its type.
+
+   :raises KeyError: If `obj` is a dictionary and is missing both 'class_type'
+       and 'type' keys.
+   :raises ImportError: If `obj` is a dictionary and the class string refers
+       to a module or class that cannot be imported.
+   :raises AttributeError: If `obj` is a dictionary and the class string refers
+       to a module but the class name cannot be found within it.
+
+
+.. py:data:: DelayInitDictType
+
+   A type alias for dictionaries intended for delayed initialization.
+
+   This annotated type signifies that a dictionary conforms to a structure
+   suitable for later instantiation of an object. It uses the
+   `_validate_delay_init_dict` function as a Pydantic `PlainValidator`,
+   meaning that when data is assigned to a Pydantic model field with this
+   type, `_validate_delay_init_dict` will be called to validate and
+   transform the input dictionary.
+
+   The transformed dictionary will typically have a 'type' key containing
+   the string representation of the class to be instantiated, and other
+   keys representing parameters for its constructor.
+
