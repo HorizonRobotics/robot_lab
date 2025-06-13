@@ -1,0 +1,230 @@
+metric
+======
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.metric
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.metric.MetricEntry
+   robo_orchard_lab.pipeline.hooks.metric.MetricTracker
+   robo_orchard_lab.pipeline.hooks.metric.MetricTrackerConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: MetricEntry
+
+   A class representing an entry for tracking a metric.
+
+
+   .. py:attribute:: names
+      :type:  Sequence[str] | str
+
+
+   .. py:attribute:: metric
+      :type:  torchmetrics.Metric
+
+
+   .. py:method:: get() -> Iterable[Tuple[str, Any]]
+
+      Computes and retrieves the metric values along with their names.
+
+      :returns:
+
+                A sequence of (name, value) pairs for
+                    the metric.
+      :rtype: Iterable[Tuple[str, Any]]
+
+      :raises AssertionError: If the number of names does not match the number
+          of metric values.
+
+
+
+.. py:class:: MetricTracker(cfg: MetricTrackerConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   A hook for updating and logging metrics.
+
+
+   .. py:attribute:: metric_entrys
+      :type:  Sequence[MetricEntry]
+      :value: []
+
+
+
+   .. py:attribute:: metrics
+
+
+   .. py:attribute:: reset_by
+
+
+   .. py:attribute:: reset_freq
+
+
+   .. py:attribute:: step_log_freq
+
+
+   .. py:attribute:: epoch_log_freq
+
+
+   .. py:attribute:: log_main_process_only
+
+
+   .. py:method:: update_metric(batch: Any, model_outputs: Any) -> None
+      :abstractmethod:
+
+
+      Updates the metrics using the current batch data and model outputs.
+
+      This method must be implemented in subclasses to define how the metrics
+      in `self.metrics` are updated during training or evaluation.
+      The implementation should handle the logic for calling `update`
+      on each metric.
+
+      :param batch: The current batch of data from the dataset. It is
+                    expected to contain all necessary inputs (e.g., features,
+                    labels) required for metric computation.
+      :type batch: Any
+      :param model_outputs: The outputs produced by the model for the
+                            given batch. This could include predictions, probabilities,
+                            logits, or other outputs, depending on the model architecture
+                            and task.
+      :type model_outputs: Any
+
+      .. rubric:: Example
+
+      A typical implementation in a subclass might look like this:
+
+      .. code-block:: python
+
+          class CustomMetricTracker(MetricTracker):
+              def update_metric(self, batch, model_outputs):
+                  for metric in self.metrics:
+                      metric.update(
+                          batch["label"], model_outputs["pred"]
+                      )
+
+
+
+   .. py:attribute:: hooks
+      :type:  dict[PipelineHookChanelType, robo_orchard_core.utils.hook.HookContextChannel[PipelineHookArgs]]
+
+
+   .. py:method:: begin(channel: PipelineHookChanelType, arg: PipelineHookArgs)
+
+
+   .. py:method:: register_hook(channel: PipelineHookChanelType, hook: robo_orchard_core.utils.hook.HookContext[PipelineHookArgs]) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a hook context handler.
+
+      :param channel: The channel to register the hook.
+      :type channel: PipelineHookChanelType
+      :param hook: The hook context handler
+                   to register.
+      :type hook: HookContext[PipelineHookArgs]
+
+      :returns: A handle to remove the registered hook.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: register_pipeline_hooks(hooks: PipelineHooks) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a set of pipeline hooks.
+
+      :param hooks: The pipeline hooks to register.
+      :type hooks: PipelineHooks[T]
+
+      :returns: A handle to remove the registered hooks.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: unregister_all()
+
+      Unregister all hook context handlers.
+
+
+
+   .. py:method:: from_hooks(hooks: typing_extensions.Self | PipelineHooksConfig | Iterable[typing_extensions.Self | PipelineHooksConfig] | None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Create a new instance of the class from a list of hooks.
+
+      :param hooks: A list of hooks to register.
+      :type hooks: Self | Iterable[Self] | None
+
+      :returns: A new instance of the class with the registered hooks.
+      :rtype: Self
+
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: MetricTrackerConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`MetricTracker`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  type[MetricTracker]
+
+
+   .. py:attribute:: metric_entrys
+      :type:  Sequence[MetricEntry] | MetricEntry
+
+      Single or multiple metric entries to update.
+
+
+   .. py:attribute:: reset_by
+      :type:  Literal['epoch', 'step']
+      :value: 'epoch'
+
+
+      Frequency basis for metric reset ("epoch" or "step").
+
+
+   .. py:attribute:: reset_freq
+      :type:  int
+      :value: 1
+
+
+      Frequency to reset metrics.
+
+
+   .. py:attribute:: step_log_freq
+      :type:  int
+      :value: 512
+
+
+      Frequency of logging at the step level.
+
+
+   .. py:attribute:: epoch_log_freq
+      :type:  int
+      :value: 1
+
+
+      Frequency of logging at the epoch level.
+
+
+   .. py:attribute:: log_main_process_only
+      :type:  bool
+      :value: True
+
+
+      Only logging in the main processor or not.
+
+

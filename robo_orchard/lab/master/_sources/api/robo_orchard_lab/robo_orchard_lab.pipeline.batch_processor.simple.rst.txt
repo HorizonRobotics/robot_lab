@@ -1,7 +1,0 @@
-robo\_orchard\_lab.pipeline.batch\_processor.simple module
-==========================================================
-
-.. automodule:: robo_orchard_lab.pipeline.batch_processor.simple
-   :members:
-   :undoc-members:
-   :show-inheritance:

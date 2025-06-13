@@ -1,7 +1,0 @@
-robo\_orchard\_lab.dataset.embodiedscan.embodiedscan\_det\_grounding\_dataset module
-====================================================================================
-
-.. automodule:: robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset
-   :members:
-   :undoc-members:
-   :show-inheritance:

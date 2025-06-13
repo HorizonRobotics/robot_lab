@@ -1,7 +1,0 @@
-robo\_orchard\_lab.pipeline.hooks.metric module
-===============================================
-
-.. automodule:: robo_orchard_lab.pipeline.hooks.metric
-   :members:
-   :undoc-members:
-   :show-inheritance:

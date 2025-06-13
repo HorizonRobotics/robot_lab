@@ -1,0 +1,218 @@
+mixin
+=====
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.mixin
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.mixin.PipelineHookChanelType
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.mixin.PipelineHookArgs
+   robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks
+   robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: PipelineHookArgs
+
+   A data class for passing arguments to hook functions.
+
+   This class serves as a container for various parameters and state
+   information required by hooks at different stages of the training or
+   evaluation pipeline. It is designed to be flexible and extensible for
+   different training configurations.
+
+
+   .. py:attribute:: accelerator
+      :type:  accelerate.Accelerator
+
+
+   .. py:attribute:: epoch_id
+      :type:  int
+      :value: 0
+
+
+
+   .. py:attribute:: step_id
+      :type:  int
+      :value: 0
+
+
+
+   .. py:attribute:: global_step_id
+      :type:  int
+      :value: 0
+
+
+
+   .. py:attribute:: max_epoch
+      :type:  Optional[int]
+      :value: None
+
+
+
+   .. py:attribute:: max_step
+      :type:  Optional[int]
+      :value: None
+
+
+
+   .. py:attribute:: start_epoch
+      :type:  int
+      :value: 0
+
+
+
+   .. py:attribute:: start_step
+      :type:  int
+      :value: 0
+
+
+
+   .. py:attribute:: dataloader
+      :type:  Optional[Iterable]
+      :value: None
+
+
+
+   .. py:attribute:: optimizer
+      :type:  Optional[torch.optim.Optimizer]
+      :value: None
+
+
+
+   .. py:attribute:: lr_scheduler
+      :type:  Optional[accelerate.scheduler.AcceleratedScheduler]
+      :value: None
+
+
+
+   .. py:attribute:: batch
+      :type:  Optional[Any]
+      :value: None
+
+
+
+   .. py:attribute:: model_outputs
+      :type:  Optional[Any]
+      :value: None
+
+
+
+   .. py:attribute:: reduce_loss
+      :type:  Optional[torch.Tensor]
+      :value: None
+
+
+
+   .. py:method:: copy_with_updates(**kwargs)
+
+      Create a copy of the current instance with updated attributes.
+
+      This method allows you to create a new instance of the class with
+      modified attributes while keeping the original instance unchanged.
+
+      :param \*\*kwargs: Keyword arguments representing the attributes to be
+                         updated. The keys should match the attribute names of the
+                         class.
+
+      :returns:
+
+                A new instance of the class with updated
+                    attributes.
+      :rtype: PipelineHookArgs
+
+
+
+.. py:type:: PipelineHookChanelType
+   :canonical: Literal['on_loop', 'on_epoch', 'on_step', 'on_batch', 'on_model_forward', 'on_model_backward']
+
+
+.. py:class:: PipelineHooks(cfg: PipelineHooksConfig | None = None)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`
+
+
+   A class to manage pipeline hooks for training processes.
+
+   This class only accept config class as input for the constructor.
+
+
+
+   .. py:attribute:: hooks
+      :type:  dict[PipelineHookChanelType, robo_orchard_core.utils.hook.HookContextChannel[PipelineHookArgs]]
+
+
+   .. py:method:: begin(channel: PipelineHookChanelType, arg: PipelineHookArgs)
+
+
+   .. py:method:: register_hook(channel: PipelineHookChanelType, hook: robo_orchard_core.utils.hook.HookContext[PipelineHookArgs]) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a hook context handler.
+
+      :param channel: The channel to register the hook.
+      :type channel: PipelineHookChanelType
+      :param hook: The hook context handler
+                   to register.
+      :type hook: HookContext[PipelineHookArgs]
+
+      :returns: A handle to remove the registered hook.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: register_pipeline_hooks(hooks: PipelineHooks) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a set of pipeline hooks.
+
+      :param hooks: The pipeline hooks to register.
+      :type hooks: PipelineHooks[T]
+
+      :returns: A handle to remove the registered hooks.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: unregister_all()
+
+      Unregister all hook context handlers.
+
+
+
+   .. py:method:: from_hooks(hooks: typing_extensions.Self | PipelineHooksConfig | Iterable[typing_extensions.Self | PipelineHooksConfig] | None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Create a new instance of the class from a list of hooks.
+
+      :param hooks: A list of hooks to register.
+      :type hooks: Self | Iterable[Self] | None
+
+      :returns: A new instance of the class with the registered hooks.
+      :rtype: Self
+
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: PipelineHooksConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`PipelineHooksType_co`\ ]
+
+

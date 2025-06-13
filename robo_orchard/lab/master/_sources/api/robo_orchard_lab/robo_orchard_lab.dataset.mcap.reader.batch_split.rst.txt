@@ -1,7 +1,0 @@
-robo\_orchard\_lab.dataset.mcap.reader.batch\_split module
-==========================================================
-
-.. automodule:: robo_orchard_lab.dataset.mcap.reader.batch_split
-   :members:
-   :undoc-members:
-   :show-inheritance:

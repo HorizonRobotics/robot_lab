@@ -1,0 +1,20 @@
+pipeline
+========
+
+.. py:module:: robo_orchard_lab.pipeline
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_lab/pipeline/batch_processor/index
+   /autoapi/robo_orchard_lab/pipeline/hook_based_trainer/index
+   /autoapi/robo_orchard_lab/pipeline/hooks/index
+   /autoapi/robo_orchard_lab/pipeline/trainer/index
+
+

@@ -1,7 +1,0 @@
-robo\_orchard\_lab.utils.misc module
-====================================
-
-.. automodule:: robo_orchard_lab.utils.misc
-   :members:
-   :undoc-members:
-   :show-inheritance:

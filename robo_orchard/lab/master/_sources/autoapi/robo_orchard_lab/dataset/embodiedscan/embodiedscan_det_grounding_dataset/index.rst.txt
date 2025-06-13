@@ -1,0 +1,219 @@
+embodiedscan_det_grounding_dataset
+==================================
+
+.. py:module:: robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset.logger
+   robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset.DEFAULT_CLASSES
+   robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset.HEAD_LABELS
+   robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset.COMMON_LABELS
+   robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset.TAIL_LABELS
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset.EmbodiedScanDetGroundingDataset
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:data:: DEFAULT_CLASSES
+   :value: ('adhesive tape', 'air conditioner', 'alarm', 'album', 'arch', 'backpack', 'bag', 'balcony',...
+
+
+.. py:data:: HEAD_LABELS
+   :value: (48, 177, 82, 179, 37, 243, 28, 277, 32, 84, 215, 145, 182, 170, 22, 72, 30, 141, 65, 257, 221,...
+
+
+.. py:data:: COMMON_LABELS
+   :value: (189, 164, 101, 205, 273, 233, 131, 180, 86, 220, 67, 268, 224, 270, 53, 203, 237, 226, 10, 133,...
+
+
+.. py:data:: TAIL_LABELS
+   :value: (76, 149, 173, 250, 275, 255, 34, 77, 266, 283, 112, 115, 186, 136, 256, 40, 254, 172, 9, 212,...
+
+
+.. py:class:: EmbodiedScanDetGroundingDataset(ann_file: str, data_root: str = '', test_mode: bool = False, load_anns: bool = True, remove_dontcare: bool = False, dataset_length: Optional[int] = None, mode: Literal['detection', 'grounding'] = 'detection', max_refetch: int = 100, part: Optional[str] = None, transforms: List[Union[dict, Callable]] | None = None, vg_file: Optional[str] = None, num_text: int = 1, tokens_positive_rebuild: bool = True, sep_token: str = '[SEP]', lazy_init: bool = False, classes: Optional[List[str]] = None)
+
+   Bases: :py:obj:`torch.utils.data.Dataset`
+
+
+   EmbodiedScanDetGroundingDataset.
+
+   A dataset class for detection and grounding for EmbodiedScan.
+   Following EmbodiedScan, the data directory structure is as follows::
+
+       self.data_root
+       ├──embodiedscan
+       │   ├──embodiedscan_infos_train.pkl
+       │   ├──embodiedscan_infos_val.pkl
+       │   ├──embodiedscan_train_vg_all.json
+       │   ...
+       ├──3rscan
+       │   ├──00d42bed-778d-2ac6-86a7-0e0e5f5f5660
+       │   ...
+       ├──scannet
+       │   └──posed_images
+       ├──matterport3d
+       │   ├──17DRP5sb8fy
+       │   ...
+       └──arkitscenes
+           ├──Training
+           └──Validation
+
+   :param ann_file: Path to the annotation file, e.g.,
+                    ``"embodiedscan/embodiedscan_infos_train.pkl"``.
+   :type ann_file: str
+   :param data_root: Root directory of the dataset.
+                     Defaults to ``""``.
+   :type data_root: str
+   :param test_mode: Whether the dataset is in test mode.
+                     Defaults to ``False``.
+   :type test_mode: bool
+   :param load_anns: Whether to load annotations.
+                     Defaults to ``True``.
+   :type load_anns: bool
+   :param remove_dontcare: Whether to remove "don't care"
+                           regions. Defaults to ``False``.
+   :type remove_dontcare: bool
+   :param dataset_length: Maximum length of the
+                          dataset. Defaults to ``None``.
+   :type dataset_length: Optional[int]
+   :param mode: Mode of the dataset.
+                Defaults to ``"detection"``.
+   :type mode: Literal["detection", "grounding"]
+   :param max_refetch: Maximum number of refetch attempts during
+                       data loading. Defaults to ``100``.
+   :type max_refetch: int,
+   :param part: Specific part of the dataset to load.
+                For example, set it to ``"scannet"`` to load ScanNet data only.
+                Defaults to ``None``.
+   :type part: Optional[str]
+   :param transforms: List of transforms
+                      to apply. Defaults to ``[]``.
+   :type transforms: List[Union[dict, Callable]]
+   :param vg_file: Path to the visual grounding file,
+                   e.g., ``"embodiedscan/embodiedscan_train_vg_all.json"``.
+                   Defaults to ``None``.
+   :type vg_file: Optional[str]
+   :param num_text: Max number of text descriptions per sample
+                    from the grounding task. Defaults to ``1``.
+   :type num_text: int
+   :param tokens_positive_rebuild: Whether to rebuild positive
+                                   tokens. Defaults to ``True``.
+   :type tokens_positive_rebuild: bool, optional
+   :param sep_token: Separator token for text processing.
+                     Defaults to ``"[SEP]"``.
+   :type sep_token: str
+   :param lazy_init: Whether to initialize the dataset lazily.
+                     Defaults to ``False``.
+   :type lazy_init: bool
+   :param classes: List of class names.
+                   If ``None``, ``DEFAULT_CLASSES`` will be used.
+   :type classes: Optional[List[str]]
+
+
+   .. py:attribute:: ann_file
+
+
+   .. py:attribute:: data_root
+      :value: ''
+
+
+
+   .. py:attribute:: test_mode
+      :value: False
+
+
+
+   .. py:attribute:: load_anns
+      :value: True
+
+
+
+   .. py:attribute:: remove_dontcare
+      :value: False
+
+
+
+   .. py:attribute:: dataset_length
+      :value: None
+
+
+
+   .. py:attribute:: mode
+      :value: 'detection'
+
+
+
+   .. py:attribute:: max_refetch
+      :value: 100
+
+
+
+   .. py:attribute:: part
+      :value: None
+
+
+
+   .. py:attribute:: transforms
+
+
+   .. py:attribute:: vg_file
+      :value: None
+
+
+
+   .. py:attribute:: num_text
+      :value: 1
+
+
+
+   .. py:attribute:: tokens_positive_rebuild
+      :value: True
+
+
+
+   .. py:attribute:: sep_token
+      :value: '[SEP]'
+
+
+
+   .. py:attribute:: initialized
+      :value: False
+
+
+
+   .. py:method:: load_data_list()
+
+
+   .. py:method:: parse_data_info(info: dict)
+
+
+   .. py:method:: parse_ann_info(info: dict)
+
+
+   .. py:method:: load_grounding_data()
+
+
+   .. py:method:: merge_grounding_data(data_infos)
+
+
+   .. py:method:: get_data_grounding(data_info)
+
+
+   .. py:method:: get_data(idx)
+
+

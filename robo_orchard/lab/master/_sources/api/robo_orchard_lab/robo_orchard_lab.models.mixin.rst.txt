@@ -1,7 +1,0 @@
-robo\_orchard\_lab.models.mixin module
-======================================
-
-.. automodule:: robo_orchard_lab.models.mixin
-   :members:
-   :undoc-members:
-   :show-inheritance:

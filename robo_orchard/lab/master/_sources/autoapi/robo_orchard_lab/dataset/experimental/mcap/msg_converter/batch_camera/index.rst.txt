@@ -1,0 +1,599 @@
+batch_camera
+============
+
+.. py:module:: robo_orchard_lab.dataset.experimental.mcap.msg_converter.batch_camera
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.batch_camera.FgCameraCompressedImages
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.batch_camera.BatchCameraDataWithTimestamps
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.batch_camera.ToBatchCameraData
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.batch_camera.CameraDataConfigMixin
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.batch_camera.ToBatchCameraDataConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: FgCameraCompressedImages
+
+   .. py:attribute:: images
+      :type:  list[foxglove_schemas_protobuf.CompressedImage_pb2.CompressedImage]
+
+      List of compressed images.
+
+
+   .. py:attribute:: calib
+      :type:  foxglove_schemas_protobuf.CameraCalibration_pb2.CameraCalibration | None
+      :value: None
+
+
+      Calibration data associated with the images.
+
+
+   .. py:attribute:: tf
+      :type:  foxglove_schemas_protobuf.FrameTransform_pb2.FrameTransform | list[foxglove_schemas_protobuf.FrameTransform_pb2.FrameTransform] | None
+      :value: None
+
+
+      Frame transform associated with the images.
+
+
+.. py:class:: BatchCameraDataWithTimestamps(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.camera_data.BatchCameraData`
+
+
+   BatchCameraData with an associated timestamp.
+
+
+   .. py:attribute:: timestamps
+      :type:  list[pydantic.SkipValidation[google.protobuf.timestamp_pb2.Timestamp] | None] | None
+      :value: None
+
+
+      Timestamp for the batch of camera data.
+
+
+   .. py:attribute:: topic
+      :type:  str | None
+      :value: None
+
+
+      The topic of the camera sensor.
+
+
+   .. py:attribute:: frame_id
+      :type:  str | None
+      :value: None
+
+
+      Coordinate frame ID for the camera sensor.
+
+      This is NOT the frame number or index of the image frame!
+
+      frame_id is typically used to identify the coordinate frame in which the
+      camera data is expressed. It can be useful for visualization or
+      transformation purposes.
+      If not provided, it defaults to None.
+
+
+   .. py:attribute:: image_shape
+      :type:  tuple[int, int] | None
+      :value: None
+
+
+      A tuple containing (height, width) of the camera sensor.
+
+
+   .. py:attribute:: intrinsic_matrices
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+      The intrinsic matrices for all camera.
+
+      Shape is (B, 3, 3), where B is the batch size.
+
+
+   .. py:attribute:: distortion
+      :type:  Distortion | None
+      :value: None
+
+
+
+   .. py:attribute:: pose
+      :type:  robo_orchard_core.datatypes.geometry.BatchFrameTransform | None
+      :value: None
+
+
+      Frame transform of the camera sensor.
+
+      This is also known as the extrinsic matrix of the camera.
+
+
+   .. py:attribute:: sensor_data
+      :type:  robo_orchard_core.utils.config.TorchTensor
+
+      The sensor data from all cameras.
+
+      Shape is (B, H, W, C) for raw data, where B is the batch size, C is the
+      number of channels, H is the height of the image, and W is the width
+      of the image.
+
+
+   .. py:attribute:: pix_fmt
+      :type:  Literal['rgb', 'bgr', 'gray', 'depth'] | None
+      :value: None
+
+
+      Pixel format.
+
+
+   .. py:property:: distorsion_coefficients
+      :type: robo_orchard_core.utils.config.TorchTensor | None
+
+
+      Get the distortion coefficients of the camera.
+
+      :returns: The distortion coefficients of the camera.
+                If no distortion model is applied, returns None.
+      :rtype: TorchTensor | None
+
+
+   .. py:property:: distortion_model
+      :type: Literal['plumb_bob', 'rational_polynomial', 'equidistant'] | None
+
+
+      Get the distortion model of the camera.
+
+      :returns: The distortion model of the camera. If no distortion model is
+                applied, returns None.
+      :rtype: Literal["plumb_bob", "rational_polynomial", "equidistant"] | None
+
+
+   .. py:property:: batch_size
+      :type: int
+
+
+      Get the batch size.
+
+      The batch size is the number of cameras in the batch.
+
+      :returns: The batch size.
+      :rtype: int
+
+
+   .. py:method:: get_extrinsic_matrix() -> robo_orchard_core.utils.config.TorchTensor
+
+      Get the extrinsic matrix of the cameras.
+
+      Pose6D describes the transformation from the camera frame to the
+      world frame, while the extrinsic matrix describes the transformation
+      from the world frame to the camera frame, which is the inverse of
+      the pose transformation (cam2world).
+
+      The extrinsic matrix is a Bx4x4 matrix:
+
+      .. code-block:: text
+
+          [[[R, t],
+            [0, 1]],
+            ...
+           [[R, t],
+            [0, 1]]]
+          ]
+
+      Where R is a 3x3 rotation matrix and t is a 3x1 translation vector.
+
+
+
+   .. py:attribute:: model_config
+
+      Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
+
+
+   .. py:method:: model_post_init(*args, **kwargs)
+
+      Post init method for the model.
+
+      Perform additional initialization after :py:meth:`__init__`
+      and model_construct. This is useful if you want to do some validation
+      that requires the entire model to be initialized.
+
+      To be consistent with configclass, this method is implemented by
+      calling the :py:meth:`__post_init__` method.
+
+
+
+
+   .. py:attribute:: model_fields
+      :type:  ClassVar[dict[str, pydantic.fields.FieldInfo]]
+
+
+   .. py:property:: model_extra
+      :type: dict[str, Any] | None
+
+
+      Get extra fields set during validation.
+
+      :returns: A dictionary of extra fields, or `None` if `config.extra` is not set to `"allow"`.
+
+
+   .. py:property:: model_fields_set
+      :type: set[str]
+
+
+      Returns the set of fields that have been explicitly set on this model instance.
+
+      :returns:
+
+                A set of strings representing the fields that have been set,
+                    i.e. that were not filled from defaults.
+
+
+   .. py:method:: model_construct(_fields_set: set[str] | None = None, **values: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+      Creates a new instance of the `Model` class with validated data.
+
+      Creates a new model setting `__dict__` and `__pydantic_fields_set__` from trusted or pre-validated data.
+      Default values are respected, but no other validation is performed.
+
+      !!! note
+          `model_construct()` generally respects the `model_config.extra` setting on the provided model.
+          That is, if `model_config.extra == 'allow'`, then all extra passed values are added to the model instance's `__dict__`
+          and `__pydantic_extra__` fields. If `model_config.extra == 'ignore'` (the default), then all extra passed values are ignored.
+          Because no validation is performed with a call to `model_construct()`, having `model_config.extra == 'forbid'` does not result in
+          an error if extra values are passed, but they will be ignored.
+
+      :param _fields_set: A set of field names that were originally explicitly set during instantiation. If provided,
+                          this is directly used for the [`model_fields_set`][pydantic.BaseModel.model_fields_set] attribute.
+                          Otherwise, the field names from the `values` argument will be used.
+      :param values: Trusted or pre-validated data dictionary.
+
+      :returns: A new instance of the `Model` class with validated data.
+
+
+
+   .. py:method:: model_copy(*, update: Mapping[str, Any] | None = None, deep: bool = False) -> typing_extensions.Self
+
+      Usage docs: https://docs.pydantic.dev/2.10/concepts/serialization/#model_copy
+
+      Returns a copy of the model.
+
+      :param update: Values to change/add in the new model. Note: the data is not validated
+                     before creating the new model. You should trust this data.
+      :param deep: Set to `True` to make a deep copy of the model.
+
+      :returns: New model instance.
+
+
+
+   .. py:method:: model_dump(*, mode: Literal['json', 'python'] | str = 'python', include: IncEx | None = None, exclude: IncEx | None = None, context: Any | None = None, by_alias: bool = False, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, round_trip: bool = False, warnings: bool | Literal['none', 'warn', 'error'] = True, serialize_as_any: bool = False) -> dict[str, Any]
+
+      Usage docs: https://docs.pydantic.dev/2.10/concepts/serialization/#modelmodel_dump
+
+      Generate a dictionary representation of the model, optionally specifying which fields to include or exclude.
+
+      :param mode: The mode in which `to_python` should run.
+                   If mode is 'json', the output will only contain JSON serializable types.
+                   If mode is 'python', the output may contain non-JSON-serializable Python objects.
+      :param include: A set of fields to include in the output.
+      :param exclude: A set of fields to exclude from the output.
+      :param context: Additional context to pass to the serializer.
+      :param by_alias: Whether to use the field's alias in the dictionary key if defined.
+      :param exclude_unset: Whether to exclude fields that have not been explicitly set.
+      :param exclude_defaults: Whether to exclude fields that are set to their default value.
+      :param exclude_none: Whether to exclude fields that have a value of `None`.
+      :param round_trip: If True, dumped values should be valid as input for non-idempotent types such as Json[T].
+      :param warnings: How to handle serialization errors. False/"none" ignores them, True/"warn" logs errors,
+                       "error" raises a [`PydanticSerializationError`][pydantic_core.PydanticSerializationError].
+      :param serialize_as_any: Whether to serialize fields with duck-typing serialization behavior.
+
+      :returns: A dictionary representation of the model.
+
+
+
+   .. py:method:: model_dump_json(*, indent: int | None = None, include: IncEx | None = None, exclude: IncEx | None = None, context: Any | None = None, by_alias: bool = False, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, round_trip: bool = False, warnings: bool | Literal['none', 'warn', 'error'] = True, serialize_as_any: bool = False) -> str
+
+      Usage docs: https://docs.pydantic.dev/2.10/concepts/serialization/#modelmodel_dump_json
+
+      Generates a JSON representation of the model using Pydantic's `to_json` method.
+
+      :param indent: Indentation to use in the JSON output. If None is passed, the output will be compact.
+      :param include: Field(s) to include in the JSON output.
+      :param exclude: Field(s) to exclude from the JSON output.
+      :param context: Additional context to pass to the serializer.
+      :param by_alias: Whether to serialize using field aliases.
+      :param exclude_unset: Whether to exclude fields that have not been explicitly set.
+      :param exclude_defaults: Whether to exclude fields that are set to their default value.
+      :param exclude_none: Whether to exclude fields that have a value of `None`.
+      :param round_trip: If True, dumped values should be valid as input for non-idempotent types such as Json[T].
+      :param warnings: How to handle serialization errors. False/"none" ignores them, True/"warn" logs errors,
+                       "error" raises a [`PydanticSerializationError`][pydantic_core.PydanticSerializationError].
+      :param serialize_as_any: Whether to serialize fields with duck-typing serialization behavior.
+
+      :returns: A JSON string representation of the model.
+
+
+
+   .. py:method:: model_json_schema(by_alias: bool = True, ref_template: str = DEFAULT_REF_TEMPLATE, schema_generator: type[pydantic.json_schema.GenerateJsonSchema] = GenerateJsonSchema, mode: pydantic.json_schema.JsonSchemaMode = 'validation') -> dict[str, Any]
+      :classmethod:
+
+
+      Generates a JSON schema for a model class.
+
+      :param by_alias: Whether to use attribute aliases or not.
+      :param ref_template: The reference template.
+      :param schema_generator: To override the logic used to generate the JSON schema, as a subclass of
+                               `GenerateJsonSchema` with your desired modifications
+      :param mode: The mode in which to generate the schema.
+
+      :returns: The JSON schema for the given model class.
+
+
+
+   .. py:method:: model_parametrized_name(params: tuple[type[Any], Ellipsis]) -> str
+      :classmethod:
+
+
+      Compute the class name for parametrizations of generic classes.
+
+      This method can be overridden to achieve a custom naming scheme for generic BaseModels.
+
+      :param params: Tuple of types of the class. Given a generic class
+                     `Model` with 2 type variables and a concrete model `Model[str, int]`,
+                     the value `(str, int)` would be passed to `params`.
+
+      :returns: String representing the new class where `params` are passed to `cls` as type variables.
+
+      :raises TypeError: Raised when trying to generate concrete names for non-generic models.
+
+
+
+   .. py:method:: model_rebuild(*, force: bool = False, raise_errors: bool = True, _parent_namespace_depth: int = 2, _types_namespace: pydantic._internal._namespace_utils.MappingNamespace | None = None) -> bool | None
+      :classmethod:
+
+
+      Try to rebuild the pydantic-core schema for the model.
+
+      This may be necessary when one of the annotations is a ForwardRef which could not be resolved during
+      the initial attempt to build the schema, and automatic rebuilding fails.
+
+      :param force: Whether to force the rebuilding of the model schema, defaults to `False`.
+      :param raise_errors: Whether to raise errors, defaults to `True`.
+      :param _parent_namespace_depth: The depth level of the parent namespace, defaults to 2.
+      :param _types_namespace: The types namespace, defaults to `None`.
+
+      :returns: Returns `None` if the schema is already "complete" and rebuilding was not required.
+                If rebuilding _was_ required, returns `True` if rebuilding was successful, otherwise `False`.
+
+
+
+   .. py:method:: model_validate(obj: Any, *, strict: bool | None = None, from_attributes: bool | None = None, context: Any | None = None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Validate a pydantic model instance.
+
+      :param obj: The object to validate.
+      :param strict: Whether to enforce types strictly.
+      :param from_attributes: Whether to extract data from object attributes.
+      :param context: Additional context to pass to the validator.
+
+      :raises ValidationError: If the object could not be validated.
+
+      :returns: The validated model instance.
+
+
+
+   .. py:method:: model_validate_json(json_data: str | bytes | bytearray, *, strict: bool | None = None, context: Any | None = None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Usage docs: https://docs.pydantic.dev/2.10/concepts/json/#json-parsing
+
+      Validate the given JSON data against the Pydantic model.
+
+      :param json_data: The JSON data to validate.
+      :param strict: Whether to enforce types strictly.
+      :param context: Extra variables to pass to the validator.
+
+      :returns: The validated Pydantic model.
+
+      :raises ValidationError: If `json_data` is not a JSON string or the object could not be validated.
+
+
+
+   .. py:method:: model_validate_strings(obj: Any, *, strict: bool | None = None, context: Any | None = None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Validate the given object with string data against the Pydantic model.
+
+      :param obj: The object containing string data to validate.
+      :param strict: Whether to enforce types strictly.
+      :param context: Extra variables to pass to the validator.
+
+      :returns: The validated Pydantic model.
+
+
+
+   .. py:method:: dict(*, include: IncEx | None = None, exclude: IncEx | None = None, by_alias: bool = False, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False) -> Dict[str, Any]
+
+
+   .. py:method:: json(*, include: IncEx | None = None, exclude: IncEx | None = None, by_alias: bool = False, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, encoder: Callable[[Any], Any] | None = PydanticUndefined, models_as_dict: bool = PydanticUndefined, **dumps_kwargs: Any) -> str
+
+
+   .. py:method:: parse_obj(obj: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: parse_raw(b: str | bytes, *, content_type: str | None = None, encoding: str = 'utf8', proto: pydantic.deprecated.parse.Protocol | None = None, allow_pickle: bool = False) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: parse_file(path: str | pathlib.Path, *, content_type: str | None = None, encoding: str = 'utf8', proto: pydantic.deprecated.parse.Protocol | None = None, allow_pickle: bool = False) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: from_orm(obj: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: construct(_fields_set: set[str] | None = None, **values: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: copy(*, include: pydantic._internal._utils.AbstractSetIntStr | pydantic._internal._utils.MappingIntStrAny | None = None, exclude: pydantic._internal._utils.AbstractSetIntStr | pydantic._internal._utils.MappingIntStrAny | None = None, update: Dict[str, Any] | None = None, deep: bool = False) -> typing_extensions.Self
+
+      Returns a copy of the model.
+
+      !!! warning "Deprecated"
+          This method is now deprecated; use `model_copy` instead.
+
+      If you need `include` or `exclude`, use:
+
+      ```python {test="skip" lint="skip"}
+      data = self.model_dump(include=include, exclude=exclude, round_trip=True)
+      data = {**data, **(update or {})}
+      copied = self.model_validate(data)
+      ```
+
+      :param include: Optional set or mapping specifying which fields to include in the copied model.
+      :param exclude: Optional set or mapping specifying which fields to exclude in the copied model.
+      :param update: Optional dictionary of field-value pairs to override field values in the copied model.
+      :param deep: If True, the values of fields that are Pydantic models will be deep-copied.
+
+      :returns: A copy of the model with included, excluded and updated fields as specified.
+
+
+
+   .. py:method:: schema(by_alias: bool = True, ref_template: str = DEFAULT_REF_TEMPLATE) -> Dict[str, Any]
+      :classmethod:
+
+
+
+   .. py:method:: schema_json(*, by_alias: bool = True, ref_template: str = DEFAULT_REF_TEMPLATE, **dumps_kwargs: Any) -> str
+      :classmethod:
+
+
+
+   .. py:method:: validate(value: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: update_forward_refs(**localns: Any) -> None
+      :classmethod:
+
+
+
+   .. py:method:: to(device: robo_orchard_core.utils.torch_utils.Device, dtype: torch.dtype | None = None, non_blocking: bool = False) -> typing_extensions.Self
+
+      Move or cast the tensors/modules in the data class.
+
+      This method performs in-place conversion of all tensors and modules
+      in the data class to the specified device and dtype.
+
+      :param device: The target device to move the tensors/modules to.
+      :type device: Device
+      :param dtype: The target dtype to cast
+                    the tensors to. If None, the dtype will not be changed.
+      :type dtype: torch.dtype | None, optional
+      :param non_blocking: If True, the operation will be
+                           performed in a non-blocking manner. Defaults to False.
+      :type non_blocking: bool, optional
+
+
+
+.. py:class:: ToBatchCameraData(cfg: ToBatchCameraDataConfig | None = None)
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.MessageConverterStateless`\ [\ :py:obj:`FgCameraCompressedImages`\ , :py:obj:`BatchCameraDataWithTimestamps`\ ]
+
+
+   Convert FgCameraCompressedImages to BatchCameraDataWithTimestamps.
+
+
+   .. py:method:: convert(src: FgCameraCompressedImages) -> BatchCameraDataWithTimestamps
+
+      Convert the message from one format to another.
+
+
+
+   .. py:property:: stateless
+      :type: bool
+
+
+      Return True if the message converter is stateless.
+
+      A message converter is stateless if it does not depend on any
+      external state. For example, a message converter that converts a
+      protobuf message to a json message is stateless.
+
+
+   .. py:attribute:: source_type
+      :type:  type[S]
+
+      The source type of the adaptor to take as input.
+
+
+   .. py:attribute:: target_type
+      :type:  type[T]
+
+      The target type of the adaptor as output.
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: CameraDataConfigMixin
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.ClassConfig`\ [\ :py:obj:`T`\ ]
+
+
+   .. py:attribute:: pix_fmt
+      :type:  Literal['rgb', 'bgr', 'depth'] | None
+      :value: None
+
+
+      Pixel format for the input images.
+
+      For openCV implementation, color images are expected to be in BGR format.
+      For PIL implementation, color images are expected to be in RGB format.
+
+      pix_fmt should be "depth" for depth images, which are expected to be in
+      single channel format (e.g., float32 or int32 for depth values).
+
+      .. note::
+
+         CameraMsgs2BatchCameraData does not check the pixel format of the
+         input images. It only sets the pixel format in the output.
+
+
+.. py:class:: ToBatchCameraDataConfig
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.MessageConverterConfig`\ [\ :py:obj:`ToBatchCameraData`\ ], :py:obj:`CameraDataConfigMixin`\ [\ :py:obj:`ToBatchCameraData`\ ]
+
+
+   Configuration class for CameraMsgs2BatchCameraData.
+
+
+   .. py:attribute:: class_type
+      :type:  type[ToBatchCameraData]
+
+

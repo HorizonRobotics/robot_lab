@@ -1,0 +1,147 @@
+robotwin_lmdb_dataset
+=====================
+
+.. py:module:: robo_orchard_lab.dataset.robotwin.robotwin_lmdb_dataset
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robotwin.robotwin_lmdb_dataset.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robotwin.robotwin_lmdb_dataset.RoboTwinLmdbDataset
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: RoboTwinLmdbDataset(paths, transforms=None, interval=None, load_image=True, load_depth=True, task_names=None, lazy_init=False, num_episode=None, cam_names=None, T_base2world=None, T_base2ego=None, default_space='base', instructions=None)
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.lmdb.base_lmdb_dataset.BaseLmdbManipulationDataset`
+
+
+   RoboTwin LMDB Dataset.
+
+   Index structure:
+
+   .. code-block:: text
+
+       {episode_idx}:
+           ├── uuid: str
+           ├── task_name: str
+           ├── num_steps: int
+           └── simulation: bool
+
+   Meta data structure:
+
+   .. code-block:: text
+
+       {uuid}/meta_data: dict
+       {uuid}/camera_names: list(str)
+       {uuid}/extrinsic
+           └── {cam_name}: np.ndarray[num_steps x 4 x 4]
+       {uuid}/intrinsic
+           ├── {cam_name}: np.ndarray[3 x 3]
+       {uuid}/observation/robot_state/cartesian_position
+       {uuid}/observation/robot_state/joint_positions
+
+   Image storage:
+
+   .. code-block:: text
+
+       {uuid}/{cam_name}/{step_idx}
+
+   Depth storage:
+
+   .. code-block:: text
+
+       {uuid}/{cam_name}/{step_idx}
+
+
+   .. py:attribute:: DEFAULT_INSTRUCTIONS
+
+
+   .. py:attribute:: cam_names
+      :value: None
+
+
+
+   .. py:attribute:: T_base2world
+      :value: None
+
+
+
+   .. py:attribute:: T_base2ego
+      :value: None
+
+
+
+   .. py:attribute:: default_space
+      :value: 'base'
+
+
+
+   .. py:method:: load_instructions(instructions)
+
+
+   .. py:method:: visualize(episode_index, output_path='./vis_data', fps=25, interval=1, **kwargs)
+
+
+   .. py:method:: get_vis_imgs(imgs, projection_mat=None, robot_state=None, ee_indices=(6, 13), channel_conversion=True)
+      :staticmethod:
+
+
+
+   .. py:attribute:: paths
+
+
+   .. py:attribute:: transforms
+      :value: []
+
+
+
+   .. py:attribute:: interval
+      :value: None
+
+
+
+   .. py:attribute:: load_image
+      :value: True
+
+
+
+   .. py:attribute:: load_depth
+      :value: True
+
+
+
+   .. py:attribute:: task_names
+      :value: None
+
+
+
+   .. py:attribute:: num_episode_
+      :value: None
+
+
+
+   .. py:attribute:: encoding_mode
+      :value: 'utf-8'
+
+
+
+   .. py:attribute:: initialized
+      :value: False
+
+
+

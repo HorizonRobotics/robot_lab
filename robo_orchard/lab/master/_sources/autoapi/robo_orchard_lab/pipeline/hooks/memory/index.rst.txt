@@ -1,0 +1,173 @@
+memory
+======
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.memory
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.memory.ClearCacheHook
+   robo_orchard_lab.pipeline.hooks.memory.ClearCacheHookConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: ClearCacheHook(cfg: ClearCacheHookConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   A Hook to periodically release cached device memory.
+
+   This class is designed to work with training pipelines that use hooks
+   for step and epoch management. It integrates with PyTorch's
+   `accelerate.utils.memory.clear_device_cache()` to clear unused memory,
+   helping to avoid out-of-memory (OOM) errors during
+   long-running training loops.
+
+   :param cfg: Configuration for the ClearCacheHook.
+   :type cfg: ClearCacheHookConfig
+
+   .. rubric:: Examples
+
+   Basic Usage:
+       >>> from robo_orchard_lab.pipeline.hooks import (
+       ...     PipelineHookArgs,
+       ...     ClearCacheHookConfig,
+       ... )
+       >>>
+       >>> memory_manager = ClearCacheHookConfig(
+       >>>     empty_cache_at="step", empty_cache_freq=10
+       >>> )()
+       >>> # Simulate a training step
+       >>> hook_args = PipelineHookArgs(global_step_id=9, epoch_id=0)
+       >>> with memory_manager.begin("on_step", hook_args) as hook_args:
+       >>>     ... # Simulate the end of a step
+       # Clears the cache after 10 steps
+
+   Epoch-Based Clearing:
+       >>> memory_manager = ClearCacheHookConfig(
+       >>>     empty_cache_at="epoch", empty_cache_freq=2
+       >>> )()
+       >>> # Simulate the end of an epoch
+       >>> hook_args = PipelineHookArgs(global_step_id=99, epoch_id=1)
+       >>> with memory_manager.begin("on_epoch", hook_args) as hook_args:
+       >>>     ... # Simulate the end of an epoch
+       # Clears the cache after every 2 epochs
+
+
+   .. py:attribute:: empty_cache_at
+
+
+   .. py:attribute:: empty_cache_freq
+
+
+   .. py:attribute:: garbage_collection
+
+
+   .. py:attribute:: hooks
+      :type:  dict[PipelineHookChanelType, robo_orchard_core.utils.hook.HookContextChannel[PipelineHookArgs]]
+
+
+   .. py:method:: begin(channel: PipelineHookChanelType, arg: PipelineHookArgs)
+
+
+   .. py:method:: register_hook(channel: PipelineHookChanelType, hook: robo_orchard_core.utils.hook.HookContext[PipelineHookArgs]) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a hook context handler.
+
+      :param channel: The channel to register the hook.
+      :type channel: PipelineHookChanelType
+      :param hook: The hook context handler
+                   to register.
+      :type hook: HookContext[PipelineHookArgs]
+
+      :returns: A handle to remove the registered hook.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: register_pipeline_hooks(hooks: PipelineHooks) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a set of pipeline hooks.
+
+      :param hooks: The pipeline hooks to register.
+      :type hooks: PipelineHooks[T]
+
+      :returns: A handle to remove the registered hooks.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: unregister_all()
+
+      Unregister all hook context handlers.
+
+
+
+   .. py:method:: from_hooks(hooks: typing_extensions.Self | PipelineHooksConfig | Iterable[typing_extensions.Self | PipelineHooksConfig] | None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Create a new instance of the class from a list of hooks.
+
+      :param hooks: A list of hooks to register.
+      :type hooks: Self | Iterable[Self] | None
+
+      :returns: A new instance of the class with the registered hooks.
+      :rtype: Self
+
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: ClearCacheHookConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`ClearCacheHook`\ ]
+
+
+   Configuration class for ClearCacheHook.
+
+
+   .. py:attribute:: class_type
+      :type:  type[ClearCacheHook]
+
+
+   .. py:attribute:: empty_cache_at
+      :type:  Literal['step', 'epoch']
+      :value: 'epoch'
+
+
+      Specifies whether to clear the cache at the end of each step or
+      epoch. Default is "epoch".
+
+
+   .. py:attribute:: empty_cache_freq
+      :type:  int
+      :value: 1
+
+
+      The frequency of cache clearing. For example:
+      - If `empty_cache_at="step"`, this clears the cache every
+      `empty_cache_freq` steps.
+      - If `empty_cache_at="epoch"`, this clears the cache every
+      `empty_cache_freq` epochs. Default is 1 (clear after every step
+      or epoch).
+
+
+   .. py:attribute:: garbage_collection
+      :type:  bool
+      :value: False
+
+
+      Whether to perform garbage collection before clearing the cache.
+
+

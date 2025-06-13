@@ -1,0 +1,19 @@
+utils
+=====
+
+.. py:module:: robo_orchard_lab.dataset.embodiedscan.utils
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.embodiedscan.utils.sample
+
+
+Module Contents
+---------------
+
+.. py:function:: sample(total_n, sample_n, fix_interval=True)
+

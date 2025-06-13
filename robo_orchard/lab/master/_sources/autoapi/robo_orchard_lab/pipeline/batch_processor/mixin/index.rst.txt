@@ -1,0 +1,25 @@
+mixin
+=====
+
+.. py:module:: robo_orchard_lab.pipeline.batch_processor.mixin
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.batch_processor.mixin.BatchProcessorMixin
+
+
+Module Contents
+---------------
+
+.. py:class:: BatchProcessorMixin
+
+   Bases: :py:obj:`abc.ABC`
+
+
+   A processor for handling batches in a training or inference pipeline.
+
+

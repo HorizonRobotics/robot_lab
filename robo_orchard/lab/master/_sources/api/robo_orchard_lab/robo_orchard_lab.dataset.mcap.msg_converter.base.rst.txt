@@ -1,7 +1,0 @@
-robo\_orchard\_lab.dataset.mcap.msg\_converter.base module
-==========================================================
-
-.. automodule:: robo_orchard_lab.dataset.mcap.msg_converter.base
-   :members:
-   :undoc-members:
-   :show-inheritance:

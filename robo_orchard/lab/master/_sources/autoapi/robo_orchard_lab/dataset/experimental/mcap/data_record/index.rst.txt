@@ -1,0 +1,100 @@
+data_record
+===========
+
+.. py:module:: robo_orchard_lab.dataset.experimental.mcap.data_record
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.experimental.mcap.data_record.McapDataRecordChunk
+   robo_orchard_lab.dataset.experimental.mcap.data_record.McapDataRecordChunks
+
+
+Module Contents
+---------------
+
+.. py:class:: McapDataRecordChunk
+
+   Data record chunk for reading messages from an MCAP file.
+
+   The data record chunk is defined by messages in  specific topics and
+   a time range. One data record can contain multiple messages.
+
+   For training purposes, a data record is usually treated as one
+   training sample, which contains all messages in the specified
+   topics within the specified time range.
+
+
+   .. py:attribute:: topics
+      :type:  list[str]
+
+      List of topics to read messages from.
+
+
+   .. py:attribute:: log_time_start
+      :type:  int
+
+      Start log_time of messages in nanoseconds.
+
+
+   .. py:attribute:: log_time_end
+      :type:  int
+
+      End log_time(excluded) of messages in nanoseconds.
+
+
+   .. py:method:: from_message_batch(batch: McapMessageBatch) -> McapDataRecordChunk
+      :staticmethod:
+
+
+      Create a data record chunk from a message batch.
+
+
+
+   .. py:method:: read(mcap_reader: robo_orchard_lab.dataset.experimental.mcap.reader.McapReader) -> McapMessageBatch
+
+      Read the data record from the mcap reader.
+
+
+
+.. py:class:: McapDataRecordChunks
+
+   Data record chunks for reading from an MCAP file.
+
+   In some cases, for example, we need to read multiple messages from
+   different time ranges and groups them into a single data record,
+   we can use this class to represent multiple data record chunks.
+
+
+   .. py:attribute:: chunks
+      :type:  list[McapDataRecordChunk]
+
+      List of data record chunks to read messages from.
+
+
+   .. py:method:: read(mcap_reader: robo_orchard_lab.dataset.experimental.mcap.reader.McapReader) -> McapMessageBatch
+
+      Read the data chunk record from the mcap reader.
+
+
+
+   .. py:method:: from_message_batch(batch: McapMessageBatch, seperate_by_topics: bool = True) -> McapDataRecordChunks
+      :staticmethod:
+
+
+      Create a data record chunk from a message batch.
+
+      :param batch: The message batch to create the data
+                    record chunk from.
+      :type batch: McapMessageBatch
+      :param seperate_by_topics: Whether to create separate
+                                 chunks for topics with different time range. If False, all
+                                 messages in the batch will be grouped into a single chunk.
+                                 Defaults to True.
+      :type seperate_by_topics: bool, optional
+
+
+

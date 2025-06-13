@@ -1,7 +1,0 @@
-robo\_orchard\_lab.models.sem\_modules.robot\_state\_encoder module
-===================================================================
-
-.. automodule:: robo_orchard_lab.models.sem_modules.robot_state_encoder
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,0 +1,100 @@
+optimizer
+=========
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.optimizer
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.optimizer.OptimizerHook
+   robo_orchard_lab.pipeline.hooks.optimizer.OptimizerHookConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: OptimizerHook(cfg: OptimizerHookConfig | None)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   A hook for optimizing the model during training.
+
+   This hook is responsible for performing the optimization step
+   and updating the learning rate scheduler. It performs the
+   updating after each step of the training process.
+
+
+
+   .. py:attribute:: hooks
+      :type:  dict[PipelineHookChanelType, robo_orchard_core.utils.hook.HookContextChannel[PipelineHookArgs]]
+
+
+   .. py:method:: begin(channel: PipelineHookChanelType, arg: PipelineHookArgs)
+
+
+   .. py:method:: register_hook(channel: PipelineHookChanelType, hook: robo_orchard_core.utils.hook.HookContext[PipelineHookArgs]) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a hook context handler.
+
+      :param channel: The channel to register the hook.
+      :type channel: PipelineHookChanelType
+      :param hook: The hook context handler
+                   to register.
+      :type hook: HookContext[PipelineHookArgs]
+
+      :returns: A handle to remove the registered hook.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: register_pipeline_hooks(hooks: PipelineHooks) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a set of pipeline hooks.
+
+      :param hooks: The pipeline hooks to register.
+      :type hooks: PipelineHooks[T]
+
+      :returns: A handle to remove the registered hooks.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: unregister_all()
+
+      Unregister all hook context handlers.
+
+
+
+   .. py:method:: from_hooks(hooks: typing_extensions.Self | PipelineHooksConfig | Iterable[typing_extensions.Self | PipelineHooksConfig] | None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Create a new instance of the class from a list of hooks.
+
+      :param hooks: A list of hooks to register.
+      :type hooks: Self | Iterable[Self] | None
+
+      :returns: A new instance of the class with the registered hooks.
+      :rtype: Self
+
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: OptimizerHookConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`OptimizerHook`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  type[OptimizerHook]
+
+

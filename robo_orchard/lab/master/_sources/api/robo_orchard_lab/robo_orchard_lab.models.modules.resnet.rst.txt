@@ -1,7 +1,0 @@
-robo\_orchard\_lab.models.modules.resnet module
-===============================================
-
-.. automodule:: robo_orchard_lab.models.modules.resnet
-   :members:
-   :undoc-members:
-   :show-inheritance:

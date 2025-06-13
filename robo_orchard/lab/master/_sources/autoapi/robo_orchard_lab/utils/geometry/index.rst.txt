@@ -1,0 +1,88 @@
+geometry
+========
+
+.. py:module:: robo_orchard_lab.utils.geometry
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.geometry.depth_to_range_image
+   robo_orchard_lab.utils.geometry.mask_points
+
+
+Module Contents
+---------------
+
+.. py:function:: depth_to_range_image(depth: numpy.ndarray, camera_intrinsic: numpy.ndarray, depth_scale: float = 1.0) -> numpy.ndarray
+
+   Depth to range image.
+
+   Converts a depth map to a range image (3D point cloud representation)
+   using the camera's intrinsic parameters.
+
+   :param depth: Depth map with shape (H, W), where each element
+                 represents depth in the image plane.
+   :type depth: np.ndarray
+   :param camera_intrinsic: Camera intrinsic matrix with shape
+                            (3, 3). Contains focal lengths and optical center:
+                            [[fx,  0, cx], [0, fy, cy], [0,  0,  1]]
+   :type camera_intrinsic: np.ndarray
+   :param depth_scale: Scale factor to convert raw depth values to
+                       metric units. For example, if the depth map values are in
+                       millimeters and you want meters, set `depth_scale=1000.0`.
+   :type depth_scale: float
+
+   :returns:
+
+             Range image (3D point cloud) with shape (H, W, 3).
+                 Each pixel contains an (x, y, z) coordinate in the camera's
+                 coordinate system, corresponding to the 3D position of the
+                 point in space.
+   :rtype: np.ndarray
+
+   .. rubric:: Example
+
+   >>> depth = np.random.rand(480, 640) * 1000  # Depth map in millimeters
+   >>> camera_intrinsic = np.array(
+   ...     [[600, 0, 320], [0, 600, 240], [0, 0, 1]]
+   ... )
+   >>> range_image = depth_to_range_image(
+   ...     depth, camera_intrinsic, depth_scale=1000.0
+   ... )
+   >>> print(range_image.shape)
+   (480, 640, 3)
+
+   .. rubric:: Notes
+
+   - The function assumes the depth map is aligned with the camera's
+     coordinate system and that each pixel's depth value represents
+     the distance from the camera plane.
+   - The `depth_scale` parameter allows flexibility with depth data
+     formats and should be set according to the depth sensor's scale.
+
+
+.. py:function:: mask_points(data: numpy.ndarray, workspace_limits: POINTS_LIMIT_TYPE, border_flags: POINTS_BORDER_FLAG_TYPE) -> numpy.ndarray
+
+   Mask point clouds based on specified boundaries.
+
+   :param data: The input point cloud with shape (..., 3),
+                where the last dimension represents the x, y, z coordinates.
+   :type data: np.ndarray
+   :param workspace_limits: The workspace
+                            limits in the format (min_x, max_x, min_y, max_y, min_z, max_z).
+   :type workspace_limits: Tuple[Optional[float], Optional[float], Optional[float], Optional[float], Optional[float], Optional[float]]
+   :param border_flags: Boolean flags specifying if each limit is inclusive
+                        (True) or exclusive (False).
+   :type border_flags: Tuple[bool, bool, bool, bool, bool, bool]
+
+   :returns:
+
+             A mask array with the same spatial shape as the input
+                 data's preceding dimensions (e.g., (H, W) if input is (H, W, 3)),
+                 where True indicates the points within the workspace limits.
+   :rtype: np.ndarray
+
+

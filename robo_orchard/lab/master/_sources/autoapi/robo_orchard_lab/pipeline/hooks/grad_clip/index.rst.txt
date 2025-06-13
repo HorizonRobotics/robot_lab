@@ -1,0 +1,159 @@
+grad_clip
+=========
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.grad_clip
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.grad_clip.GradientClippingHook
+   robo_orchard_lab.pipeline.hooks.grad_clip.GradientClippingHookConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: GradientClippingHook(cfg: GradientClippingHookConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   A hook for gradient clipping during training.
+
+   This hook is responsible for clipping the gradients of the model
+   parameters to prevent exploding gradients. It performs the clipping
+   after each step of the training process.
+
+   .. note::
+
+      If you are using OptimizerHook and GradientClippingHook together,
+      make sure that GradientClippingHook is registered before OptimizerHook
+      in the pipeline. This ensures that the gradients are clipped before
+      the optimizer step is performed.
+
+   :param cfg: The configuration for the
+               GradientClippingHook.
+   :type cfg: GradientClippingHookConfig
+
+
+   .. py:attribute:: clip_mode
+
+
+   .. py:attribute:: clip_value
+
+
+   .. py:attribute:: max_norm
+
+
+   .. py:attribute:: norm_type
+
+
+   .. py:attribute:: hooks
+      :type:  dict[PipelineHookChanelType, robo_orchard_core.utils.hook.HookContextChannel[PipelineHookArgs]]
+
+
+   .. py:method:: begin(channel: PipelineHookChanelType, arg: PipelineHookArgs)
+
+
+   .. py:method:: register_hook(channel: PipelineHookChanelType, hook: robo_orchard_core.utils.hook.HookContext[PipelineHookArgs]) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a hook context handler.
+
+      :param channel: The channel to register the hook.
+      :type channel: PipelineHookChanelType
+      :param hook: The hook context handler
+                   to register.
+      :type hook: HookContext[PipelineHookArgs]
+
+      :returns: A handle to remove the registered hook.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: register_pipeline_hooks(hooks: PipelineHooks) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a set of pipeline hooks.
+
+      :param hooks: The pipeline hooks to register.
+      :type hooks: PipelineHooks[T]
+
+      :returns: A handle to remove the registered hooks.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: unregister_all()
+
+      Unregister all hook context handlers.
+
+
+
+   .. py:method:: from_hooks(hooks: typing_extensions.Self | PipelineHooksConfig | Iterable[typing_extensions.Self | PipelineHooksConfig] | None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Create a new instance of the class from a list of hooks.
+
+      :param hooks: A list of hooks to register.
+      :type hooks: Self | Iterable[Self] | None
+
+      :returns: A new instance of the class with the registered hooks.
+      :rtype: Self
+
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: GradientClippingHookConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`GradientClippingHook`\ ]
+
+
+   Configuration class for GradientClippingHook.
+
+
+   .. py:attribute:: class_type
+      :type:  type[GradientClippingHook]
+
+
+   .. py:attribute:: clip_mode
+      :type:  Literal['norm', 'value']
+
+      The mode of gradient clipping.
+      - "norm": Clips gradients by norm.
+      - "value": Clips gradients by value.
+
+
+   .. py:attribute:: clip_value
+      :type:  float | None
+      :value: None
+
+
+      The maximum norm to clip the gradients to. This parameter
+      is only used when `clip_mode` is "norm".
+
+
+   .. py:attribute:: max_norm
+      :type:  float | None
+      :value: None
+
+
+      The maximum norm to clip the gradients to. This parameter is only
+      used when `clip_mode` is "norm".
+
+
+   .. py:attribute:: norm_type
+      :type:  float
+      :value: 2.0
+
+
+      The type of norm to use for clipping. Default is 2.0 (L2 norm).
+
+

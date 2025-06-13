@@ -1,7 +1,0 @@
-robo\_orchard\_lab.pipeline.hooks.optimizer module
-==================================================
-
-.. automodule:: robo_orchard_lab.pipeline.hooks.optimizer
-   :members:
-   :undoc-members:
-   :show-inheritance:

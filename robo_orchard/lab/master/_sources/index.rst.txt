@@ -31,4 +31,10 @@ Contents
 .. toctree::
     :maxdepth: 3
 
-    api/index
+    build/model_api_tutorial/index
+
+
+.. toctree::
+    :maxdepth: 3
+
+    autoapi/index

@@ -1,0 +1,35 @@
+path
+====
+
+.. py:module:: robo_orchard_lab.utils.path
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.path.DirectoryNotEmptyError
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.path.is_empty_directory
+
+
+Module Contents
+---------------
+
+.. py:exception:: DirectoryNotEmptyError
+
+   Bases: :py:obj:`Exception`
+
+
+   Exception raised when a directory is not empty as expected.
+
+
+.. py:function:: is_empty_directory(directory: str) -> bool
+

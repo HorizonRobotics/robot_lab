@@ -1,0 +1,22 @@
+deformable_aggregation
+======================
+
+.. py:module:: robo_orchard_lab.ops.deformable_aggregation.deformable_aggregation
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.ops.deformable_aggregation.deformable_aggregation.deformable_aggregation_func
+   robo_orchard_lab.ops.deformable_aggregation.deformable_aggregation.feature_maps_format
+
+
+Module Contents
+---------------
+
+.. py:function:: deformable_aggregation_func(mc_ms_feat, spatial_shape, scale_start_index, sampling_location, weights, depth_prob=None, depth=None)
+
+.. py:function:: feature_maps_format(feature_maps, inverse=False)
+

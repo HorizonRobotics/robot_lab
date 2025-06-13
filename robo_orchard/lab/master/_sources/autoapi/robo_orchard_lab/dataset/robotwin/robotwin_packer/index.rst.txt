@@ -1,0 +1,98 @@
+robotwin_packer
+===============
+
+.. py:module:: robo_orchard_lab.dataset.robotwin.robotwin_packer
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robotwin.robotwin_packer.logger
+   robo_orchard_lab.dataset.robotwin.robotwin_packer.parser
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robotwin.robotwin_packer.RobotwinDataPacker
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robotwin.robotwin_packer.images_decoding
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:function:: images_decoding(padded_data)
+
+.. py:class:: RobotwinDataPacker(input_path, output_path, task_names=None, embodiment=None, robotwin_aug=None, camera_name=None, setting=None, simulation=True, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.lmdb.base_lmdb_dataset.BaseLmdbManipulationDataPacker`
+
+
+   .. py:attribute:: task_names
+      :value: None
+
+
+
+   .. py:attribute:: embodiment
+      :value: None
+
+
+
+   .. py:attribute:: robotwin_aug
+      :value: None
+
+
+
+   .. py:attribute:: camera_name
+      :value: None
+
+
+
+   .. py:attribute:: simulation
+      :value: True
+
+
+
+   .. py:attribute:: episodes
+      :value: []
+
+
+
+   .. py:method:: input_path_handler(input_path)
+
+
+   .. py:attribute:: input_path
+
+
+   .. py:attribute:: output_path
+
+
+   .. py:attribute:: commit_step
+      :value: 500
+
+
+
+   .. py:attribute:: lmdb_kwargs
+
+
+   .. py:method:: close()
+
+
+   .. py:method:: write_index(index: Union[int, str], index_data: dict)
+
+
+.. py:data:: parser
+

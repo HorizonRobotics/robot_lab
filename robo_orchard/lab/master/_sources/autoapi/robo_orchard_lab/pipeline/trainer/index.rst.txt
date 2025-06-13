@@ -1,0 +1,133 @@
+trainer
+=======
+
+.. py:module:: robo_orchard_lab.pipeline.trainer
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.trainer.SimpleTrainer
+
+
+Module Contents
+---------------
+
+.. py:class:: SimpleTrainer(model: torch.nn.Module, accelerator: accelerate.Accelerator, batch_processor: robo_orchard_lab.pipeline.batch_processor.mixin.BatchProcessorMixin, dataloader: torch.utils.data.DataLoader | Iterable, optimizer: torch.optim.Optimizer, lr_scheduler: torch.optim.lr_scheduler.LRScheduler, lr_scheduler_step_at: Literal['step'] = 'step', max_step: Optional[int] = None, max_epoch: Optional[int] = None, val_dataloader: Optional[torch.utils.data.DataLoader | Iterable] = None, metric: Any = None, step_eval_freq: Optional[int] = None, epoch_eval_freq: Optional[int] = None, resume_from: Optional[str] = None, resume_share_dir: Optional[str] = None, grad_clip_mode: Optional[Literal['value', 'norm']] = None, grad_clip_value: Optional[float] = None, grad_max_norm: Optional[float] = None, grad_norm_type: int = 2, hooks: robo_orchard_lab.pipeline.hook_based_trainer.PipelineHookOrConfigType | Iterable[robo_orchard_lab.pipeline.hook_based_trainer.PipelineHookOrConfigType] | None = None)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hook_based_trainer.HookBasedTrainer`
+
+
+   A base trainer class that extends SimpleTrainer for training models.
+
+   This trainer integrates with the `Accelerate` library for distributed
+   training, supports custom batch processors, and provides hooks for
+   monitoring and extending the training process.
+
+   :param model: The model to be trained.
+   :type model: torch.nn.Module
+   :param accelerator: The `Accelerator` instance managing
+                       distributed training.
+   :type accelerator: Accelerator
+   :param batch_processor: A processor that
+                           defines how to handle each batch during training.
+   :type batch_processor: BatchProcessorMixin
+   :param dataloader: The data loader for feeding batches
+                      to the model.
+   :type dataloader: Optional[DataLoader]
+   :param optimizer: The optimizer used
+                     for training.
+   :type optimizer: Optional[torch.optim.Optimizer]
+   :param lr_scheduler: The learning rate scheduler.
+   :type lr_scheduler: Optional[torch.optim.lr_scheduler.LRScheduler]
+   :param lr_scheduler_step_at: Whether the learning rate scheduler
+                                steps at "epoch" or "step".
+   :type lr_scheduler_step_at: str
+   :param max_step: The maximum number of steps to train.
+   :type max_step: Optional[int]
+   :param max_epoch: The maximum number of epochs to train.
+   :type max_epoch: Optional[int]
+   :param val_dataloader: The data loader for validation.
+   :type val_dataloader: Optional[DataLoader]
+   :param metric: The metric used for evaluation, with update,
+                  compute and reset functions.
+   :type metric: Optional[Any]
+   :param step_eval_freq: The frequency of evaluation in
+                          terms of steps.
+   :type step_eval_freq: Optional[int]
+   :param epoch_eval_freq: The frequency of evaluation in
+                           terms of epochs.
+   :type epoch_eval_freq: Optional[int]
+   :param resume_from: The path or URL to resume training from.
+   :type resume_from: Optional[str]
+   :param resume_share_dir: The directory to save resume files.
+   :type resume_share_dir: Optional[str]
+   :param grad_clip_mode: The mode for gradient clipping
+                          ("value" or "norm").
+   :type grad_clip_mode: Optional[str]
+   :param grad_clip_value: The value for gradient clipping.
+   :type grad_clip_value: Optional[float]
+   :param grad_max_norm: The maximum norm for gradient
+                         clipping.
+   :type grad_max_norm: Optional[float]
+   :param grad_norm_type: The type of norm used for gradient clipping.
+   :type grad_norm_type: int
+
+
+   .. py:attribute:: metric
+      :value: None
+
+
+
+   .. py:method:: eval() -> Optional[Any]
+
+      Evaluates the model on the validation dataset.
+
+      :returns:
+
+                The evaluation metric, or None if evaluation
+                    is not performed.
+      :rtype: Optional[Any]
+
+
+
+   .. py:attribute:: accelerator
+
+
+   .. py:attribute:: max_step
+      :value: None
+
+
+
+   .. py:attribute:: max_epoch
+      :value: None
+
+
+
+   .. py:attribute:: model
+      :type:  torch.nn.Module
+
+
+   .. py:attribute:: dataloader
+      :type:  torch.utils.data.DataLoader
+
+
+   .. py:attribute:: optimizer
+      :type:  accelerate.optimizer.AcceleratedOptimizer
+
+
+   .. py:attribute:: lr_scheduler
+      :type:  accelerate.scheduler.AcceleratedScheduler
+
+
+   .. py:attribute:: trainer_progress_state
+
+
+   .. py:attribute:: batch_processor
+
+
+   .. py:attribute:: hooks
+
+

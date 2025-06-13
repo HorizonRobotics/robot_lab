@@ -1,0 +1,183 @@
+compressed_img
+==============
+
+.. py:module:: robo_orchard_lab.dataset.experimental.mcap.msg_converter.compressed_img
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.compressed_img.NumpyImageMsg
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.compressed_img.Numpy2CompressedImage
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.compressed_img.Numpy2CompressedImageConfig
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.compressed_img.CompressedImage2Numpy
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.compressed_img.CompressedImage2NumpyConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: NumpyImageMsg
+
+   .. py:attribute:: data
+      :type:  numpy.ndarray
+
+      Message class for storing numpy image data.
+
+
+   .. py:attribute:: target_format
+      :type:  Literal['jpeg', 'png']
+
+      Target format for the image, e.g., 'jpg' or 'png'.
+
+
+   .. py:attribute:: frame_id
+      :type:  str
+      :value: ''
+
+
+      Frame ID for the image.
+
+
+   .. py:attribute:: timestamp
+      :type:  google.protobuf.timestamp_pb2.Timestamp | None
+      :value: None
+
+
+      Timestamp for the image, defaults to zero if not provided.
+
+
+.. py:class:: Numpy2CompressedImage(cfg: Numpy2CompressedImageConfig | None = None)
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.MessageConverterStateless`\ [\ :py:obj:`NumpyImageMsg`\ , :py:obj:`foxglove_schemas_protobuf.CompressedImage_pb2.CompressedImage`\ ]
+
+
+   Convert numpy array to CompressedImage.
+
+
+   .. py:attribute:: jpeg_quality
+
+
+   .. py:attribute:: png_compression
+
+
+   .. py:method:: convert(data: NumpyImageMsg) -> foxglove_schemas_protobuf.CompressedImage_pb2.CompressedImage
+
+      Convert numpy array to CompressedImage.
+
+
+
+   .. py:property:: stateless
+      :type: bool
+
+
+      Return True if the message converter is stateless.
+
+      A message converter is stateless if it does not depend on any
+      external state. For example, a message converter that converts a
+      protobuf message to a json message is stateless.
+
+
+   .. py:attribute:: source_type
+      :type:  type[S]
+
+      The source type of the adaptor to take as input.
+
+
+   .. py:attribute:: target_type
+      :type:  type[T]
+
+      The target type of the adaptor as output.
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: Numpy2CompressedImageConfig
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.MessageConverterConfig`\ [\ :py:obj:`Numpy2CompressedImage`\ ]
+
+
+   Configuration class for Numpy2CompressedImage.
+
+
+   .. py:attribute:: class_type
+      :type:  type[Numpy2CompressedImage]
+
+
+   .. py:attribute:: jpeg_quality
+      :type:  int
+      :value: 90
+
+
+      JPEG quality for encoding.
+
+
+   .. py:attribute:: png_compression
+      :type:  int
+      :value: 3
+
+
+      PNG compression level for encoding.
+
+
+.. py:class:: CompressedImage2Numpy(cfg: CompressedImage2NumpyConfig | None = None)
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.MessageConverterStateless`\ [\ :py:obj:`foxglove_schemas_protobuf.CompressedImage_pb2.CompressedImage`\ , :py:obj:`NumpyImageMsg`\ ]
+
+
+   Convert CompressedImage to numpy array.
+
+
+   .. py:method:: convert(data: foxglove_schemas_protobuf.CompressedImage_pb2.CompressedImage) -> NumpyImageMsg
+
+      Convert CompressedImage to numpy array.
+
+
+
+   .. py:property:: stateless
+      :type: bool
+
+
+      Return True if the message converter is stateless.
+
+      A message converter is stateless if it does not depend on any
+      external state. For example, a message converter that converts a
+      protobuf message to a json message is stateless.
+
+
+   .. py:attribute:: source_type
+      :type:  type[S]
+
+      The source type of the adaptor to take as input.
+
+
+   .. py:attribute:: target_type
+      :type:  type[T]
+
+      The target type of the adaptor as output.
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: CompressedImage2NumpyConfig
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.MessageConverterConfig`\ [\ :py:obj:`CompressedImage2Numpy`\ ]
+
+
+   Configuration class for CompressedImage2Numpy.
+
+
+   .. py:attribute:: class_type
+      :type:  type[CompressedImage2Numpy]
+
+

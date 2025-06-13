@@ -1,0 +1,18 @@
+batch_processor
+===============
+
+.. py:module:: robo_orchard_lab.pipeline.batch_processor
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_lab/pipeline/batch_processor/mixin/index
+   /autoapi/robo_orchard_lab/pipeline/batch_processor/simple/index
+
+

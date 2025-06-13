@@ -1,0 +1,87 @@
+tf
+==
+
+.. py:module:: robo_orchard_lab.dataset.experimental.mcap.batch_decoder.tf
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.experimental.mcap.batch_decoder.tf.McapBatch2BatchFrameTransform
+   robo_orchard_lab.dataset.experimental.mcap.batch_decoder.tf.McapBatch2BatchFrameTransformConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: McapBatch2BatchFrameTransform(config: McapBatch2BatchFrameTransformConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.experimental.mcap.batch_decoder.base.McapBatchDecoder`\ [\ :py:obj:`robo_orchard_lab.dataset.experimental.mcap.msg_converter.BatchFrameTransformStamped`\ ]
+
+
+   The base class for message batch decoder.
+
+   Different from a message decoder that operates on a single message,
+   a message batch decoder is used to decode a batch of messages to a
+   specific target format. It usually takes multiple messages from different
+   channels, groups them and converts them to a single output format.
+
+
+   User should implement the `require_topics` and `format_batch`
+   methods to specify which topics are required by this decoder and how
+   to format the batch of messages as output.
+
+   Template parameters:
+       DST_T: The type after decoder, which is the target format of the
+           decoded messages.
+
+
+
+   .. py:method:: require_topics() -> set[str]
+
+      Return the set of topics required by this decoder.
+
+      This method is used to determine which topics are required by this
+      decoder. It is used to filter out messages that are not relevant to
+      this decoder.
+
+      :returns: The set of topics required by this decoder.
+      :rtype: set[str]
+
+
+
+   .. py:method:: format_batch(decoded_msgs: dict[str, list]) -> robo_orchard_lab.dataset.experimental.mcap.msg_converter.BatchFrameTransformStamped
+
+      Format the batch of decoded messages to target format.
+
+      :param src: The source batch of messages to format.
+      :type src: McapMessageBatch
+
+      :returns: The formatted batch of messages.
+      :rtype: McapMessageBatch
+
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: McapBatch2BatchFrameTransformConfig
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.experimental.mcap.batch_decoder.base.McapBatchDecoderConfig`\ [\ :py:obj:`McapBatch2BatchFrameTransform`\ ], :py:obj:`robo_orchard_lab.dataset.experimental.mcap.msg_converter.TensorTargetConfigMixin`\ [\ :py:obj:`McapBatch2BatchFrameTransform`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  type[McapBatch2BatchFrameTransform]
+
+
+   .. py:attribute:: source_topic
+      :type:  str
+
+      The source topic to use from batch messages.
+
+

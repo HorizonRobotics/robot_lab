@@ -1,0 +1,285 @@
+base
+====
+
+.. py:module:: robo_orchard_lab.dataset.experimental.mcap.msg_converter.base
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.MessageConverter
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.MessageConverterStateless
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.MessageConverterStateful
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.MessageConverterConfig
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.TensorTargetConfigMixin
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.MessageConverterFactory
+   robo_orchard_lab.dataset.experimental.mcap.msg_converter.base.MessageConverterFactoryConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: MessageConverter
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.adaptor.TypeAdaptorImpl`\ [\ :py:obj:`SRC_T`\ , :py:obj:`DST_T`\ ]
+
+
+   The base class for message converter.
+
+   A message converter is used to convert a message from one format to
+   another. For example, a message converter that converts a protobuf
+   message to a json message.
+
+
+
+   .. py:property:: stateless
+      :type: bool
+
+      :abstractmethod:
+
+
+      Return True if the message converter is stateless.
+
+      A message converter is stateless if it does not depend on any
+      external state. For example, a message converter that converts a
+      protobuf message to a json message is stateless.
+
+
+   .. py:attribute:: source_type
+      :type:  type[S]
+
+      The source type of the adaptor to take as input.
+
+
+   .. py:attribute:: target_type
+      :type:  type[T]
+
+      The target type of the adaptor as output.
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: MessageConverterStateless
+
+   Bases: :py:obj:`MessageConverter`\ [\ :py:obj:`SRC_T`\ , :py:obj:`DST_T`\ ]
+
+
+   The base class for stateless message converter.
+
+   A message converter is stateless if it does not depend on any
+   external state. For example, a message converter that converts a
+   protobuf message to a json message is stateless.
+
+
+
+   .. py:method:: convert(src: SRC_T) -> DST_T
+      :abstractmethod:
+
+
+      Convert the message from one format to another.
+
+
+
+   .. py:property:: stateless
+      :type: bool
+
+
+      Return True if the message converter is stateless.
+
+      A message converter is stateless if it does not depend on any
+      external state. For example, a message converter that converts a
+      protobuf message to a json message is stateless.
+
+
+   .. py:attribute:: source_type
+      :type:  type[S]
+
+      The source type of the adaptor to take as input.
+
+
+   .. py:attribute:: target_type
+      :type:  type[T]
+
+      The target type of the adaptor as output.
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: MessageConverterStateful
+
+   Bases: :py:obj:`MessageConverter`\ [\ :py:obj:`SRC_T`\ , :py:obj:`DST_T`\ ]
+
+
+   The base class for stateful message converter.
+
+   A message converter is stateful if it depends on some external state when
+   converting the message. For example, a video encoder/decoder is stateful,
+   because encoding/decoding a video frame may depend on the previous/future
+   frame.
+
+
+   .. py:method:: convert(src: Optional[SRC_T]) -> Iterator[DST_T]
+      :abstractmethod:
+
+
+      Convert the message from one format to another.
+
+      The return value of this method is an iterator of the converted
+      messages. It could contain zero or more messages depending on
+      the state. For example, when encoding a B frame in a video, the
+      encoder may need to use the future frame to encode the current frame.
+      In this case, the encoder will return an empty iterator. When
+      the future frame is available, more than one message can be returned
+      from the iterator.
+
+      :param src: The source message to be converted. If None, the converter
+                  will flush the state and return the iterator of the converted
+                  messages in the state.
+
+      :Yields: The converted message.
+
+
+
+   .. py:method:: flush() -> List[DST_T]
+      :abstractmethod:
+
+
+      Flush the stateful message converter.
+
+      This is used to flush the state of the message converter so that the
+      stateful message converter can be used again.
+
+
+
+   .. py:method:: make_iterator(src: Iterator[SRC_T], append_none: bool = True, flush: bool = True) -> Iterator[DST_T]
+
+      Make an iterator from the message converter.
+
+      This is used to make an iterator from the message converter so that
+      the message converter can be used in a for loop.
+
+      :param src: The source message to be converted. It should be an iterator
+                  of the source message.
+      :param append_none: If True, the message converter will append None to
+                          the iterator when the source message iterator ends. This is
+                          used to indicate that the message converter is done with
+                          the source message.
+      :param flush: If True, the message converter will flush the state after
+                    the source message iterator ends. This is used to refresh the
+                    state of the message converter so that it can be used again.
+
+      :Yields: The converted message.
+
+
+
+   .. py:property:: stateless
+      :type: bool
+
+
+      Return True if the message converter is stateless.
+
+      A message converter is stateless if it does not depend on any
+      external state. For example, a message converter that converts a
+      protobuf message to a json message is stateless.
+
+
+   .. py:attribute:: source_type
+      :type:  type[S]
+
+      The source type of the adaptor to take as input.
+
+
+   .. py:attribute:: target_type
+      :type:  type[T]
+
+      The target type of the adaptor as output.
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: MessageConverterConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`MessageConverterType_co`\ ]
+
+
+   The config class for message converter.
+
+   This class is used to create a message converter from the config.
+   The config should be a dictionary that contains the class name and
+   the arguments for the class.
+
+
+.. py:class:: TensorTargetConfigMixin
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`SRC_T`\ ]
+
+
+   .. py:attribute:: device
+      :type:  str
+      :value: 'cpu'
+
+
+      0".
+
+      :type: Device to use for target tensor, e.g., "cpu" or "cuda
+
+
+   .. py:attribute:: dtype
+      :type:  Literal['float32', 'float64']
+      :value: 'float32'
+
+
+      Data type for the target tensor, e.g., "float32" or "float64".
+
+
+.. py:class:: MessageConverterFactory(cfg: MessageConverterFactoryConfig)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.adaptor.ClassInitFromConfigMixin`
+
+
+   The factory class for message converter.
+
+
+   .. py:method:: convert_for(schema_name: str) -> Callable[[Any], Iterator[Any]] | None
+
+      Get the converter implementation for the schema name.
+
+      :param schema_name: The schema name to get the decoder for.
+
+      :returns: The converter impl for the schema name.
+
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: MessageConverterFactoryConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`MessageConverterFactory`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  type[MessageConverterFactory]
+
+
+   .. py:attribute:: converters
+      :type:  Mapping[str, MessageConverterConfig[MessageConverter]]
+
+

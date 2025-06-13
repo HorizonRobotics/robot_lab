@@ -1,7 +1,0 @@
-robo\_orchard\_lab.utils.logging module
-=======================================
-
-.. automodule:: robo_orchard_lab.utils.logging
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,0 +1,217 @@
+simple
+======
+
+.. py:module:: robo_orchard_lab.pipeline.batch_processor.simple
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.batch_processor.simple.LossNotProvidedError
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.batch_processor.simple.SimpleBatchProcessor
+   robo_orchard_lab.pipeline.batch_processor.simple.BatchProcessorFromCallable
+
+
+Module Contents
+---------------
+
+.. py:exception:: LossNotProvidedError
+
+   Bases: :py:obj:`Exception`
+
+
+   Common base class for all non-exit exceptions.
+
+
+.. py:class:: SimpleBatchProcessor(need_backward: bool = True, transforms: Optional[Callable | Sequence[Callable]] = None)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.batch_processor.mixin.BatchProcessorMixin`
+
+
+   A processor for handling batches in a training or inference pipeline.
+
+
+   .. py:attribute:: need_backward
+      :value: True
+
+
+
+   .. py:attribute:: transform
+
+
+   .. py:attribute:: accelerator
+      :type:  Optional[accelerate.Accelerator]
+      :value: None
+
+
+
+   .. py:method:: from_callable(forward_fn: forward_fn_type, need_backward: bool = True, transforms: Optional[Callable | Sequence[Callable]] = None)
+      :staticmethod:
+
+
+      Creates a SimpleBatchProcessor instance from a callable.
+
+      :param forward_fn: The forward function to be used for
+                         processing batches.
+      :type forward_fn: Callable
+      :param need_backward: Whether backward computation is needed.
+                            If True, the loss should be provided during the forward pass.
+      :type need_backward: bool
+      :param transforms: A callable
+                         or a sequence of callables for transforming the batch.
+      :type transforms: Optional[Callable | Sequence[Callable]]
+
+      :returns: An instance of SimpleBatchProcessor.
+      :rtype: SimpleBatchProcessor
+
+
+
+   .. py:method:: forward(model: Callable, batch: Any) -> Tuple[Any, Optional[torch.Tensor]]
+      :abstractmethod:
+
+
+      Defines the forward pass logic for the model.
+
+      This method handles the execution of the forward pass, processing
+      the input batch and computing the outputs of the model. It also
+      optionally computes a loss tensor if required for training.
+
+      :param model: The model to be used for inference or training.
+                    It should be a callable object (e.g., a PyTorch `nn.Module`
+                    or a function).
+      :type model: Callable
+      :param batch: The input batch data. This can be a tuple, dictionary,
+                    or other structure, depending on the data pipeline's format.
+      :type batch: Any
+
+      :returns:
+
+                    - The first element is the model's outputs. It can be any type
+                      that the model produces, such as a tensor, a list of tensors,
+                      or a dictionary.
+                    - The second element is an optional reduced loss tensor. This
+                      is used during training when backward computation is required.
+                      If loss is not applicable (e.g., during inference), this value
+                      can be `None`.
+      :rtype: Tuple[Any, Optional[torch.Tensor]]
+
+      .. rubric:: Notes
+
+      - In most cases, the `accelerator` will already ensure that both
+        the model and the batch data are moved to the appropriate device
+        before the forward pass.
+      - However, if additional operations or modifications are performed
+        on the batch data or model within this method, it is the
+        responsibility of the implementation to confirm they remain on
+        the correct device.
+      - The returned loss tensor should already be reduced (e.g., mean or
+        sum over batch elements) to facilitate the backward pass.
+      - This method does not handle backpropagation; it focuses solely
+        on the forward pass.
+      - The transformation of the input batch, if needed, should already
+        be handled prior to this method via the `self.transform` pipeline.
+
+
+
+.. py:class:: BatchProcessorFromCallable(forward_fn: forward_fn_type, need_backward: bool = True, transforms: Optional[Callable | Sequence[Callable]] = None)
+
+   Bases: :py:obj:`SimpleBatchProcessor`
+
+
+   A processor for handling batches in a training or inference pipeline.
+
+   This class is designed to be used as a callable object, allowing it to
+   be easily integrated into various training or inference pipelines.
+   It provides a flexible interface for processing batches of data and
+   performing model inference or training.
+
+
+   .. py:method:: forward(model: Callable, batch: Any) -> Tuple[Any, Optional[torch.Tensor]]
+
+      Defines the forward pass logic for the model.
+
+      This method handles the execution of the forward pass, processing
+      the input batch and computing the outputs of the model. It also
+      optionally computes a loss tensor if required for training.
+
+      :param model: The model to be used for inference or training.
+                    It should be a callable object (e.g., a PyTorch `nn.Module`
+                    or a function).
+      :type model: Callable
+      :param batch: The input batch data. This can be a tuple, dictionary,
+                    or other structure, depending on the data pipeline's format.
+      :type batch: Any
+
+      :returns:
+
+                    - The first element is the model's outputs. It can be any type
+                      that the model produces, such as a tensor, a list of tensors,
+                      or a dictionary.
+                    - The second element is an optional reduced loss tensor. This
+                      is used during training when backward computation is required.
+                      If loss is not applicable (e.g., during inference), this value
+                      can be `None`.
+      :rtype: Tuple[Any, Optional[torch.Tensor]]
+
+      .. rubric:: Notes
+
+      - In most cases, the `accelerator` will already ensure that both
+        the model and the batch data are moved to the appropriate device
+        before the forward pass.
+      - However, if additional operations or modifications are performed
+        on the batch data or model within this method, it is the
+        responsibility of the implementation to confirm they remain on
+        the correct device.
+      - The returned loss tensor should already be reduced (e.g., mean or
+        sum over batch elements) to facilitate the backward pass.
+      - This method does not handle backpropagation; it focuses solely
+        on the forward pass.
+      - The transformation of the input batch, if needed, should already
+        be handled prior to this method via the `self.transform` pipeline.
+
+
+
+   .. py:attribute:: need_backward
+      :value: True
+
+
+
+   .. py:attribute:: transform
+
+
+   .. py:attribute:: accelerator
+      :type:  Optional[accelerate.Accelerator]
+      :value: None
+
+
+
+   .. py:method:: from_callable(forward_fn: forward_fn_type, need_backward: bool = True, transforms: Optional[Callable | Sequence[Callable]] = None)
+      :staticmethod:
+
+
+      Creates a SimpleBatchProcessor instance from a callable.
+
+      :param forward_fn: The forward function to be used for
+                         processing batches.
+      :type forward_fn: Callable
+      :param need_backward: Whether backward computation is needed.
+                            If True, the loss should be provided during the forward pass.
+      :type need_backward: bool
+      :param transforms: A callable
+                         or a sequence of callables for transforming the batch.
+      :type transforms: Optional[Callable | Sequence[Callable]]
+
+      :returns: An instance of SimpleBatchProcessor.
+      :rtype: SimpleBatchProcessor
+
+
+

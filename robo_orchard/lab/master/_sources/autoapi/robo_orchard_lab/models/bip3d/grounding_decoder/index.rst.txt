@@ -1,0 +1,21 @@
+grounding_decoder
+=================
+
+.. py:module:: robo_orchard_lab.models.bip3d.grounding_decoder
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_lab/models/bip3d/grounding_decoder/bbox3d_decoder/index
+   /autoapi/robo_orchard_lab/models/bip3d/grounding_decoder/deformable_aggregation/index
+   /autoapi/robo_orchard_lab/models/bip3d/grounding_decoder/instance_bank/index
+   /autoapi/robo_orchard_lab/models/bip3d/grounding_decoder/target/index
+   /autoapi/robo_orchard_lab/models/bip3d/grounding_decoder/utils/index
+
+

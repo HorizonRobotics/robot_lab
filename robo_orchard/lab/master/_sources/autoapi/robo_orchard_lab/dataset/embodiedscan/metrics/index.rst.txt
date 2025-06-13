@@ -1,0 +1,109 @@
+metrics
+=======
+
+.. py:module:: robo_orchard_lab.dataset.embodiedscan.metrics
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.embodiedscan.metrics.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.embodiedscan.metrics.DetMetric
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.embodiedscan.metrics.average_precision
+   robo_orchard_lab.dataset.embodiedscan.metrics.bbox_to_corners
+   robo_orchard_lab.dataset.embodiedscan.metrics.compute_iou3d
+   robo_orchard_lab.dataset.embodiedscan.metrics.compute_precision_recall_AP
+   robo_orchard_lab.dataset.embodiedscan.metrics.compute_precision_recall_AP_multi_cls
+   robo_orchard_lab.dataset.embodiedscan.metrics.eval_function
+   robo_orchard_lab.dataset.embodiedscan.metrics.format_results
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:function:: average_precision(recalls, precisions, mode='area')
+
+.. py:function:: bbox_to_corners(bbox)
+
+.. py:function:: compute_iou3d(bbox_1, bbox_2, eps=0.0001)
+
+.. py:function:: compute_precision_recall_AP(pred, gt, iou_thr, area_range=None)
+
+.. py:function:: compute_precision_recall_AP_multi_cls(pred, gt, iou_thresholds, area_range=None)
+
+.. py:function:: eval_function(pred, gt, iou_thresholds, label2cat, classes_split=None, area_split=None, verbose=True, part='Overall')
+
+.. py:function:: format_results(results)
+
+.. py:class:: DetMetric(iou_thresholds: tuple[float, float] = (0.25, 0.5), save_result_path=None, eval_part=('scannet', '3rscan', 'matterport3d', 'arkit'), classes=None, classes_split=None, area_split=None, gather_device: str = 'cpu', share_dir: Optional[str] = None, **kwargs)
+
+   .. py:attribute:: iou_thresholds
+      :value: []
+
+
+
+   .. py:attribute:: save_result_path
+      :value: None
+
+
+
+   .. py:attribute:: eval_part
+      :value: ('scannet', '3rscan', 'matterport3d', 'arkit')
+
+
+
+   .. py:attribute:: classes
+      :value: None
+
+
+
+   .. py:attribute:: classes_split
+      :value: None
+
+
+
+   .. py:attribute:: area_split
+      :value: None
+
+
+
+   .. py:attribute:: gather_device
+      :value: 'cpu'
+
+
+
+   .. py:attribute:: share_dir
+      :value: None
+
+
+
+   .. py:method:: reset()
+
+
+   .. py:method:: update(batch, model_outputs)
+
+
+   .. py:method:: compute(accelerator)
+
+
+   .. py:method:: gather_all_results(accelerator)
+
+

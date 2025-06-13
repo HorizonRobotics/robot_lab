@@ -1,0 +1,563 @@
+batch_split
+===========
+
+.. py:module:: robo_orchard_lab.dataset.experimental.mcap.batch_split
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.experimental.mcap.batch_split.BatchSplitMixin
+   robo_orchard_lab.dataset.experimental.mcap.batch_split.SplitBatchByTopicArgs
+   robo_orchard_lab.dataset.experimental.mcap.batch_split.SplitBatchByTopics
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.experimental.mcap.batch_split.iter_messages_batch
+
+
+Module Contents
+---------------
+
+.. py:class:: BatchSplitMixin
+
+   Mixin for batch splitting logic in McapReader.
+
+   The message iterator can be configured to split messages into
+   batches based on certain criteria. This mixin defines the interface
+   for determining whether a message should trigger a new batch.
+
+
+
+   .. py:method:: reset()
+      :abstractmethod:
+
+
+      Reset the internal state of the batch splitter.
+
+
+
+   .. py:method:: need_split(msg: robo_orchard_lab.dataset.experimental.mcap.reader.McapMessageTuple) -> bool
+      :abstractmethod:
+
+
+      Determine if the message needs to be split into a new batch.
+
+      This method accepts time-ordered messages and determines
+      whether the current message should trigger a new batch based
+      on the internal logic of the batch splitter.
+
+      .. note::
+
+         This method expects message to be in log_time_order and
+         not reversed.
+
+
+
+.. py:class:: SplitBatchByTopicArgs(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.Config`
+
+
+   Base class for configuration classes.
+
+
+   .. py:attribute:: monitor_topic
+      :type:  str
+
+
+   .. py:attribute:: min_messages_per_topic
+      :type:  int | None
+      :value: None
+
+
+
+   .. py:attribute:: max_messages_per_topic
+      :type:  int | None
+      :value: None
+
+
+
+   .. py:attribute:: lookahead_duration
+      :type:  int
+      :value: 0
+
+
+
+   .. py:attribute:: model_config
+
+      Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
+
+
+   .. py:method:: wrapped_model_ser(handler: pydantic.SerializerFunctionWrapHandler)
+
+      Serializes the configuration to a dictionary.
+
+      This wrapper function is used when the configuration is serialized
+      to a JSON string. It adds the `__config_type__` key to the dictionary.
+
+      `__config_type__` is the string representation of the class type. It
+      is used to determine the class type when deserializing the JSON string
+      instead of using pydantic's default behavior.
+
+      If a configuration class does not need the `__config_type__` key, set
+      `__exclude_config_type__` to True in the configuration class.
+
+      For builtin types, the `__config_type__` key will not be added to the
+      dictionary.
+
+
+
+
+   .. py:method:: wrapped_model_val(data: Any, handler: pydantic.ValidatorFunctionWrapHandler)
+      :classmethod:
+
+
+
+   .. py:method:: model_post_init(*args, **kwargs)
+
+      Post init method for the model.
+
+      Perform additional initialization after __init__ and model_construct.
+      This is useful if you want to do some validation that requires the
+      entire model to be initialized.
+
+      To be consistent with configclass, this method is implemented by
+      calling the `__post_init__` method.
+
+
+
+
+   .. py:method:: to_dict(exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, include_config_type: bool = False, **kwargs) -> dict
+
+      Converts the configuration to a dictionary.
+
+      This method will call pydanitc's `model_dump` method to convert the
+      configuration to a dictionary. The `__config_type__` key will be added
+      to the dictionary if `include_config_type` is True.
+
+      .. note::
+
+         This method is not designed for serialization. Use the
+         :py:meth:`to_str` method for serialization!
+
+      :param exclude_unset: Whether to exclude unset values from the
+                            dictionary. Default is False.
+      :type exclude_unset: bool
+      :param exclude_defaults: Whether to exclude default values from the
+                               dictionary. Default is False.
+      :type exclude_defaults: bool
+      :param exclude_none: Whether to exclude None values from the
+                           dictionary. Default is False.
+      :type exclude_none: bool
+      :param include_config_type: Whether to include the
+                                  `__config_type__` key in the dictionary. If False, the
+                                  deserialization will use the class type defined in the class
+                                  annotation, not the acaual deserialized class type! This will
+                                  break the consistency of serialization and deserialization.
+                                  Default is False.
+      :type include_config_type: bool
+
+
+
+   .. py:method:: to_str(format: Literal['json', 'toml', 'yaml'] = 'json', exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, **kwargs) -> str
+
+      Converts the configuration to a string.
+
+      Different from the `to_dict` method, this method adds the
+      '__config_type__' key to the dictionary and converts the dictionary
+      to a string.
+
+      For config that does not need '__config_type__' key, set
+      `__exclude_config_type__` to True in the config class.
+
+      :param format: The format of the output string. Can be 'json',
+                     'yaml' or 'toml'. Default is 'json'.
+      :type format: str
+      :param exclude_unset: Whether to exclude unset values from the
+                            dictionary. Default is False.
+      :type exclude_unset: bool
+      :param exclude_defaults: Whether to exclude default values from the
+                               dictionary. Default is False.
+      :type exclude_defaults: bool
+      :param exclude_none: Whether to exclude None values from the
+                           dictionary. Default is False.
+      :type exclude_none: bool
+      :param \*\*kwargs: Additional keyword arguments to be passed to the
+                         serialization method :meth:`BaseModel.model_dump_json`.
+
+      :returns: The string representation of the configuration.
+      :rtype: str
+
+
+
+   .. py:method:: from_dict(data: dict, **kwargs) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: from_str(data: str, format: Literal['json', 'toml', 'yaml'] = 'json', **kwargs) -> typing_extensions.Self
+      :classmethod:
+
+
+      Creates a configuration object from a string.
+
+      If the input string is not in JSON format, it will be converted to a
+      JSON string before deserialization.
+
+      :param data: The input string data.
+      :type data: str
+      :param format: The format of the input string. Can be 'json',
+                     'yaml' or 'toml'. Default is 'json'.
+      :type format: str
+      :param \*\*kwargs: Additional keyword arguments to be passed to the
+                         deserialization method :meth:`BaseModel.model_validate_json`.
+
+
+
+   .. py:method:: copy() -> typing_extensions.Self
+
+      Returns a copy of the configuration.
+
+
+
+   .. py:method:: replace(**kwargs) -> typing_extensions.Self
+
+
+   .. py:method:: content_equal(other: typing_extensions.Self) -> bool
+
+      Check if the content of the configuration is equal to another.
+
+      This method relies on the `to_json` method to convert the
+      configuration to json dictionaries and compare them.
+
+
+
+   .. py:attribute:: model_fields
+      :type:  ClassVar[dict[str, pydantic.fields.FieldInfo]]
+
+
+   .. py:property:: model_extra
+      :type: dict[str, Any] | None
+
+
+      Get extra fields set during validation.
+
+      :returns: A dictionary of extra fields, or `None` if `config.extra` is not set to `"allow"`.
+
+
+   .. py:property:: model_fields_set
+      :type: set[str]
+
+
+      Returns the set of fields that have been explicitly set on this model instance.
+
+      :returns:
+
+                A set of strings representing the fields that have been set,
+                    i.e. that were not filled from defaults.
+
+
+   .. py:method:: model_construct(_fields_set: set[str] | None = None, **values: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+      Creates a new instance of the `Model` class with validated data.
+
+      Creates a new model setting `__dict__` and `__pydantic_fields_set__` from trusted or pre-validated data.
+      Default values are respected, but no other validation is performed.
+
+      !!! note
+          `model_construct()` generally respects the `model_config.extra` setting on the provided model.
+          That is, if `model_config.extra == 'allow'`, then all extra passed values are added to the model instance's `__dict__`
+          and `__pydantic_extra__` fields. If `model_config.extra == 'ignore'` (the default), then all extra passed values are ignored.
+          Because no validation is performed with a call to `model_construct()`, having `model_config.extra == 'forbid'` does not result in
+          an error if extra values are passed, but they will be ignored.
+
+      :param _fields_set: A set of field names that were originally explicitly set during instantiation. If provided,
+                          this is directly used for the [`model_fields_set`][pydantic.BaseModel.model_fields_set] attribute.
+                          Otherwise, the field names from the `values` argument will be used.
+      :param values: Trusted or pre-validated data dictionary.
+
+      :returns: A new instance of the `Model` class with validated data.
+
+
+
+   .. py:method:: model_copy(*, update: Mapping[str, Any] | None = None, deep: bool = False) -> typing_extensions.Self
+
+      Usage docs: https://docs.pydantic.dev/2.10/concepts/serialization/#model_copy
+
+      Returns a copy of the model.
+
+      :param update: Values to change/add in the new model. Note: the data is not validated
+                     before creating the new model. You should trust this data.
+      :param deep: Set to `True` to make a deep copy of the model.
+
+      :returns: New model instance.
+
+
+
+   .. py:method:: model_dump(*, mode: Literal['json', 'python'] | str = 'python', include: IncEx | None = None, exclude: IncEx | None = None, context: Any | None = None, by_alias: bool = False, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, round_trip: bool = False, warnings: bool | Literal['none', 'warn', 'error'] = True, serialize_as_any: bool = False) -> dict[str, Any]
+
+      Usage docs: https://docs.pydantic.dev/2.10/concepts/serialization/#modelmodel_dump
+
+      Generate a dictionary representation of the model, optionally specifying which fields to include or exclude.
+
+      :param mode: The mode in which `to_python` should run.
+                   If mode is 'json', the output will only contain JSON serializable types.
+                   If mode is 'python', the output may contain non-JSON-serializable Python objects.
+      :param include: A set of fields to include in the output.
+      :param exclude: A set of fields to exclude from the output.
+      :param context: Additional context to pass to the serializer.
+      :param by_alias: Whether to use the field's alias in the dictionary key if defined.
+      :param exclude_unset: Whether to exclude fields that have not been explicitly set.
+      :param exclude_defaults: Whether to exclude fields that are set to their default value.
+      :param exclude_none: Whether to exclude fields that have a value of `None`.
+      :param round_trip: If True, dumped values should be valid as input for non-idempotent types such as Json[T].
+      :param warnings: How to handle serialization errors. False/"none" ignores them, True/"warn" logs errors,
+                       "error" raises a [`PydanticSerializationError`][pydantic_core.PydanticSerializationError].
+      :param serialize_as_any: Whether to serialize fields with duck-typing serialization behavior.
+
+      :returns: A dictionary representation of the model.
+
+
+
+   .. py:method:: model_dump_json(*, indent: int | None = None, include: IncEx | None = None, exclude: IncEx | None = None, context: Any | None = None, by_alias: bool = False, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, round_trip: bool = False, warnings: bool | Literal['none', 'warn', 'error'] = True, serialize_as_any: bool = False) -> str
+
+      Usage docs: https://docs.pydantic.dev/2.10/concepts/serialization/#modelmodel_dump_json
+
+      Generates a JSON representation of the model using Pydantic's `to_json` method.
+
+      :param indent: Indentation to use in the JSON output. If None is passed, the output will be compact.
+      :param include: Field(s) to include in the JSON output.
+      :param exclude: Field(s) to exclude from the JSON output.
+      :param context: Additional context to pass to the serializer.
+      :param by_alias: Whether to serialize using field aliases.
+      :param exclude_unset: Whether to exclude fields that have not been explicitly set.
+      :param exclude_defaults: Whether to exclude fields that are set to their default value.
+      :param exclude_none: Whether to exclude fields that have a value of `None`.
+      :param round_trip: If True, dumped values should be valid as input for non-idempotent types such as Json[T].
+      :param warnings: How to handle serialization errors. False/"none" ignores them, True/"warn" logs errors,
+                       "error" raises a [`PydanticSerializationError`][pydantic_core.PydanticSerializationError].
+      :param serialize_as_any: Whether to serialize fields with duck-typing serialization behavior.
+
+      :returns: A JSON string representation of the model.
+
+
+
+   .. py:method:: model_json_schema(by_alias: bool = True, ref_template: str = DEFAULT_REF_TEMPLATE, schema_generator: type[pydantic.json_schema.GenerateJsonSchema] = GenerateJsonSchema, mode: pydantic.json_schema.JsonSchemaMode = 'validation') -> dict[str, Any]
+      :classmethod:
+
+
+      Generates a JSON schema for a model class.
+
+      :param by_alias: Whether to use attribute aliases or not.
+      :param ref_template: The reference template.
+      :param schema_generator: To override the logic used to generate the JSON schema, as a subclass of
+                               `GenerateJsonSchema` with your desired modifications
+      :param mode: The mode in which to generate the schema.
+
+      :returns: The JSON schema for the given model class.
+
+
+
+   .. py:method:: model_parametrized_name(params: tuple[type[Any], Ellipsis]) -> str
+      :classmethod:
+
+
+      Compute the class name for parametrizations of generic classes.
+
+      This method can be overridden to achieve a custom naming scheme for generic BaseModels.
+
+      :param params: Tuple of types of the class. Given a generic class
+                     `Model` with 2 type variables and a concrete model `Model[str, int]`,
+                     the value `(str, int)` would be passed to `params`.
+
+      :returns: String representing the new class where `params` are passed to `cls` as type variables.
+
+      :raises TypeError: Raised when trying to generate concrete names for non-generic models.
+
+
+
+   .. py:method:: model_rebuild(*, force: bool = False, raise_errors: bool = True, _parent_namespace_depth: int = 2, _types_namespace: pydantic._internal._namespace_utils.MappingNamespace | None = None) -> bool | None
+      :classmethod:
+
+
+      Try to rebuild the pydantic-core schema for the model.
+
+      This may be necessary when one of the annotations is a ForwardRef which could not be resolved during
+      the initial attempt to build the schema, and automatic rebuilding fails.
+
+      :param force: Whether to force the rebuilding of the model schema, defaults to `False`.
+      :param raise_errors: Whether to raise errors, defaults to `True`.
+      :param _parent_namespace_depth: The depth level of the parent namespace, defaults to 2.
+      :param _types_namespace: The types namespace, defaults to `None`.
+
+      :returns: Returns `None` if the schema is already "complete" and rebuilding was not required.
+                If rebuilding _was_ required, returns `True` if rebuilding was successful, otherwise `False`.
+
+
+
+   .. py:method:: model_validate(obj: Any, *, strict: bool | None = None, from_attributes: bool | None = None, context: Any | None = None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Validate a pydantic model instance.
+
+      :param obj: The object to validate.
+      :param strict: Whether to enforce types strictly.
+      :param from_attributes: Whether to extract data from object attributes.
+      :param context: Additional context to pass to the validator.
+
+      :raises ValidationError: If the object could not be validated.
+
+      :returns: The validated model instance.
+
+
+
+   .. py:method:: model_validate_json(json_data: str | bytes | bytearray, *, strict: bool | None = None, context: Any | None = None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Usage docs: https://docs.pydantic.dev/2.10/concepts/json/#json-parsing
+
+      Validate the given JSON data against the Pydantic model.
+
+      :param json_data: The JSON data to validate.
+      :param strict: Whether to enforce types strictly.
+      :param context: Extra variables to pass to the validator.
+
+      :returns: The validated Pydantic model.
+
+      :raises ValidationError: If `json_data` is not a JSON string or the object could not be validated.
+
+
+
+   .. py:method:: model_validate_strings(obj: Any, *, strict: bool | None = None, context: Any | None = None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Validate the given object with string data against the Pydantic model.
+
+      :param obj: The object containing string data to validate.
+      :param strict: Whether to enforce types strictly.
+      :param context: Extra variables to pass to the validator.
+
+      :returns: The validated Pydantic model.
+
+
+
+   .. py:method:: dict(*, include: IncEx | None = None, exclude: IncEx | None = None, by_alias: bool = False, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False) -> Dict[str, Any]
+
+
+   .. py:method:: json(*, include: IncEx | None = None, exclude: IncEx | None = None, by_alias: bool = False, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, encoder: Callable[[Any], Any] | None = PydanticUndefined, models_as_dict: bool = PydanticUndefined, **dumps_kwargs: Any) -> str
+
+
+   .. py:method:: parse_obj(obj: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: parse_raw(b: str | bytes, *, content_type: str | None = None, encoding: str = 'utf8', proto: pydantic.deprecated.parse.Protocol | None = None, allow_pickle: bool = False) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: parse_file(path: str | pathlib.Path, *, content_type: str | None = None, encoding: str = 'utf8', proto: pydantic.deprecated.parse.Protocol | None = None, allow_pickle: bool = False) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: from_orm(obj: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: construct(_fields_set: set[str] | None = None, **values: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: schema(by_alias: bool = True, ref_template: str = DEFAULT_REF_TEMPLATE) -> Dict[str, Any]
+      :classmethod:
+
+
+
+   .. py:method:: schema_json(*, by_alias: bool = True, ref_template: str = DEFAULT_REF_TEMPLATE, **dumps_kwargs: Any) -> str
+      :classmethod:
+
+
+
+   .. py:method:: validate(value: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: update_forward_refs(**localns: Any) -> None
+      :classmethod:
+
+
+
+.. py:class:: SplitBatchByTopics(args_list: Sequence[SplitBatchByTopicArgs] | SplitBatchByTopicArgs)
+
+   Bases: :py:obj:`BatchSplitMixin`
+
+
+   Batch split based on multiple topics.
+
+   This class will split the messages into batches based on the
+   provided topics and their respective message counts.
+   It contains multiple `SplitBatchByTopic` instances, and each
+   instance is responsible for a specific topic's splitting logic.
+   Once any of the topics requires a new batch, it will reset
+   all splits and return True.
+
+
+
+   .. py:method:: reset()
+
+      Reset the internal state of all splits.
+
+
+
+   .. py:method:: need_split(msg: robo_orchard_lab.dataset.experimental.mcap.reader.McapMessageTuple) -> bool
+
+      Determine if the message needs to be split into a new batch.
+
+      This method checks all configured splits and returns True if
+      any of them requires a new batch based on the current message.
+
+      :param msg: The message to check.
+      :type msg: McapMessageTuple
+
+      :returns: True if a new batch should be started, False otherwise.
+      :rtype: bool
+
+
+
+.. py:function:: iter_messages_batch(reader: robo_orchard_lab.dataset.experimental.mcap.reader.McapReader, batch_split: BatchSplitMixin, iter_config: Optional[robo_orchard_lab.dataset.experimental.mcap.reader.MakeIterMsgArgs] = None, do_not_split_same_log_time: bool = True) -> Iterator[robo_orchard_lab.dataset.experimental.mcap.data_record.McapMessageBatch]
+
+   Iterate over messages in batches.
+
+   :param reader: The MCAP reader to iterate messages from.
+   :type reader: McapReader
+   :param batch_split: The batch splitting logic to apply.
+   :type batch_split: BatchSplitMixin
+   :param iter_config: Configuration for message
+                       iteration.
+   :type iter_config: Optional[MakeIterMsgArgs]
+   :param do_not_split_same_log_time: If True, do not split
+                                      batches within the same log time. This feature is useful to make
+                                      sure that the batches are split based on log time. In some cases
+                                      that split must be done within the same log time, this will
+                                      trigger a warning and yield the current batch as is. Defaults to
+                                      True.
+   :type do_not_split_same_log_time: bool, optional
+
+

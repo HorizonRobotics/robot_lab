@@ -1,0 +1,116 @@
+loss_tracker
+============
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.loss_tracker
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.loss_tracker.LossMovingAverageTracker
+   robo_orchard_lab.pipeline.hooks.loss_tracker.LossMovingAverageTrackerConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: LossMovingAverageTracker(cfg: LossMovingAverageTrackerConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   Loss moving average tracker.
+
+   A loss tracker hook for log the losses at specified step intervals.
+
+   :param cfg: Configuration objects containing
+               parameters for loss tracker.
+   :type cfg: LossMovingAverageTrackerConfig
+
+
+   .. py:attribute:: step_log_freq
+
+
+   .. py:method:: reset()
+
+
+   .. py:attribute:: hooks
+      :type:  dict[PipelineHookChanelType, robo_orchard_core.utils.hook.HookContextChannel[PipelineHookArgs]]
+
+
+   .. py:method:: begin(channel: PipelineHookChanelType, arg: PipelineHookArgs)
+
+
+   .. py:method:: register_hook(channel: PipelineHookChanelType, hook: robo_orchard_core.utils.hook.HookContext[PipelineHookArgs]) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a hook context handler.
+
+      :param channel: The channel to register the hook.
+      :type channel: PipelineHookChanelType
+      :param hook: The hook context handler
+                   to register.
+      :type hook: HookContext[PipelineHookArgs]
+
+      :returns: A handle to remove the registered hook.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: register_pipeline_hooks(hooks: PipelineHooks) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a set of pipeline hooks.
+
+      :param hooks: The pipeline hooks to register.
+      :type hooks: PipelineHooks[T]
+
+      :returns: A handle to remove the registered hooks.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: unregister_all()
+
+      Unregister all hook context handlers.
+
+
+
+   .. py:method:: from_hooks(hooks: typing_extensions.Self | PipelineHooksConfig | Iterable[typing_extensions.Self | PipelineHooksConfig] | None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Create a new instance of the class from a list of hooks.
+
+      :param hooks: A list of hooks to register.
+      :type hooks: Self | Iterable[Self] | None
+
+      :returns: A new instance of the class with the registered hooks.
+      :rtype: Self
+
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: LossMovingAverageTrackerConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`LossMovingAverageTracker`\ ]
+
+
+   Configuration class for LossMovingAverageTracker.
+
+
+   .. py:attribute:: class_type
+      :type:  type[LossMovingAverageTracker]
+
+
+   .. py:attribute:: step_log_freq
+      :type:  Optional[int]
+      :value: 25
+
+
+

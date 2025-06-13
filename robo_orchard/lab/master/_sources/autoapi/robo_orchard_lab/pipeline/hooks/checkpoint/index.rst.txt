@@ -1,0 +1,139 @@
+checkpoint
+==========
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.checkpoint
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.checkpoint.SaveCheckpoint
+   robo_orchard_lab.pipeline.hooks.checkpoint.SaveCheckpointConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: SaveCheckpoint(cfg: SaveCheckpointConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   Checkpoint hook.
+
+   A checkpointing hook for saving model state at specified epoch or
+   step intervals.
+
+
+   :param cfg: Configuration object containing
+               parameters for checkpointing.
+   :type cfg: SaveCheckpointConfig
+
+
+   .. py:attribute:: save_root
+
+
+   .. py:attribute:: save_epoch_freq
+
+
+   .. py:attribute:: save_step_freq
+
+
+   .. py:attribute:: hooks
+      :type:  dict[PipelineHookChanelType, robo_orchard_core.utils.hook.HookContextChannel[PipelineHookArgs]]
+
+
+   .. py:method:: begin(channel: PipelineHookChanelType, arg: PipelineHookArgs)
+
+
+   .. py:method:: register_hook(channel: PipelineHookChanelType, hook: robo_orchard_core.utils.hook.HookContext[PipelineHookArgs]) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a hook context handler.
+
+      :param channel: The channel to register the hook.
+      :type channel: PipelineHookChanelType
+      :param hook: The hook context handler
+                   to register.
+      :type hook: HookContext[PipelineHookArgs]
+
+      :returns: A handle to remove the registered hook.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: register_pipeline_hooks(hooks: PipelineHooks) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a set of pipeline hooks.
+
+      :param hooks: The pipeline hooks to register.
+      :type hooks: PipelineHooks[T]
+
+      :returns: A handle to remove the registered hooks.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: unregister_all()
+
+      Unregister all hook context handlers.
+
+
+
+   .. py:method:: from_hooks(hooks: typing_extensions.Self | PipelineHooksConfig | Iterable[typing_extensions.Self | PipelineHooksConfig] | None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Create a new instance of the class from a list of hooks.
+
+      :param hooks: A list of hooks to register.
+      :type hooks: Self | Iterable[Self] | None
+
+      :returns: A new instance of the class with the registered hooks.
+      :rtype: Self
+
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: SaveCheckpointConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`SaveCheckpoint`\ ]
+
+
+   Configuration class for SaveCheckpoint.
+
+
+   .. py:attribute:: class_type
+      :type:  type[SaveCheckpoint]
+
+
+   .. py:attribute:: save_root
+      :type:  Optional[str]
+      :value: None
+
+
+      The root directory where checkpoints are saved.
+
+
+   .. py:attribute:: save_epoch_freq
+      :type:  Optional[int]
+      :value: 1
+
+
+      Frequency of saving checkpoints based on epochs.
+
+
+   .. py:attribute:: save_step_freq
+      :type:  Optional[int]
+      :value: None
+
+
+      Frequency of saving checkpoints based on steps.
+
+

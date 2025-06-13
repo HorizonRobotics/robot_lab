@@ -1,0 +1,153 @@
+stats
+=====
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.stats
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.stats.StatsMonitor
+   robo_orchard_lab.pipeline.hooks.stats.StatsMonitorConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: StatsMonitor(cfg: StatsMonitorConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   A hook to monitor and log training statistics.
+
+   Including training speed, estimated time remaining, learning rate.
+
+
+   .. py:attribute:: batch_size
+
+
+   .. py:attribute:: steps_per_epoch
+
+
+   .. py:attribute:: step_log_freq
+
+
+   .. py:attribute:: epoch_log_freq
+
+
+   .. py:attribute:: total_batch_size
+      :value: None
+
+
+
+   .. py:attribute:: hooks
+      :type:  dict[PipelineHookChanelType, robo_orchard_core.utils.hook.HookContextChannel[PipelineHookArgs]]
+
+
+   .. py:method:: begin(channel: PipelineHookChanelType, arg: PipelineHookArgs)
+
+
+   .. py:method:: register_hook(channel: PipelineHookChanelType, hook: robo_orchard_core.utils.hook.HookContext[PipelineHookArgs]) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a hook context handler.
+
+      :param channel: The channel to register the hook.
+      :type channel: PipelineHookChanelType
+      :param hook: The hook context handler
+                   to register.
+      :type hook: HookContext[PipelineHookArgs]
+
+      :returns: A handle to remove the registered hook.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: register_pipeline_hooks(hooks: PipelineHooks) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a set of pipeline hooks.
+
+      :param hooks: The pipeline hooks to register.
+      :type hooks: PipelineHooks[T]
+
+      :returns: A handle to remove the registered hooks.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: unregister_all()
+
+      Unregister all hook context handlers.
+
+
+
+   .. py:method:: from_hooks(hooks: typing_extensions.Self | PipelineHooksConfig | Iterable[typing_extensions.Self | PipelineHooksConfig] | None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Create a new instance of the class from a list of hooks.
+
+      :param hooks: A list of hooks to register.
+      :type hooks: Self | Iterable[Self] | None
+
+      :returns: A new instance of the class with the registered hooks.
+      :rtype: Self
+
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: StatsMonitorConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`StatsMonitor`\ ]
+
+
+   Configuration class for StatsMonitor.
+
+
+   .. py:attribute:: class_type
+      :type:  type[StatsMonitor]
+
+
+   .. py:attribute:: batch_size
+      :type:  Optional[int]
+      :value: None
+
+
+      The batch size per process. If None, it attempts to be inferred
+      from the dataloader.
+
+
+   .. py:attribute:: steps_per_epoch
+      :type:  Optional[int]
+      :value: None
+
+
+      The number of steps per epoch. If None, it attempts to be inferred
+      from the dataloader.
+
+
+   .. py:attribute:: step_log_freq
+      :type:  int
+      :value: 512
+
+
+      Frequency to log stats at the step level. Logs are output every
+      `step_log_freq` steps.
+
+
+   .. py:attribute:: epoch_log_freq
+      :type:  int
+      :value: 1
+
+
+      Frequency to log stats at the epoch level. Logs are output every
+      `epoch_log_freq` epochs.
+
+

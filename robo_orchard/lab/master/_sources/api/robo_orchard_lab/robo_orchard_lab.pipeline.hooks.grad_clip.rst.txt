@@ -1,7 +1,0 @@
-robo\_orchard\_lab.pipeline.hooks.grad\_clip module
-===================================================
-
-.. automodule:: robo_orchard_lab.pipeline.hooks.grad_clip
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,0 +1,168 @@
+validation
+==========
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.validation
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.validation.ValidationHook
+   robo_orchard_lab.pipeline.hooks.validation.ValidationHookConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: ValidationHook(cfg: ValidationHookConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   A hook for evaluating the model during training.
+
+   This hook allows for evaluation at specified intervals during training,
+   either at the end of each step or at the end of each epoch.
+
+
+   :param eval_callback: A callback function to be called
+                         for evaluation. This function should not take no argument and
+                         should not return any values. A common use case is to pass a
+                         closure that performs the evaluation.
+   :type eval_callback: Callable[[], None]
+   :param step_eval_freq: The frequency of evaluation in terms of
+                          steps. If specified, the evaluation will be performed every
+                          `step_eval_freq` steps.
+   :type step_eval_freq: int | None
+   :param epoch_eval_freq: The frequency of evaluation in terms of
+                           epochs. If specified, the evaluation will be performed every
+                           `epoch_eval_freq` epochs.
+   :type epoch_eval_freq: int | None
+
+
+   .. py:attribute:: eval_callback
+
+
+   .. py:attribute:: step_eval_freq
+
+
+   .. py:attribute:: epoch_eval_freq
+
+
+   .. py:method:: need_eval(hook_args: robo_orchard_lab.pipeline.hooks.mixin.PipelineHookArgs) -> bool
+
+      Checks if evaluation is needed based on the current state.
+
+      This method will return True if the current step or epoch matches the
+      specified evaluation frequencies. If both step_eval_freq and
+      epoch_eval_freq are None, return False.
+
+      :param progress_state: The current training
+                             progress state.
+      :type progress_state: PipelineHookArgs
+
+      :returns: True if evaluation is needed, False otherwise.
+      :rtype: bool
+
+
+
+   .. py:attribute:: hooks
+      :type:  dict[PipelineHookChanelType, robo_orchard_core.utils.hook.HookContextChannel[PipelineHookArgs]]
+
+
+   .. py:method:: begin(channel: PipelineHookChanelType, arg: PipelineHookArgs)
+
+
+   .. py:method:: register_hook(channel: PipelineHookChanelType, hook: robo_orchard_core.utils.hook.HookContext[PipelineHookArgs]) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a hook context handler.
+
+      :param channel: The channel to register the hook.
+      :type channel: PipelineHookChanelType
+      :param hook: The hook context handler
+                   to register.
+      :type hook: HookContext[PipelineHookArgs]
+
+      :returns: A handle to remove the registered hook.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: register_pipeline_hooks(hooks: PipelineHooks) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Register a set of pipeline hooks.
+
+      :param hooks: The pipeline hooks to register.
+      :type hooks: PipelineHooks[T]
+
+      :returns: A handle to remove the registered hooks.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: unregister_all()
+
+      Unregister all hook context handlers.
+
+
+
+   .. py:method:: from_hooks(hooks: typing_extensions.Self | PipelineHooksConfig | Iterable[typing_extensions.Self | PipelineHooksConfig] | None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Create a new instance of the class from a list of hooks.
+
+      :param hooks: A list of hooks to register.
+      :type hooks: Self | Iterable[Self] | None
+
+      :returns: A new instance of the class with the registered hooks.
+      :rtype: Self
+
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: ValidationHookConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`ValidationHook`\ ]
+
+
+   Configuration class for ValidationHook.
+
+
+   .. py:attribute:: class_type
+      :type:  type[ValidationHook]
+
+
+   .. py:attribute:: eval_callback
+      :type:  Callable[[], None]
+
+      A callback function to be called for evaluation. This function should
+      not take no argument and should not return any values. A common use case
+      is to pass a closure that performs the evaluation.
+
+
+   .. py:attribute:: step_eval_freq
+      :type:  int | None
+      :value: None
+
+
+      The frequency of evaluation in terms of  steps. If specified,
+      the evaluation will be performed every `step_eval_freq` steps.
+
+
+   .. py:attribute:: epoch_eval_freq
+      :type:  int | None
+      :value: None
+
+
+      The frequency of evaluation in terms of epochs. If specified, the
+      evaluation will be performed every `epoch_eval_freq` epochs.
+
+

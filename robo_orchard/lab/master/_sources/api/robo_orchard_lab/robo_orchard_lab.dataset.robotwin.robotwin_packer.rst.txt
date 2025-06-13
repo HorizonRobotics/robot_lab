@@ -1,7 +1,0 @@
-robo\_orchard\_lab.dataset.robotwin.robotwin\_packer module
-===========================================================
-
-.. automodule:: robo_orchard_lab.dataset.robotwin.robotwin_packer
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,7 +1,0 @@
-robo\_orchard\_lab.models.bip3d.grounding\_decoder.deformable\_aggregation module
-=================================================================================
-
-.. automodule:: robo_orchard_lab.models.bip3d.grounding_decoder.deformable_aggregation
-   :members:
-   :undoc-members:
-   :show-inheritance:

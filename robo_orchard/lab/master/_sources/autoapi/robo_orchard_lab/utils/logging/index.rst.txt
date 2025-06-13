@@ -1,0 +1,79 @@
+logging
+=======
+
+.. py:module:: robo_orchard_lab.utils.logging
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.logging.basic_config
+
+
+Module Contents
+---------------
+
+.. py:function:: basic_config(format: str = '%rank %(asctime)s %(levelname)s %(name)s:%(lineno)d %(message)s', datefmt: str = '%m/%d/%Y %H:%M:%S', **kwargs)
+
+   Configures the logging system for distributed training environments.
+
+   This function extends Python's `logging.basicConfig` to include
+   distributed rank information (`%rank`) in the log format. It replaces
+   the `%rank` placeholder with the rank and world size
+   from `get_dist_info()`.
+
+   :param format: The log message format. Default value is
+                  "%(rank)s %(asctime)s %(levelname)s %(name)s:%(lineno)d %(message)s".
+                  - ``%rank``: A placeholder replaced with "Rank[<rank>/<world_size>]".
+                  - Other placeholders include:
+
+                    - ``%(asctime)s``: Timestamp of the log message.
+                    - ``%(levelname)s``: Log severity level (e.g., DEBUG, INFO).
+                    - ``%(name)s``: Name of the logger.
+                    - ``%(lineno)d``: Line number where the log was issued.
+   :type format: str, optional
+   :param datefmt: Date and time format for log messages.
+                   Default: "%m/%d/%Y %H:%M:%S".
+   :type datefmt: str, optional
+   :param \*\*kwargs: Additional arguments passed to `logging.basicConfig`, such as
+                      `level`.
+
+   :raises TypeError: If `format` or `datefmt` is not a string.
+   :raises ValueError: If `get_dist_info()` fails to return valid rank/world_size.
+
+   .. rubric:: Examples
+
+   Basic Usage:
+       >>> from robo_orchard_lab.logging import basic_config
+       >>> import logging
+       >>>
+       >>> basic_config(level=logging.DEBUG)
+       >>> logger = logging.getLogger("example_logger")
+       >>> logger.info("This is an info message.")
+       # Output might look like (rank/world_size and timestamp will vary):
+       # Rank[0/1] 05/22/2025 18:40:00 INFO example_logger:X This is
+       # an info message.
+
+   Custom Format:
+       >>> basic_config(
+       ...     format="%(asctime)s - %(rank)s - %(levelname)s - %(message)s",
+       ...     level=logging.INFO,
+       ...     datefmt="%Y-%m-%d %H:%M:%S",
+       ... )
+       >>> logger = logging.getLogger("custom_logger")
+       >>> logger.warning("This is a warning message.")
+       # Output might look like:
+       # 2025-05-22 18:40:00 - Rank[0/1] - WARNING - This is a
+       # warning message.
+
+   Non-Distributed Environment (assuming get_dist_info returns 0, 1):
+       >>> basic_config()
+       >>> logger = logging.getLogger("single_logger")
+       >>> logger.debug("Debug message in single-node environment.")
+       # Output might look like:
+       # Rank[0/1] 05/22/2025 18:40:00 DEBUG single_logger:Y
+       # Debug message in single-node environment.
+
+

@@ -1,0 +1,695 @@
+hook_based_trainer
+==================
+
+.. py:module:: robo_orchard_lab.pipeline.hook_based_trainer
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hook_based_trainer.PipelineHookOrConfigType
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hook_based_trainer.GradientClippingHookConfig
+   robo_orchard_lab.pipeline.hook_based_trainer.ValidationHookConfig
+   robo_orchard_lab.pipeline.hook_based_trainer.ResumeCheckpointConfig
+   robo_orchard_lab.pipeline.hook_based_trainer.HookBasedTrainer
+
+
+Module Contents
+---------------
+
+.. py:class:: GradientClippingHookConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`GradientClippingHook`\ ]
+
+
+   Configuration class for GradientClippingHook.
+
+
+   .. py:attribute:: class_type
+      :type:  type[GradientClippingHook]
+
+
+   .. py:attribute:: clip_mode
+      :type:  Literal['norm', 'value']
+
+      The mode of gradient clipping.
+      - "norm": Clips gradients by norm.
+      - "value": Clips gradients by value.
+
+
+   .. py:attribute:: clip_value
+      :type:  float | None
+      :value: None
+
+
+      The maximum norm to clip the gradients to. This parameter
+      is only used when `clip_mode` is "norm".
+
+
+   .. py:attribute:: max_norm
+      :type:  float | None
+      :value: None
+
+
+      The maximum norm to clip the gradients to. This parameter is only
+      used when `clip_mode` is "norm".
+
+
+   .. py:attribute:: norm_type
+      :type:  float
+      :value: 2.0
+
+
+      The type of norm to use for clipping. Default is 2.0 (L2 norm).
+
+
+.. py:class:: ValidationHookConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`ValidationHook`\ ]
+
+
+   Configuration class for ValidationHook.
+
+
+   .. py:attribute:: class_type
+      :type:  type[ValidationHook]
+
+
+   .. py:attribute:: eval_callback
+      :type:  Callable[[], None]
+
+      A callback function to be called for evaluation. This function should
+      not take no argument and should not return any values. A common use case
+      is to pass a closure that performs the evaluation.
+
+
+   .. py:attribute:: step_eval_freq
+      :type:  int | None
+      :value: None
+
+
+      The frequency of evaluation in terms of  steps. If specified,
+      the evaluation will be performed every `step_eval_freq` steps.
+
+
+   .. py:attribute:: epoch_eval_freq
+      :type:  int | None
+      :value: None
+
+
+      The frequency of evaluation in terms of epochs. If specified, the
+      evaluation will be performed every `epoch_eval_freq` epochs.
+
+
+.. py:class:: ResumeCheckpointConfig(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.Config`
+
+
+   A configuration class for resuming from checkpoints.
+
+
+   .. py:attribute:: resume_from
+      :type:  str
+
+      The directory containing the checkpoints.
+
+
+   .. py:attribute:: cache_dir
+      :type:  str | None
+      :value: None
+
+
+      The directory to cache the checkpoints if from a remote path.
+
+
+   .. py:attribute:: safe_serialization
+      :type:  bool
+      :value: True
+
+
+      Whether to use safe serialization when loading the state.
+
+      This is used when input_dir is a remote path. The names of checkpoint
+      files depend on whether `safe_serialization` is set to `True` or
+      `False`. Users should ensure that the checkpoint files in the
+      remote directory are compatible with the specified `safe_serialization`
+      option.
+
+
+   .. py:method:: load_state(accelerator: accelerate.Accelerator, **kwargs) -> None
+
+      Loads the state of the accelerator from a checkpoint.
+
+      :param accelerator: The `Accelerator` instance to load the
+                          state into.
+      :type accelerator: Accelerator
+
+
+
+   .. py:attribute:: model_config
+
+      Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
+
+
+   .. py:method:: wrapped_model_ser(handler: pydantic.SerializerFunctionWrapHandler)
+
+      Serializes the configuration to a dictionary.
+
+      This wrapper function is used when the configuration is serialized
+      to a JSON string. It adds the `__config_type__` key to the dictionary.
+
+      `__config_type__` is the string representation of the class type. It
+      is used to determine the class type when deserializing the JSON string
+      instead of using pydantic's default behavior.
+
+      If a configuration class does not need the `__config_type__` key, set
+      `__exclude_config_type__` to True in the configuration class.
+
+      For builtin types, the `__config_type__` key will not be added to the
+      dictionary.
+
+
+
+
+   .. py:method:: wrapped_model_val(data: Any, handler: pydantic.ValidatorFunctionWrapHandler)
+      :classmethod:
+
+
+
+   .. py:method:: model_post_init(*args, **kwargs)
+
+      Post init method for the model.
+
+      Perform additional initialization after __init__ and model_construct.
+      This is useful if you want to do some validation that requires the
+      entire model to be initialized.
+
+      To be consistent with configclass, this method is implemented by
+      calling the `__post_init__` method.
+
+
+
+
+   .. py:method:: to_dict(exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, include_config_type: bool = False, **kwargs) -> dict
+
+      Converts the configuration to a dictionary.
+
+      This method will call pydanitc's `model_dump` method to convert the
+      configuration to a dictionary. The `__config_type__` key will be added
+      to the dictionary if `include_config_type` is True.
+
+      .. note::
+
+         This method is not designed for serialization. Use the
+         :py:meth:`to_str` method for serialization!
+
+      :param exclude_unset: Whether to exclude unset values from the
+                            dictionary. Default is False.
+      :type exclude_unset: bool
+      :param exclude_defaults: Whether to exclude default values from the
+                               dictionary. Default is False.
+      :type exclude_defaults: bool
+      :param exclude_none: Whether to exclude None values from the
+                           dictionary. Default is False.
+      :type exclude_none: bool
+      :param include_config_type: Whether to include the
+                                  `__config_type__` key in the dictionary. If False, the
+                                  deserialization will use the class type defined in the class
+                                  annotation, not the acaual deserialized class type! This will
+                                  break the consistency of serialization and deserialization.
+                                  Default is False.
+      :type include_config_type: bool
+
+
+
+   .. py:method:: to_str(format: Literal['json', 'toml', 'yaml'] = 'json', exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, **kwargs) -> str
+
+      Converts the configuration to a string.
+
+      Different from the `to_dict` method, this method adds the
+      '__config_type__' key to the dictionary and converts the dictionary
+      to a string.
+
+      For config that does not need '__config_type__' key, set
+      `__exclude_config_type__` to True in the config class.
+
+      :param format: The format of the output string. Can be 'json',
+                     'yaml' or 'toml'. Default is 'json'.
+      :type format: str
+      :param exclude_unset: Whether to exclude unset values from the
+                            dictionary. Default is False.
+      :type exclude_unset: bool
+      :param exclude_defaults: Whether to exclude default values from the
+                               dictionary. Default is False.
+      :type exclude_defaults: bool
+      :param exclude_none: Whether to exclude None values from the
+                           dictionary. Default is False.
+      :type exclude_none: bool
+      :param \*\*kwargs: Additional keyword arguments to be passed to the
+                         serialization method :meth:`BaseModel.model_dump_json`.
+
+      :returns: The string representation of the configuration.
+      :rtype: str
+
+
+
+   .. py:method:: from_dict(data: dict, **kwargs) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: from_str(data: str, format: Literal['json', 'toml', 'yaml'] = 'json', **kwargs) -> typing_extensions.Self
+      :classmethod:
+
+
+      Creates a configuration object from a string.
+
+      If the input string is not in JSON format, it will be converted to a
+      JSON string before deserialization.
+
+      :param data: The input string data.
+      :type data: str
+      :param format: The format of the input string. Can be 'json',
+                     'yaml' or 'toml'. Default is 'json'.
+      :type format: str
+      :param \*\*kwargs: Additional keyword arguments to be passed to the
+                         deserialization method :meth:`BaseModel.model_validate_json`.
+
+
+
+   .. py:method:: copy() -> typing_extensions.Self
+
+      Returns a copy of the configuration.
+
+
+
+   .. py:method:: replace(**kwargs) -> typing_extensions.Self
+
+
+   .. py:method:: content_equal(other: typing_extensions.Self) -> bool
+
+      Check if the content of the configuration is equal to another.
+
+      This method relies on the `to_json` method to convert the
+      configuration to json dictionaries and compare them.
+
+
+
+   .. py:attribute:: model_fields
+      :type:  ClassVar[dict[str, pydantic.fields.FieldInfo]]
+
+
+   .. py:property:: model_extra
+      :type: dict[str, Any] | None
+
+
+      Get extra fields set during validation.
+
+      :returns: A dictionary of extra fields, or `None` if `config.extra` is not set to `"allow"`.
+
+
+   .. py:property:: model_fields_set
+      :type: set[str]
+
+
+      Returns the set of fields that have been explicitly set on this model instance.
+
+      :returns:
+
+                A set of strings representing the fields that have been set,
+                    i.e. that were not filled from defaults.
+
+
+   .. py:method:: model_construct(_fields_set: set[str] | None = None, **values: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+      Creates a new instance of the `Model` class with validated data.
+
+      Creates a new model setting `__dict__` and `__pydantic_fields_set__` from trusted or pre-validated data.
+      Default values are respected, but no other validation is performed.
+
+      !!! note
+          `model_construct()` generally respects the `model_config.extra` setting on the provided model.
+          That is, if `model_config.extra == 'allow'`, then all extra passed values are added to the model instance's `__dict__`
+          and `__pydantic_extra__` fields. If `model_config.extra == 'ignore'` (the default), then all extra passed values are ignored.
+          Because no validation is performed with a call to `model_construct()`, having `model_config.extra == 'forbid'` does not result in
+          an error if extra values are passed, but they will be ignored.
+
+      :param _fields_set: A set of field names that were originally explicitly set during instantiation. If provided,
+                          this is directly used for the [`model_fields_set`][pydantic.BaseModel.model_fields_set] attribute.
+                          Otherwise, the field names from the `values` argument will be used.
+      :param values: Trusted or pre-validated data dictionary.
+
+      :returns: A new instance of the `Model` class with validated data.
+
+
+
+   .. py:method:: model_copy(*, update: Mapping[str, Any] | None = None, deep: bool = False) -> typing_extensions.Self
+
+      Usage docs: https://docs.pydantic.dev/2.10/concepts/serialization/#model_copy
+
+      Returns a copy of the model.
+
+      :param update: Values to change/add in the new model. Note: the data is not validated
+                     before creating the new model. You should trust this data.
+      :param deep: Set to `True` to make a deep copy of the model.
+
+      :returns: New model instance.
+
+
+
+   .. py:method:: model_dump(*, mode: Literal['json', 'python'] | str = 'python', include: IncEx | None = None, exclude: IncEx | None = None, context: Any | None = None, by_alias: bool = False, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, round_trip: bool = False, warnings: bool | Literal['none', 'warn', 'error'] = True, serialize_as_any: bool = False) -> dict[str, Any]
+
+      Usage docs: https://docs.pydantic.dev/2.10/concepts/serialization/#modelmodel_dump
+
+      Generate a dictionary representation of the model, optionally specifying which fields to include or exclude.
+
+      :param mode: The mode in which `to_python` should run.
+                   If mode is 'json', the output will only contain JSON serializable types.
+                   If mode is 'python', the output may contain non-JSON-serializable Python objects.
+      :param include: A set of fields to include in the output.
+      :param exclude: A set of fields to exclude from the output.
+      :param context: Additional context to pass to the serializer.
+      :param by_alias: Whether to use the field's alias in the dictionary key if defined.
+      :param exclude_unset: Whether to exclude fields that have not been explicitly set.
+      :param exclude_defaults: Whether to exclude fields that are set to their default value.
+      :param exclude_none: Whether to exclude fields that have a value of `None`.
+      :param round_trip: If True, dumped values should be valid as input for non-idempotent types such as Json[T].
+      :param warnings: How to handle serialization errors. False/"none" ignores them, True/"warn" logs errors,
+                       "error" raises a [`PydanticSerializationError`][pydantic_core.PydanticSerializationError].
+      :param serialize_as_any: Whether to serialize fields with duck-typing serialization behavior.
+
+      :returns: A dictionary representation of the model.
+
+
+
+   .. py:method:: model_dump_json(*, indent: int | None = None, include: IncEx | None = None, exclude: IncEx | None = None, context: Any | None = None, by_alias: bool = False, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, round_trip: bool = False, warnings: bool | Literal['none', 'warn', 'error'] = True, serialize_as_any: bool = False) -> str
+
+      Usage docs: https://docs.pydantic.dev/2.10/concepts/serialization/#modelmodel_dump_json
+
+      Generates a JSON representation of the model using Pydantic's `to_json` method.
+
+      :param indent: Indentation to use in the JSON output. If None is passed, the output will be compact.
+      :param include: Field(s) to include in the JSON output.
+      :param exclude: Field(s) to exclude from the JSON output.
+      :param context: Additional context to pass to the serializer.
+      :param by_alias: Whether to serialize using field aliases.
+      :param exclude_unset: Whether to exclude fields that have not been explicitly set.
+      :param exclude_defaults: Whether to exclude fields that are set to their default value.
+      :param exclude_none: Whether to exclude fields that have a value of `None`.
+      :param round_trip: If True, dumped values should be valid as input for non-idempotent types such as Json[T].
+      :param warnings: How to handle serialization errors. False/"none" ignores them, True/"warn" logs errors,
+                       "error" raises a [`PydanticSerializationError`][pydantic_core.PydanticSerializationError].
+      :param serialize_as_any: Whether to serialize fields with duck-typing serialization behavior.
+
+      :returns: A JSON string representation of the model.
+
+
+
+   .. py:method:: model_json_schema(by_alias: bool = True, ref_template: str = DEFAULT_REF_TEMPLATE, schema_generator: type[pydantic.json_schema.GenerateJsonSchema] = GenerateJsonSchema, mode: pydantic.json_schema.JsonSchemaMode = 'validation') -> dict[str, Any]
+      :classmethod:
+
+
+      Generates a JSON schema for a model class.
+
+      :param by_alias: Whether to use attribute aliases or not.
+      :param ref_template: The reference template.
+      :param schema_generator: To override the logic used to generate the JSON schema, as a subclass of
+                               `GenerateJsonSchema` with your desired modifications
+      :param mode: The mode in which to generate the schema.
+
+      :returns: The JSON schema for the given model class.
+
+
+
+   .. py:method:: model_parametrized_name(params: tuple[type[Any], Ellipsis]) -> str
+      :classmethod:
+
+
+      Compute the class name for parametrizations of generic classes.
+
+      This method can be overridden to achieve a custom naming scheme for generic BaseModels.
+
+      :param params: Tuple of types of the class. Given a generic class
+                     `Model` with 2 type variables and a concrete model `Model[str, int]`,
+                     the value `(str, int)` would be passed to `params`.
+
+      :returns: String representing the new class where `params` are passed to `cls` as type variables.
+
+      :raises TypeError: Raised when trying to generate concrete names for non-generic models.
+
+
+
+   .. py:method:: model_rebuild(*, force: bool = False, raise_errors: bool = True, _parent_namespace_depth: int = 2, _types_namespace: pydantic._internal._namespace_utils.MappingNamespace | None = None) -> bool | None
+      :classmethod:
+
+
+      Try to rebuild the pydantic-core schema for the model.
+
+      This may be necessary when one of the annotations is a ForwardRef which could not be resolved during
+      the initial attempt to build the schema, and automatic rebuilding fails.
+
+      :param force: Whether to force the rebuilding of the model schema, defaults to `False`.
+      :param raise_errors: Whether to raise errors, defaults to `True`.
+      :param _parent_namespace_depth: The depth level of the parent namespace, defaults to 2.
+      :param _types_namespace: The types namespace, defaults to `None`.
+
+      :returns: Returns `None` if the schema is already "complete" and rebuilding was not required.
+                If rebuilding _was_ required, returns `True` if rebuilding was successful, otherwise `False`.
+
+
+
+   .. py:method:: model_validate(obj: Any, *, strict: bool | None = None, from_attributes: bool | None = None, context: Any | None = None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Validate a pydantic model instance.
+
+      :param obj: The object to validate.
+      :param strict: Whether to enforce types strictly.
+      :param from_attributes: Whether to extract data from object attributes.
+      :param context: Additional context to pass to the validator.
+
+      :raises ValidationError: If the object could not be validated.
+
+      :returns: The validated model instance.
+
+
+
+   .. py:method:: model_validate_json(json_data: str | bytes | bytearray, *, strict: bool | None = None, context: Any | None = None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Usage docs: https://docs.pydantic.dev/2.10/concepts/json/#json-parsing
+
+      Validate the given JSON data against the Pydantic model.
+
+      :param json_data: The JSON data to validate.
+      :param strict: Whether to enforce types strictly.
+      :param context: Extra variables to pass to the validator.
+
+      :returns: The validated Pydantic model.
+
+      :raises ValidationError: If `json_data` is not a JSON string or the object could not be validated.
+
+
+
+   .. py:method:: model_validate_strings(obj: Any, *, strict: bool | None = None, context: Any | None = None) -> typing_extensions.Self
+      :classmethod:
+
+
+      Validate the given object with string data against the Pydantic model.
+
+      :param obj: The object containing string data to validate.
+      :param strict: Whether to enforce types strictly.
+      :param context: Extra variables to pass to the validator.
+
+      :returns: The validated Pydantic model.
+
+
+
+   .. py:method:: dict(*, include: IncEx | None = None, exclude: IncEx | None = None, by_alias: bool = False, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False) -> Dict[str, Any]
+
+
+   .. py:method:: json(*, include: IncEx | None = None, exclude: IncEx | None = None, by_alias: bool = False, exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, encoder: Callable[[Any], Any] | None = PydanticUndefined, models_as_dict: bool = PydanticUndefined, **dumps_kwargs: Any) -> str
+
+
+   .. py:method:: parse_obj(obj: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: parse_raw(b: str | bytes, *, content_type: str | None = None, encoding: str = 'utf8', proto: pydantic.deprecated.parse.Protocol | None = None, allow_pickle: bool = False) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: parse_file(path: str | pathlib.Path, *, content_type: str | None = None, encoding: str = 'utf8', proto: pydantic.deprecated.parse.Protocol | None = None, allow_pickle: bool = False) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: from_orm(obj: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: construct(_fields_set: set[str] | None = None, **values: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: schema(by_alias: bool = True, ref_template: str = DEFAULT_REF_TEMPLATE) -> Dict[str, Any]
+      :classmethod:
+
+
+
+   .. py:method:: schema_json(*, by_alias: bool = True, ref_template: str = DEFAULT_REF_TEMPLATE, **dumps_kwargs: Any) -> str
+      :classmethod:
+
+
+
+   .. py:method:: validate(value: Any) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: update_forward_refs(**localns: Any) -> None
+      :classmethod:
+
+
+
+.. py:data:: PipelineHookOrConfigType
+
+.. py:class:: HookBasedTrainer(accelerator: accelerate.Accelerator, model: torch.nn.Module, dataloader: torch.utils.data.DataLoader | Iterable, batch_processor: robo_orchard_lab.pipeline.batch_processor.mixin.BatchProcessorMixin, optimizer: torch.optim.Optimizer, lr_scheduler: torch.optim.lr_scheduler.LRScheduler, hooks: PipelineHookOrConfigType | Iterable[PipelineHookOrConfigType], max_step: int | None = None, max_epoch: int | None = None, grad_clip: robo_orchard_lab.pipeline.hooks.grad_clip.GradientClippingHookConfig | None = None, validation: robo_orchard_lab.pipeline.hooks.validation.ValidationHookConfig | None = None, resume_from: ResumeCheckpointConfig | None = None)
+
+   A trainer class that uses hooks to manage the training process.
+
+   The data loader, model, optimizer, and learning rate scheduler are
+   prepared using the `Accelerator` instance, which provides
+   distributed training capabilities. The `PipelineHooks` are used to
+   manage the training process, allowing for custom hooks to be defined
+   for various stages of the training loop.
+
+   The whole training process with hooks is as follows:
+
+   .. code-block:: text
+
+       with on_loop:
+           with on_epoch:
+               for batch in dataloader:
+                   with on_step:
+                       with on_batch:
+                           batch_processor(...)
+                           ...
+
+                       update step id
+           update epoch id
+
+
+   .. note::
+
+      The trainer will register the following default hooks in order:
+      
+      - `GradientClippingHook`: This hook is responsible for clipping
+          the gradients to prevent exploding gradients. It will be
+          registered if the `grad_clip` argument is provided.
+      
+      - `OptimizerHook`: This hook is responsible for performing the
+          optimization step and updating the learning rate scheduler.
+      
+      - `ValidationHook`: This hook is responsible for performing
+          validation during training. It will call the evaluation
+          callback function at the specified frequency. It will be
+          registered if the `validation` argument is provided.
+
+   :param accelerator: The `Accelerator` instance managing
+                       distributed training.
+   :type accelerator: Accelerator
+   :param model: The model to be trained.
+   :type model: torch.nn.Module
+   :param dataloader: The data loader for feeding
+                      batches to the model during training.
+   :type dataloader: DataLoader | Iterable
+   :param batch_processor: The batch processor
+                           responsible for processing the batches and backpropagating
+                           the loss.
+   :type batch_processor: BatchProcessorMixin
+   :param optimizer: The optimizer used during
+                     training.
+   :type optimizer: torch.optim.Optimizer
+   :param lr_scheduler: The learning
+                        rate scheduler used during training.
+   :type lr_scheduler: torch.optim.lr_scheduler.LRScheduler
+   :param hooks: The hooks to be
+                 used during training. These hooks can be used to customize
+                 various stages of the training process.
+   :type hooks: PipelineHooks | Iterable[PipelineHooks]
+   :param max_step: The maximum number of steps for
+                    training. Either `max_step` or `max_epoch` must be specified.
+   :type max_step: int | None
+   :param max_epoch: The maximum number of epochs for
+                     training. Either `max_step` or `max_epoch` must be specified.
+   :type max_epoch: int | None
+   :param grad_clip: The gradient clipping
+                     configuration.
+   :type grad_clip: GradClipConfig | None
+   :param validation: The validation
+                      configuration. If not specified, no validation will be
+                      performed.
+   :type validation: ValidationConfig | None
+   :param resume_from: The configuration
+                       for resuming from checkpoints. If not specified, training
+                       will start from scratch.
+   :type resume_from: ResumeCheckpointConfig | None
+
+
+   .. py:attribute:: accelerator
+
+
+   .. py:attribute:: max_step
+      :value: None
+
+
+
+   .. py:attribute:: max_epoch
+      :value: None
+
+
+
+   .. py:attribute:: model
+      :type:  torch.nn.Module
+
+
+   .. py:attribute:: dataloader
+      :type:  torch.utils.data.DataLoader
+
+
+   .. py:attribute:: optimizer
+      :type:  accelerate.optimizer.AcceleratedOptimizer
+
+
+   .. py:attribute:: lr_scheduler
+      :type:  accelerate.scheduler.AcceleratedScheduler
+
+
+   .. py:attribute:: trainer_progress_state
+
+
+   .. py:attribute:: batch_processor
+
+
+   .. py:attribute:: hooks
+
+

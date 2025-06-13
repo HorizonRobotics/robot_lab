@@ -1,7 +1,0 @@
-robo\_orchard\_lab.dataset.embodiedscan.utils module
-====================================================
-
-.. automodule:: robo_orchard_lab.dataset.embodiedscan.utils
-   :members:
-   :undoc-members:
-   :show-inheritance:

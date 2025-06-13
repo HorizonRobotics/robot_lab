@@ -1,7 +1,0 @@
-robo\_orchard\_lab.models.bip3d.structure module
-================================================
-
-.. automodule:: robo_orchard_lab.models.bip3d.structure
-   :members:
-   :undoc-members:
-   :show-inheritance:

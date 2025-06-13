@@ -1,0 +1,128 @@
+huggingface
+===========
+
+.. py:module:: robo_orchard_lab.utils.huggingface
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.huggingface.AcceleratorState
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.huggingface.get_accelerate_project_last_checkpoint_id
+   robo_orchard_lab.utils.huggingface.accelerator_load_state
+
+
+Module Contents
+---------------
+
+.. py:function:: get_accelerate_project_last_checkpoint_id(project_dir: str) -> int
+
+   Helper function to get last checkpoint id.
+
+   Retrieves the ID of the last checkpoint in the specified project directory.
+
+   This function specifically handles checkpoints saved using the
+   `Accelerator.save_state` method from the Hugging Face `accelerate`
+   library, which follows an automatic checkpoint naming convention.
+   It searches the specified `project_dir/checkpoints` directory,
+   extracts numerical IDs from folder names, and returns the highest ID,
+   representing the most recent checkpoint.
+
+   :param project_dir: Path to the project directory containing the
+                       `checkpoints` folder. This directory should contain only
+                       checkpoints saved by `Accelerator.save_state`.
+   :type project_dir: str
+
+   :returns:
+
+             The ID of the last (most recent) checkpoint found in the
+                 project directory. Returns `-1` if the `checkpoints` directory
+                 does not exist or is empty.
+   :rtype: int
+
+   :raises ValueError: If no valid checkpoint IDs are found in the `checkpoints`
+       directory.
+
+   .. rubric:: Example
+
+   >>> get_accelerate_project_last_checkpoint_id("/path/to/project")
+   42
+
+   .. note::
+
+      This function assumes that all entries in the `checkpoints` directory
+      follow the automatic checkpoint naming pattern used by
+      `Accelerator.save_state`. Checkpoints not saved with
+      `Accelerator.save_state` may cause this function to fail.
+
+
+.. py:function:: accelerator_load_state(accelerator: accelerate.Accelerator, input_dir: str, cache_dir: str | None = None, safe_serialization: bool = True, **kwargs) -> None
+
+   Load the state of the accelerator from a checkpoint.
+
+   This function extends the functionality of `accelerator.load_state` to
+   support loading checkpoints from remote filesystems (e.g., S3, GCS).
+
+   It first checks if the `input_dir` is a local path or a remote path.
+   If it's a local path, it directly calls `accelerator.load_state`. If it's
+   a remote path, it synchronizes the checkpoint files to a local cache
+   directory before loading the state.
+
+   :param accelerator: The `Accelerator` instance to load the
+                       state into.
+   :type accelerator: Accelerator
+   :param input_dir: The path to the checkpoint directory or file.
+                     This can be a local path or a remote path (e.g., S3, GCS).
+   :type input_dir: str
+   :param cache_dir: The local directory to cache the checkpoint
+                     files. This is required if `input_dir` is a remote path.
+   :type cache_dir: str | None
+   :param safe_serialization: Whether to use safe serialization when
+                              loading the state. This is used when input_dir is a remote
+                              path. The names of checkpoint files depend on whether
+                              `safe_serialization` is set to `True` or `False`. Users should
+                              ensure that the checkpoint files in the remote directory are
+                              compatible with the specified `safe_serialization` option.
+   :type safe_serialization: bool
+   :param \*\*kwargs: Additional arguments passed to `accelerator.load_state`.
+
+
+.. py:class:: AcceleratorState
+
+   A data class for storing the state of the Accelerator.
+
+   This class implements the `state_dict` and `load_state_dict` methods to
+   save and load the state of the Accelerator. Any dataclass that is used by
+   Accelerator.load_state should inherit from this class.
+
+
+   .. py:method:: state_dict() -> dict[str, Any]
+
+      Returns the state of the training progress as a dictionary.
+
+      :returns:
+
+                A dictionary containing the current epoch, step, and
+                    global step IDs.
+      :rtype: dict
+
+
+
+   .. py:method:: load_state_dict(state: dict[str, Any]) -> None
+
+      Loads the state of the training progress from a dictionary.
+
+      :param state: A dictionary containing the state to be loaded.
+      :type state: dict
+
+
+
