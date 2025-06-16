@@ -22,8 +22,125 @@
     gtag('config', 'G-PYVRSFMDRL'); -->
   <!-- </script> -->
   <style>
-    .hr {width: 100%; height: 1px; margin: 48px 0; background-color: #d6dbdf;}
-    </style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #f9fafe, #eaf3ff);
+      color: #222;
+    }
+
+    .container-custom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .hero {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .hero img {
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1a1a1a;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #4a4a4a;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    .authors, .affiliations {
+      font-size: 0.95rem;
+      color: #555;
+      margin-top: 1rem;
+    }
+
+    .author-block {
+      margin: 0 0.5em;
+      display: inline-block;
+    }
+
+    .main-section {
+      margin-top: -120px;
+    }
+    
+    .btn-group {
+      margin-top: 1.2rem;
+    }
+    .btn-group a {
+      display: inline-flex;            
+      align-items: center;           
+      gap: 0.8em;              
+      margin: 0.5rem;
+      border: none;
+      background: linear-gradient(90deg, #5d8eff, #8fa7ff);
+      color: white;
+      border-radius: 999px;
+      padding: 0.6em 1.2em;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+      font-size: 0.8em;
+      margin-right: 9px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    /* .huggingface-icon {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      background-image: url('https://huggingface.co/front/assets/huggingface_logo-noborder.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      vertical-align: middle;
+      margin-right: 0.4em;
+    } */
+
+
+    .main-section {
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    .main-section img {
+      max-width: 80%;
+      height: auto;
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .main-section p {
+      color: #444;
+      font-size: 1.1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .model-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  </style>
+
+
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
 
@@ -41,67 +158,61 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const swiper = new Swiper('.swiper1', {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: false,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const swiper = new Swiper('.swiper2', {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    });
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 </head>
 <body>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <!-- <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://keunhong.com">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
-          </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
-          </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </div> -->
-</nav>
-
-
 <section class="hero">
   <div class="hero-body">
-    <div class="container is-max-desktop">
+    <div class="container-custom">
       <div class="columns is-centered">
         <div class="column has-text-centered">
 
-          <!-- <h1 class="title is-1 publication-title">RoboTransfer: Geometry-Consistent Video Diffusion for Robotic Visual Policy Transfer</h1> -->
-         
-          <div style="display: flex; align-items: left; max-width: 100%; gap: 4px;">
-              <h1 class="title is-1 publication-title" style="margin: 0; flex: 1; min-width: 0;">
-              <p>RoboTransfer :</p>
+          <div style="display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 100%; margin-top: -80px;">          <p>
+            <img src="./static/images/method/pin.png" alt="Logo" style="height: 3.4cm; margin-bottom: 1rem;"/>
+          </p> 
+            <!-- <div style="display: flex; align-items: left; max-width: 100%; gap: 4px;"> -->
+              <!-- <h1 class="title is-1 publication-title" style="margin: 0; flex: 1; min-width: 0;">
               Geometry-Consistent Video Diffusion for Robotic Visual Policy Transfer
+            </h1> -->
+
+            <h1 class="title is-1 publication-title" style="margin: 0; font-size: 1.8rem;">
+              <span style="display: block; font-size: 1.05em; margin-top: -0.6em;">
+                Geometry-Consistent Video Diffusion for Robotic Visual Policy Transfer
+              </span>
             </h1>
           </div>
-          <p>
-            <img src="./static/images/method/pin.png" alt="Logo" style="height: 3.4cm;">
-          </p>
 
           <div class="is-size-5 publication-authors">
             <p><span class="author-block">
@@ -131,64 +242,20 @@
             <span class="author-block"><sup>2</sup>GigaAI,</span>
             <span class="author-block"><sup>3</sup>CASIA</span>
           </div>
-          
           <p><small><sup>*</sup> Equal contribution</small></p>
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <!-- PDF Link. -->
-              <!-- <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span> -->
-              <span class="link-block">
-                <a 
-                href="https://arxiv.org/abs/2505.23171"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
 
-              <!-- Video Link. -->
-              <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=dGXKtqDnm5Q"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-youtube"></i>
-                  </span>
-                  <span>Video</span>
-                </a>
-              </span>
-
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://github.com"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
-              </span>
-
-              <!-- Dataset Link.
-              <span class="link-block">
-                <a href="https://github.com/google/nerfies/releases/tag/0.1"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="far fa-images"></i>
-                  </span>
-                  <span>Data</span>
-                  </a> -->
-            </div>
-
+        <div class="btn-group">
+            <a href="https://arxiv.org/abs/2505.23171" target="_blank" rel="noopener">
+              <i class="ai ai-arxiv"></i>arXiv
+            </a>
+            <a href="https://www.youtube.com/watch?v=dGXKtqDnm5Q" target="_blank" rel="noopener">
+              <i class="fab fa-youtube"></i>Video
+            </a>
+            <a href="https://github.com/HorizonRobotics" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>Code
+            </a>
+          </div>
+         
           </div>
         </div>
       </div>
@@ -197,58 +264,77 @@
 </section>
 
 
-<section class="section" style="padding-top: 1rem; padding-bottom: 1rem;">
-  <div class="container is-max-desktop">
-    <!-- Paper video section -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Overview of RoboTransfer</h2>
-        <div class="publication-video" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-          <iframe 
-            src="https://www.youtube.com/embed/dGXKtqDnm5Q?rel=0&modestbranding=1" 
-            frameborder="0" 
-            allow="autoplay; encrypted-media" 
-            allowfullscreen 
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-          </iframe>
+<section class="main-section">
+  <div class="container-custom">
+    <div class="publication-video" style="max-width: 1000px; margin: 0 auto;margin-top: -1.6em;">
+      <div class="youtube-thumbnail-wrapper" onclick="loadYoutube(this)" 
+          style="display: flex; justify-content: center; align-items: center;">
+        
+        <img src="./static/images/method/robotransfer_overview.jpg" style="max-width: 100%; max-height: 100%;" alt="Video thumbnail" />
+
+        <div class="play-button" 
+            style="position: absolute; width: 60px; height: 60px; background: rgba(0,0,0,0.6); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+          <span style="width: 0; height: 0; border-left: 20px solid white; border-top: 12px solid transparent; border-bottom: 12px solid transparent;"></span>
         </div>
+        
+        <iframe data-src="https://www.youtube.com/embed/dGXKtqDnm5Q?rel=0&modestbranding=1&autoplay=1"
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen
+                style="max-width: 1000px; max-width: 100%; display: none; position: absolute; top: 0; left: 0;"></iframe>
+        
       </div>
     </div>
 
+    <script>
+      function loadYoutube(el) {
+        const iframe = el.querySelector('iframe');
+        iframe.src = iframe.dataset.src;
+        iframe.style.display = 'block';
+        el.querySelector('img').style.display = 'none';
+        el.querySelector('.play-button').style.display = 'none';
+      }
+    </script>
+
+  </div>
+  <p style="margin-top: -20px;"><strong><em>RoboTransfer</em></strong>: A Diffusion-Based Framework for Photo-Realistic, Geometry-Consistent, and Controllable Robotic Data Synthesis</p>
+</section>
+
+
+<section class="section" style="padding-top: 1rem; padding-bottom: 1rem;">
+  <div class="container-custom">
     <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
+    <div class="columns is-centered has-text-centered">     
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
+        <h2 class="title is-3" style="margin-top: -80px;">Abstract</h2>
+
         <div class="content has-text-justified">
           <!-- Framework Image -->
 
           <p>
-            Imitation Learning has become a fundamental approach in robotic manipulation. 
-            However, collecting large-scale real-world robot demonstrations is prohibitively expensive. 
-            Simulators offer a cost-effective alternative, but the sim-to-real gap make it extremely 
-            challenging to scale.             
+            Imitation learning has become a cornerstone in robotic manipulation. 
+            However, collecting large-scale real-world robot demonstrations remains prohibitively expensive. 
+            While simulators offer a more cost-effective alternative, the significant sim-to-real gap poses 
+            substantial challenges to scalability.
           </p>
-
-          <img src="./static/images/method/robotransfer.png" alt="Framework Diagram" style="max-width: 100%; height: auto; margin-bottom: 20px;">
-          <figcaption class="has-text-centered is-size-7 mt-1">The Framework of RoboTransfer.</figcaption>
-          </figcaption>
-         
-          <p>
-            Therefore, we introduce RoboTransfer, a diffusion-based video generation framework for robotic data synthesis. 
-            Unlike previous methods, RoboTransfer integrates multi-view geometry with explicit control over scene components, 
-            such as background and object attributes. 
-            By incorporating cross-view feature interactions and global depth-normal conditions,
-            RoboTransfer ensures geometry consistency across views. 
-            This framework allows fine-grained control, including background edits and object swaps. 
-          </p> 
           
-
           <p>
-            Experiments demonstrate that RoboTransfer is capable of generating multi-view videos with enhanced 
-            geometric consistency and visual fidelity. Moreover, policies trained on data generated by RoboTransfer 
-            achieve a 33.3% relative improvement in success rate under the Diff-Obj setting, 
-            and a substantial 251% relative improvement under the more challenging Diff-All scenario.
+            To address this, we present <strong>RoboTransfer</strong>, a diffusion-based video generation framework for robotic data synthesis. 
+            Unlike prior approaches, RoboTransfer integrates multi-view geometry with explicit, fine-grained control over scene components, 
+            including background textures and object-level attributes. Through cross-view feature interaction and the incorporation of 
+            global depth-normal priors, RoboTransfer ensures geometric consistency across views.
           </p>
+          
+          <p>
+            Our framework supports highly controllable generation capabilities—such as background replacement and object swapping— 
+            facilitating diverse and photorealistic multi-view video synthesis. Experimental results demonstrate that RoboTransfer 
+            significantly enhances both geometric fidelity and visual realism. Furthermore, policies trained on RoboTransfer-generated data 
+            exhibit a <strong>33.3% relative improvement</strong> in success rate under the <em>Diff-Obj</em> setting, and a remarkable 
+            <strong>251% improvement</strong> under the more challenging <em>Diff-All</em> scenario.
+          </p>
+
+          <!-- <img style="margin-top: -15px;" src="./static/images/method/robotransfer.png" alt="Framework Diagram" 
+            style="max-width: 100%; height: auto; margin-bottom: 20px;">
+          <figcaption class="has-text-centered is-size-7 mt-1">The Framework of RoboTransfer.</figcaption>
+          </figcaption> -->
           </p>
         </div>
       </div>
@@ -259,7 +345,7 @@
 
 
 <section class="section" style="padding-top: 1rem; padding-bottom: 1rem;">
-  <div class="container is-max-desktop">
+  <div class="container-custom">
     <!-- Method Section -->
     <!-- <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
@@ -299,21 +385,31 @@
 
 <!-- Results Section -->
 <section class="section">
-  <div class="container is-max-desktop">
+  <div class="container-custom">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Qualitative Results</h2>
+        <h2 class="title is-3" style="margin-top: -160px;">Qualitative Results</h2>
         <div class="content has-text-justified">
           <section aria-labelledby="real2real-title">
             
             <h3 id="real2real-title" class="title is-4">1. Real2Real Transfer</h3>
-            <p> Given the same structured input, the model allows for flexible editing of 
+            <!-- <p> Given the same structured input, the model allows for flexible editing of 
               background attributes such as texture and color. 
               This real-to-real generation framework enriches the diversity of training data 
               for downstream tasks, contributing to better generalization of the policy model.</p>
-          
+            -->
+            <p>
+              Given the same structured input, the model enables flexible editing of background attributes, such as texture and color. 
+              This <strong>real-to-real generation framework</strong> enhances the diversity of training data, improving the generalization of the policy model for downstream tasks.
+            </p>
+            
+            <ul>
+              <li><strong>Left:</strong> Displays the raw data and construction constraints pre-labeled from the raw input.</li>
+              <li><strong>Right:</strong> Displays diverse generation results with different background conditions.</li>
+            </ul>
+            
             <div class="video-group" style="display: flex; flex-direction: column; gap: 16px; align-items: center;">
-              <figure style="margin: 0; width: 100%; max-width: 640px;">
+              <figure style="margin: 0; width: 100%; max-width: 960px;">
                 <video controls muted loop style="width: 100%; height: auto;">
                   <source src="./static/videos/Real2Real-background/772aea2a59dc5aab46ef2962d97f2868_1741179208652341064_cat_h264.mp4" type="video/mp4">
                 </video>
@@ -327,14 +423,14 @@
                 <figcaption class="has-text-centered is-size-7 mt-1">Scene 2 (Left: Raw Data, Right:  Diverse Generation Result)</figcaption>
               </figure>    -->
           
-              <figure style="margin: 0; width: 100%; max-width: 640px;">
+              <figure style="margin: 0; width: 100%; max-width: 960px;">
                 <video controls muted loop style="width: 100%; height: auto;">
                   <source src="./static/videos/Real2Real-background/ce3cf1e6991e04ea5b0ffa9d0ebeb8c1_1741168695089734619_cat_h264.mp4" type="video/mp4">
                 </video>
                 <figcaption class="has-text-centered is-size-7 mt-1">Scene 2 (Left: Raw Data, Right:  Diverse Generation Result)</figcaption>
               </figure>
           
-              <figure style="margin: 0; width: 100%; max-width: 640px;">
+              <figure style="margin: 0; width: 100%; max-width: 960px960px;">
                 <video controls muted loop style="width: 100%; height: auto;">
                   <source src="./static/videos/Real2Real-background/f0fd9f646d79dc49d7cfaec1676a1000_1741178257234387207_cat_h264.mp4" type="video/mp4">
                 </video>
@@ -342,13 +438,16 @@
               </figure>
             </div>
 
-            <p>Meanwhile, the appearance of foreground objects, including their color, can be effectively modified.
-              The first row displays the raw data.
-              The second and third rows show the construction constraints pre-labeled from the raw input.
-              The fourth row presents the specified foreground appearance conditions.
-              The fifth row shows the generated results, which can be flexibly edited to alter the appearance of foreground objects.
-              Finally, the sixth row illustrates the background appearance conditions.
+            <p>
+              Meanwhile, the appearance of foreground objects, including their color, can be effectively modified.
             </p>
+            <ul>
+              <li><strong>First row:</strong> Displays the raw data.</li>
+              <li><strong>Second and third rows:</strong> Show the construction constraints pre-labeled from the raw input.</li>
+              <li><strong>Fourth row:</strong> Presents the specified foreground appearance conditions.</li>
+              <li><strong>Fifth row:</strong> Shows the generated results, which can be flexibly edited to alter the appearance of foreground objects.</li>
+              <li><strong>Sixth row:</strong> Illustrates the background appearance conditions.</li>
+            </ul>
             <div class="video-grid" style="
             display: flex;
             flex-wrap: wrap;
@@ -376,12 +475,19 @@
           
           <!-- Sim2Real -->
           <h3 class="title is-4">2. Sim2Real Transfer</h3>
-          <p>RoboTransfer generates photorealistic videos from simulated structural inputs, including out-of-distribution cases. 
-            This sim-to-real paradigm reduces reliance on structured annotations from real-world datasets, thereby facilitating more scalable and flexible robotic learning.
-            The first row shows the simulator-rendered outputs.
-            The second and third rows present the construction constraints imposed by the simulator.
-            The fourth row displays the generated results, and the fifth row illustrates the appearance conditions.
+          <p>
+            <strong>RoboTransfer</strong> generates <em>photorealistic videos</em> from simulated structural inputs, including out-of-distribution cases. 
+            This <em>sim-to-real</em> paradigm minimizes the dependence on structured annotations from real-world datasets, making robotic learning more scalable and flexible. 
+            To showcase the effectiveness of our approach, we evaluate it on two tasks: <strong>Bowls Stack</strong> and <strong>Cup Place</strong>, sourced from the 
+            <a href="https://robotwin-benchmark.github.io/cvpr-2025-challenge/" target="_blank">CVPR2025 RoboTwin Benchmark</a>.
           </p>
+         
+          <ul>
+            <li><strong>First row:</strong> Simulator-rendered outputs.</li>
+            <li><strong>Second and third rows:</strong> Construction constraints imposed by the simulator.</li>
+            <li><strong>Fourth row:</strong> Generated results.</li>
+            <li><strong>Fifth row:</strong> Appearance conditions.</li>
+          </ul>
           <div class="video-grid" style="
           display: flex;
           flex-wrap: wrap;
@@ -454,24 +560,18 @@
           
         </div>
 
-          <!-- Compare -->
-          <!-- <h3 class="title is-4">3. Compare Comparison</h3>
-          <p>Placeholder for comparison results between methods.</p>
-          <figure style="margin: 0;">
-            <video controls muted loop style="width: 100%; height: auto;">
-              <source src="./static/videos/compare/compare1.mp4" type="video/mp4">
-            </video>
-            <figcaption class="has-text-centered is-size-7 mt-1">Comparison</figcaption>
-          </figure> -->
-
         <!-- Comparison Section -->
         <h3 class="title is-4">3. Comparison</h3>
-        <p>This section presents a side-by-side comparison of results produced by different methods. The video below illustrates qualitative differences in generation or performance across approaches.</p>
+        <p>
+          This section presents a side-by-side comparison of results produced by different methods. 
+          The video below illustrates qualitative differences in generation or performance across approaches.
+        </p>
+
         <figure style="margin: 0;">
-          <video controls muted loop style="width: 100%; height: auto;">
+          <video controls muted loop style="width: 80%; height: auto;">
             <source src="./static/videos/compare/compare1.mp4" type="video/mp4">
           </video>
-          <video controls muted loop style="width: 100%; height: auto;">
+          <video controls muted loop style="width: 80%; height: auto;">
             <source src="./static/videos/compare/compare2.mp4" type="video/mp4">
           </video>
            <figcaption class="has-text-centered is-size-7 mt-1">Visual comparison of different methods.</figcaption>
@@ -485,17 +585,17 @@
 
 <!-- Experiments Section -->
 <section class="section">
-  <div class="container is-max-desktop">
+  <div class="container-custom">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Visualization of Real Robot Experiments</h2>
+        <h2 class="title is-3" style="margin-top: -130px;">Visualization of Real Robot Experiments</h2>
         <div class="content has-text-justified">
 
-          <p>
-            This section presents visual results from real-world experiments conducted to evaluate our data generation approach for visual policy models.
-            We carried out extensive trials in physical environments to assess the effectiveness of the proposed method.
-            Full statistical results and analysis are provided in the accompanying paper.
-          </p>
+        <p>
+          This section presents visual results from real-world experiments conducted to evaluate our data generation approach for visual policy models. 
+          We carried out extensive trials in physical environments to assess the effectiveness of the proposed method. 
+          Full statistical results and analysis are provided in the accompanying paper.
+        </p>
 
           <figure style="margin: 0;">
             <video controls muted loop style="width: 100%; height: auto;">
@@ -512,7 +612,7 @@
 </section>
 
 <section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
+  <div class="container-custom content">
     <h2 class="title">BibTeX</h2>
     <pre><code>
       @misc{2025robotransfer,
