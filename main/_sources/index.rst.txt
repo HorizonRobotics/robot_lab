@@ -1,0 +1,195 @@
+Welcome to HorizonRobotics RobotLab
+====================================================
+
+
+About
+--------------------
+
+Welcome to the Robot Lab of Horizon Robotics. Our mission is to build cutting edge and fully open-sourced Embodied AI Algorithms and infrastructures.
+Together with Horizon's computing platform, we wish to empower the future of robots with all types of embodiment.
+
+
+News
+--------------------
+
+* [2025.06] 1 paper accepted to IROS25
+
+* [2025.06] In `RoboTwin Dual-Arm Collaboration Challenge 2nd MEIS Workshop@CVPR2025 <https://robotwin-benchmark.github.io/cvpr-2025-challenge/#challenge-details>`__, we won **🥇first place** in **Real-world Track** and **🥈second place** in **Simulation Track**
+
+* [2025.05] In International Humanoid Robot Skills Competition held by Zhangjiang, Shanghai, we won **🥇first place** in the **RoboTwin Bimanual Collaboration Simulation Challenge**
+
+* [2025.05] We are holding the "Edge-deployable Manipulation Algorithms" track in the 19th **"Challenge Cup" (挑战杯)** National College Extracurricular Academic Science and Technology Competition
+
+* [2025.05] The first version of **RoboOrchard Lab** released
+
+
+Projects
+--------------------
+
+RoboOrchard
+^^^^^^^^^^^^^^
+
+**RoboOrchard** is a collection of tools and frameworks designed to streamline the entire process of robotics research and development,
+from simulation to real-world application.
+
+.. list-table::
+   :widths: 20 80
+   :class: publication-table
+
+   * - .. image:: _static/projects/robo_orchard/orchard_logo.png
+          :class: publication-thumbnail
+          :alt: RoboOrchardLab Logo
+          :target: _static/projects/robo_orchard/orchard_logo.png
+
+     - **RoboOrchardLab: Training and evaluating embodied AI algorithm**
+
+       `Code <https://github.com/HorizonRobotics/robo_orchard_lab>`__ | `Docs <https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/master/index.html>`__ | `Model Zoo <https://huggingface.co/collections/HorizonRobotics/robo-orchard-lab-682aaf611e571caf8d62cb51>`__
+
+
+Publications
+--------------------
+
+.. list-table::
+   :widths: 20 80
+   :class: publication-table
+
+   * - .. image:: _static/publications/embodied_gen.png
+          :class: publication-thumbnail
+          :alt: EmbodiedGen Logo
+          :target: _static/publications/embodied_gen.png
+
+     - **EmbodiedGen: Towards a Generative 3D World Engine for Embodied Intelligence**
+
+       :blue:`Xinjie Wang`, :blue:`Liu Liu`, Yu Cao, Ruiqi Wu, Wenkang Qin, :blue:`Dehui Wang`, :blue:`Wei Sui`, :blue:`Zhizhong Su`
+
+       Arxiv 2025
+
+       `Webpage <https://horizonrobotics.github.io/robot_lab/embodied_gen/index.html>`__ | `Paper <https://arxiv.org/abs/2506.10600>`__ | `Code <https://github.com/HorizonRobotics/EmbodiedGen>`__
+
+   * - .. image:: _static/publications/robotransfer.png
+          :class: publication-thumbnail
+          :alt: RoboTransfer Logo
+          :target: _static/publications/robotransfer.png
+
+     - **RoboTransfer: Geometry-Consistent Video Diffusion for Robotic Visual Policy Transfer**
+
+       :blue:`Liu Liu`, Xiaofeng Wang, Guosheng Zhao, :blue:`Keyu Li`, Wenkang Qin, :blue:`Jiaxiong Qiu`, Zheng Zhu, Guan Huang, :blue:`Zhizhong Su`
+
+       Arxiv 2025
+
+       `Webpage <https://horizonrobotics.github.io/robot_lab/robotransfer/index.html>`__ | `Paper <https://arxiv.org/abs/2505.23171>`__
+
+   * - .. image:: _static/publications/dipo.png
+          :class: publication-thumbnail
+          :alt: DIPO Logo
+          :target: _static/publications/dipo.png
+
+     - **DIPO: Dual-State Images Controlled Articulated Object Generation Powered by Diverse Data**
+
+       :blue:`Ruqi Wu`, :blue:`Xinjie Wang`, :blue:`Liu Liu`, Chunle Guo, :blue:`Jiaxiong Qiu`, Chongyi Li, :blue:`Lichao Huang`, :blue:`Zhizhong Su`, Ming-Ming Cheng
+
+       Arxiv 2025
+
+       `Paper <https://arxiv.org/abs/2505.20460>`__
+
+   * - .. image:: _static/publications/sem.png
+          :class: publication-thumbnail
+          :alt: SEM Logo
+          :target: _static/publications/sem.png
+
+     - **SEM: Enhancing Spatial Understanding for Robust Robot Manipulation**
+
+       :blue:`Xuewu Lin`, :blue:`Tianwei Lin`, :blue:`Lichao Huang`, :blue:`Hongyu Xie`, :blue:`Yiwei Jin`, :blue:`Keyu Li`, :blue:`Zhizhong Su`
+
+       Arxiv 2025
+
+       `Paper <https://arxiv.org/abs/2505.16196>`__ | `Code <https://github.com/HorizonRobotics/robo_orchard_lab/tree/master/projects/sem/robotwin>`__
+
+   * - .. image:: _static/publications/Aux-Think.svg
+          :class: publication-thumbnail
+          :alt: AuxThink Logo
+          :target: _static/publications/Aux-Think.svg
+
+     - **Aux-Think: Exploring Reasoning Strategies for Data-Efficient Vision-Language Navigation**
+
+       :blue:`Shuo Wang`, Yongcai Wang, Wanting Li, Xudong Cai, :blue:`Yucheng Wang`, :blue:`Maiyue Chen`, :blue:`Kaihui Wang`, :blue:`Zhizhong Su`, Deying Li, Zhaoxin Fan
+
+       Arxiv 2025
+
+       `Webpage <https://horizonrobotics.github.io/robot_lab/aux-think/index.html>`__ | `Paper <https://arxiv.org/abs/2505.11886>`__
+
+   * - .. image:: _static/publications/geoflow_slam.png
+          :class: publication-thumbnail
+          :alt: GeoFlow Slam Logo
+          :target: _static/publications/geoflow_slam.png
+
+     - **GeoFlow-SLAM: A Robust Tightly-Coupled RGBD-Inertial Fusion SLAM for Dynamic Legged Robotics**
+
+       :blue:`Tingyang Xiao`, :blue:`Xiaolin Zhou`, :blue:`Liu Liu`, :blue:`Wei Sui`, :blue:`Wei Feng`, :blue:`Jiaxiong Qiu`, :blue:`Xinjie Wang`, :blue:`Zhizhong Su`
+
+       IROS 2025
+
+       `Paper <https://arxiv.org/abs/2503.14247>`__ | `Code <https://github.com/nsn-hello/geoflow-slam>`__
+
+   * - .. image:: _static/publications/gausstr.png
+          :class: publication-thumbnail
+          :alt: GaussTR Logo
+          :target: _static/publications/gausstr.png
+
+     - **Gausstr: Foundation model-aligned gaussian transformer for self-supervised 3d spatial understanding**
+
+       :blue:`Haoyi Jiang`, :blue:`Liu Liu`, Tianheng Cheng, :blue:`Xinjie Wang`, :blue:`Tianwei Lin`, :blue:`Zhizhong Su`, Wenyu Liu, Xinggang Wang
+
+       CVPR 2025
+
+       `Webpage <https://hustvl.github.io/GaussTR/>`__ | `Paper <https://arxiv.org/abs/2412.13193>`__ | `Code <https://github.com/hustvl/GaussTR>`__
+
+   * - .. image:: _static/publications/bip3d.gif
+          :class: publication-thumbnail
+          :alt: BIP3D Logo
+          :target: _static/publications/bip3d.gif
+
+     - **BIP3D: Bridging 2d images and 3d perception for embodied intelligence**
+
+       :blue:`Xuewu Lin`, :blue:`Tianwei Lin`, :blue:`Lichao Huang`, :blue:`Hongyu Xie`, :blue:`Zhizhong Su`
+
+       CVPR 2025
+
+       `Webpage <https://horizonrobotics.github.io/robot_lab/bip3d/index.html>`__ | `Paper <https://arxiv.org/abs/2411.14869>`__ | `Code <https://github.com/HorizonRobotics/robo_orchard_lab/tree/master/projects/bip3d_grounding>`__
+
+   * - .. image:: _static/publications/goc.jpeg
+          :class: publication-thumbnail
+          :alt: GOC Logo
+          :target: _static/publications/goc.jpeg
+
+     - **Gaussian Object Carver: Object-Compositional Gaussian Splatting with surfaces completion**
+
+       :blue:`Liu Liu`, :blue:`Xinjie Wang`, :blue:`Jiaxiong Qiu`, :blue:`Tianwei Lin`, :blue:`Xiaolin Zhou`, :blue:`Zhizhong Su`
+
+       Arxiv 2024
+
+       `Paper <https://arxiv.org/abs/2412.02075>`__
+
+   * - .. image:: _static/publications/gls.png
+          :class: publication-thumbnail
+          :alt: GLS Logo
+          :target: _static/publications/gls.png
+
+     - **GLS: Geometry-aware 3D Language Gaussian Splatting**
+
+       :blue:`Jiaxiong Qiu`, :blue:`Liu Liu`, :blue:`Tianwei Lin`, :blue:`Zhizhong Su`
+
+       Arxiv 2024
+
+       `Paper <https://arxiv.org/abs/2411.18066>`__
+
+
+Join US
+--------------------
+
+Scan the QR code to view our open positions
+
+.. figure:: _static/join_us/join_us.png
+   :alt: JoinUs
+   :align: center
+   :width: 20%
