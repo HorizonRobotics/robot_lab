@@ -1,70 +1,65 @@
-/*
- * 优化的 Publication-Table 样式 (V4 - 强制移除所有边框)
- */
-
-/* 1. 表格基础设置 */
+/* 1. Basic Table Setup */
 .publication-table {
     width: 100%;
     border-collapse: collapse;
     border-style: none;
 }
 
-/* 2. 统一背景色 */
+/* 2. Uniform Background Color */
 .publication-table tr,
 .publication-table tr:nth-child(odd),
 .publication-table tr:nth-child(even) {
     background: transparent !important;
 }
 
-/* 3. 单元格 (td) 样式 */
+/* 3. Table Cell (td) Style */
 .publication-table td {
     padding-top: 1rem;
     padding-bottom: 1rem;
     vertical-align: middle;
-
-    /* 【最终变更】使用 !important 强制覆盖主题的默认单元格边框（包括竖线）*/
+    /* Use !important to forcibly override the theme's default cell borders (including vertical lines) */
     border: none !important;
 }
 
-/* 4. 内容列间距 */
+/* 4. Spacing Between Content Columns */
 .publication-table td:first-child {
     padding-right: 1rem;
 }
 
 
-/* * 5. 【全新方案】统一图片容器尺寸 (兼容GIF)
+/* * 5. Uniform Image Container Size (GIF Compatible)
  * =================================================
- * 我们不再直接设置图片大小，而是为其父链接<a>创建一个固定大小的容器，
- * 然后让图片在容器内部自适应。
+ * We no longer set the image size directly. Instead, we create a fixed-size container
+ * for its parent link <a>, and then let the image adapt within the container.
 */
 
-/* (A) 创建一个固定大小的容器 */
+/* (A) Create a fixed-size container */
 .publication-table td:first-child a {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 160px;
     height: 120px;
-    /* 您可以为“留白”区域设置一个背景色 */
+    /* You can set a background color for the "whitespace" area */
     /* background-color: #f8f9fa; */
     border-radius: 8px;
 }
 
-/* (B) 让图片在容器内按比例缩放 */
+/* (B) Let the image scale proportionally within the container */
 .publication-thumbnail {
     max-width: 100%;
     max-height: 100%;
     width: auto;
     height: auto;
-    border-radius: 4px; /* 可以给图片本身也加个小圆角 */
-    /* object-fit 已不再是主要方法，但可作为后备 */
+    border-radius: 4px; /* You can also add a small border-radius to the image itself */
+    /* object-fit is no longer the primary method, but can be used as a fallback */
     object-fit: contain;
 }
 
 /*
- * 6. 【新增】优化条目内部行间距
+ * 6. Optimize Line Spacing Within Entries
  * =================================
- * 减小单元格内部段落 (p) 的上下外边距，使文本更紧凑。
+ * Reduce the top and bottom margins of paragraphs (p) inside cells to make the text more compact.
  */
 .publication-table td p {
     margin-top: 0.1rem;
@@ -72,8 +67,8 @@
 }
 
 /*
- * 清理首尾段落的多余边距，使其与单元格的 padding 对齐，
- * 避免上下两端有双重间距。
+ * Clean up extra margins on the first and last paragraphs to align them
+ * with the cell's padding, avoiding double spacing at the top and bottom.
  */
 .publication-table td p:first-child {
     margin-top: 0;

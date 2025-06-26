@@ -1,11 +1,9 @@
-/* custom.css */
-
-/* 为 blue 角色设置颜色 */
+/* Set color for the blue role */
 .blue {
-    color: #007bff; /* 一个比较好看的蓝色，你也可以直接用 blue */
+    color: #007bff; /* A nicer blue, you can also use 'blue' directly */
 }
 
-/* 为 red 角色设置颜色 */
+/* Set color for the red role */
 .red {
-    color: #d9534f; /* 一个柔和的红色 */
+    color: #d9534f; /* A softer red */
 }

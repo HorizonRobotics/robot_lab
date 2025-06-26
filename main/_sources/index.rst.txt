@@ -29,9 +29,6 @@ Projects
 RoboOrchard
 ^^^^^^^^^^^^^^
 
-**RoboOrchard** is a collection of tools and frameworks designed to streamline the entire process of robotics research and development,
-from simulation to real-world application.
-
 .. list-table::
    :widths: 20 80
    :class: publication-table
@@ -41,9 +38,24 @@ from simulation to real-world application.
           :alt: RoboOrchardLab Logo
           :target: _static/projects/robo_orchard/orchard_logo.png
 
-     - **RoboOrchardLab: Training and evaluating embodied AI algorithm**
+     - **RoboOrchard** is a collection of tools and frameworks designed to streamline the entire process of robotics research and development,
+       from simulation to real-world application.
 
-       `Code <https://github.com/HorizonRobotics/robo_orchard_lab>`__ | `Docs <https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/master/index.html>`__ | `Model Zoo <https://huggingface.co/collections/HorizonRobotics/robo-orchard-lab-682aaf611e571caf8d62cb51>`__
+* **RoboOrchardBuild**: A set of tools designed to simplify the build process for the RoboOrchard project.
+
+  `Code <https://github.com/HorizonRobotics/robo_orchard_build>`__ | `Pypi <https://pypi.org/project/robo-orchard-build>`__
+
+* **RoboOrchardCore**: The core package of the project RoboOrchard, which provides the basic infrastructure for the framework, such as configuration management, data structure, environment abstraction, etc.
+
+  `Code <https://github.com/HorizonRobotics/robo_orchard_core>`__ | `Pypi <https://pypi.org/project/robo-orchard-core>`__
+
+* **RoboOrchardSchemas**: A library of data models for the RoboOrchard project.
+
+  `Code <https://github.com/HorizonRobotics/robo_orchard_schemas>`__
+
+* **RoboOrchardLab**: Training and evaluating embodied AI algorithm
+
+  `Code <https://github.com/HorizonRobotics/robo_orchard_lab>`__ | `Docs <https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/master/index.html>`__ | `Pypi <https://pypi.org/project/robo-orchard-lab>`__ | `Model Zoo <https://huggingface.co/collections/HorizonRobotics/robo-orchard-lab-682aaf611e571caf8d62cb51>`__
 
 
 Publications
@@ -53,10 +65,10 @@ Publications
    :widths: 20 80
    :class: publication-table
 
-   * - .. image:: _static/publications/embodied_gen.png
+   * - .. image:: _static/publications/embodied_gen.gif
           :class: publication-thumbnail
           :alt: EmbodiedGen Logo
-          :target: _static/publications/embodied_gen.png
+          :target: _static/publications/embodied_gen.gif
 
      - **EmbodiedGen: Towards a Generative 3D World Engine for Embodied Intelligence**
 
@@ -66,10 +78,10 @@ Publications
 
        `Webpage <https://horizonrobotics.github.io/robot_lab/embodied_gen/index.html>`__ | `Paper <https://arxiv.org/abs/2506.10600>`__ | `Code <https://github.com/HorizonRobotics/EmbodiedGen>`__
 
-   * - .. image:: _static/publications/robotransfer.png
+   * - .. image:: _static/publications/robotransfer.gif
           :class: publication-thumbnail
           :alt: RoboTransfer Logo
-          :target: _static/publications/robotransfer.png
+          :target: _static/publications/robotransfer.gif
 
      - **RoboTransfer: Geometry-Consistent Video Diffusion for Robotic Visual Policy Transfer**
 
@@ -79,10 +91,10 @@ Publications
 
        `Webpage <https://horizonrobotics.github.io/robot_lab/robotransfer/index.html>`__ | `Paper <https://arxiv.org/abs/2505.23171>`__
 
-   * - .. image:: _static/publications/dipo.png
+   * - .. image:: _static/publications/dipo.gif
           :class: publication-thumbnail
           :alt: DIPO Logo
-          :target: _static/publications/dipo.png
+          :target: _static/publications/dipo.gif
 
      - **DIPO: Dual-State Images Controlled Articulated Object Generation Powered by Diverse Data**
 
@@ -90,12 +102,12 @@ Publications
 
        Arxiv 2025
 
-       `Paper <https://arxiv.org/abs/2505.20460>`__
+       `Webpage <https://rq-wu.github.io/projects/DIPO>`__ | `Paper <https://arxiv.org/abs/2505.20460>`__
 
-   * - .. image:: _static/publications/sem.png
+   * - .. image:: _static/publications/sem.gif
           :class: publication-thumbnail
           :alt: SEM Logo
-          :target: _static/publications/sem.png
+          :target: _static/publications/sem.gif
 
      - **SEM: Enhancing Spatial Understanding for Robust Robot Manipulation**
 
@@ -105,10 +117,10 @@ Publications
 
        `Paper <https://arxiv.org/abs/2505.16196>`__ | `Code <https://github.com/HorizonRobotics/robo_orchard_lab/tree/master/projects/sem/robotwin>`__
 
-   * - .. image:: _static/publications/Aux-Think.svg
+   * - .. image:: _static/publications/aux-think.gif
           :class: publication-thumbnail
           :alt: AuxThink Logo
-          :target: _static/publications/Aux-Think.svg
+          :target: _static/publications/aux-think.gif
 
      - **Aux-Think: Exploring Reasoning Strategies for Data-Efficient Vision-Language Navigation**
 
@@ -118,10 +130,10 @@ Publications
 
        `Webpage <https://horizonrobotics.github.io/robot_lab/aux-think/index.html>`__ | `Paper <https://arxiv.org/abs/2505.11886>`__
 
-   * - .. image:: _static/publications/geoflow_slam.png
+   * - .. image:: _static/publications/GeomFlow.gif
           :class: publication-thumbnail
           :alt: GeoFlow Slam Logo
-          :target: _static/publications/geoflow_slam.png
+          :target: _static/publications/GeomFlow.gif
 
      - **GeoFlow-SLAM: A Robust Tightly-Coupled RGBD-Inertial Fusion SLAM for Dynamic Legged Robotics**
 
@@ -131,10 +143,10 @@ Publications
 
        `Paper <https://arxiv.org/abs/2503.14247>`__ | `Code <https://github.com/nsn-hello/geoflow-slam>`__
 
-   * - .. image:: _static/publications/gausstr.png
+   * - .. image:: _static/publications/gstr.gif
           :class: publication-thumbnail
           :alt: GaussTR Logo
-          :target: _static/publications/gausstr.png
+          :target: _static/publications/gstr.gif
 
      - **Gausstr: Foundation model-aligned gaussian transformer for self-supervised 3d spatial understanding**
 
@@ -157,10 +169,10 @@ Publications
 
        `Webpage <https://horizonrobotics.github.io/robot_lab/bip3d/index.html>`__ | `Paper <https://arxiv.org/abs/2411.14869>`__ | `Code <https://github.com/HorizonRobotics/robo_orchard_lab/tree/master/projects/bip3d_grounding>`__
 
-   * - .. image:: _static/publications/goc.jpeg
+   * - .. image:: _static/publications/goc.gif
           :class: publication-thumbnail
           :alt: GOC Logo
-          :target: _static/publications/goc.jpeg
+          :target: _static/publications/goc.gif
 
      - **Gaussian Object Carver: Object-Compositional Gaussian Splatting with surfaces completion**
 
@@ -170,10 +182,10 @@ Publications
 
        `Paper <https://arxiv.org/abs/2412.02075>`__
 
-   * - .. image:: _static/publications/gls.png
+   * - .. image:: _static/publications/gls.gif
           :class: publication-thumbnail
           :alt: GLS Logo
-          :target: _static/publications/gls.png
+          :target: _static/publications/gls.gif
 
      - **GLS: Geometry-aware 3D Language Gaussian Splatting**
 
@@ -181,7 +193,7 @@ Publications
 
        Arxiv 2024
 
-       `Paper <https://arxiv.org/abs/2411.18066>`__
+       `Webpage <https://jiaxiongq.github.io/GLS_ProjectPage>`__ | `Paper <https://arxiv.org/abs/2411.18066>`__ | `Code <https://github.com/JiaxiongQ/GLS>`__
 
 
 Join US
