@@ -1,5 +1,3 @@
-# ruff: noqa: E501 D415 D205 E402
-
 # Project RoboOrchard
 #
 # Copyright (c) 2024-2025 Horizon Robotics. All Rights Reserved.
@@ -15,6 +13,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 # implied. See the License for the specific language governing
 # permissions and limitations under the License.
+
+# ruff: noqa: E501 D415 D205 E402
+
 
 """Configuration & Your First Basic Training Run
 ==========================================================

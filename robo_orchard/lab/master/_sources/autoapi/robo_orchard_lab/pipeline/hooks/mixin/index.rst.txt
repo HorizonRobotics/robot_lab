@@ -205,12 +205,6 @@ Module Contents
 
 
 
-   .. py:attribute:: InitFromConfig
-      :type:  bool
-      :value: True
-
-
-
 .. py:class:: PipelineHooksConfig
 
    Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`PipelineHooksType_co`\ ]

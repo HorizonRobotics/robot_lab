@@ -180,38 +180,3 @@ Module Contents
 
 
 
-   .. py:attribute:: need_backward
-      :value: True
-
-
-
-   .. py:attribute:: transform
-
-
-   .. py:attribute:: accelerator
-      :type:  Optional[accelerate.Accelerator]
-      :value: None
-
-
-
-   .. py:method:: from_callable(forward_fn: forward_fn_type, need_backward: bool = True, transforms: Optional[Callable | Sequence[Callable]] = None)
-      :staticmethod:
-
-
-      Creates a SimpleBatchProcessor instance from a callable.
-
-      :param forward_fn: The forward function to be used for
-                         processing batches.
-      :type forward_fn: Callable
-      :param need_backward: Whether backward computation is needed.
-                            If True, the loss should be provided during the forward pass.
-      :type need_backward: bool
-      :param transforms: A callable
-                         or a sequence of callables for transforming the batch.
-      :type transforms: Optional[Callable | Sequence[Callable]]
-
-      :returns: An instance of SimpleBatchProcessor.
-      :rtype: SimpleBatchProcessor
-
-
-

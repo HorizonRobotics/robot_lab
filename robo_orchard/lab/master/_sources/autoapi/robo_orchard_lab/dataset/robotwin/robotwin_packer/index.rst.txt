@@ -74,25 +74,5 @@ Module Contents
    .. py:method:: input_path_handler(input_path)
 
 
-   .. py:attribute:: input_path
-
-
-   .. py:attribute:: output_path
-
-
-   .. py:attribute:: commit_step
-      :value: 500
-
-
-
-   .. py:attribute:: lmdb_kwargs
-
-
-   .. py:method:: close()
-
-
-   .. py:method:: write_index(index: Union[int, str], index_data: dict)
-
-
 .. py:data:: parser
 
