@@ -1,0 +1,175 @@
+geometry
+========
+
+.. py:module:: robo_orchard_lab.dataset.datatypes.geometry
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature
+   robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3D
+   robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature
+   robo_orchard_lab.dataset.datatypes.geometry.BatchPose
+   robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature
+   robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransform
+
+
+Module Contents
+---------------
+
+.. py:class:: BatchTransform3DFeature
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.RODataFeature`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.FeatureDecodeMixin`
+
+
+   A feature for storing batch frame transforms in a dataset.
+
+   The underlying data is stored as a serialized numpy array
+   with additional metadata about the frame transforms.
+
+
+   .. py:attribute:: dtype
+      :type:  Literal['float32', 'float64']
+      :value: 'float32'
+
+
+
+   .. py:attribute:: decode
+      :type:  bool
+      :value: True
+
+
+
+   .. py:property:: pa_type
+      :type: pyarrow.StructType
+
+
+      Return the pyarrow data type for this feature.
+
+
+   .. py:method:: encode_example(value: robo_orchard_core.datatypes.geometry.BatchTransform3D | None) -> dict | None
+
+      Encode the example value into a format suitable for storage.
+
+
+
+   .. py:method:: decode_example(value: dict | None, **kwargs) -> BatchTransform3D | None
+
+      Decode the example value from its stored format.
+
+
+
+.. py:class:: BatchTransform3D(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.geometry.BatchTransform3D`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.ToDataFeatureMixin`
+
+
+   A batch of 3D transformations.
+
+   This class is used to represent a batch of 3D transformations. It is
+   useful when dealing with multiple objects or poses at once.
+
+
+   .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchTransform3DFeature
+
+
+.. py:class:: BatchPoseFeature
+
+   Bases: :py:obj:`BatchTransform3DFeature`
+
+
+   A feature for storing batch poses in a dataset.
+
+   The underlying data is stored as a serialized numpy array
+   with additional metadata about the poses.
+
+
+   .. py:property:: pa_type
+      :type: pyarrow.StructType
+
+
+      Return the pyarrow data type for this feature.
+
+
+   .. py:method:: encode_example(value: robo_orchard_core.datatypes.geometry.BatchPose | None) -> dict | None
+
+      Encode the example value into a format suitable for storage.
+
+
+
+   .. py:method:: decode_example(value: dict | None, **kwargs) -> BatchPose | None
+
+      Decode the example value from its stored format.
+
+
+
+.. py:class:: BatchPose(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.geometry.BatchPose`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.ToDataFeatureMixin`
+
+
+   A batch of 6D poses.
+
+   This class is used to represent a batch of 6D poses. It is useful when
+   dealing with multiple objects or poses at once.
+
+   Different from BatchTransform3D, BatchPose6D is composed of a 3D position
+   and a 3D orientation. Although the position and orientation share the
+   same underlying data in Transform3D, it is more intuitive to use the
+   position property when dealing with poses.
+
+   In addition, the Pose also has a frame_id attribute, which is used to
+   specify the coordinate frame ID of reference for the pose.
+
+
+
+   .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchPoseFeature
+
+
+.. py:class:: BatchFrameTransformFeature
+
+   Bases: :py:obj:`BatchTransform3DFeature`
+
+
+   A feature for storing batch frame transforms in a dataset.
+
+   The underlying data is stored as a serialized numpy array
+   with additional metadata about the frame transforms.
+
+
+   .. py:property:: pa_type
+      :type: pyarrow.StructType
+
+
+      Return the pyarrow data type for this feature.
+
+
+   .. py:method:: encode_example(value: robo_orchard_core.datatypes.geometry.BatchFrameTransform | None) -> dict | None
+
+      Encode the example value into a format suitable for storage.
+
+
+
+   .. py:method:: decode_example(value: dict | None, **kwargs) -> BatchFrameTransform | None
+
+      Decode the example value from its stored format.
+
+
+
+.. py:class:: BatchFrameTransform(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.geometry.BatchFrameTransform`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.ToDataFeatureMixin`
+
+
+   A batch of transformations between two coordinate frames in 3D space.
+
+   A transformation must specify the parent and child frames it connects,
+   and all sample should share the same parent and child frames.
+
+
+   .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchFrameTransformFeature
+
+

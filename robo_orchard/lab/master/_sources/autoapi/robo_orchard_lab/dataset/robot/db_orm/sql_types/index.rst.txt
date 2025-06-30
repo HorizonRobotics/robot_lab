@@ -1,0 +1,263 @@
+sql_types
+=========
+
+.. py:module:: robo_orchard_lab.dataset.robot.db_orm.sql_types
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.db_orm.sql_types.BlobUuid64
+   robo_orchard_lab.dataset.robot.db_orm.sql_types.BigIntUuid64
+   robo_orchard_lab.dataset.robot.db_orm.sql_types.BlobUuid128
+   robo_orchard_lab.dataset.robot.db_orm.sql_types.HexUuid128
+   robo_orchard_lab.dataset.robot.db_orm.sql_types.Base64EncodedBLOB
+   robo_orchard_lab.dataset.robot.db_orm.sql_types.Base64JSONEncodedDict
+
+
+Module Contents
+---------------
+
+.. py:class:: BlobUuid64(*args: Any, **kwargs: Any)
+
+   Bases: :py:obj:`sqlalchemy.types.TypeDecorator`\ [\ :py:obj:`robo_orchard_core.datatypes.uuid.UUID64`\ ]
+
+
+   UUID type for SQLAlchemy.
+
+   This class maps UUID64 to BINARY(8) in the database.
+
+
+   .. py:attribute:: impl
+
+
+   .. py:attribute:: cache_ok
+      :value: True
+
+
+      safe to be used as part of a cache key.
+
+
+   .. py:method:: load_dialect_impl(dialect: sqlalchemy.Dialect) -> sqlalchemy.sql.sqltypes.TypeEngine
+
+      Return a :class:`.TypeEngine` object corresponding to a dialect.
+
+      This is an end-user override hook that can be used to provide
+      differing types depending on the given dialect.  It is used
+      by the :class:`.TypeDecorator` implementation of :meth:`type_engine`
+      to help determine what type should ultimately be returned
+      for a given :class:`.TypeDecorator`.
+
+      By default returns ``self.impl``.
+
+
+
+
+   .. py:method:: process_bind_param(value: Optional[robo_orchard_core.datatypes.uuid.UUID64], dialect: sqlalchemy.Dialect) -> Optional[bytes]
+
+      Encode the value to be stored in the database.
+
+
+
+   .. py:method:: process_result_value(value: Optional[bytes], dialect: sqlalchemy.Dialect) -> Optional[robo_orchard_core.datatypes.uuid.UUID64]
+
+      Decode the value from the database.
+
+
+
+.. py:class:: BigIntUuid64(*args: Any, **kwargs: Any)
+
+   Bases: :py:obj:`sqlalchemy.types.TypeDecorator`\ [\ :py:obj:`robo_orchard_core.datatypes.uuid.UUID64`\ ]
+
+
+   UUID type for SQLAlchemy.
+
+   This class maps UUID64 to BIGINT in the database.
+
+
+
+   .. py:attribute:: impl
+
+
+   .. py:attribute:: cache_ok
+      :value: True
+
+
+      safe to be used as part of a cache key.
+
+
+   .. py:method:: process_bind_param(value: Optional[robo_orchard_core.datatypes.uuid.UUID64], dialect: sqlalchemy.Dialect) -> Optional[int]
+
+      Encode the value to be stored in the database.
+
+
+
+   .. py:method:: process_result_value(value: Optional[int], dialect: sqlalchemy.Dialect) -> Optional[robo_orchard_core.datatypes.uuid.UUID64]
+
+      Decode the value from the database.
+
+
+
+.. py:class:: BlobUuid128(*args: Any, **kwargs: Any)
+
+   Bases: :py:obj:`sqlalchemy.types.TypeDecorator`\ [\ :py:obj:`uuid.UUID`\ ]
+
+
+   UUID type for SQLAlchemy.
+
+   This class maps UUID128 to BINARY(16) in the database.
+
+
+
+   .. py:attribute:: impl
+
+
+   .. py:attribute:: cache_ok
+      :value: True
+
+
+      safe to be used as part of a cache key.
+
+
+   .. py:method:: load_dialect_impl(dialect: sqlalchemy.Dialect) -> sqlalchemy.sql.sqltypes.TypeEngine
+
+      Inherited, see superclass.
+
+
+
+   .. py:method:: process_bind_param(value: Optional[uuid.UUID], dialect: sqlalchemy.Dialect) -> Optional[bytes]
+
+      Encode the value to be stored in the database.
+
+
+
+   .. py:method:: process_result_value(value: Optional[bytes], dialect: sqlalchemy.Dialect) -> Optional[uuid.UUID]
+
+      Decode the value from the database.
+
+
+
+.. py:class:: HexUuid128(*args: Any, **kwargs: Any)
+
+   Bases: :py:obj:`sqlalchemy.types.TypeDecorator`\ [\ :py:obj:`uuid.UUID`\ ]
+
+
+   UUID type for SQLAlchemy.
+
+   This class maps UUID128 to String(32) as hex in the database.
+
+
+
+   .. py:attribute:: impl
+
+
+   .. py:attribute:: cache_ok
+      :value: True
+
+
+      safe to be used as part of a cache key.
+
+
+   .. py:method:: process_bind_param(value: Optional[uuid.UUID], dialect: sqlalchemy.Dialect) -> Optional[str]
+
+      Encode the value to be stored in the database.
+
+
+
+   .. py:method:: process_result_value(value: Optional[str], dialect: sqlalchemy.Dialect) -> Optional[uuid.UUID]
+
+      Decode the value from the database.
+
+
+
+.. py:class:: Base64EncodedBLOB(length: int | None = None, **kwargs)
+
+   Bases: :py:obj:`sqlalchemy.types.TypeDecorator`\ [\ :py:obj:`bytes`\ ]
+
+
+   Base64 encoded BLOB type.
+
+   This type store base64 encoded BLOB as text in database.
+
+
+   .. py:attribute:: impl
+
+
+   .. py:attribute:: cache_ok
+      :value: True
+
+
+      safe to be used as part of a cache key.
+
+
+   .. py:attribute:: length
+      :value: None
+
+
+
+   .. py:method:: load_dialect_impl(dialect: sqlalchemy.Dialect) -> sqlalchemy.sql.sqltypes.TypeEngine[Any]
+
+      Return a :class:`.TypeEngine` object corresponding to a dialect.
+
+      This is an end-user override hook that can be used to provide
+      differing types depending on the given dialect.  It is used
+      by the :class:`.TypeDecorator` implementation of :meth:`type_engine`
+      to help determine what type should ultimately be returned
+      for a given :class:`.TypeDecorator`.
+
+      By default returns ``self.impl``.
+
+
+
+
+   .. py:method:: process_bind_param(value: bytes | None, dialect) -> str | None
+
+      Encode the value to be stored in the database.
+
+
+
+   .. py:method:: process_result_value(value: str | None, dialect) -> bytes | None
+
+      Decode the value from the database.
+
+
+
+.. py:class:: Base64JSONEncodedDict(length: int | None = None, **kwargs)
+
+   Bases: :py:obj:`sqlalchemy.types.TypeDecorator`\ [\ :py:obj:`dict`\ ]
+
+
+   Json encoded dict type.
+
+   Use string to store base64 encoded json dict
+
+
+   .. py:attribute:: impl
+
+
+   .. py:attribute:: cache_ok
+      :value: True
+
+
+      safe to be used as part of a cache key.
+
+
+   .. py:attribute:: length
+      :value: None
+
+
+
+   .. py:method:: process_bind_param(value: dict | None, dialect) -> str | None
+
+      Encode the value to be stored in the database.
+
+
+
+   .. py:method:: process_result_value(value: str | None, dialect) -> dict | None
+
+      Decode the value from the database.
+
+
+

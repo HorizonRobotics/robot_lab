@@ -1,0 +1,68 @@
+episode
+=======
+
+.. py:module:: robo_orchard_lab.dataset.robot.db_orm.episode
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.db_orm.episode.Episode
+
+
+Module Contents
+---------------
+
+.. py:class:: Episode
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.robot.db_orm.base.DatasetORMBase`
+
+
+   ORM model for an episode in a RoboOrchard dataset.
+
+
+   .. py:attribute:: index
+      :type:  sqlalchemy.orm.Mapped[int]
+
+      The unique index of the episode.
+
+
+   .. py:attribute:: dataset_begin_index
+      :type:  sqlalchemy.orm.Mapped[int]
+
+      The index of the first dataset item in this episode.
+
+
+   .. py:attribute:: frame_num
+      :type:  sqlalchemy.orm.Mapped[int]
+
+
+   .. py:attribute:: robot_index
+      :type:  sqlalchemy.orm.Mapped[int | None]
+
+
+   .. py:attribute:: task_index
+      :type:  sqlalchemy.orm.Mapped[int | None]
+
+
+   .. py:attribute:: prev_episode_index
+      :type:  sqlalchemy.orm.Mapped[int | None]
+
+      The episode index of the previous episode.
+      This is used to link episodes together in a sequence.
+
+
+   .. py:method:: robot() -> sqlalchemy.orm.Mapped[robo_orchard_lab.dataset.robot.db_orm.robot.Robot | None]
+
+
+   .. py:method:: task() -> sqlalchemy.orm.Mapped[robo_orchard_lab.dataset.robot.db_orm.task.Task | None]
+
+
+   .. py:method:: prev_episode() -> sqlalchemy.orm.Mapped[Episode | None]
+
+
+   .. py:method:: next_episode() -> sqlalchemy.orm.Mapped[list[Episode]]
+
+

@@ -1,0 +1,84 @@
+base
+====
+
+.. py:module:: robo_orchard_lab.dataset.datatypes.hg_features.base
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.datatypes.hg_features.base.FeatureDecodeMixin
+   robo_orchard_lab.dataset.datatypes.hg_features.base.RODataFeature
+   robo_orchard_lab.dataset.datatypes.hg_features.base.ToDataFeatureMixin
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.datatypes.hg_features.base.hg_dataset_feature
+   robo_orchard_lab.dataset.datatypes.hg_features.base.check_fields_consistency
+
+
+Module Contents
+---------------
+
+.. py:class:: FeatureDecodeMixin
+
+   Mixin class for features that support decoding.
+
+
+   .. py:method:: decode_example(value: Any) -> Any
+      :abstractmethod:
+
+
+      Decode the example value from its stored format.
+
+
+
+.. py:class:: RODataFeature
+
+   Base class for RoboOrchard dataset features.
+
+   User should implement the `pa_type` property and `encode_example` method
+   to define the specific feature type and how to encode example values.
+
+
+
+   .. py:property:: pa_type
+      :type: pyarrow.DataType
+
+      :abstractmethod:
+
+
+      Return the pyarrow data type for this feature.
+
+
+   .. py:method:: encode_example(value: Any) -> Any
+      :abstractmethod:
+
+
+      Encode the example value into a format suitable for storage.
+
+
+
+.. py:class:: ToDataFeatureMixin
+
+   Mixin class for features that can be converted to a pyarrow DataType.
+
+
+   .. py:method:: dataset_feature() -> RODataFeature
+      :abstractmethod:
+
+
+
+.. py:function:: hg_dataset_feature(cls: type[RODataFeatureType]) -> type[RODataFeatureType]
+
+   Decorator to register a feature class with its type.
+
+
+.. py:function:: check_fields_consistency(cls: type[pydantic.BaseModel], pa_struct: pyarrow.StructType)
+

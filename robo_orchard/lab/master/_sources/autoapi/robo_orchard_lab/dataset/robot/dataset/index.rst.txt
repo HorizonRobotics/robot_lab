@@ -1,0 +1,47 @@
+dataset
+=======
+
+.. py:module:: robo_orchard_lab.dataset.robot.dataset
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.dataset.MetaType
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.dataset.RODataset
+
+
+Module Contents
+---------------
+
+.. py:data:: MetaType
+
+.. py:class:: RODataset(dataset_path: str, storage_options: dict | None = None)
+
+   .. py:attribute:: frame_dataset
+      :type:  datasets.Dataset
+
+      The Hugging Face Dataset object containing the frame data.
+
+
+   .. py:attribute:: db_engine
+      :type:  sqlalchemy.Engine
+
+      The SQLAlchemy engine for the meta database
+
+
+   .. py:method:: get_meta(meta_type: type[MetaType], index: int | None) -> MetaType | None
+
+      Get all metadata of a specific type.
+
+
+

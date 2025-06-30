@@ -1,0 +1,57 @@
+robot
+=====
+
+.. py:module:: robo_orchard_lab.dataset.robot.db_orm.robot
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.db_orm.robot.Robot
+
+
+Module Contents
+---------------
+
+.. py:class:: Robot
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.robot.db_orm.base.DatasetORMBase`, :py:obj:`robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin`\ [\ :py:obj:`Robot`\ ]
+
+
+   ORM model for a robot in a RoboOrchard dataset.
+
+
+   .. py:attribute:: index
+      :type:  sqlalchemy.orm.Mapped[int]
+
+
+   .. py:attribute:: name
+      :type:  sqlalchemy.orm.Mapped[str]
+
+
+   .. py:attribute:: urdf_content
+      :type:  sqlalchemy.orm.Mapped[str]
+
+
+   .. py:attribute:: md5
+      :type:  sqlalchemy.orm.Mapped[bytes]
+
+
+   .. py:method:: update_md5() -> bytes
+
+      Generate a unique MD5 hash for the robot URDF content.
+
+      The MD5 hash is generated from the URDF content and name.
+
+
+
+   .. py:method:: query_by_content_with_md5(session: sqlalchemy.orm.Session, name: str, urdf_content: str) -> Robot | None
+      :staticmethod:
+
+
+      Query a robot by its name and URDF content.
+
+
+

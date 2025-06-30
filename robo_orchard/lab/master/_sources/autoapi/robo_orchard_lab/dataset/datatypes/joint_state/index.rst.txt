@@ -1,0 +1,75 @@
+joint_state
+===========
+
+.. py:module:: robo_orchard_lab.dataset.datatypes.joint_state
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature
+   robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState
+
+
+Module Contents
+---------------
+
+.. py:class:: BatchJointsStateFeature
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.RODataFeature`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.FeatureDecodeMixin`
+
+
+   Base class for RoboOrchard dataset features.
+
+   User should implement the `pa_type` property and `encode_example` method
+   to define the specific feature type and how to encode example values.
+
+
+
+   .. py:attribute:: dtype
+      :type:  Literal['float32', 'float64']
+      :value: 'float32'
+
+
+
+   .. py:attribute:: decode
+      :type:  bool
+      :value: True
+
+
+
+   .. py:property:: pa_type
+      :type: pyarrow.DataType
+
+
+      Return the pyarrow data type for this feature.
+
+
+   .. py:method:: encode_example(value: BatchJointsState | None) -> dict[str, Any] | None
+
+      Encode the example value into a format suitable for storage.
+
+
+
+   .. py:method:: decode_example(value: dict[str, Any] | None, **kwargs) -> BatchJointsState | None
+
+      Decode the example value from its stored format.
+
+
+
+.. py:class:: BatchJointsState(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.joint_state.BatchJointsState`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.ToDataFeatureMixin`
+
+
+   Batch joint states of robot.
+
+   This class extends the base BatchJointsState and provides methods
+   to encode and decode joint states for dataset storage.
+
+
+   .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchJointsStateFeature
+
+
