@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/version_switcher.css?v=ddc636d2" />
     
     
 
@@ -198,8 +199,8 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../../../_static/logo/logo.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../../../_static/logo/logo.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="../../../../_static/logo/logo_light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../../_static/logo/logo_dark.png" alt="Dark Logo"/>
   </div>
   
   <span class="sidebar-brand-text">RoboOrchard Lab</span>
@@ -209,29 +210,47 @@
 
 <meta name="versions-json-url" content="https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/version.json">
 
-<div id="version-selector-wrapper"
-     style="visibility: hidden;
-            border: 1px solid #e0e0e0;
-            border-radius: 3px;
-            padding: 0;
-            margin: 8px 5px;
-            display: inline-block;
-            background-color: transparent;
-            position: relative;">
-    <select id="version-selector"
-            style="padding: 6px 8px;
-                   border: none;
-                   background-color: transparent;
-                   font-size: 0.9em;
-                   display: block;
-                   min-width: 140px;
-                   width: 100%;
-                   cursor: pointer;
-                   text-align: center;
-                   text-align-last: center;
-                   line-height: 1.4;">
-        <!-- Populated dynamically by JavaScript -->
-    </select>
+<style>
+  #version-selector-wrapper {
+    border: 1px solid var(--switcher-border-color, #e0e0e0);
+    background-color: var(--switcher-background-color, transparent);
+    visibility: hidden;
+    border-radius: 3px;
+    padding: 0;
+    margin: 8px 5px;
+    display: inline-block;
+    position: relative;
+  }
+
+  #version-selector {
+    color: var(--switcher-text-color, #333);
+    background-color: var(--switcher-background-color, transparent);
+
+    background-image: var(--switcher-arrow-icon);
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1em;
+
+    border: none;
+    padding: 6px 28px 6px 8px;
+    font-size: 0.9em;
+    display: block;
+    min-width: 140px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+    line-height: 1.4;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+</style>
+
+<div id="version-selector-wrapper">
+    <select id="version-selector">
+        </select>
 </div>
 
 <script>
@@ -554,6 +573,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">accelerate</span> <span class="kn">import</span> <span class="n">Accelerator</span>
@@ -605,9 +625,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="c1"># statistics for step callback</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_last_step_id</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_step_start_time</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># accumulated step tiems</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_step_times</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">window_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_step_start_time</span> <span class="o">=</span> <span class="mf">0.0</span>
 
         <span class="c1"># statistics for epoch callback</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_time</span> <span class="o">=</span> <span class="kc">None</span>
@@ -710,7 +730,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <span class="k">def</span> <span class="nf">_estimate_remaining_time</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">elapsed_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">avg_step_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">current_step</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">current_epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">start_step</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -722,8 +742,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Estimates the remaining time based on average step time.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            elapsed_time (float): The total elapsed time since</span>
-<span class="sd">                training started.</span>
+<span class="sd">            avg_step_time (float): The average time per step, calculated from</span>
+<span class="sd">                a smoothing window.</span>
 <span class="sd">            current_step (int): The current global step in the</span>
 <span class="sd">                training loop.</span>
 <span class="sd">            current_epoch (int): The current epoch in the training loop.</span>
@@ -762,12 +782,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="n">total_steps</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="c1"># Calculate elapsed and remaining steps</span>
-        <span class="n">elapsed_steps</span> <span class="o">=</span> <span class="n">current_step</span> <span class="o">-</span> <span class="n">start_step</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">remain_steps</span> <span class="o">=</span> <span class="n">total_steps</span> <span class="o">-</span> <span class="n">current_step</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="n">avg_step_time</span> <span class="o">=</span> <span class="n">elapsed_time</span> <span class="o">/</span> <span class="n">elapsed_steps</span>
-        <span class="n">estimated_time</span> <span class="o">=</span> <span class="n">remain_steps</span> <span class="o">*</span> <span class="n">avg_step_time</span>
+        <span class="k">if</span> <span class="n">remain_steps</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
 
+        <span class="n">estimated_time</span> <span class="o">=</span> <span class="n">remain_steps</span> <span class="o">*</span> <span class="n">avg_step_time</span>
         <span class="k">return</span> <span class="n">estimated_time</span>
 
     <span class="k">def</span> <span class="nf">_on_loop_begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">PipelineHookArgs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -782,8 +801,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="bp">self</span><span class="o">.</span><span class="n">_estimate_data_stats</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">accelerator</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">dataloader</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_on_step_begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">PipelineHookArgs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_step_start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_last_step_id</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_step_start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_on_step_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">PipelineHookArgs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Callback when step ends.</span>
@@ -795,35 +813,26 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">            args (PipelineHookArgs): Hook arguments including current step</span>
 <span class="sd">                and epoch information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span>
-            <span class="s2">&quot;Please call `on_loop_begin` first.&quot;</span>
-        <span class="p">)</span>
         <span class="k">assert</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_step_start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_batch_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="p">),</span> <span class="s2">&quot;Please call `on_step_begin` first.&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_batch_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">),</span> <span class="s2">&quot;Please call `on_loop_begin` first.&quot;</span>
 
         <span class="c1"># only log in the main process</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">is_main_process</span><span class="p">:</span>
             <span class="k">return</span>
 
+        <span class="n">step_duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_step_start_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_step_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">step_duration</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">step_log_freq</span> <span class="o">&gt;</span> <span class="mi">0</span>
             <span class="ow">and</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_log_freq</span> <span class="o">==</span> <span class="mi">0</span>
         <span class="p">):</span>
-            <span class="n">elapsed_steps</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_step_id</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_last_step_id</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span>
-
-            <span class="n">avg_elapsed_step_time</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_start_time</span>
-            <span class="p">)</span> <span class="o">/</span> <span class="n">elapsed_steps</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_step_start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-            <span class="n">speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_batch_size</span> <span class="o">/</span> <span class="n">avg_elapsed_step_time</span>
-            <span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span>
+            <span class="n">avg_step_time</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_step_times</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_step_times</span><span class="p">)</span>
+            <span class="n">speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_batch_size</span> <span class="o">/</span> <span class="n">avg_step_time</span>
 
             <span class="n">remaining_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_estimate_remaining_time</span><span class="p">(</span>
-                <span class="n">elapsed_time</span><span class="o">=</span><span class="n">elapsed_time</span><span class="p">,</span>
+                <span class="n">avg_step_time</span><span class="o">=</span><span class="n">avg_step_time</span><span class="p">,</span>
                 <span class="n">current_step</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span><span class="p">,</span>
                 <span class="n">current_epoch</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span><span class="p">,</span>
                 <span class="n">start_step</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">start_step</span><span class="p">,</span>
@@ -840,9 +849,13 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">remaining_time_str</span> <span class="o">=</span> <span class="s2">&quot;N/A&quot;</span>
 
+            <span class="c1"># reset states</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_last_step_id</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_step_start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
             <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Epoch[</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span><span class="si">}</span><span class="s2">] Step[</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">step_id</span><span class="si">}</span><span class="s2">] GlobalStep[</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span><span class="si">}</span><span class="s2">] &quot;</span>  <span class="c1"># noqa: E501</span>
             <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Training Speed: </span><span class="si">{</span><span class="n">speed</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> samples/sec across all devices.</span><span class="se">\t</span><span class="s2">&quot;</span>  <span class="c1"># noqa: E501</span>
-            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Average Step Time: </span><span class="si">{</span><span class="n">avg_elapsed_step_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> sec.</span><span class="se">\t</span><span class="s2">&quot;</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Average Step Time: </span><span class="si">{</span><span class="n">avg_step_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> sec.</span><span class="se">\t</span><span class="s2">&quot;</span>
             <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Estimated Remaining Time: </span><span class="si">{</span><span class="n">remaining_time_str</span><span class="si">}</span><span class="s2">.</span><span class="se">\t</span><span class="s2">&quot;</span>
 
             <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">optimizer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -853,9 +866,10 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_on_epoch_begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">PipelineHookArgs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_last_epoch_id</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_step_id</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_last_epoch_id</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_step_id</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span>
 
     <span class="k">def</span> <span class="nf">_on_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">PipelineHookArgs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Logs the average epoch time and resets the epoch start time.</span>
@@ -884,33 +898,34 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="bp">self</span><span class="o">.</span><span class="n">epoch_log_freq</span> <span class="o">&gt;</span> <span class="mi">0</span>
             <span class="ow">and</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">epoch_log_freq</span> <span class="o">==</span> <span class="mi">0</span>
         <span class="p">):</span>
-            <span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_time</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">epoch_duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_time</span>
+            <span class="n">elapsed_epochs</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_epoch_id</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">avg_epoch_time</span> <span class="o">=</span> <span class="n">epoch_duration</span> <span class="o">/</span> <span class="n">elapsed_epochs</span>
+            <span class="n">elapsed_steps</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_step_id</span>
+            <span class="n">avg_step_time</span> <span class="o">=</span> <span class="n">epoch_duration</span> <span class="o">/</span> <span class="n">elapsed_steps</span>
 
-            <span class="n">elapsed_epoches</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_epoch_id</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_last_epoch_id</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span>
+            <span class="k">if</span> <span class="n">elapsed_steps</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_batch_size</span> <span class="o">/</span> <span class="n">avg_step_time</span>
+                <span class="n">speed_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">speed</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">speed_str</span> <span class="o">=</span> <span class="s2">&quot;N/A&quot;</span>
 
-            <span class="n">total_steps</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_step_id</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_step_id</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span>
-
-            <span class="n">avg_elapsed_epoches_time</span> <span class="o">=</span> <span class="n">elapsed_time</span> <span class="o">/</span> <span class="n">elapsed_epoches</span>
-            <span class="n">avg_elapsed_step_time</span> <span class="o">=</span> <span class="n">elapsed_time</span> <span class="o">/</span> <span class="n">total_steps</span>
-
-            <span class="n">speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_batch_size</span> <span class="o">/</span> <span class="n">avg_elapsed_step_time</span>
-
-            <span class="n">remaining_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_estimate_remaining_time</span><span class="p">(</span>
-                <span class="n">elapsed_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span><span class="p">,</span>
-                <span class="c1"># note that global_step_id is already upgrade after each step,</span>
-                <span class="c1"># so we have to minus 1 to keep it align with on_step_end</span>
-                <span class="n">current_step</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
-                <span class="n">current_epoch</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span><span class="p">,</span>
-                <span class="n">start_step</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">start_step</span><span class="p">,</span>
-                <span class="n">start_epoch</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">start_epoch</span><span class="p">,</span>
-                <span class="n">max_step</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">max_step</span><span class="p">,</span>
-                <span class="n">max_epoch</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">max_epoch</span><span class="p">,</span>
-                <span class="n">steps_per_epoch</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">steps_per_epoch</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_step_times</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">smooth_avg_step_time</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_step_times</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_step_times</span>
+                <span class="p">)</span>
+                <span class="n">remaining_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_estimate_remaining_time</span><span class="p">(</span>
+                    <span class="n">avg_step_time</span><span class="o">=</span><span class="n">smooth_avg_step_time</span><span class="p">,</span>
+                    <span class="n">current_step</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="n">current_epoch</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span><span class="p">,</span>
+                    <span class="n">start_step</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">start_step</span><span class="p">,</span>
+                    <span class="n">start_epoch</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">start_epoch</span><span class="p">,</span>
+                    <span class="n">max_step</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">max_step</span><span class="p">,</span>
+                    <span class="n">max_epoch</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">max_epoch</span><span class="p">,</span>
+                    <span class="n">steps_per_epoch</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">steps_per_epoch</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">remaining_time</span> <span class="o">=</span> <span class="kc">None</span>
 
             <span class="k">if</span> <span class="n">remaining_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">remaining_time_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
@@ -919,11 +934,16 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">remaining_time_str</span> <span class="o">=</span> <span class="s2">&quot;N/A&quot;</span>
 
+            <span class="c1"># reset states for next epoch log</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_last_epoch_id</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_epoch_start_step_id</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span>
+
             <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Epoch[</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span><span class="si">}</span><span class="s2">] completed. &quot;</span>
-            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Training Speed: </span><span class="si">{</span><span class="n">speed</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> samples/sec across all devices.</span><span class="se">\t</span><span class="s2">&quot;</span>  <span class="c1"># noqa: E501</span>
-            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Epoch Time: </span><span class="si">{</span><span class="n">elapsed_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> sec.</span><span class="se">\t</span><span class="s2">&quot;</span>
-            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Average Epoch Time: </span><span class="si">{</span><span class="n">avg_elapsed_epoches_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> sec.</span><span class="se">\t</span><span class="s2">&quot;</span>
-            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Average Step Time: </span><span class="si">{</span><span class="n">avg_elapsed_step_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> sec.</span><span class="se">\t</span><span class="s2">&quot;</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Epoch Time: </span><span class="si">{</span><span class="n">epoch_duration</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> sec.</span><span class="se">\t</span><span class="s2">&quot;</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Average Training Speed: </span><span class="si">{</span><span class="n">speed_str</span><span class="si">}</span><span class="s2"> samples/sec across all devices.</span><span class="se">\t</span><span class="s2">&quot;</span>  <span class="c1"># noqa: E501</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Average Epoch Time: </span><span class="si">{</span><span class="n">avg_epoch_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> sec.</span><span class="se">\t</span><span class="s2">&quot;</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Average Step Time: </span><span class="si">{</span><span class="n">avg_step_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> sec.</span><span class="se">\t</span><span class="s2">&quot;</span>
             <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Estimated Remaining Time: </span><span class="si">{</span><span class="n">remaining_time_str</span><span class="si">}</span><span class="s2">.</span><span class="se">\t</span><span class="s2">&quot;</span>
             <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">optimizer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot;Learning Rate: </span><span class="si">{:.5e}</span><span class="s2">.</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -955,7 +975,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <span class="n">epoch_log_freq</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Frequency to log stats at the epoch level. Logs are output every</span>
-<span class="sd">    `epoch_log_freq` epochs.&quot;&quot;&quot;</span></div>
+<span class="sd">    `epoch_log_freq` epochs.&quot;&quot;&quot;</span>
+
+    <span class="n">window_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The size of the sliding window used to smooth the step time</span>
+<span class="sd">    calculation, making the remaining time estimate more stable.&quot;&quot;&quot;</span></div>
 
 </pre></div>
         </article>
@@ -969,7 +993,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Horizon Robotics Developers
+                Copyright &#169; 2024-2025, Horizon Robotics Developers
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

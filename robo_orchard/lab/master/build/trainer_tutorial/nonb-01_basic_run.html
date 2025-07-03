@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/version_switcher.css?v=ddc636d2" />
     
     
 
@@ -199,8 +200,8 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../_static/logo/logo.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../_static/logo/logo.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="../../_static/logo/logo_light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../_static/logo/logo_dark.png" alt="Dark Logo"/>
   </div>
   
   <span class="sidebar-brand-text">RoboOrchard Lab</span>
@@ -210,29 +211,47 @@
 
 <meta name="versions-json-url" content="https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/version.json">
 
-<div id="version-selector-wrapper"
-     style="visibility: hidden;
-            border: 1px solid #e0e0e0;
-            border-radius: 3px;
-            padding: 0;
-            margin: 8px 5px;
-            display: inline-block;
-            background-color: transparent;
-            position: relative;">
-    <select id="version-selector"
-            style="padding: 6px 8px;
-                   border: none;
-                   background-color: transparent;
-                   font-size: 0.9em;
-                   display: block;
-                   min-width: 140px;
-                   width: 100%;
-                   cursor: pointer;
-                   text-align: center;
-                   text-align-last: center;
-                   line-height: 1.4;">
-        <!-- Populated dynamically by JavaScript -->
-    </select>
+<style>
+  #version-selector-wrapper {
+    border: 1px solid var(--switcher-border-color, #e0e0e0);
+    background-color: var(--switcher-background-color, transparent);
+    visibility: hidden;
+    border-radius: 3px;
+    padding: 0;
+    margin: 8px 5px;
+    display: inline-block;
+    position: relative;
+  }
+
+  #version-selector {
+    color: var(--switcher-text-color, #333);
+    background-color: var(--switcher-background-color, transparent);
+
+    background-image: var(--switcher-arrow-icon);
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1em;
+
+    border: none;
+    padding: 6px 28px 6px 8px;
+    font-size: 0.9em;
+    display: block;
+    min-width: 140px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+    line-height: 1.4;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+</style>
+
+<div id="version-selector-wrapper">
+    <select id="version-selector">
+        </select>
 </div>
 
 <script>
@@ -820,19 +839,19 @@ the accelerator and a batch_processor. The hooks list allows for powerful custom
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Rank[0/1] 06/30/2025 19:35:19 INFO robo_orchard_lab.pipeline.hook_based_trainer:323
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Rank[0/1] 07/03/2025 16:56:42 INFO robo_orchard_lab.pipeline.hook_based_trainer:323
 ==================================================BEGIN TRAINING==================================================
-Rank[0/1] 06/30/2025 19:35:19 INFO robo_orchard_lab.pipeline.hook_based_trainer:327 Start training loop from epoch 0 and step 0
-Rank[0/1] 06/30/2025 19:35:24 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[0] completed. Training Speed: 212.53 samples/sec across all devices. Epoch Time: 4.82 sec.   Average Epoch Time: 4.82 sec.   Average Step Time: 0.60 sec.    Estimated Remaining Time: 0:00:19.      Learning Rate: 1.00000e-01.
-Rank[0/1] 06/30/2025 19:35:29 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[1] completed. Training Speed: 218.12 samples/sec across all devices. Epoch Time: 4.69 sec.   Average Epoch Time: 4.69 sec.   Average Step Time: 0.59 sec.    Estimated Remaining Time: 0:00:14.      Learning Rate: 1.00000e-01.
-Rank[0/1] 06/30/2025 19:35:33 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[2] completed. Training Speed: 220.52 samples/sec across all devices. Epoch Time: 4.64 sec.   Average Epoch Time: 4.64 sec.   Average Step Time: 0.58 sec.    Estimated Remaining Time: 0:00:09.      Learning Rate: 1.00000e-01.
-Rank[0/1] 06/30/2025 19:35:38 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[3] completed. Training Speed: 242.14 samples/sec across all devices. Epoch Time: 4.23 sec.   Average Epoch Time: 4.23 sec.   Average Step Time: 0.53 sec.    Estimated Remaining Time: 0:00:04.      Learning Rate: 1.00000e-02.
-Rank[0/1] 06/30/2025 19:35:42 INFO robo_orchard_lab.pipeline.hooks.stats:394 Epoch[4] completed. Training Speed: 248.78 samples/sec across all devices. Epoch Time: 4.12 sec.   Average Epoch Time: 4.12 sec.   Average Step Time: 0.51 sec.    Estimated Remaining Time: 0:00:00.      Learning Rate: 1.00000e-02.
-Rank[0/1] 06/30/2025 19:35:42 INFO robo_orchard_lab.pipeline.hook_based_trainer:396
+Rank[0/1] 07/03/2025 16:56:42 INFO robo_orchard_lab.pipeline.hook_based_trainer:327 Start training loop from epoch 0 and step 0
+Rank[0/1] 07/03/2025 16:56:49 INFO robo_orchard_lab.pipeline.hooks.stats:395 Epoch[0] completed. Epoch Time: 7.63 sec.  Average Training Speed: 134.29 samples/sec across all devices.  Average Epoch Time: 7.63 sec.   Average Step Time: 0.95 sec.    Estimated Remaining Time: 0:00:02.      Learning Rate: 1.00000e-01.
+Rank[0/1] 07/03/2025 16:56:54 INFO robo_orchard_lab.pipeline.hooks.stats:395 Epoch[1] completed. Epoch Time: 4.57 sec.  Average Training Speed: 224.00 samples/sec across all devices.  Average Epoch Time: 2.29 sec.   Average Step Time: 0.57 sec.    Estimated Remaining Time: 0:00:01.      Learning Rate: 1.00000e-01.
+Rank[0/1] 07/03/2025 16:56:59 INFO robo_orchard_lab.pipeline.hooks.stats:395 Epoch[2] completed. Epoch Time: 4.60 sec.  Average Training Speed: 222.53 samples/sec across all devices.  Average Epoch Time: 2.30 sec.   Average Step Time: 0.58 sec.    Estimated Remaining Time: 0:00:00.      Learning Rate: 1.00000e-01.
+Rank[0/1] 07/03/2025 16:57:06 INFO robo_orchard_lab.pipeline.hooks.stats:395 Epoch[3] completed. Epoch Time: 7.42 sec.  Average Training Speed: 138.04 samples/sec across all devices.  Average Epoch Time: 3.71 sec.   Average Step Time: 0.93 sec.    Estimated Remaining Time: 0:00:00.      Learning Rate: 1.00000e-02.
+Rank[0/1] 07/03/2025 16:57:11 INFO robo_orchard_lab.pipeline.hooks.stats:395 Epoch[4] completed. Epoch Time: 4.51 sec.  Average Training Speed: 226.85 samples/sec across all devices.  Average Epoch Time: 2.26 sec.   Average Step Time: 0.56 sec.    Estimated Remaining Time: 0:00:00.      Learning Rate: 1.00000e-02.
+Rank[0/1] 07/03/2025 16:57:11 INFO robo_orchard_lab.pipeline.hook_based_trainer:396
 ==================================================FINISH TRAINING==================================================
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 23.191 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 29.326 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-build-trainer-tutorial-nonb-01-basic-run-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/24a059cc81c3e44726495027a3242308/nonb-01_basic_run.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">nonb-01_basic_run.ipynb</span></code></a></p>
@@ -877,7 +896,7 @@ Rank[0/1] 06/30/2025 19:35:42 INFO robo_orchard_lab.pipeline.hook_based_trainer:
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Horizon Robotics Developers
+                Copyright &#169; 2024-2025, Horizon Robotics Developers
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

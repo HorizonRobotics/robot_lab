@@ -21,6 +21,7 @@ Functions
 
    robo_orchard_lab.dataset.datatypes.hg_features.base.hg_dataset_feature
    robo_orchard_lab.dataset.datatypes.hg_features.base.check_fields_consistency
+   robo_orchard_lab.dataset.datatypes.hg_features.base.guess_hg_features
 
 
 Module Contents
@@ -71,6 +72,8 @@ Module Contents
 
 
    .. py:method:: dataset_feature() -> RODataFeature
+      :classmethod:
+
       :abstractmethod:
 
 
@@ -81,4 +84,17 @@ Module Contents
 
 
 .. py:function:: check_fields_consistency(cls: type[pydantic.BaseModel], pa_struct: pyarrow.StructType)
+
+.. py:function:: guess_hg_features(data: dict) -> datasets.features.Features
+
+   Guess the Hugging Face dataset features from an dict.
+
+   If the object contains a list or tuple, it will try to guess the feature
+   type from the first non-null value. If all values are None or empty,
+   it raises a ValueError.
+
+   Try to avoid any None values in the input object, as it may lead to
+   incorrect feature type inference.
+
+
 

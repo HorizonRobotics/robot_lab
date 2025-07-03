@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/version_switcher.css?v=ddc636d2" />
     
     
 
@@ -199,8 +200,8 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../../../_static/logo/logo.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../../../_static/logo/logo.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="../../../../_static/logo/logo_light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../../_static/logo/logo_dark.png" alt="Dark Logo"/>
   </div>
   
   <span class="sidebar-brand-text">RoboOrchard Lab</span>
@@ -210,29 +211,47 @@
 
 <meta name="versions-json-url" content="https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/version.json">
 
-<div id="version-selector-wrapper"
-     style="visibility: hidden;
-            border: 1px solid #e0e0e0;
-            border-radius: 3px;
-            padding: 0;
-            margin: 8px 5px;
-            display: inline-block;
-            background-color: transparent;
-            position: relative;">
-    <select id="version-selector"
-            style="padding: 6px 8px;
-                   border: none;
-                   background-color: transparent;
-                   font-size: 0.9em;
-                   display: block;
-                   min-width: 140px;
-                   width: 100%;
-                   cursor: pointer;
-                   text-align: center;
-                   text-align-last: center;
-                   line-height: 1.4;">
-        <!-- Populated dynamically by JavaScript -->
-    </select>
+<style>
+  #version-selector-wrapper {
+    border: 1px solid var(--switcher-border-color, #e0e0e0);
+    background-color: var(--switcher-background-color, transparent);
+    visibility: hidden;
+    border-radius: 3px;
+    padding: 0;
+    margin: 8px 5px;
+    display: inline-block;
+    position: relative;
+  }
+
+  #version-selector {
+    color: var(--switcher-text-color, #333);
+    background-color: var(--switcher-background-color, transparent);
+
+    background-image: var(--switcher-arrow-icon);
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1em;
+
+    border: none;
+    padding: 6px 28px 6px 8px;
+    font-size: 0.9em;
+    display: block;
+    min-width: 140px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+    line-height: 1.4;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+</style>
+
+<div id="version-selector-wrapper">
+    <select id="version-selector">
+        </select>
 </div>
 
 <script>
@@ -582,7 +601,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Horizon Robotics Developers
+                Copyright &#169; 2024-2025, Horizon Robotics Developers
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

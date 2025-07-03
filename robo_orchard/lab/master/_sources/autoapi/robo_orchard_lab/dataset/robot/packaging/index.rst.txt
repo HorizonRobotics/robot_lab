@@ -72,6 +72,22 @@ Module Contents
 
 
 
+   .. py:attribute:: timestamp_ns_min
+      :type:  int | None
+      :value: None
+
+
+      The minimum timestamp of the frame in nanoseconds.
+
+
+   .. py:attribute:: timestamp_ns_max
+      :type:  int | None
+      :value: None
+
+
+      The maximum timestamp of the frame in nanoseconds.
+
+
 .. py:class:: EpisodePackaging
 
    .. py:method:: generate_episode_meta() -> EpisodeMeta
@@ -105,11 +121,16 @@ Module Contents
 
 
    .. py:attribute:: preserved_index_keys
-      :value: ('index', 'episode_index', 'frame_index', 'task_index', 'robot_index', 'instruction_index')
+      :value: ('index', 'episode_index', 'frame_index', 'timestamp_min', 'timestamp_max', 'task_index',...
 
 
 
-   .. py:method:: packaging(episodes: Iterable[EpisodePackaging], dataset_path: str, max_shard_size: str | int | None = None, split: datasets.Split | None = None)
+   .. py:property:: features
+      :type: datasets.Features
+
+
+
+   .. py:method:: packaging(episodes: Iterable[EpisodePackaging], dataset_path: str, dataset_info: datasets.DatasetInfo | None = None, writer_batch_size: int = 8, max_shard_size: str | int = '2GB', split: datasets.Split | None = None, force_overwrite: bool = False)
 
       Package the dataset and save it to the specified path.
 
@@ -118,11 +139,26 @@ Module Contents
       :type episodes: Iterable[EpisodePackaging]
       :param dataset_path: The path to save the packaged dataset.
       :type dataset_path: str
+      :param dataset_info: Information about
+                           the dataset, such as description, citation, and homepage.
+                           If None, use the default dataset info.
+      :type dataset_info: hg_datasets.DatasetInfo | None
+      :param writer_batch_size: The batch size for writing the arrow file.
+                                This may affect the performance of packaging or reading the
+                                dataset later. Default is 8.
+      :type writer_batch_size: int
       :param max_shard_size: The maximum size of each shard.
                              If None, no sharding will be applied. This can be a string
                              like '10GB' or an integer representing the size in bytes.
                              default is "500MB".
       :type max_shard_size: str | int | None
+      :param split: The split of the dataset.
+                    If None, use "train" as the default split.
+      :type split: hg_datasets.Split | None
+      :param force_overwrite: If True, overwrite the existing dataset
+                              at the specified path. If False, raise an error if the path
+                              already exists. Default is False.
+      :type force_overwrite: bool
 
 
 

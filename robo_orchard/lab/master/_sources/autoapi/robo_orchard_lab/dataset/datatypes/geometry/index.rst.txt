@@ -74,6 +74,8 @@ Module Contents
 
 
    .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchTransform3DFeature
+      :classmethod:
+
 
 
 .. py:class:: BatchPoseFeature
@@ -127,6 +129,8 @@ Module Contents
 
 
    .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchPoseFeature
+      :classmethod:
+
 
 
 .. py:class:: BatchFrameTransformFeature
@@ -171,5 +175,7 @@ Module Contents
 
 
    .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchFrameTransformFeature
+      :classmethod:
+
 
 

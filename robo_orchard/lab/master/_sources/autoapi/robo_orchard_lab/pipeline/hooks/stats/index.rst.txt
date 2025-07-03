@@ -91,3 +91,12 @@ Module Contents
       `epoch_log_freq` epochs.
 
 
+   .. py:attribute:: window_size
+      :type:  int
+      :value: 128
+
+
+      The size of the sliding window used to smooth the step time
+      calculation, making the remaining time estimate more stable.
+
+

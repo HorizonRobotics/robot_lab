@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/version_switcher.css?v=ddc636d2" />
     
     
 
@@ -198,8 +199,8 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../../../_static/logo/logo.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../../../_static/logo/logo.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="../../../../_static/logo/logo_light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../../_static/logo/logo_dark.png" alt="Dark Logo"/>
   </div>
   
   <span class="sidebar-brand-text">RoboOrchard Lab</span>
@@ -209,29 +210,47 @@
 
 <meta name="versions-json-url" content="https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/version.json">
 
-<div id="version-selector-wrapper"
-     style="visibility: hidden;
-            border: 1px solid #e0e0e0;
-            border-radius: 3px;
-            padding: 0;
-            margin: 8px 5px;
-            display: inline-block;
-            background-color: transparent;
-            position: relative;">
-    <select id="version-selector"
-            style="padding: 6px 8px;
-                   border: none;
-                   background-color: transparent;
-                   font-size: 0.9em;
-                   display: block;
-                   min-width: 140px;
-                   width: 100%;
-                   cursor: pointer;
-                   text-align: center;
-                   text-align-last: center;
-                   line-height: 1.4;">
-        <!-- Populated dynamically by JavaScript -->
-    </select>
+<style>
+  #version-selector-wrapper {
+    border: 1px solid var(--switcher-border-color, #e0e0e0);
+    background-color: var(--switcher-background-color, transparent);
+    visibility: hidden;
+    border-radius: 3px;
+    padding: 0;
+    margin: 8px 5px;
+    display: inline-block;
+    position: relative;
+  }
+
+  #version-selector {
+    color: var(--switcher-text-color, #333);
+    background-color: var(--switcher-background-color, transparent);
+
+    background-image: var(--switcher-arrow-icon);
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1em;
+
+    border: none;
+    padding: 6px 28px 6px 8px;
+    font-size: 0.9em;
+    display: block;
+    min-width: 140px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+    line-height: 1.4;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+</style>
+
+<div id="version-selector-wrapper">
+    <select id="version-selector">
+        </select>
 </div>
 
 <script>
@@ -557,6 +576,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Iterable</span>
@@ -586,6 +606,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="s2">&quot;EpisodeMeta&quot;</span><span class="p">,</span>
     <span class="s2">&quot;DataFrame&quot;</span><span class="p">,</span>
 <span class="p">]</span>
+
+<span class="n">dataset_format_version</span> <span class="o">=</span> <span class="s2">&quot;0.1.0&quot;</span>
 
 
 <div class="viewcode-block" id="EpisodeMeta">
@@ -637,7 +659,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Data for a single frame in a RoboOrchard dataset.&quot;&quot;&quot;</span>
 
     <span class="n">features</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
-    <span class="n">instruction</span><span class="p">:</span> <span class="n">InstructionData</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>
+    <span class="n">instruction</span><span class="p">:</span> <span class="n">InstructionData</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">timestamp_ns_min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The minimum timestamp of the frame in nanoseconds.&quot;&quot;&quot;</span>
+    <span class="n">timestamp_ns_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The maximum timestamp of the frame in nanoseconds.&quot;&quot;&quot;</span></div>
 
 
 
@@ -688,6 +714,8 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="s2">&quot;index&quot;</span><span class="p">,</span>
         <span class="s2">&quot;episode_index&quot;</span><span class="p">,</span>
         <span class="s2">&quot;frame_index&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timestamp_min&quot;</span><span class="p">,</span>  <span class="c1"># The minimum timestamp of the frame in nanoseconds</span>
+        <span class="s2">&quot;timestamp_max&quot;</span><span class="p">,</span>  <span class="c1"># The maximum timestamp of the frame in nanoseconds</span>
         <span class="s2">&quot;task_index&quot;</span><span class="p">,</span>
         <span class="s2">&quot;robot_index&quot;</span><span class="p">,</span>
         <span class="s2">&quot;instruction_index&quot;</span><span class="p">,</span>
@@ -703,6 +731,10 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="bp">self</span><span class="o">.</span><span class="n">_database_driver</span> <span class="o">=</span> <span class="n">database_driver</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_index_state</span><span class="p">:</span> <span class="n">DatasetIndexState</span> <span class="o">=</span> <span class="n">DatasetIndexState</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_instruction_cache</span><span class="p">:</span> <span class="n">InstructionCache</span> <span class="o">=</span> <span class="n">InstructionCache</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">features</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">Features</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span>
 
     <span class="k">def</span> <span class="nf">_check_and_update_features</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">:</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">Features</span>
@@ -723,11 +755,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <span class="k">def</span> <span class="nf">_extend_frame_with_index</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">features</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="c1"># features: dict[str, Any],</span>
+        <span class="n">frame</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
         <span class="n">episode_meta</span><span class="p">:</span> <span class="n">EpisodeMetaORM</span><span class="p">,</span>
         <span class="n">instruction</span><span class="p">:</span> <span class="n">Instruction</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Extend the frame with index fields.&quot;&quot;&quot;</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">features</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">preserved_index_keys</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -749,6 +783,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="s2">&quot;instruction_index&quot;</span><span class="p">:</span> <span class="n">instruction</span><span class="o">.</span><span class="n">index</span>
                 <span class="k">if</span> <span class="n">instruction</span>
                 <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s2">&quot;timestamp_min&quot;</span><span class="p">:</span> <span class="n">frame</span><span class="o">.</span><span class="n">timestamp_ns_min</span><span class="p">,</span>
+                <span class="s2">&quot;timestamp_max&quot;</span><span class="p">:</span> <span class="n">frame</span><span class="o">.</span><span class="n">timestamp_ns_max</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
 
@@ -786,8 +822,25 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">create_tables</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">DatasetORMBase</span><span class="p">)</span>
 
+        <span class="k">def</span> <span class="nf">frame_generator</span><span class="p">(</span><span class="n">episode</span><span class="p">:</span> <span class="n">EpisodePackaging</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">yield from</span> <span class="n">episode</span><span class="o">.</span><span class="n">generate_frames</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Failed to generate frames for </span><span class="si">{</span><span class="n">episode</span><span class="si">}</span><span class="s2">. &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Skipping this episode. Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="k">return</span>
+
         <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="n">episodes</span><span class="p">:</span>
-            <span class="n">episode_meta</span> <span class="o">=</span> <span class="n">episode</span><span class="o">.</span><span class="n">generate_episode_meta</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">episode_meta</span> <span class="o">=</span> <span class="n">episode</span><span class="o">.</span><span class="n">generate_episode_meta</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Failed to generate episode metadata for </span><span class="si">{</span><span class="n">episode</span><span class="si">}</span><span class="s2">. &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Skipping this episode. Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
             <span class="k">with</span> <span class="n">Session</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
                 <span class="n">episode_meta_orm</span> <span class="o">=</span> <span class="n">episode_meta</span><span class="o">.</span><span class="n">get_transient_orm</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_index_state</span><span class="p">,</span> <span class="n">session</span>
@@ -796,16 +849,18 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="n">episode_meta_orm</span><span class="o">.</span><span class="n">episode</span><span class="o">.</span><span class="n">dataset_begin_index</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_index_state</span><span class="o">.</span><span class="n">last_frame_idx</span> <span class="o">+</span> <span class="mi">1</span>
             <span class="p">)</span>
-            <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">episode</span><span class="o">.</span><span class="n">generate_frames</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">frame_generator</span><span class="p">(</span><span class="n">episode</span><span class="p">):</span>
                 <span class="n">instruction_orm</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_add_instruction</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">instruction</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">frame</span><span class="o">.</span><span class="n">instruction</span>
                     <span class="k">else</span> <span class="kc">None</span>
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_extend_frame_with_index</span><span class="p">(</span>
-                    <span class="n">frame</span><span class="o">.</span><span class="n">features</span><span class="p">,</span> <span class="n">episode_meta_orm</span><span class="p">,</span> <span class="n">instruction_orm</span>
+                    <span class="n">frame</span><span class="p">,</span> <span class="n">episode_meta_orm</span><span class="p">,</span> <span class="n">instruction_orm</span>
                 <span class="p">)</span>
-                <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="o">.</span><span class="n">encode_example</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
+                <span class="c1"># encode_example here.</span>
+                <span class="c1"># yield self._features.encode_example(frame.features)</span>
+                <span class="k">yield</span> <span class="n">frame</span><span class="o">.</span><span class="n">features</span>
                 <span class="c1"># update status</span>
                 <span class="k">if</span> <span class="n">instruction_orm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_index_state</span><span class="o">.</span><span class="n">last_instruction_idx</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
@@ -919,6 +974,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="s2">&quot;_output_all_columns&quot;</span><span class="p">,</span>
             <span class="p">]</span>
         <span class="p">}</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;robo_orchard_state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;robo_orchard_state&quot;</span><span class="p">][</span><span class="s2">&quot;dataset_format_version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">dataset_format_version</span>
+        <span class="p">)</span>
+
         <span class="n">state</span><span class="p">[</span><span class="s2">&quot;_split&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
             <span class="nb">str</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">split</span><span class="p">)</span> <span class="k">if</span> <span class="n">dataset</span><span class="o">.</span><span class="n">split</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">dataset</span><span class="o">.</span><span class="n">split</span>
         <span class="p">)</span>
@@ -948,8 +1008,11 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">episodes</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">EpisodePackaging</span><span class="p">],</span>
         <span class="n">dataset_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">max_shard_size</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dataset_info</span><span class="p">:</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">DatasetInfo</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">writer_batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="n">max_shard_size</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">=</span> <span class="s2">&quot;2GB&quot;</span><span class="p">,</span>
         <span class="n">split</span><span class="p">:</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">Split</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">force_overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Package the dataset and save it to the specified path.</span>
 
@@ -957,11 +1020,38 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">            episodes (Iterable[EpisodePackaging]): An iterable of episode</span>
 <span class="sd">                packaging instances.</span>
 <span class="sd">            dataset_path (str): The path to save the packaged dataset.</span>
+<span class="sd">            dataset_info (hg_datasets.DatasetInfo | None): Information about</span>
+<span class="sd">                the dataset, such as description, citation, and homepage.</span>
+<span class="sd">                If None, use the default dataset info.</span>
+<span class="sd">            writer_batch_size (int): The batch size for writing the arrow file.</span>
+<span class="sd">                This may affect the performance of packaging or reading the</span>
+<span class="sd">                dataset later. Default is 8.</span>
 <span class="sd">            max_shard_size (str | int | None): The maximum size of each shard.</span>
 <span class="sd">                If None, no sharding will be applied. This can be a string</span>
 <span class="sd">                like &#39;10GB&#39; or an integer representing the size in bytes.</span>
 <span class="sd">                default is &quot;500MB&quot;.</span>
+<span class="sd">            split (hg_datasets.Split | None): The split of the dataset.</span>
+<span class="sd">                If None, use &quot;train&quot; as the default split.</span>
+<span class="sd">            force_overwrite (bool): If True, overwrite the existing dataset</span>
+<span class="sd">                at the specified path. If False, raise an error if the path</span>
+<span class="sd">                already exists. Default is False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">force_overwrite</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;The dataset path &#39;</span><span class="si">{</span><span class="n">dataset_path</span><span class="si">}</span><span class="s2">&#39; already exists. &quot;</span>
+                    <span class="s2">&quot;Please remove it or set force_overwrite=True to overwrite.&quot;</span>  <span class="c1"># noqa: E501</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;The dataset path &#39;</span><span class="si">{</span><span class="n">dataset_path</span><span class="si">}</span><span class="s2">&#39; already exists. &quot;</span>
+                    <span class="s2">&quot;It will be overwritten.&quot;</span>
+                <span class="p">)</span>
+                <span class="c1"># Clean up the existing dataset path</span>
+                <span class="kn">import</span> <span class="nn">shutil</span>
+
+                <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_index_state</span><span class="p">:</span> <span class="n">DatasetIndexState</span> <span class="o">=</span> <span class="n">DatasetIndexState</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_instruction_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
@@ -974,34 +1064,52 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="n">db_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">db_folder</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">db_path</span> <span class="o">=</span> <span class="n">dataset_path</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;_meta.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_database_driver</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">db_new_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">dataset_path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;meta_db.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_database_driver</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">db_new_path</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force_overwrite</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The meta database path &#39;</span><span class="si">{</span><span class="n">db_new_path</span><span class="si">}</span><span class="s2">&#39; already exists. &quot;</span>
+                <span class="s2">&quot;Please remove it or set force_overwrite=True to overwrite.&quot;</span>
+            <span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">generator</span><span class="p">():</span>
             <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_packaging_generator</span><span class="p">(</span>
                 <span class="n">episodes</span><span class="p">,</span> <span class="n">db_path</span><span class="o">=</span><span class="n">db_path</span>
             <span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">datasets.packaged_modules.generator.generator</span> <span class="kn">import</span> <span class="n">Generator</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">datasets.packaged_modules.generator.generator</span> <span class="kn">import</span> <span class="n">Generator</span>
 
-        <span class="n">builder</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">(</span>
-            <span class="n">generator</span><span class="o">=</span><span class="n">generator</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">,</span> <span class="n">writer_batch_size</span><span class="o">=</span><span class="mi">2</span>
-        <span class="p">)</span>
-        <span class="n">builder</span><span class="o">.</span><span class="n">download_and_prepare</span><span class="p">(</span>
-            <span class="n">output_dir</span><span class="o">=</span><span class="n">dataset_path</span><span class="p">,</span>
-            <span class="n">max_shard_size</span><span class="o">=</span><span class="n">max_shard_size</span><span class="p">,</span>
-            <span class="n">file_format</span><span class="o">=</span><span class="s2">&quot;arrow&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
+            <span class="n">builder</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">(</span>
+                <span class="n">generator</span><span class="o">=</span><span class="n">generator</span><span class="p">,</span>
+                <span class="n">features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_features</span><span class="p">,</span>
+                <span class="n">writer_batch_size</span><span class="o">=</span><span class="n">writer_batch_size</span><span class="p">,</span>
+                <span class="n">info</span><span class="o">=</span><span class="n">dataset_info</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">download_and_prepare</span><span class="p">(</span>
+                <span class="n">output_dir</span><span class="o">=</span><span class="n">dataset_path</span><span class="p">,</span>
+                <span class="n">max_shard_size</span><span class="o">=</span><span class="n">max_shard_size</span><span class="p">,</span>
+                <span class="n">file_format</span><span class="o">=</span><span class="s2">&quot;arrow&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">db_new_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">dataset_path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;meta_db.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_database_driver</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">db_path</span><span class="p">,</span> <span class="n">db_new_path</span><span class="p">)</span>
 
-        <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
-            <span class="n">db_path</span><span class="p">,</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;meta_db.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_database_driver</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
-        <span class="p">)</span>
+            <span class="c1"># Complete the dataset with the arrow cache</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_complete_arrow_cache_as_dataset</span><span class="p">(</span>
+                <span class="n">dataset_path</span><span class="o">=</span><span class="n">dataset_path</span><span class="p">,</span>
+                <span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">,</span>
+                <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">e</span>
 
-        <span class="c1"># Complete the dataset with the arrow cache</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_complete_arrow_cache_as_dataset</span><span class="p">(</span>
-            <span class="n">dataset_path</span><span class="o">=</span><span class="n">dataset_path</span><span class="p">,</span>
-            <span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">,</span>
-            <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span>
-        <span class="p">)</span></div>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Clean up the temporary database file if it exists</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">db_path</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">db_path</span><span class="p">)</span></div>
 </div>
 
 
@@ -1232,7 +1340,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Horizon Robotics Developers
+                Copyright &#169; 2024-2025, Horizon Robotics Developers
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

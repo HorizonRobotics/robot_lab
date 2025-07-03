@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/version_switcher.css?v=ddc636d2" />
     
     
 
@@ -199,8 +200,8 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../../index.html">
   
   <div class="sidebar-logo-container">
-    <img class="sidebar-logo only-light" src="../../../../../_static/logo/logo.png" alt="Light Logo"/>
-    <img class="sidebar-logo only-dark" src="../../../../../_static/logo/logo.png" alt="Dark Logo"/>
+    <img class="sidebar-logo only-light" src="../../../../../_static/logo/logo_light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../../../_static/logo/logo_dark.png" alt="Dark Logo"/>
   </div>
   
   <span class="sidebar-brand-text">RoboOrchard Lab</span>
@@ -210,29 +211,47 @@
 
 <meta name="versions-json-url" content="https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/version.json">
 
-<div id="version-selector-wrapper"
-     style="visibility: hidden;
-            border: 1px solid #e0e0e0;
-            border-radius: 3px;
-            padding: 0;
-            margin: 8px 5px;
-            display: inline-block;
-            background-color: transparent;
-            position: relative;">
-    <select id="version-selector"
-            style="padding: 6px 8px;
-                   border: none;
-                   background-color: transparent;
-                   font-size: 0.9em;
-                   display: block;
-                   min-width: 140px;
-                   width: 100%;
-                   cursor: pointer;
-                   text-align: center;
-                   text-align-last: center;
-                   line-height: 1.4;">
-        <!-- Populated dynamically by JavaScript -->
-    </select>
+<style>
+  #version-selector-wrapper {
+    border: 1px solid var(--switcher-border-color, #e0e0e0);
+    background-color: var(--switcher-background-color, transparent);
+    visibility: hidden;
+    border-radius: 3px;
+    padding: 0;
+    margin: 8px 5px;
+    display: inline-block;
+    position: relative;
+  }
+
+  #version-selector {
+    color: var(--switcher-text-color, #333);
+    background-color: var(--switcher-background-color, transparent);
+
+    background-image: var(--switcher-arrow-icon);
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1em;
+
+    border: none;
+    padding: 6px 28px 6px 8px;
+    font-size: 0.9em;
+    display: block;
+    min-width: 140px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+    line-height: 1.4;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+</style>
+
+<div id="version-selector-wrapper">
+    <select id="version-selector">
+        </select>
 </div>
 
 <script>
@@ -622,6 +641,18 @@ represent the episode information to be stored in the database.</p>
 <span class="sig-name descname"><span class="pre">instruction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.InstructionData" title="robo_orchard_lab.dataset.robot.packaging.InstructionData"><span class="pre">InstructionData</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DataFrame.instruction" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.DataFrame.timestamp_ns_min">
+<span class="sig-name descname"><span class="pre">timestamp_ns_min</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DataFrame.timestamp_ns_min" title="Link to this definition">¶</a></dt>
+<dd><p>The minimum timestamp of the frame in nanoseconds.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.DataFrame.timestamp_ns_max">
+<span class="sig-name descname"><span class="pre">timestamp_ns_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DataFrame.timestamp_ns_max" title="Link to this definition">¶</a></dt>
+<dd><p>The maximum timestamp of the frame in nanoseconds.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -664,12 +695,17 @@ database. Default is “duckdb”.</p></li>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.preserved_index_keys">
-<span class="sig-name descname"><span class="pre">preserved_index_keys</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('index',</span> <span class="pre">'episode_index',</span> <span class="pre">'frame_index',</span> <span class="pre">'task_index',</span> <span class="pre">'robot_index',</span> <span class="pre">'instruction_index')</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.preserved_index_keys" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">preserved_index_keys</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('index',</span> <span class="pre">'episode_index',</span> <span class="pre">'frame_index',</span> <span class="pre">'timestamp_min',</span> <span class="pre">'timestamp_max',</span> <span class="pre">'task_index',...</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.preserved_index_keys" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.features">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datasets.Features</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.features" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.packaging">
-<span class="sig-name descname"><span class="pre">packaging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">episodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.EpisodePackaging" title="robo_orchard_lab.dataset.robot.packaging.EpisodePackaging"><span class="pre">EpisodePackaging</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_shard_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datasets.Split</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#DatasetPackaging.packaging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.packaging" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">packaging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">episodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.EpisodePackaging" title="robo_orchard_lab.dataset.robot.packaging.EpisodePackaging"><span class="pre">EpisodePackaging</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datasets.DatasetInfo</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">writer_batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_shard_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'2GB'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datasets.Split</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#DatasetPackaging.packaging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.packaging" title="Link to this definition">¶</a></dt>
 <dd><p>Package the dataset and save it to the specified path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -677,10 +713,21 @@ database. Default is “duckdb”.</p></li>
 <li><p><strong>episodes</strong> (<em>Iterable</em><em>[</em><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.EpisodePackaging" title="robo_orchard_lab.dataset.robot.packaging.EpisodePackaging"><em>EpisodePackaging</em></a><em>]</em>) – An iterable of episode
 packaging instances.</p></li>
 <li><p><strong>dataset_path</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The path to save the packaged dataset.</p></li>
+<li><p><strong>dataset_info</strong> (<em>hg_datasets.DatasetInfo</em><em> | </em><em>None</em>) – Information about
+the dataset, such as description, citation, and homepage.
+If None, use the default dataset info.</p></li>
+<li><p><strong>writer_batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The batch size for writing the arrow file.
+This may affect the performance of packaging or reading the
+dataset later. Default is 8.</p></li>
 <li><p><strong>max_shard_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> | </em><em>None</em>) – The maximum size of each shard.
 If None, no sharding will be applied. This can be a string
 like ‘10GB’ or an integer representing the size in bytes.
 default is “500MB”.</p></li>
+<li><p><strong>split</strong> (<em>hg_datasets.Split</em><em> | </em><em>None</em>) – The split of the dataset.
+If None, use “train” as the default split.</p></li>
+<li><p><strong>force_overwrite</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, overwrite the existing dataset
+at the specified path. If False, raise an error if the path
+already exists. Default is False.</p></li>
 </ul>
 </dd>
 </dl>
@@ -835,7 +882,7 @@ next index without checking the database.</p>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Horizon Robotics Developers
+                Copyright &#169; 2024-2025, Horizon Robotics Developers
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -881,6 +928,8 @@ next index without checking the database.</p>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.DataFrame"><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code></a><ul>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.DataFrame.features"><code class="docutils literal notranslate"><span class="pre">DataFrame.features</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.DataFrame.instruction"><code class="docutils literal notranslate"><span class="pre">DataFrame.instruction</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.DataFrame.timestamp_ns_min"><code class="docutils literal notranslate"><span class="pre">DataFrame.timestamp_ns_min</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.DataFrame.timestamp_ns_max"><code class="docutils literal notranslate"><span class="pre">DataFrame.timestamp_ns_max</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.EpisodePackaging"><code class="docutils literal notranslate"><span class="pre">EpisodePackaging</span></code></a><ul>
@@ -890,6 +939,7 @@ next index without checking the database.</p>
 </li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging"><code class="docutils literal notranslate"><span class="pre">DatasetPackaging</span></code></a><ul>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.preserved_index_keys"><code class="docutils literal notranslate"><span class="pre">DatasetPackaging.preserved_index_keys</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.features"><code class="docutils literal notranslate"><span class="pre">DatasetPackaging.features</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.packaging"><code class="docutils literal notranslate"><span class="pre">DatasetPackaging.packaging()</span></code></a></li>
 </ul>
 </li>

@@ -73,6 +73,8 @@ Module Contents
 
 
    .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> DistortionFeature
+      :classmethod:
+
 
 
 .. py:class:: BatchCameraInfoFeature
@@ -126,6 +128,8 @@ Module Contents
 
 
    .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchCameraInfoFeature
+      :classmethod:
+
 
 
 .. py:class:: BatchCameraDataEncodedFeature
@@ -172,13 +176,15 @@ Module Contents
 
 .. py:class:: BatchCameraDataEncoded(*args, **kwargs)
 
-   Bases: :py:obj:`robo_orchard_core.datatypes.camera_data.BatchCameraDataEncoded`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.ToDataFeatureMixin`
+   Bases: :py:obj:`BatchCameraInfo`, :py:obj:`robo_orchard_core.datatypes.camera_data.BatchCameraDataEncoded`
 
 
    A class for batch camera data with dataset feature support.
 
 
    .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchCameraDataEncodedFeature
+      :classmethod:
+
 
 
 .. py:class:: BatchCameraDataFeature
@@ -225,12 +231,14 @@ Module Contents
 
 .. py:class:: BatchCameraData(*args, **kwargs)
 
-   Bases: :py:obj:`robo_orchard_core.datatypes.camera_data.BatchCameraData`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.ToDataFeatureMixin`
+   Bases: :py:obj:`BatchCameraInfo`, :py:obj:`robo_orchard_core.datatypes.camera_data.BatchCameraData`
 
 
    A class for batch camera data with dataset feature support.
 
 
    .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchCameraDataFeature
+      :classmethod:
+
 
 

@@ -71,5 +71,7 @@ Module Contents
 
 
    .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchJointsStateFeature
+      :classmethod:
+
 
 

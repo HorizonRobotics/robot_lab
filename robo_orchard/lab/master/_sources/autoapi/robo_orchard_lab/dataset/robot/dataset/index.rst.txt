@@ -25,7 +25,18 @@ Module Contents
 
 .. py:data:: MetaType
 
+   A type variable for metadata types in the RoboOrchard dataset.
+
 .. py:class:: RODataset(dataset_path: str, storage_options: dict | None = None)
+
+   The RoboOrchard dataset for robot data.
+
+   We use a tabular dataset to store the frame-level information, and a
+   separate database to store the episode-level information. The huggingface
+   datasets (pyarrow_dataset) is used as table format, and SQLAlchemy with
+   DuckDB are used to manage the database.
+
+
 
    .. py:attribute:: frame_dataset
       :type:  datasets.Dataset
@@ -41,7 +52,24 @@ Module Contents
 
    .. py:method:: get_meta(meta_type: type[MetaType], index: int | None) -> MetaType | None
 
-      Get all metadata of a specific type.
+      Get metadata of a specific type.
 
+      This method retrieves metadata from the database using index.
+      Possible metadata types include `Episode`, `Instruction`, `Robot`,
+      and `Task`.
+
+      :param meta_type: The type of metadata to retrieve.
+      :type meta_type: type[MetaType]
+      :param index: The index of the metadata to retrieve.
+                    If None, returns None.
+      :type index: int | None
+
+
+
+   .. py:property:: dataset_format_version
+      :type: str | None
+
+
+      Get the dataset format version of loaded dataset.
 
 

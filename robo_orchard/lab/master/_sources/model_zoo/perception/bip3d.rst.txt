@@ -34,6 +34,19 @@ Key Features
 * **State-of-the-Art Performance:** Achieves leading results on public benchmarks for 3D detection and grounding.
 * **Robustness & Generalization:** Performs well in diverse and challenging scenarios, including dense environments, varied target sizes, and different camera setups.
 
+Using the pretrained model
+-----------------------------------
+
+You can easily load and use pre-trained **BIP3D** models.
+
+.. code-block:: python
+
+    import torch
+    from robo_orchard_lab.models import ModelMixin
+
+    # Load the pre-trained BIP3D Tiny Detection model from Hugging Face Hub
+    model: torch.nn.Module = ModelMixin.load_model("hf://HorizonRobotics/BIP3D_Tiny_Det")
+
 Resources
 ---------------------
 * **Project Homepage:** `BIP3D Homepage <https://linxuewu.github.io/BIP3D-page/>`_
