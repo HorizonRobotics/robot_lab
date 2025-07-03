@@ -567,10 +567,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchNNModuleTypeCo" title="robo_orchard_lab.models.mixin.TorchNNModuleTypeCo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TorchNNModuleTypeCo</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.mixin.logger" title="robo_orchard_lab.models.mixin.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchModuleCfgType_co" title="robo_orchard_lab.models.mixin.TorchModuleCfgType_co"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TorchModuleCfgType_co</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchNNModuleTypeCo" title="robo_orchard_lab.models.mixin.TorchNNModuleTypeCo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TorchNNModuleTypeCo</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchModuleCfgType_co" title="robo_orchard_lab.models.mixin.TorchModuleCfgType_co"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TorchModuleCfgType_co</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -594,6 +597,11 @@ document.addEventListener('DOMContentLoaded', function() {
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="robo_orchard_lab.models.mixin.logger">
+<span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.mixin.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#robo_orchard_lab.models.mixin.logger" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py data">
 <dt class="sig sig-object py" id="robo_orchard_lab.models.mixin.TorchNNModuleTypeCo">
 <span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.mixin.</span></span><span class="sig-name descname"><span class="pre">TorchNNModuleTypeCo</span></span><a class="headerlink" href="#robo_orchard_lab.models.mixin.TorchNNModuleTypeCo" title="Link to this definition">¶</a></dt>
@@ -657,21 +665,30 @@ this method as Accelerate handles weight saving.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robo_orchard_lab.models.mixin.ModelMixin.save_model">
-<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'model'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/models/mixin.html#ModelMixin.save_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.mixin.ModelMixin.save_model" title="Link to this definition">¶</a></dt>
-<dd><p>Saves the model’s configuration and weights to the specified directory.</p>
-<p>The configuration is saved as <cite>model.config.json</cite> and the model weights
-(state dictionary) are saved as <cite>model.safetensors</cite>.</p>
-<p>The target directory will be created if it does not exist.</p>
+<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'model'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_shared_tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/models/mixin.html#ModelMixin.save_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.mixin.ModelMixin.save_model" title="Link to this definition">¶</a></dt>
+<dd><p>Saves the model’s config and weights to a directory.</p>
+<p>This method saves the model’s configuration to <cite>{model_prefix}.config.json</cite>
+and its weights to <cite>{model_prefix}.safetensors</cite>.</p>
+<p>If <cite>allow_shared_tensor</cite> is True, it handles models with tied weights by:</p>
+<ol class="arabic simple">
+<li><p>Saving only a single copy of each shared tensor to the <cite>.safetensors</cite> file.</p></li>
+</ol>
+<p>2.  Creating a <cite>{model_prefix}.shared_keys.json</cite> file that maps the
+duplicate parameter names to their original counterparts. This allows for
+perfect model restoration with <cite>strict=True</cite> loading.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The path to the directory where the model files will be saved.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> – The path to the directory for saving the model.</p></li>
+<li><p><strong>model_prefix</strong> – The file prefix for the config and weights files.</p></li>
+<li><p><strong>allow_shared_tensor</strong> – If True, enables the logic to handle
+tied weights by saving a de-duplicated state dict and a
+key-sharing map.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><a class="reference internal" href="../../utils/path/index.html#robo_orchard_lab.utils.path.DirectoryNotEmptyError" title="robo_orchard_lab.utils.path.DirectoryNotEmptyError"><strong>DirectoryNotEmptyError</strong></a> – If the specified directory is not empty.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#IOError" title="(in Python v3.10)"><strong>IOError</strong></a> – If there is an error writing the configuration or weights files.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#AttributeError" title="(in Python v3.10)"><strong>AttributeError</strong></a> – If <cite>self.cfg</cite> is not properly configured for dumping.</p></li>
-</ul>
+<dd class="field-even"><p><a class="reference internal" href="../../utils/path/index.html#robo_orchard_lab.utils.path.DirectoryNotEmptyError" title="robo_orchard_lab.utils.path.DirectoryNotEmptyError"><strong>DirectoryNotEmptyError</strong></a> – If the target directory already exists and
+is not empty.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -724,14 +741,23 @@ files. For example, if “model”, files will be sought as
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An instance of the model (typed as “ModelMixin” or a subclass),
-initialized from the configuration and optionally with weights loaded.</p>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of the model (typed as “ModelMixin” or a subclass),</dt><dd><p>initialized from the configuration and optionally with weights loaded.</p>
 </dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#FileNotFoundError" title="(in Python v3.10)"><strong>FileNotFoundError</strong></a> – If the specified <cite>directory</cite> does not exist,
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)">torch.nn.Module</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#FileNotFoundError" title="(in Python v3.10)"><strong>FileNotFoundError</strong></a> – If the specified <cite>directory</cite> does not exist,
 or if the configuration file (<cite>{model_prefix}.config.json</cite>)
 or the state dictionary file (<cite>{model_prefix}.safetensors}</cite>,
-when <cite>load_model</cite> is True) is not found in the directory.</p>
+when <cite>load_model</cite> is True) is not found in the directory.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#ValueError" title="(in Python v3.10)"><strong>ValueError</strong></a> – If the Hugging Face Hub URI is invalid.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -807,6 +833,7 @@ when <cite>load_model</cite> is True) is not found in the directory.</p>
 <li><a class="reference internal" href="#attributes">Attributes</a></li>
 <li><a class="reference internal" href="#classes">Classes</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.models.mixin.logger"><code class="docutils literal notranslate"><span class="pre">logger</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchNNModuleTypeCo"><code class="docutils literal notranslate"><span class="pre">TorchNNModuleTypeCo</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchModuleCfg"><code class="docutils literal notranslate"><span class="pre">TorchModuleCfg</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchModuleCfgType_co"><code class="docutils literal notranslate"><span class="pre">TorchModuleCfgType_co</span></code></a></li>

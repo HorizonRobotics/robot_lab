@@ -73,19 +73,27 @@ Module Contents
 
    .. py:method:: save_model(directory: str, model_prefix: str = 'model')
 
-      Saves the model's configuration and weights to the specified directory.
+      Saves the model's config and weights to a directory.
 
-      The configuration is saved as `model.config.json` and the model weights
-      (state dictionary) are saved as `model.safetensors`.
+      This method saves the model's configuration to `{model_prefix}.config.json`
+      and its weights to `{model_prefix}.safetensors`.
 
-      The target directory will be created if it does not exist.
+      If `allow_shared_tensor` is True, it handles models with tied weights by:
 
-      :param directory: The path to the directory where the model files will be saved.
-      :type directory: str
+      1.  Saving only a single copy of each shared tensor to the `.safetensors` file.
 
-      :raises DirectoryNotEmptyError: If the specified directory is not empty.
-      :raises IOError: If there is an error writing the configuration or weights files.
-      :raises AttributeError: If `self.cfg` is not properly configured for dumping.
+      2.  Creating a `{model_prefix}.shared_keys.json` file that maps the
+      duplicate parameter names to their original counterparts. This allows for
+      perfect model restoration with `strict=True` loading.
+
+      :param directory: The path to the directory for saving the model.
+      :param model_prefix: The file prefix for the config and weights files.
+      :param allow_shared_tensor: If True, enables the logic to handle
+                                  tied weights by saving a de-duplicated state dict and a
+                                  key-sharing map.
+
+      :raises DirectoryNotEmptyError: If the target directory already exists and
+          is not empty.
 
 
 

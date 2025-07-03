@@ -660,20 +660,29 @@ for model weights.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robo_orchard_lab.models.bip3d.structure.BIP3D.save_model">
 <span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'model'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/models/bip3d/structure.html#BIP3D.save_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.bip3d.structure.BIP3D.save_model" title="Link to this definition">¶</a></dt>
-<dd><p>Saves the model’s configuration and weights to the specified directory.</p>
-<p>The configuration is saved as <cite>model.config.json</cite> and the model weights
-(state dictionary) are saved as <cite>model.safetensors</cite>.</p>
-<p>The target directory will be created if it does not exist.</p>
+<dd><p>Saves the model’s config and weights to a directory.</p>
+<p>This method saves the model’s configuration to <cite>{model_prefix}.config.json</cite>
+and its weights to <cite>{model_prefix}.safetensors</cite>.</p>
+<p>If <cite>allow_shared_tensor</cite> is True, it handles models with tied weights by:</p>
+<ol class="arabic simple">
+<li><p>Saving only a single copy of each shared tensor to the <cite>.safetensors</cite> file.</p></li>
+</ol>
+<p>2.  Creating a <cite>{model_prefix}.shared_keys.json</cite> file that maps the
+duplicate parameter names to their original counterparts. This allows for
+perfect model restoration with <cite>strict=True</cite> loading.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The path to the directory where the model files will be saved.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> – The path to the directory for saving the model.</p></li>
+<li><p><strong>model_prefix</strong> – The file prefix for the config and weights files.</p></li>
+<li><p><strong>allow_shared_tensor</strong> – If True, enables the logic to handle
+tied weights by saving a de-duplicated state dict and a
+key-sharing map.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><a class="reference internal" href="../../../utils/path/index.html#robo_orchard_lab.utils.path.DirectoryNotEmptyError" title="robo_orchard_lab.utils.path.DirectoryNotEmptyError"><strong>DirectoryNotEmptyError</strong></a> – If the specified directory is not empty.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#IOError" title="(in Python v3.10)"><strong>IOError</strong></a> – If there is an error writing the configuration or weights files.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#AttributeError" title="(in Python v3.10)"><strong>AttributeError</strong></a> – If <cite>self.cfg</cite> is not properly configured for dumping.</p></li>
-</ul>
+<dd class="field-even"><p><a class="reference internal" href="../../../utils/path/index.html#robo_orchard_lab.utils.path.DirectoryNotEmptyError" title="robo_orchard_lab.utils.path.DirectoryNotEmptyError"><strong>DirectoryNotEmptyError</strong></a> – If the target directory already exists and
+is not empty.</p>
 </dd>
 </dl>
 </dd></dl>

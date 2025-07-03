@@ -9,6 +9,7 @@ Attributes
 
 .. autoapisummary::
 
+   robo_orchard_lab.models.mixin.logger
    robo_orchard_lab.models.mixin.TorchNNModuleTypeCo
    robo_orchard_lab.models.mixin.TorchModuleCfgType_co
 
@@ -24,6 +25,8 @@ Classes
 
 Module Contents
 ---------------
+
+.. py:data:: logger
 
 .. py:data:: TorchNNModuleTypeCo
 
@@ -83,21 +86,29 @@ Module Contents
 
 
 
-   .. py:method:: save_model(directory: str, model_prefix: str = 'model')
+   .. py:method:: save_model(directory: str, model_prefix: str = 'model', allow_shared_tensor: bool = False)
 
-      Saves the model's configuration and weights to the specified directory.
+      Saves the model's config and weights to a directory.
 
-      The configuration is saved as `model.config.json` and the model weights
-      (state dictionary) are saved as `model.safetensors`.
+      This method saves the model's configuration to `{model_prefix}.config.json`
+      and its weights to `{model_prefix}.safetensors`.
 
-      The target directory will be created if it does not exist.
+      If `allow_shared_tensor` is True, it handles models with tied weights by:
 
-      :param directory: The path to the directory where the model files will be saved.
-      :type directory: str
+      1.  Saving only a single copy of each shared tensor to the `.safetensors` file.
 
-      :raises DirectoryNotEmptyError: If the specified directory is not empty.
-      :raises IOError: If there is an error writing the configuration or weights files.
-      :raises AttributeError: If `self.cfg` is not properly configured for dumping.
+      2.  Creating a `{model_prefix}.shared_keys.json` file that maps the
+      duplicate parameter names to their original counterparts. This allows for
+      perfect model restoration with `strict=True` loading.
+
+      :param directory: The path to the directory for saving the model.
+      :param model_prefix: The file prefix for the config and weights files.
+      :param allow_shared_tensor: If True, enables the logic to handle
+                                  tied weights by saving a de-duplicated state dict and a
+                                  key-sharing map.
+
+      :raises DirectoryNotEmptyError: If the target directory already exists and
+          is not empty.
 
 
 
@@ -150,13 +161,17 @@ Module Contents
                            files. For example, if "model", files will be sought as
                            "model.config.json" and "model.safetensors". Defaults to "model".
 
-      :returns: An instance of the model (typed as "ModelMixin" or a subclass),
-                initialized from the configuration and optionally with weights loaded.
+      :returns:
+
+                An instance of the model (typed as "ModelMixin" or a subclass),
+                    initialized from the configuration and optionally with weights loaded.
+      :rtype: torch.nn.Module
 
       :raises FileNotFoundError: If the specified `directory` does not exist,
           or if the configuration file (`{model_prefix}.config.json`)
           or the state dictionary file (`{model_prefix}.safetensors}`,
           when `load_model` is True) is not found in the directory.
+      :raises ValueError: If the Hugging Face Hub URI is invalid.
 
 
 
