@@ -128,7 +128,7 @@ Publications
 
        Arxiv 2025
 
-       `Webpage <https://horizonrobotics.github.io/robot_lab/aux-think/index.html>`__ | `Paper <https://arxiv.org/abs/2505.11886>`__
+       `Webpage <https://horizonrobotics.github.io/robot_lab/aux-think/index.html>`__ | `Paper <https://arxiv.org/abs/2505.11886>`__ | `Code <https://github.com/HorizonRobotics/robo_orchard_lab/tree/master/projects/aux_think>`__
 
    * - .. image:: _static/publications/GeomFlow.gif
           :class: publication-thumbnail
