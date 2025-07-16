@@ -1,0 +1,60 @@
+identity
+========
+
+.. py:module:: robo_orchard_lab.inference.processor.identity
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.inference.processor.identity.IdentityProcessor
+   robo_orchard_lab.inference.processor.identity.IdentityProcessorCfg
+
+
+Module Contents
+---------------
+
+.. py:class:: IdentityProcessor(cfg: IdentityProcessorCfg)
+
+   Bases: :py:obj:`robo_orchard_lab.inference.processor.mixin.ProcessorMixin`
+
+
+   A processor that performs no operations.
+
+   This processor serves as a pass-through component, returning the data it
+   receives without any modification. It is useful as a default processor or
+   as a placeholder in pipelines where no pre-processing or post-processing
+   is required.
+
+
+   .. py:attribute:: cfg
+      :type:  IdentityProcessorCfg
+
+
+   .. py:method:: pre_process(data)
+
+      Returns the input data without modification.
+
+      :param data: The raw input data.
+
+      :returns: The same input data, unchanged.
+
+
+
+   .. py:method:: post_process(batch, model_outputs)
+
+      Returns the model outputs without modification.
+
+
+
+.. py:class:: IdentityProcessorCfg
+
+   Bases: :py:obj:`robo_orchard_lab.inference.processor.mixin.ProcessorMixinCfg`\ [\ :py:obj:`IdentityProcessor`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.inference.processor.mixin.ClassType_co[IdentityProcessor]
+
+

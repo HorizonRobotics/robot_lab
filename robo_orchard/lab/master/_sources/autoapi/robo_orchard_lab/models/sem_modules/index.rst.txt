@@ -14,6 +14,7 @@ Submodules
 
    /autoapi/robo_orchard_lab/models/sem_modules/action_decoder/index
    /autoapi/robo_orchard_lab/models/sem_modules/layers/index
+   /autoapi/robo_orchard_lab/models/sem_modules/processor/index
    /autoapi/robo_orchard_lab/models/sem_modules/robot_state_encoder/index
 
 

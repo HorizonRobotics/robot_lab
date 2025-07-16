@@ -1,0 +1,152 @@
+mixin
+=====
+
+.. py:module:: robo_orchard_lab.inference.mixin
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.inference.mixin.InferencePipelineMixin
+   robo_orchard_lab.inference.mixin.InferencePipelineMixinCfg
+
+
+Module Contents
+---------------
+
+.. py:class:: InferencePipelineMixin(model: robo_orchard_lab.models.mixin.ModelMixin, cfg: InferencePipelineMixinCfg)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`, :py:obj:`Generic`\ [\ :py:obj:`InputType`\ , :py:obj:`OutputType`\ ]
+
+
+   An abstract base class for end-to-end inference pipelines.
+
+   This generic mixin provides a common framework for orchestrating the
+   inference process. It is responsible for holding the model and its
+   configuration, but delegates the specific inference logic to its
+   subclasses. It standardizes methods for saving and loading the entire
+   pipeline state (model and configuration).
+
+   Subclasses should be specialized with `InputType` and `OutputType` and must
+   implement the `__call__` method to define the core task-specific logic.
+
+
+   .. py:attribute:: input_type
+      :type:  type[InputType]
+
+
+   .. py:attribute:: output_type
+      :type:  type[OutputType]
+
+
+   .. py:attribute:: model
+
+
+   .. py:attribute:: cfg
+
+
+   .. py:method:: to(device: torch.device)
+
+      Moves the underlying model to the specified device.
+
+      :param device: The target device to move the model to.
+      :type device: torch.device
+
+
+
+   .. py:property:: device
+      :type: torch.device
+
+
+      The device where the model's parameters are located.
+
+
+   .. py:method:: accelerator_save_state_pre_hook(models: list[torch.nn.Module], weights: list[dict[str, torch.Tensor]], output_dir: str)
+
+      Saves the pipeline config as a pre-hook for `accelerate.save_state`.
+
+      This method is designed to be used with Hugging Face Accelerate's
+      `save_state` function. It ensures that the pipeline's configuration
+      is saved alongside the model state in the same directory.
+
+      :param models: A list of models being saved
+                     (unused in this implementation).
+      :type models: List[torch.nn.Module]
+      :param weights: A list of state dicts
+                      (unused in this implementation).
+      :type weights: List[Dict[str, torch.Tensor]]
+      :param output_dir: The directory where the state is being saved.
+      :type output_dir: str
+
+
+
+   .. py:method:: save(directory: str, inference_prefix: str = 'inference', model_prefix: str = 'model', allow_shared_tensor: bool = False, required_empty: bool = True)
+
+      Saves the full pipeline (model and config) to a directory.
+
+      This method saves the model's weights and configuration by calling its
+      `save_model` method, and also saves the pipeline's own configuration
+      file.
+
+      :param directory: The target directory to save the pipeline to.
+      :type directory: str
+      :param inference_prefix: The prefix for the pipeline's config file.
+                               Defaults to "inference".
+      :type inference_prefix: str
+      :param model_prefix: The prefix for the model files, passed to the
+                           model's save method. Defaults to "model".
+      :type model_prefix: str
+      :param allow_shared_tensor: Whether to allow shared tensors when
+                                  saving. Defaults to False.
+      :type allow_shared_tensor: bool
+      :param required_empty: If True, raises an error if the target
+                             directory is not empty. Defaults to True.
+      :type required_empty: bool
+
+
+
+   .. py:method:: load(directory: str, inference_prefix: str = 'inference', strict: bool = True, device: str = 'cpu', model_prefix: str = 'model')
+      :staticmethod:
+
+
+      Loads a pipeline from a directory or a Hugging Face Hub repository.
+
+      This factory method dynamically instantiates the correct pipeline class
+      based on the `class_type` specified in the saved configuration file.
+      It first loads the model and then uses the configuration to create the
+      appropriate pipeline instance.
+
+      :param directory: The local directory or Hugging Face Hub repo ID
+                        (prefixed with "hf://") to load from.
+      :type directory: str
+      :param inference_prefix: The prefix of the pipeline's config file.
+                               Defaults to "inference".
+      :type inference_prefix: str
+      :param strict: Whether to strictly enforce that the keys in the
+                     model's state_dict match. Defaults to True.
+      :type strict: bool
+      :param device: The device to load the model onto (e.g., "cpu", "cuda").
+                     Defaults to "cpu".
+      :type device: str
+      :param model_prefix: The prefix of the model files. Defaults to "model".
+      :type model_prefix: str
+
+      :returns: An initialized instance of the specific pipeline subclass defined
+                in the configuration.
+
+
+
+.. py:class:: InferencePipelineMixinCfg
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`InferencePipelineMixinType_co`\ ]
+
+
+   Configuration class for an inference pipeline.
+
+   This class uses Pydantic for data validation and stores the configuration
+   for the pipeline, including the specific pipeline class to instantiate and
+   its associated components.
+
+

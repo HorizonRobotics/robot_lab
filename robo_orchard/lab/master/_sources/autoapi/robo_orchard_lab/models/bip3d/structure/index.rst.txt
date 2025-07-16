@@ -71,7 +71,7 @@ Module Contents
    .. py:attribute:: pre_spatial_enhancer
 
 
-   .. py:method:: save_model(directory: str, model_prefix: str = 'model')
+   .. py:method:: save_model(directory: str, model_prefix: str = 'model', **kwargs)
 
       Saves the model's config and weights to a directory.
 
@@ -91,6 +91,9 @@ Module Contents
       :param allow_shared_tensor: If True, enables the logic to handle
                                   tied weights by saving a de-duplicated state dict and a
                                   key-sharing map.
+      :param required_empty: If True, raises an error if the target
+                             directory is not empty. Defaults to True.
+      :type required_empty: bool
 
       :raises DirectoryNotEmptyError: If the target directory already exists and
           is not empty.

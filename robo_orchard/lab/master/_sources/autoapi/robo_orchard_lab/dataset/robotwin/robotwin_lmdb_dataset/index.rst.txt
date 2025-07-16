@@ -25,7 +25,7 @@ Module Contents
 
 .. py:data:: logger
 
-.. py:class:: RoboTwinLmdbDataset(paths, transforms=None, interval=None, load_image=True, load_depth=True, task_names=None, lazy_init=False, num_episode=None, cam_names=None, T_base2world=None, T_base2ego=None, default_space='base', instructions=None)
+.. py:class:: RoboTwinLmdbDataset(paths, transforms=None, interval=None, load_image=True, load_depth=True, task_names=None, lazy_init=False, num_episode=None, cam_names=None, T_base2world=None, T_base2ego=None, default_space='base', instructions=None, instruction_keys=('seen', 'unseen'))
 
    Bases: :py:obj:`robo_orchard_lab.dataset.lmdb.base_lmdb_dataset.BaseLmdbManipulationDataset`
 
@@ -88,6 +88,11 @@ Module Contents
 
    .. py:attribute:: default_space
       :value: 'base'
+
+
+
+   .. py:attribute:: instruction_keys
+      :value: ('seen', 'unseen')
 
 
 

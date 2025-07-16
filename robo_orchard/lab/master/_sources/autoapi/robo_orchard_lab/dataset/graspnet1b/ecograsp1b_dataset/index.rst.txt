@@ -1,0 +1,177 @@
+ecograsp1b_dataset
+==================
+
+.. py:module:: robo_orchard_lab.dataset.graspnet1b.ecograsp1b_dataset
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.graspnet1b.ecograsp1b_dataset.EconomicGraspNet1BDataset
+
+
+Module Contents
+---------------
+
+.. py:class:: EconomicGraspNet1BDataset(data_cfgs)
+
+   Bases: :py:obj:`torch.utils.data.Dataset`
+
+
+   An abstract class representing a :class:`Dataset`.
+
+   All datasets that represent a map from keys to data samples should subclass
+   it. All subclasses should overwrite :meth:`__getitem__`, supporting fetching a
+   data sample for a given key. Subclasses could also optionally overwrite
+   :meth:`__len__`, which is expected to return the size of the dataset by many
+   :class:`~torch.utils.data.Sampler` implementations and the default options
+   of :class:`~torch.utils.data.DataLoader`. Subclasses could also
+   optionally implement :meth:`__getitems__`, for speedup batched samples
+   loading. This method accepts list of indices of samples of batch and returns
+   list of samples.
+
+   .. note::
+     :class:`~torch.utils.data.DataLoader` by default constructs an index
+     sampler that yields integral indices.  To make it work with a map-style
+     dataset with non-integral indices/keys, a custom sampler must be provided.
+
+
+   .. py:attribute:: root
+
+
+   .. py:attribute:: camera
+
+
+   .. py:attribute:: split
+
+
+   .. py:attribute:: voxel_size
+
+
+   .. py:attribute:: num_sample_points
+
+
+   .. py:attribute:: remove_outlier
+
+
+   .. py:attribute:: remove_invisible
+
+
+   .. py:attribute:: use_new_graspness
+
+
+   .. py:attribute:: augment
+
+
+   .. py:attribute:: load_label
+
+
+   .. py:attribute:: collision_labels
+
+
+   .. py:attribute:: sceneIds
+
+
+   .. py:attribute:: colorpath
+      :value: []
+
+
+
+   .. py:attribute:: normalpath
+      :value: []
+
+
+
+   .. py:attribute:: depthpath
+      :value: []
+
+
+
+   .. py:attribute:: labelpath
+      :value: []
+
+
+
+   .. py:attribute:: metapath
+      :value: []
+
+
+
+   .. py:attribute:: scenename
+      :value: []
+
+
+
+   .. py:attribute:: frameid
+      :value: []
+
+
+
+   .. py:attribute:: graspnesspath
+      :value: []
+
+
+
+   .. py:attribute:: grasp_labels
+
+
+   .. py:method:: scene_list()
+
+
+   .. py:method:: augment_data(point_clouds, object_poses_list)
+
+
+   .. py:method:: transform_point_cloud(cloud, transform, format='4x4')
+
+      Transform points to new coordinates with transformation matrix.
+
+      :param cloud: [np.ndarray, (N,3), np.float32]
+                    points in original coordinates
+      :param transform: [np.ndarray, (3,3)/(3,4)/(4,4), np.float32]
+                        transformation matrix, could be rotation only or
+                        rotation + translation
+      :param format: [string, '3x3'/'3x4'/'4x4']
+                     the shape of transformation matrix
+                     '3x3' --> rotation matrix
+                     '3x4'/'4x4' --> rotation matrix + translation matrix
+
+      :returns:
+
+                [np.ndarray, (N,3), np.float32]
+                    points in new coordinates
+      :rtype: cloud_transformed
+
+
+
+   .. py:method:: get_workspace_mask(cloud, seg, trans=None, organized=True, outlier=0.0)
+
+      Keep points in workspace as input.
+
+      :param cloud: [np.ndarray, (H,W,3), np.float32]
+                    scene point cloud
+      :param seg: [np.ndarray, (H,W,), np.uint8]
+                  segmantation label of scene points
+      :param trans: [np.ndarray, (4,4), np.float32]
+                    transformation matrix for scene points, default: None.
+      :param organized: [bool]
+                        whether to keep the cloud in image shape (H,W,3)
+      :param outlier: [float]
+                      if the distance between a point and
+                      workspace is greater than outlier, the point will be removed
+
+      :returns:
+
+                [np.ndarray, (H,W)/(H*W,), np.bool]
+                    mask to indicate whether scene points are in workspace
+      :rtype: workspace_mask
+
+
+
+   .. py:method:: get_data(index, return_raw_cloud=False)
+
+
+   .. py:method:: get_data_label(index)
+
+

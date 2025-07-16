@@ -1,0 +1,217 @@
+maniskill
+=========
+
+.. py:module:: robo_orchard_lab.envs.maniskill
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.envs.maniskill.logger
+   robo_orchard_lab.envs.maniskill.ManiSkillEnvReturn
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.envs.maniskill.ManiSkillEnv
+   robo_orchard_lab.envs.maniskill.ManiSkillEnvCfg
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:type:: ManiSkillEnvReturn
+   :canonical: EnvStepReturn[dict[str, Any], torch.Tensor]
+
+
+.. py:class:: ManiSkillEnv(cfg: ManiSkillEnvCfg)
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvBase`\ [\ :py:obj:`ManiSkillEnvReturn`\ ]
+
+
+   The ManiSkill environment base class.
+
+   This class is the base class for all ManiSkill environments. It provides
+   the basic functionality for the environment, such as reset, step, render,
+   and close.
+
+
+   .. py:attribute:: env
+      :type:  mani_skill.envs.sapien_env.BaseEnv
+
+      The ManiSkill environment instance.
+
+
+   .. py:attribute:: cfg
+
+
+   .. py:method:: step(action: None | numpy.ndarray | torch.Tensor | dict) -> ManiSkillEnvReturn
+
+
+   .. py:method:: reset(seed: int | list[int] | None = None, env_ids: Sequence[int] | None = None, options: dict | None = None) -> Any
+
+
+   .. py:method:: close()
+
+
+   .. py:property:: num_envs
+      :type: int
+
+
+      The number of environments in the environment.
+
+
+   .. py:property:: action_space
+      :type: gymnasium.Space
+
+
+      The action space of the environment.
+
+      :returns: The action space of the environment.
+      :rtype: gym.Space
+
+
+   .. py:property:: observation_space
+      :type: gymnasium.Space
+
+
+      The observation space of the environment.
+
+      :returns: The observation space of the environment.
+      :rtype: gym.Space
+
+
+   .. py:method:: unwrapped_env() -> mani_skill.envs.sapien_env.BaseEnv
+
+      Get the original ManiSkill environment.
+
+
+
+.. py:class:: ManiSkillEnvCfg
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvBaseCfg`\ [\ :py:obj:`ManiSkillEnv`\ ]
+
+
+   The configuration class for ManiSkill environments.
+
+   All fields in this class will be used to initialize the
+   ManiSkill environment.
+
+
+   .. py:attribute:: class_type
+      :type:  type[ManiSkillEnv]
+
+
+   .. py:attribute:: env_id
+      :type:  str
+
+      The unique identifier for the environment such as 'PickCube-v1'.
+
+
+   .. py:attribute:: num_envs
+      :type:  int
+      :value: 1
+
+
+
+   .. py:attribute:: obs_mode
+      :type:  Optional[str]
+      :value: None
+
+
+
+   .. py:attribute:: reward_mode
+      :type:  Optional[str]
+      :value: None
+
+
+
+   .. py:attribute:: control_mode
+      :type:  Optional[str]
+      :value: None
+
+
+
+   .. py:attribute:: render_mode
+      :type:  Optional[str]
+      :value: None
+
+
+
+   .. py:attribute:: shader_dir
+      :type:  Optional[str]
+      :value: None
+
+
+
+   .. py:attribute:: enable_shadow
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: sensor_configs
+      :type:  Optional[dict]
+
+
+   .. py:attribute:: human_render_camera_configs
+      :type:  Optional[dict]
+
+
+   .. py:attribute:: viewer_camera_configs
+      :type:  Optional[dict]
+
+
+   .. py:attribute:: robot_uids
+      :type:  str | mani_skill.agents.base_agent.BaseAgent | list[str | mani_skill.agents.base_agent.BaseAgent] | None
+      :value: None
+
+
+
+   .. py:attribute:: sim_config
+      :type:  mani_skill.utils.structs.types.SimConfig | dict
+
+
+   .. py:attribute:: reconfiguration_freq
+      :type:  Optional[int]
+      :value: None
+
+
+
+   .. py:attribute:: sim_backend
+      :type:  str
+      :value: 'auto'
+
+
+
+   .. py:attribute:: render_backend
+      :type:  str
+      :value: 'gpu'
+
+
+
+   .. py:attribute:: parallel_in_single_scene
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: enhanced_determinism
+      :type:  bool
+      :value: False
+
+
+
+   .. py:method:: make_env() -> mani_skill.envs.sapien_env.BaseEnv
+
+      Create the ManiSkill environment.
+
+
+

@@ -19,6 +19,7 @@ Functions
 
    robo_orchard_lab.utils.huggingface.get_accelerate_project_last_checkpoint_id
    robo_orchard_lab.utils.huggingface.accelerator_load_state
+   robo_orchard_lab.utils.huggingface.download_repo
 
 
 Module Contents
@@ -125,4 +126,6 @@ Module Contents
       :type state: dict
 
 
+
+.. py:function:: download_repo(url: str, repo_type: str) -> str
 

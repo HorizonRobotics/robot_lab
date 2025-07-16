@@ -36,6 +36,13 @@ Module Contents
    datasets (pyarrow_dataset) is used as table format, and SQLAlchemy with
    DuckDB are used to manage the database.
 
+   :param dataset_path: The path to the dataset directory.
+                        It should contain a `dataset.arrow` file and a `meta_db.*` file.
+   :type dataset_path: str
+   :param storage_options: Additional Key/value pairs to
+                           be passed on to the file-system backend, if any. This is passed
+                           to the `datasets.Dataset.load_from_disk` method. Defaults to None.
+   :type storage_options: dict | None, optional
 
 
    .. py:attribute:: frame_dataset
@@ -48,6 +55,12 @@ Module Contents
       :type:  sqlalchemy.Engine
 
       The SQLAlchemy engine for the meta database
+
+
+   .. py:attribute:: index_dataset
+      :type:  datasets.Dataset
+
+      The same as `frame_dataset`, but only contains the preserved index columns.
 
 
    .. py:method:: get_meta(meta_type: type[MetaType], index: int | None) -> MetaType | None

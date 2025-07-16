@@ -120,11 +120,6 @@ Module Contents
    :type database_driver: str
 
 
-   .. py:attribute:: preserved_index_keys
-      :value: ('index', 'episode_index', 'frame_index', 'timestamp_min', 'timestamp_max', 'task_index',...
-
-
-
    .. py:property:: features
       :type: datasets.Features
 

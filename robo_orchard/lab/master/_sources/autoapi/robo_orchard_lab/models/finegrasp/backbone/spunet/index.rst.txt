@@ -1,0 +1,260 @@
+spunet
+======
+
+.. py:module:: robo_orchard_lab.models.finegrasp.backbone.spunet
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.finegrasp.backbone.spunet.BasicBlock
+   robo_orchard_lab.models.finegrasp.backbone.spunet.SpUNetBase
+   robo_orchard_lab.models.finegrasp.backbone.spunet.SpUNetCls
+   robo_orchard_lab.models.finegrasp.backbone.spunet.SpUNetSeg
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.finegrasp.backbone.spunet.trunc_normal_
+   robo_orchard_lab.models.finegrasp.backbone.spunet.offset2bincount
+   robo_orchard_lab.models.finegrasp.backbone.spunet.offset2batch
+
+
+Module Contents
+---------------
+
+.. py:function:: trunc_normal_(tensor, mean=0.0, std=1.0, a=-2.0, b=2.0)
+
+   Fill tensor with truncated normal distribution values.
+
+   :param tensor: Input tensor to be filled.
+   :type tensor: torch.Tensor
+   :param mean: Mean of the normal distribution.
+                Defaults to 0.0.
+   :type mean: float, optional
+   :param std: Standard deviation. Defaults to 1.0.
+   :type std: float, optional
+   :param a: Minimum cutoff value. Defaults to -2.0.
+   :type a: float, optional
+   :param b: Maximum cutoff value. Defaults to 2.0.
+   :type b: float, optional
+
+   :returns: The filled tensor.
+   :rtype: torch.Tensor
+
+
+.. py:function:: offset2bincount(offset)
+
+.. py:function:: offset2batch(offset)
+
+.. py:class:: BasicBlock(in_channels, embed_channels, stride=1, norm_fn=None, indice_key=None, bias=False)
+
+   Bases: :py:obj:`spconv.pytorch.SparseModule`
+
+
+   .. py:attribute:: expansion
+      :value: 1
+
+
+
+   .. py:attribute:: conv1
+
+
+   .. py:attribute:: bn1
+
+
+   .. py:attribute:: relu
+
+
+   .. py:attribute:: conv2
+
+
+   .. py:attribute:: bn2
+
+
+   .. py:attribute:: stride
+      :value: 1
+
+
+
+   .. py:method:: forward(x)
+
+
+.. py:class:: SpUNetBase(in_channels: int, num_classes: int, base_channels=32, channels=(32, 64, 128, 256, 256, 128, 96, 96), layers=(2, 3, 4, 6, 2, 2, 2, 2), cls_mode=False)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: in_channels
+
+
+   .. py:attribute:: num_classes
+
+
+   .. py:attribute:: base_channels
+      :value: 32
+
+
+
+   .. py:attribute:: channels
+      :value: (32, 64, 128, 256, 256, 128, 96, 96)
+
+
+
+   .. py:attribute:: layers
+      :value: (2, 3, 4, 6, 2, 2, 2, 2)
+
+
+
+   .. py:attribute:: num_stages
+
+
+   .. py:attribute:: cls_mode
+      :value: False
+
+
+
+   .. py:attribute:: conv_input
+
+
+   .. py:attribute:: down
+
+
+   .. py:attribute:: up
+
+
+   .. py:attribute:: enc
+
+
+   .. py:attribute:: dec
+
+
+   .. py:attribute:: final
+
+
+   .. py:method:: forward(points: torch.Tensor)
+
+
+.. py:class:: SpUNetCls(in_channels: int, num_classes: int, base_channels=32, channels=(32, 64, 128, 256, 256, 128, 96, 96), layers=(2, 3, 4, 6, 2, 2, 2, 2))
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: model
+
+
+   .. py:method:: forward(points: torch.Tensor)
+
+
+.. py:class:: SpUNetSeg(in_channels: int, num_classes: int, base_channels=32, channels=(32, 64, 128, 256, 256, 128, 96, 96), layers=(2, 3, 4, 6, 2, 2, 2, 2))
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: model
+
+
+   .. py:method:: forward(points: torch.Tensor)
+
+

@@ -36,7 +36,7 @@ Module Contents
 
 .. py:function:: images_decoding(padded_data)
 
-.. py:class:: RobotwinDataPacker(input_path, output_path, task_names=None, embodiment=None, robotwin_aug=None, camera_name=None, setting=None, simulation=True, **kwargs)
+.. py:class:: RobotwinDataPacker(input_path, output_path, task_names=None, embodiment=None, robotwin_aug=None, camera_name=None, config_name=None, simulation=True, **kwargs)
 
    Bases: :py:obj:`robo_orchard_lab.dataset.lmdb.base_lmdb_dataset.BaseLmdbManipulationDataPacker`
 
@@ -57,6 +57,11 @@ Module Contents
 
 
    .. py:attribute:: camera_name
+      :value: None
+
+
+
+   .. py:attribute:: config_name
       :value: None
 
 

@@ -1,0 +1,19 @@
+processor
+=========
+
+.. py:module:: robo_orchard_lab.inference.processor
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_lab/inference/processor/compose/index
+   /autoapi/robo_orchard_lab/inference/processor/identity/index
+   /autoapi/robo_orchard_lab/inference/processor/mixin/index
+
+

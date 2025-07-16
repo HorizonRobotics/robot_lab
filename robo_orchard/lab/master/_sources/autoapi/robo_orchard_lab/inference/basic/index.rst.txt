@@ -1,0 +1,82 @@
+basic
+=====
+
+.. py:module:: robo_orchard_lab.inference.basic
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.inference.basic.InferencePipeline
+   robo_orchard_lab.inference.basic.InferencePipelineCfg
+
+
+Module Contents
+---------------
+
+.. py:class:: InferencePipeline(model: robo_orchard_lab.models.mixin.ModelMixin, cfg: InferencePipelineCfg)
+
+   Bases: :py:obj:`robo_orchard_lab.inference.mixin.InferencePipelineMixin`\ [\ :py:obj:`robo_orchard_lab.inference.mixin.InputType`\ , :py:obj:`robo_orchard_lab.inference.mixin.OutputType`\ ]
+
+
+   A high-level, concrete implementation of an end-to-end inference pipeline.
+
+   This class provides a standard, out-of-the-box workflow for inference that
+   is suitable for many common use cases. It orchestrates a multi-step process
+   by integrating a `ProcessorMixin` for data handling.
+
+   The defined workflow in the `__call__` method is:
+
+   1. Pre-process the raw input data using the configured processor.
+
+   2. Collate the processed data into a mini-batch.
+
+   3. Move the batch to the model's device.
+
+   4. Perform model inference (forward pass).
+
+   5. Post-process the model's output using the processor.
+
+
+
+   .. py:attribute:: cfg
+      :type:  InferencePipelineCfg
+
+
+   .. py:attribute:: processor
+
+
+.. py:class:: InferencePipelineCfg
+
+   Bases: :py:obj:`robo_orchard_lab.inference.mixin.InferencePipelineMixinCfg`
+
+
+   Configuration for the concrete `InferencePipeline`.
+
+   This class extends the base pipeline configuration with additional, specific
+   settings for data handling, including the processor, collate function, and
+   device transfer function.
+
+
+   .. py:attribute:: processor
+      :type:  robo_orchard_lab.inference.processor.ProcessorMixinCfgType_co
+      :value: None
+
+
+      The configuration for the data processor. Defaults to an identity processor that does nothing.
+
+
+   .. py:attribute:: collate_fn
+      :type:  robo_orchard_core.utils.config.CallableType[[list[Any]], Any]
+
+      The function used to collate a list of single data items into a single batch for the model.
+
+
+   .. py:attribute:: to_device_fn
+      :type:  robo_orchard_core.utils.config.CallableType[[Any, torch.device], Any]
+
+      The function used to move a batch of data to the correct torch device.
+
+
