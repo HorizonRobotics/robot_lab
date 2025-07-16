@@ -4,30 +4,22 @@ dataset
 .. py:module:: robo_orchard_lab.dataset.robot.dataset
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   robo_orchard_lab.dataset.robot.dataset.MetaType
-
-
 Classes
 -------
 
 .. autoapisummary::
 
    robo_orchard_lab.dataset.robot.dataset.RODataset
+   robo_orchard_lab.dataset.robot.dataset.ROMultiRowDataset
 
 
 Module Contents
 ---------------
 
-.. py:data:: MetaType
+.. py:class:: RODataset(dataset_path: str, storage_options: dict | None = None, meta_index2meta: bool = True)
 
-   A type variable for metadata types in the RoboOrchard dataset.
+   Bases: :py:obj:`TorchDataset`
 
-.. py:class:: RODataset(dataset_path: str, storage_options: dict | None = None)
 
    The RoboOrchard dataset for robot data.
 
@@ -43,6 +35,12 @@ Module Contents
                            be passed on to the file-system backend, if any. This is passed
                            to the `datasets.Dataset.load_from_disk` method. Defaults to None.
    :type storage_options: dict | None, optional
+   :param meta_index2meta: Whether to convert the index-based
+                           metadata to actual metadata objects when accessing the dataset.
+                           If True, the `episode`, `task`, `robot`, and `instruction` fields
+                           will be added and the corresponding index fields will be removed.
+                           Defaults to True.
+   :type meta_index2meta: bool, optional
 
 
    .. py:attribute:: frame_dataset
@@ -61,6 +59,13 @@ Module Contents
       :type:  datasets.Dataset
 
       The same as `frame_dataset`, but only contains the preserved index columns.
+
+
+   .. py:attribute:: meta_index2meta
+      :type:  bool
+
+      Whether to convert the index-based metadata to actual metadata
+      objects when accessing the dataset.
 
 
    .. py:method:: get_meta(meta_type: type[MetaType], index: int | None) -> MetaType | None
@@ -84,5 +89,37 @@ Module Contents
 
 
       Get the dataset format version of loaded dataset.
+
+
+.. py:class:: ROMultiRowDataset(dataset_path: str, row_sampler: robo_orchard_lab.dataset.robot.row_sampler.MultiRowSamplerConfig, storage_options: dict | None = None, meta_index2meta: bool = True)
+
+   Bases: :py:obj:`RODataset`
+
+
+   A dataset that returns multiple rows for each index.
+
+   This class extends `RODataset` to support multi-row sampling.
+   It provides a method to sample multiple rows based on the index dataset.
+
+
+   If column is in the row_sampler, it will sample multiple rows
+   for that column based on the index dataset, and the column in
+   the returned row will be a list of rows. If the column is not
+   in the row_sampler, it will return a single row for that column.
+
+   :param dataset_path: The path to the dataset directory.
+   :type dataset_path: str
+   :param row_sampler: The configuration for the
+                       multi-row sampler. It defines how to sample multiple
+                       rows based on the index dataset.
+   :type row_sampler: MultiRowSamplerConfig
+   :param storage_options: Additional Key/value pairs
+                           to be passed on to the file-system backend, if any.
+                           Defaults to None.
+   :type storage_options: dict | None, optional
+   :param meta_index2meta: Whether to convert the index-based
+                           metadata to actual metadata objects when accessing the dataset.
+                           Defaults to True.
+   :type meta_index2meta: bool, optional
 
 

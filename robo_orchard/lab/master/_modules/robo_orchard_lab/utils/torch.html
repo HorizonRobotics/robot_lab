@@ -424,6 +424,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/engine/index.html">engine</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/packaging/index.html">packaging</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html">row_sampler</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robotwin/index.html">robotwin</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of robotwin</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -433,6 +434,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robotwin/transforms/index.html">transforms</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/transforms/index.html">transforms</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/distributed/index.html">distributed</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of distributed</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -614,9 +616,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="c1"># implied. See the License for the specific language governing</span>
 <span class="c1"># permissions and limitations under the License.</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;to_device&quot;</span><span class="p">,</span> <span class="s2">&quot;switch_model_mode&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="to_device">
@@ -655,6 +660,53 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="c1"># If data is not a tensor or a supported container, return it as is.</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">data</span></div>
+
+
+
+<div class="viewcode-block" id="switch_model_mode">
+<a class="viewcode-back" href="../../../autoapi/robo_orchard_lab/utils/torch/index.html#robo_orchard_lab.utils.torch.switch_model_mode">[docs]</a>
+<span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span> <span class="nf">switch_model_mode</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">target_mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;eval&quot;</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;eval&quot;</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A context manager to temporarily switch a model to a target mode.</span>
+
+<span class="sd">    This context manager ensures that the model is in the `target_mode`</span>
+<span class="sd">    within the `with` block, and restores its original training state</span>
+<span class="sd">    (`train()` or `eval()`) after exiting the block.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model (torch.nn.Module): The PyTorch model to manage.</span>
+<span class="sd">        target_mode (Literal[&quot;eval&quot;, &quot;train&quot;], optional): The mode to switch</span>
+<span class="sd">            the model to within the context. Defaults to &quot;eval&quot;.</span>
+
+<span class="sd">    Yields:</span>
+<span class="sd">        None: This context manager does not yield any value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">original_mode_is_training</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">training</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">target_mode</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span> <span class="ow">and</span> <span class="n">original_mode_is_training</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+        <span class="n">target_mode</span> <span class="o">==</span> <span class="s2">&quot;eval&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">original_mode_is_training</span>
+    <span class="p">):</span>
+        <span class="k">yield</span>
+        <span class="k">return</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">target_mode</span> <span class="o">==</span> <span class="s2">&quot;eval&quot;</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">target_mode</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid target_mode: &#39;</span><span class="si">{</span><span class="n">target_mode</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                <span class="s2">&quot;Must be &#39;eval&#39; or &#39;train&#39;.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">original_mode_is_training</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span></div>
 
 </pre></div>
         </article>

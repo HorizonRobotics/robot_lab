@@ -109,7 +109,7 @@ Module Contents
 
 
 
-.. py:class:: DatasetPackaging(features: datasets.Features, database_driver: str = 'duckdb')
+.. py:class:: DatasetPackaging(features: datasets.Features, database_driver: str = 'duckdb', check_timestamp: bool = False)
 
    Class for packaging a RoboOrchard dataset.
 
@@ -118,6 +118,12 @@ Module Contents
    :param database_driver: The database driver to use for the meta
                            database. Default is "duckdb".
    :type database_driver: str
+   :param check_timestamp: Whether to check the
+                           timestamp of the frames. Timestamps are required for time-based
+                           queries and operations. If True, it will raise an error
+                           if the timestamp is not set or if timestamp_min is greater
+                           than timestamp_max. Default is False.
+   :type check_timestamp: bool, optional
 
 
    .. py:property:: features

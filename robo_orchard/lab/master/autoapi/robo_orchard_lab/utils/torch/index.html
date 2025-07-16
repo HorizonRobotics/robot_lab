@@ -425,6 +425,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/engine/index.html">engine</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/packaging/index.html">packaging</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/row_sampler/index.html">row_sampler</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../dataset/robotwin/index.html">robotwin</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of robotwin</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -434,6 +435,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robotwin/transforms/index.html">transforms</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../dataset/transforms/index.html">transforms</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../distributed/index.html">distributed</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of distributed</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -614,6 +616,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.utils.torch.to_device" title="robo_orchard_lab.utils.torch.to_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_device</span></code></a>(→ Any)</p></td>
 <td><p>Recursively moves tensors in a nested data structure to a specified device.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.utils.torch.switch_model_mode" title="robo_orchard_lab.utils.torch.switch_model_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">switch_model_mode</span></code></a>(model[, target_mode])</p></td>
+<td><p>A context manager to temporarily switch a model to a target mode.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -646,6 +651,27 @@ moved (e.g., <cite>torch.device(‘cuda:0’)</cite> or <cite>torch.device(‘cp
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="robo_orchard_lab.utils.torch.switch_model_mode">
+<span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.utils.torch.</span></span><span class="sig-name descname"><span class="pre">switch_model_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><span class="pre">torch.nn.Module</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'eval'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'train'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'eval'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/utils/torch.html#switch_model_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.utils.torch.switch_model_mode" title="Link to this definition">¶</a></dt>
+<dd><p>A context manager to temporarily switch a model to a target mode.</p>
+<p>This context manager ensures that the model is in the <cite>target_mode</cite>
+within the <cite>with</cite> block, and restores its original training state
+(<cite>train()</cite> or <cite>eval()</cite>) after exiting the block.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><em>torch.nn.Module</em></a>) – The PyTorch model to manage.</p></li>
+<li><p><strong>target_mode</strong> (<em>Literal</em><em>[</em><em>&quot;eval&quot;</em><em>, </em><em>&quot;train&quot;</em><em>]</em><em>, </em><em>optional</em>) – The mode to switch
+the model to within the context. Defaults to “eval”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>None</em> – This context manager does not yield any value.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -719,6 +745,7 @@ moved (e.g., <cite>torch.device(‘cuda:0’)</cite> or <cite>torch.device(‘cp
 <li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
 <li><a class="reference internal" href="#robo_orchard_lab.utils.torch.to_device"><code class="docutils literal notranslate"><span class="pre">to_device()</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.utils.torch.switch_model_mode"><code class="docutils literal notranslate"><span class="pre">switch_model_mode()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -10,6 +10,7 @@ Functions
 .. autoapisummary::
 
    robo_orchard_lab.utils.torch.to_device
+   robo_orchard_lab.utils.torch.switch_model_mode
 
 
 Module Contents
@@ -36,5 +37,22 @@ Module Contents
              A new data structure of the same type and shape as `data`, but
                   with all `torch.Tensor` instances located on the target device.
    :rtype: Any
+
+
+.. py:function:: switch_model_mode(model: torch.nn.Module, target_mode: Literal['eval', 'train'] = 'eval')
+
+   A context manager to temporarily switch a model to a target mode.
+
+   This context manager ensures that the model is in the `target_mode`
+   within the `with` block, and restores its original training state
+   (`train()` or `eval()`) after exiting the block.
+
+   :param model: The PyTorch model to manage.
+   :type model: torch.nn.Module
+   :param target_mode: The mode to switch
+                       the model to within the context. Defaults to "eval".
+   :type target_mode: Literal["eval", "train"], optional
+
+   :Yields: *None* -- This context manager does not yield any value.
 
 

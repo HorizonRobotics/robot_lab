@@ -425,6 +425,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../engine/index.html">engine</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../packaging/index.html">packaging</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../row_sampler/index.html">row_sampler</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../robotwin/index.html">robotwin</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of robotwin</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -434,6 +435,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../robotwin/transforms/index.html">transforms</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/index.html">transforms</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../distributed/index.html">distributed</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of distributed</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -606,18 +608,6 @@ document.addEventListener('DOMContentLoaded', function() {
         <article role="main" id="furo-main-content">
           <section id="module-robo_orchard_lab.dataset.robot.dataset">
 <span id="dataset"></span><h1>dataset<a class="headerlink" href="#module-robo_orchard_lab.dataset.robot.dataset" title="Link to this heading">¶</a></h1>
-<section id="attributes">
-<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper autosummary longtable docutils container">
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.robot.dataset.MetaType" title="robo_orchard_lab.dataset.robot.dataset.MetaType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MetaType</span></code></a></p></td>
-<td><p>A type variable for metadata types in the RoboOrchard dataset.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
 <div class="table-wrapper autosummary longtable docutils container">
@@ -626,22 +616,20 @@ document.addEventListener('DOMContentLoaded', function() {
 <tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.robot.dataset.RODataset" title="robo_orchard_lab.dataset.robot.dataset.RODataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RODataset</span></code></a></p></td>
 <td><p>The RoboOrchard dataset for robot data.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.robot.dataset.ROMultiRowDataset" title="robo_orchard_lab.dataset.robot.dataset.ROMultiRowDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ROMultiRowDataset</span></code></a></p></td>
+<td><p>A dataset that returns multiple rows for each index.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
-<dl class="py data">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.dataset.MetaType">
-<span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.dataset.</span></span><span class="sig-name descname"><span class="pre">MetaType</span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.dataset.MetaType" title="Link to this definition">¶</a></dt>
-<dd><p>A type variable for metadata types in the RoboOrchard dataset.</p>
-</dd></dl>
-
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.dataset.RODataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.dataset.</span></span><span class="sig-name descname"><span class="pre">RODataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage_options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/dataset.html#RODataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.dataset.RODataset" title="Link to this definition">¶</a></dt>
-<dd><p>The RoboOrchard dataset for robot data.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.dataset.</span></span><span class="sig-name descname"><span class="pre">RODataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage_options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_index2meta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/dataset.html#RODataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.dataset.RODataset" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">TorchDataset</span></code></p>
+<p>The RoboOrchard dataset for robot data.</p>
 <p>We use a tabular dataset to store the frame-level information, and a
 separate database to store the episode-level information. The huggingface
 datasets (pyarrow_dataset) is used as table format, and SQLAlchemy with
@@ -654,6 +642,11 @@ It should contain a <cite>dataset.arrow</cite> file and a <cite>meta_db.*</cite>
 <li><p><strong>storage_options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em> | </em><em>None</em><em>, </em><em>optional</em>) – Additional Key/value pairs to
 be passed on to the file-system backend, if any. This is passed
 to the <cite>datasets.Dataset.load_from_disk</cite> method. Defaults to None.</p></li>
+<li><p><strong>meta_index2meta</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to convert the index-based
+metadata to actual metadata objects when accessing the dataset.
+If True, the <cite>episode</cite>, <cite>task</cite>, <cite>robot</cite>, and <cite>instruction</cite> fields
+will be added and the corresponding index fields will be removed.
+Defaults to True.</p></li>
 </ul>
 </dd>
 </dl>
@@ -673,6 +666,13 @@ to the <cite>datasets.Dataset.load_from_disk</cite> method. Defaults to None.</p
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.dataset.RODataset.index_dataset">
 <span class="sig-name descname"><span class="pre">index_dataset</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datasets.Dataset</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.dataset.RODataset.index_dataset" title="Link to this definition">¶</a></dt>
 <dd><p>The same as <cite>frame_dataset</cite>, but only contains the preserved index columns.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.dataset.RODataset.meta_index2meta">
+<span class="sig-name descname"><span class="pre">meta_index2meta</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.dataset.RODataset.meta_index2meta" title="Link to this definition">¶</a></dt>
+<dd><p>Whether to convert the index-based metadata to actual metadata
+objects when accessing the dataset.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -699,6 +699,35 @@ If None, returns None.</p></li>
 <dd><p>Get the dataset format version of loaded dataset.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.dataset.ROMultiRowDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.dataset.</span></span><span class="sig-name descname"><span class="pre">ROMultiRowDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_sampler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../row_sampler/index.html#robo_orchard_lab.dataset.robot.row_sampler.MultiRowSamplerConfig" title="robo_orchard_lab.dataset.robot.row_sampler.MultiRowSamplerConfig"><span class="pre">robo_orchard_lab.dataset.robot.row_sampler.MultiRowSamplerConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage_options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_index2meta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/dataset.html#ROMultiRowDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.dataset.ROMultiRowDataset" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#robo_orchard_lab.dataset.robot.dataset.RODataset" title="robo_orchard_lab.dataset.robot.dataset.RODataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RODataset</span></code></a></p>
+<p>A dataset that returns multiple rows for each index.</p>
+<p>This class extends <cite>RODataset</cite> to support multi-row sampling.
+It provides a method to sample multiple rows based on the index dataset.</p>
+<p>If column is in the row_sampler, it will sample multiple rows
+for that column based on the index dataset, and the column in
+the returned row will be a list of rows. If the column is not
+in the row_sampler, it will return a single row for that column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_path</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The path to the dataset directory.</p></li>
+<li><p><strong>row_sampler</strong> (<a class="reference internal" href="../row_sampler/index.html#robo_orchard_lab.dataset.robot.row_sampler.MultiRowSamplerConfig" title="robo_orchard_lab.dataset.robot.row_sampler.MultiRowSamplerConfig"><em>MultiRowSamplerConfig</em></a>) – The configuration for the
+multi-row sampler. It defines how to sample multiple
+rows based on the index dataset.</p></li>
+<li><p><strong>storage_options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em> | </em><em>None</em><em>, </em><em>optional</em>) – Additional Key/value pairs
+to be passed on to the file-system backend, if any.
+Defaults to None.</p></li>
+<li><p><strong>meta_index2meta</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to convert the index-based
+metadata to actual metadata objects when accessing the dataset.
+Defaults to True.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -767,18 +796,18 @@ If None, returns None.</p></li>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">dataset</a><ul>
-<li><a class="reference internal" href="#attributes">Attributes</a></li>
 <li><a class="reference internal" href="#classes">Classes</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.dataset.MetaType"><code class="docutils literal notranslate"><span class="pre">MetaType</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.dataset.RODataset"><code class="docutils literal notranslate"><span class="pre">RODataset</span></code></a><ul>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.dataset.RODataset.frame_dataset"><code class="docutils literal notranslate"><span class="pre">RODataset.frame_dataset</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.dataset.RODataset.db_engine"><code class="docutils literal notranslate"><span class="pre">RODataset.db_engine</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.dataset.RODataset.index_dataset"><code class="docutils literal notranslate"><span class="pre">RODataset.index_dataset</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.dataset.RODataset.meta_index2meta"><code class="docutils literal notranslate"><span class="pre">RODataset.meta_index2meta</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.dataset.RODataset.get_meta"><code class="docutils literal notranslate"><span class="pre">RODataset.get_meta()</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.dataset.RODataset.dataset_format_version"><code class="docutils literal notranslate"><span class="pre">RODataset.dataset_format_version</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.dataset.ROMultiRowDataset"><code class="docutils literal notranslate"><span class="pre">ROMultiRowDataset</span></code></a></li>
 </ul>
 </li>
 </ul>

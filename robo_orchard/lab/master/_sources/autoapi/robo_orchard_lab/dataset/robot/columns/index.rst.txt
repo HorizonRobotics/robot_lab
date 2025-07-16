@@ -10,6 +10,7 @@ Attributes
 .. autoapisummary::
 
    robo_orchard_lab.dataset.robot.columns.PreservedIndexColumnsKeys
+   robo_orchard_lab.dataset.robot.columns.PreservedColumnsKeys
 
 
 Classes
@@ -58,4 +59,6 @@ Module Contents
 
 
 .. py:data:: PreservedIndexColumnsKeys
+
+.. py:data:: PreservedColumnsKeys
 

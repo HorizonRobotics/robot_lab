@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" /><link rel="next" title="robotwin" href="../../robotwin/index.html" /><link rel="prev" title="engine" href="../engine/index.html" />
+<link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" /><link rel="next" title="row_sampler" href="../row_sampler/index.html" /><link rel="prev" title="engine" href="../engine/index.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
         <title>packaging - RoboOrchard Lab</title>
@@ -425,6 +425,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../engine/index.html">engine</a></li>
 <li class="toctree-l5 current current-page"><a class="current reference internal" href="#">packaging</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../row_sampler/index.html">row_sampler</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../robotwin/index.html">robotwin</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of robotwin</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -434,6 +435,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../robotwin/transforms/index.html">transforms</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/index.html">transforms</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../distributed/index.html">distributed</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of distributed</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -726,7 +728,7 @@ represent the episode information to be stored in the database.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.DatasetPackaging">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">DatasetPackaging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datasets.Features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_driver</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'duckdb'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#DatasetPackaging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">DatasetPackaging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datasets.Features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_driver</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'duckdb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#DatasetPackaging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging" title="Link to this definition">¶</a></dt>
 <dd><p>Class for packaging a RoboOrchard dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -734,6 +736,11 @@ represent the episode information to be stored in the database.</p>
 <li><p><strong>features</strong> (<em>hg_datasets.Features</em>) – The features of the dataset.</p></li>
 <li><p><strong>database_driver</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The database driver to use for the meta
 database. Default is “duckdb”.</p></li>
+<li><p><strong>check_timestamp</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to check the
+timestamp of the frames. Timestamps are required for time-based
+queries and operations. If True, it will raise an error
+if the timestamp is not set or if timestamp_min is greater
+than timestamp_max. Default is False.</p></li>
 </ul>
 </dd>
 </dl>
@@ -897,12 +904,12 @@ next index without checking the database.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../../robotwin/index.html">
+          <a class="next-page" href="../row_sampler/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">robotwin</div>
+                <div class="title">row_sampler</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>

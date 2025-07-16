@@ -424,6 +424,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/engine/index.html">engine</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/packaging/index.html">packaging</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html">row_sampler</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robotwin/index.html">robotwin</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of robotwin</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -433,6 +434,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robotwin/transforms/index.html">transforms</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/transforms/index.html">transforms</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/distributed/index.html">distributed</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of distributed</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -616,17 +618,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TypeAlias</span><span class="p">,</span> <span class="n">TypeVar</span>
 
 <span class="kn">import</span> <span class="nn">fsspec</span>
-<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">Dataset</span> <span class="k">as</span> <span class="n">HFDataset</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">URL</span><span class="p">,</span> <span class="n">Engine</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">Session</span><span class="p">,</span> <span class="n">make_transient</span>
 
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.dataset.datatypes</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.dataset.robot.columns</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">PreservedIndexColumnsKeys</span><span class="p">,</span>
-    <span class="c1"># PreservedIndexColumns,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.dataset.robot.db_orm</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Episode</span><span class="p">,</span>
@@ -635,14 +637,22 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="n">Task</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.dataset.robot.engine</span> <span class="kn">import</span> <span class="n">create_engine</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.dataset.robot.row_sampler</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">MultiRowSampler</span><span class="p">,</span>
+    <span class="n">MultiRowSamplerConfig</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RODataset&quot;</span><span class="p">,</span> <span class="s2">&quot;ROMultiRowDataset&quot;</span><span class="p">]</span>
 
 <span class="n">MetaType</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;MetaType&quot;</span><span class="p">,</span> <span class="n">Episode</span><span class="p">,</span> <span class="n">Instruction</span><span class="p">,</span> <span class="n">Robot</span><span class="p">,</span> <span class="n">Task</span><span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;A type variable for metadata types in the RoboOrchard dataset.&quot;&quot;&quot;</span>
 
+<span class="n">TorchDataset</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span>
+
 
 <div class="viewcode-block" id="RODataset">
 <a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/robot/dataset/index.html#robo_orchard_lab.dataset.robot.dataset.RODataset">[docs]</a>
-<span class="k">class</span> <span class="nc">RODataset</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">RODataset</span><span class="p">(</span><span class="n">TorchDataset</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The RoboOrchard dataset for robot data.</span>
 
 <span class="sd">    We use a tabular dataset to store the frame-level information, and a</span>
@@ -656,24 +666,38 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">        storage_options (dict | None, optional): Additional Key/value pairs to</span>
 <span class="sd">            be passed on to the file-system backend, if any. This is passed</span>
 <span class="sd">            to the `datasets.Dataset.load_from_disk` method. Defaults to None.</span>
+<span class="sd">        meta_index2meta (bool, optional): Whether to convert the index-based</span>
+<span class="sd">            metadata to actual metadata objects when accessing the dataset.</span>
+<span class="sd">            If True, the `episode`, `task`, `robot`, and `instruction` fields</span>
+<span class="sd">            will be added and the corresponding index fields will be removed.</span>
+<span class="sd">            Defaults to True.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">frame_dataset</span><span class="p">:</span> <span class="n">Dataset</span>
+    <span class="n">frame_dataset</span><span class="p">:</span> <span class="n">HFDataset</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The Hugging Face Dataset object containing the frame data.&quot;&quot;&quot;</span>
     <span class="n">db_engine</span><span class="p">:</span> <span class="n">Engine</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The SQLAlchemy engine for the meta database&quot;&quot;&quot;</span>
-
-    <span class="n">index_dataset</span><span class="p">:</span> <span class="n">Dataset</span>
+    <span class="n">index_dataset</span><span class="p">:</span> <span class="n">HFDataset</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The same as `frame_dataset`, but only contains the preserved index columns.&quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="n">meta_index2meta</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether to convert the index-based metadata to actual metadata</span>
+<span class="sd">    objects when accessing the dataset.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">storage_options</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">frame_dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_from_disk</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dataset_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">storage_options</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">meta_index2meta</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">dataset_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_dataset</span> <span class="o">=</span> <span class="n">HFDataset</span><span class="o">.</span><span class="n">load_from_disk</span><span class="p">(</span>
             <span class="n">dataset_path</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index_dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_dataset</span><span class="o">.</span><span class="n">select_columns</span><span class="p">(</span>
             <span class="n">column_names</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">PreservedIndexColumnsKeys</span><span class="p">)</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_index2meta</span> <span class="o">=</span> <span class="n">meta_index2meta</span>
         <span class="c1"># recover state dict</span>
         <span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">hg_datasets_config</span>
 
@@ -684,7 +708,10 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_format_version</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;robo_orchard_state&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="s2">&quot;dataset_format_version&quot;</span><span class="p">,</span> <span class="kc">None</span>
         <span class="p">)</span>
-        <span class="c1">#</span>
+        <span class="c1"># load db</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_db</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_load_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">fs</span><span class="p">:</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">AbstractFileSystem</span> <span class="o">=</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">url_to_fs</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">file_list</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">db_candidate</span> <span class="o">=</span> <span class="p">[</span>
@@ -707,6 +734,44 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="n">url</span><span class="o">=</span><span class="n">URL</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">drivername</span><span class="o">=</span><span class="n">drivername</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="n">db_path</span><span class="p">),</span>
             <span class="n">readonly</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_meta_index2meta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the index-based metadata in `src` to actual metadata objects.&quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+        <span class="n">dst</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">episode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_meta</span><span class="p">(</span><span class="n">Episode</span><span class="p">,</span> <span class="n">dst</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;episode_index&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_meta</span><span class="p">(</span><span class="n">Task</span><span class="p">,</span> <span class="n">dst</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;task_index&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="n">robot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_meta</span><span class="p">(</span><span class="n">Robot</span><span class="p">,</span> <span class="n">dst</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;robot_index&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="n">instruction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_meta</span><span class="p">(</span>
+            <span class="n">Instruction</span><span class="p">,</span> <span class="n">dst</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;instruction_index&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">dst</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;episode&quot;</span><span class="p">:</span> <span class="n">episode</span><span class="p">,</span>
+                <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="n">task</span><span class="p">,</span>
+                <span class="s2">&quot;robot&quot;</span><span class="p">:</span> <span class="n">robot</span><span class="p">,</span>
+                <span class="s2">&quot;instruction&quot;</span><span class="p">:</span> <span class="n">instruction</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">dst</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the frame data at the specified index.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index (int): The index of the frame data to retrieve.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The frame data at the specified index.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">ret</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_dataset</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_index2meta</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_meta_index2meta</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the number of frames in the dataset.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_dataset</span><span class="p">)</span>
 
 <div class="viewcode-block" id="RODataset.get_meta">
 <a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/robot/dataset/index.html#robo_orchard_lab.dataset.robot.dataset.RODataset.get_meta">[docs]</a>
@@ -738,6 +803,61 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="k">def</span> <span class="nf">dataset_format_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the dataset format version of loaded dataset.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_format_version</span></div>
+
+
+
+<div class="viewcode-block" id="ROMultiRowDataset">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/robot/dataset/index.html#robo_orchard_lab.dataset.robot.dataset.ROMultiRowDataset">[docs]</a>
+<span class="k">class</span> <span class="nc">ROMultiRowDataset</span><span class="p">(</span><span class="n">RODataset</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A dataset that returns multiple rows for each index.</span>
+
+<span class="sd">    This class extends `RODataset` to support multi-row sampling.</span>
+<span class="sd">    It provides a method to sample multiple rows based on the index dataset.</span>
+
+
+<span class="sd">    If column is in the row_sampler, it will sample multiple rows</span>
+<span class="sd">    for that column based on the index dataset, and the column in</span>
+<span class="sd">    the returned row will be a list of rows. If the column is not</span>
+<span class="sd">    in the row_sampler, it will return a single row for that column.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataset_path (str): The path to the dataset directory.</span>
+<span class="sd">        row_sampler (MultiRowSamplerConfig): The configuration for the</span>
+<span class="sd">            multi-row sampler. It defines how to sample multiple</span>
+<span class="sd">            rows based on the index dataset.</span>
+<span class="sd">        storage_options (dict | None, optional): Additional Key/value pairs</span>
+<span class="sd">            to be passed on to the file-system backend, if any.</span>
+<span class="sd">            Defaults to None.</span>
+<span class="sd">        meta_index2meta (bool, optional): Whether to convert the index-based</span>
+<span class="sd">            metadata to actual metadata objects when accessing the dataset.</span>
+<span class="sd">            Defaults to True.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dataset_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">row_sampler</span><span class="p">:</span> <span class="n">MultiRowSamplerConfig</span><span class="p">,</span>
+        <span class="n">storage_options</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">meta_index2meta</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">storage_options</span><span class="p">,</span> <span class="n">meta_index2meta</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_row_sampler</span><span class="p">:</span> <span class="n">MultiRowSampler</span> <span class="o">=</span> <span class="n">row_sampler</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_column_datasets</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">col_name</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_dataset</span><span class="o">.</span><span class="n">select_columns</span><span class="p">(</span><span class="n">column_names</span><span class="o">=</span><span class="n">col_name</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_row_sampler</span><span class="o">.</span><span class="n">column_rows_keys</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">cur_row</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col_name</span><span class="p">,</span> <span class="n">idx_rows</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_row_sampler</span><span class="o">.</span><span class="n">sample_row_idx</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index_dataset</span><span class="p">,</span> <span class="n">index</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">col_dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_column_datasets</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span>
+            <span class="n">cur_row</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">col_dataset</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="n">idx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+                <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">idx_rows</span>
+            <span class="p">]</span>
+        <span class="k">return</span> <span class="n">cur_row</span></div>
 
 </pre></div>
         </article>

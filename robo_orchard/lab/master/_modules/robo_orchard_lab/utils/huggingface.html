@@ -424,6 +424,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/engine/index.html">engine</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/packaging/index.html">packaging</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html">row_sampler</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robotwin/index.html">robotwin</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of robotwin</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -433,6 +434,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robotwin/transforms/index.html">transforms</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/transforms/index.html">transforms</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/distributed/index.html">distributed</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of distributed</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -618,7 +620,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">asdict</span><span class="p">,</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Literal</span>
 <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span>
 
 <span class="kn">import</span> <span class="nn">fsspec</span>
@@ -847,28 +849,69 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div class="viewcode-block" id="download_repo">
 <a class="viewcode-back" href="../../../autoapi/robo_orchard_lab/utils/huggingface/index.html#robo_orchard_lab.utils.huggingface.download_repo">[docs]</a>
-<span class="k">def</span> <span class="nf">download_repo</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">repo_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">download_repo</span><span class="p">(</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">repo_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Downloads a repository from the Hugging Face Hub.</span>
+
+<span class="sd">    The URL format supports specifying a repository, an optional token,</span>
+<span class="sd">    and an optional revision, mimicking pip&#39;s git URL syntax.</span>
+
+<span class="sd">    URL Format: hf://&lt;token&gt;@&lt;repo_id&gt;@&lt;revision&gt;</span>
+
+<span class="sd">    - token (optional): A Hugging Face Hub token.</span>
+
+<span class="sd">    - repo_id: The repository ID (e.g., &#39;meta-llama/Llama-2-7b-chat-hf&#39;).</span>
+
+<span class="sd">    - revision (optional): A git revision (branch, tag, or commit hash),</span>
+<span class="sd">      preceded by an &#39;@&#39;.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url (str): The URL of the repository in the specified format.</span>
+<span class="sd">        repo_type (Literal[&quot;model&quot;, &quot;dataset&quot;, &quot;space&quot;]): The type of the repository (&#39;model&#39;, &#39;dataset&#39;, &#39;space&#39;).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The local directory path where the repository is downloaded.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the URL format is invalid.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;hf://&quot;</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;url should starts with hf://&quot;</span><span class="p">)</span>
-    <span class="n">parsed_url</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;URL should start with hf://&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Use rsplit to robustly separate the revision from the base URL.</span>
+    <span class="c1"># This correctly handles the user-friendly repo_url@revision format.</span>
+    <span class="k">if</span> <span class="s2">&quot;@&quot;</span> <span class="ow">in</span> <span class="n">url</span><span class="p">[</span><span class="mi">5</span><span class="p">:]:</span>  <span class="c1"># Check for &#39;@&#39; beyond the &#39;hf://&#39; prefix</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">base_url</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># Heuristic check: if the part after &#39;@&#39; looks like a path, it&#39;s likely</span>
+        <span class="c1"># part of the repo_id (e.g., hf://user@model/path), not a revision.</span>
+        <span class="c1"># A simple check is for &#39;/&#39;. Revisions typically don&#39;t contain &#39;/&#39;.</span>
+        <span class="k">if</span> <span class="s2">&quot;/&quot;</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;=&quot;</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>  <span class="c1"># A simple heuristic</span>
+            <span class="n">base_url</span> <span class="o">=</span> <span class="n">url</span>
+            <span class="n">revision</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">revision</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">base_url</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="n">revision</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">parsed_url</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">base_url</span><span class="p">)</span>
+
     <span class="n">token_from_url</span> <span class="o">=</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">username</span>
 
     <span class="n">repo_id</span> <span class="o">=</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">hostname</span>
-
     <span class="k">if</span> <span class="ow">not</span> <span class="n">repo_id</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid Hugging Face Hub URI: </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
     <span class="k">if</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
         <span class="n">repo_id</span> <span class="o">+=</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">path</span>
 
     <span class="k">with</span> <span class="n">set_env</span><span class="p">(</span><span class="n">HF_HUB_DISABLE_PROGRESS_BARS</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">):</span>
         <span class="n">directory</span> <span class="o">=</span> <span class="n">snapshot_download</span><span class="p">(</span>
             <span class="n">repo_id</span><span class="o">=</span><span class="n">repo_id</span><span class="p">,</span>
-            <span class="c1"># Pass the token extracted from the URL.</span>
-            <span class="c1"># If no token was in the URL, this will be None, and</span>
-            <span class="c1"># huggingface_hub will fall back to env variables/cache.</span>
-            <span class="n">token</span><span class="o">=</span><span class="n">token_from_url</span><span class="p">,</span>
             <span class="n">repo_type</span><span class="o">=</span><span class="n">repo_type</span><span class="p">,</span>
+            <span class="n">token</span><span class="o">=</span><span class="n">token_from_url</span><span class="p">,</span>
+            <span class="n">revision</span><span class="o">=</span><span class="n">revision</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">directory</span></div>
 

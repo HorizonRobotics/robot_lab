@@ -127,5 +127,30 @@ Module Contents
 
 
 
-.. py:function:: download_repo(url: str, repo_type: str) -> str
+.. py:function:: download_repo(url: str, repo_type: Literal['model', 'dataset', 'space']) -> str
+
+   Downloads a repository from the Hugging Face Hub.
+
+   The URL format supports specifying a repository, an optional token,
+   and an optional revision, mimicking pip's git URL syntax.
+
+   URL Format: hf://<token>@<repo_id>@<revision>
+
+   - token (optional): A Hugging Face Hub token.
+
+   - repo_id: The repository ID (e.g., 'meta-llama/Llama-2-7b-chat-hf').
+
+   - revision (optional): A git revision (branch, tag, or commit hash),
+     preceded by an '@'.
+
+   :param url: The URL of the repository in the specified format.
+   :type url: str
+   :param repo_type: The type of the repository ('model', 'dataset', 'space').
+   :type repo_type: Literal["model", "dataset", "space"]
+
+   :returns: The local directory path where the repository is downloaded.
+   :rtype: str
+
+   :raises ValueError: If the URL format is invalid.
+
 
