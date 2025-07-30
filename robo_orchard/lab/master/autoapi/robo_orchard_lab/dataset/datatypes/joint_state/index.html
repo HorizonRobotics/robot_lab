@@ -482,6 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../models/bip3d/utils/index.html">utils</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../models/codec/index.html">codec</a></li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/finegrasp/index.html">finegrasp</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5 has-children"><a class="reference internal" href="../../../models/finegrasp/backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../../models/finegrasp/backbone/minkunet/index.html">minkunet</a></li>
@@ -516,6 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../models/sem_modules/robot_state_encoder/index.html">robot_state_encoder</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../models/torch_model/index.html">torch_model</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -547,7 +549,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../../pipeline/trainer/index.html">trainer</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/padding/index.html">padding</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/build/index.html">build</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/env/index.html">env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/geometry/index.html">geometry</a></li>
@@ -613,11 +620,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature" title="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchJointsStateFeature</span></code></a></p></td>
-<td><p>Base class for RoboOrchard dataset features.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState" title="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchJointsState</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState" title="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchJointsState</span></code></a></p></td>
 <td><p>Batch joint states of robot.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature" title="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchJointsStateFeature</span></code></a></p></td>
+<td><p>A feature that is composed of a dictionary of features.</p></td>
 </tr>
 </tbody>
 </table>
@@ -625,43 +632,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.datatypes.joint_state.</span></span><span class="sig-name descname"><span class="pre">BatchJointsStateFeature</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/joint_state.html#BatchJointsStateFeature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_lab.dataset.datatypes.hg_features.RODataFeature</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_lab.dataset.datatypes.hg_features.FeatureDecodeMixin</span></code></p>
-<p>Base class for RoboOrchard dataset features.</p>
-<p>User should implement the <cite>pa_type</cite> property and <cite>encode_example</cite> method
-to define the specific feature type and how to encode example values.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.dtype">
-<span class="sig-name descname"><span class="pre">dtype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'float32'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'float64'</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'float32'</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.dtype" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.decode">
-<span class="sig-name descname"><span class="pre">decode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.decode" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.pa_type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pa_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pyarrow.DataType</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.pa_type" title="Link to this definition">¶</a></dt>
-<dd><p>Return the pyarrow data type for this feature.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.encode_example">
-<span class="sig-name descname"><span class="pre">encode_example</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState" title="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState"><span class="pre">BatchJointsState</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/joint_state.html#BatchJointsStateFeature.encode_example"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.encode_example" title="Link to this definition">¶</a></dt>
-<dd><p>Encode the example value into a format suitable for storage.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.decode_example">
-<span class="sig-name descname"><span class="pre">decode_example</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState" title="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState"><span class="pre">BatchJointsState</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/joint_state.html#BatchJointsStateFeature.decode_example"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.decode_example" title="Link to this definition">¶</a></dt>
-<dd><p>Decode the example value from its stored format.</p>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.datatypes.joint_state.</span></span><span class="sig-name descname"><span class="pre">BatchJointsState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/joint_state.html#BatchJointsState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState" title="Link to this definition">¶</a></dt>
@@ -672,6 +642,28 @@ to encode and decode joint states for dataset storage.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState.dataset_feature">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dataset_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'float32'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'float64'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'float32'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature" title="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature"><span class="pre">BatchJointsStateFeature</span></a></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/joint_state.html#BatchJointsState.dataset_feature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState.dataset_feature" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.datatypes.joint_state.</span></span><span class="sig-name descname"><span class="pre">BatchJointsStateFeature</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/joint_state.html#BatchJointsStateFeature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_lab.dataset.datatypes.hg_features.RODictDataFeature</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_lab.dataset.datatypes.hg_features.TypedDictFeatureDecode</span></code></p>
+<p>A feature that is composed of a dictionary of features.</p>
+<p>This class provide a easy way to define a feature that is a dictionary
+of features. It is useful for defining complex features that are
+composed of multiple fields. The user should define the <cite>_dict</cite> attribute
+as a dictionary mapping field names to features. The keys of the dictionary
+are the field names, and the values are the features.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.dtype">
+<span class="sig-name descname"><span class="pre">dtype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'float32'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'float64'</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'float32'</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.dtype" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.decode" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -744,16 +736,13 @@ to encode and decode joint states for dataset storage.</p>
 <li><a class="reference internal" href="#">joint_state</a><ul>
 <li><a class="reference internal" href="#classes">Classes</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState"><code class="docutils literal notranslate"><span class="pre">BatchJointsState</span></code></a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState.dataset_feature"><code class="docutils literal notranslate"><span class="pre">BatchJointsState.dataset_feature()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature"><code class="docutils literal notranslate"><span class="pre">BatchJointsStateFeature</span></code></a><ul>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.dtype"><code class="docutils literal notranslate"><span class="pre">BatchJointsStateFeature.dtype</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.decode"><code class="docutils literal notranslate"><span class="pre">BatchJointsStateFeature.decode</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.pa_type"><code class="docutils literal notranslate"><span class="pre">BatchJointsStateFeature.pa_type</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.encode_example"><code class="docutils literal notranslate"><span class="pre">BatchJointsStateFeature.encode_example()</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature.decode_example"><code class="docutils literal notranslate"><span class="pre">BatchJointsStateFeature.decode_example()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState"><code class="docutils literal notranslate"><span class="pre">BatchJointsState</span></code></a><ul>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsState.dataset_feature"><code class="docutils literal notranslate"><span class="pre">BatchJointsState.dataset_feature()</span></code></a></li>
 </ul>
 </li>
 </ul>

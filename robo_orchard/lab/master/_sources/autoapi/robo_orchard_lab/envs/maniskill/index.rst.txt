@@ -54,11 +54,26 @@ Module Contents
 
    .. py:method:: step(action: None | numpy.ndarray | torch.Tensor | dict) -> ManiSkillEnvReturn
 
+      Interface of takeing a step in the environment.
+
+      Usually, this function takes in an action and returns the
+      observations, rewards, and other information.
+
+      User should implement this function in the subclass.
+
+
+
 
    .. py:method:: reset(seed: int | list[int] | None = None, env_ids: Sequence[int] | None = None, options: dict | None = None) -> Any
 
+      Reset the environment.
+
+
 
    .. py:method:: close()
+
+      Close the environment.
+
 
 
    .. py:property:: num_envs

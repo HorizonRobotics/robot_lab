@@ -1,0 +1,275 @@
+base
+====
+
+.. py:module:: robo_orchard_lab.transforms.base
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.transforms.base.DictTransformType
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.transforms.base.DictTransform
+   robo_orchard_lab.transforms.base.DictTransformConfig
+   robo_orchard_lab.transforms.base.ConcatDictTransform
+   robo_orchard_lab.transforms.base.ConcatDictTransformConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: DictTransform
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.adaptor.ClassInitFromConfigMixin`
+
+
+   A class that defines the interface for transforming a dict.
+
+   The dict is usually a row in a dataset, and the transform
+   will take the input columns, apply some transformation, and return
+   a new dict with the transformed values added to the original dict.
+
+   User should implement the `transform` method to define the specific
+   transformation logic.
+
+   If you use a dataclass or BaseModel as the return type of
+   the transform method, `output_columns` will be automatically
+   inferred from the fields of the dataclass or BaseModel. Otherwise,
+   you should implement the `output_columns` property to return the
+   expected output columns for the transform.
+
+
+   For Transform whose input and output columns are not known
+   at the time of configuration, the input and output columns
+   properties should not be used, and the `check_return_columns`
+   configuration should be set to False. This will prevent runtime
+   errors when the transform is called with a row dict.
+
+
+
+   .. py:attribute:: cfg
+      :type:  DictTransformConfig
+
+
+   .. py:method:: transform(**kwargs) -> dict | pydantic.BaseModel
+      :abstractmethod:
+
+
+      Transform the input columns into a new row dict to be updated.
+
+      All input columns will be passed as keyword arguments.
+
+
+
+   .. py:method:: input_columns() -> list[str]
+
+      The input columns that this transform requires.
+
+      This should be a list of column names that are required
+      for the transformation. The transform method will be called
+      with these columns as keyword arguments.
+
+      By default this property uses the signature of the
+      `transform` method to determine the input columns. If you
+      need to customize the input columns, you should override this
+      property in your subclass.
+
+
+
+
+   .. py:method:: mapped_input_columns() -> list[str]
+
+      The input columns that this transform requires for column mapping.
+
+
+
+   .. py:method:: output_columns() -> list[str]
+
+      The output columns that this transform produces.
+
+      This should be a list of column names that the transform will
+      produce as output. The transform method will return a dict
+      with these keys.
+
+      Note that this property contains all possible output columns,
+      not just the ones that are actually produced by the transform.
+      The transform method may return a subset of these columns,
+      but the output_columns property should list all columns that
+      the transform can produce.
+
+
+
+
+   .. py:method:: mapped_output_columns() -> list[str]
+
+      The output columns that this transform produces after mapping.
+
+
+
+.. py:data:: DictTransformType
+
+.. py:class:: DictTransformConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`DictTransformType`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  Type[DictTransformType]
+
+
+   .. py:attribute:: input_column_mapping
+      :type:  dict[str, str]
+      :value: None
+
+
+      The input columns that need to be mapped to fit
+      the transform's input_columns.
+
+
+   .. py:attribute:: output_column_mapping
+      :type:  dict[str, str]
+      :value: None
+
+
+      The output columns that the transform will produce.
+      This should be a mapping from the output column names to the
+      names that the transform will use to return the transformed values.
+      If the transform does not produce any output, this can be an empty dict.
+
+
+   .. py:attribute:: check_return_columns
+      :type:  bool
+      :value: False
+
+
+      Whether to check that the output columns of the transform
+      match the expected output columns. If this is set to True,
+      the transform will raise an error if the output columns do not
+      match the expected output columns.
+
+      For Transform that does not properly implement the `output_columns`
+      property, or if the output columns are not known at the time of
+      configuration, this should be set to False to avoid runtime errors.
+
+
+.. py:class:: ConcatDictTransform(cfg: ConcatDictTransformConfig[DictTransform])
+
+   Bases: :py:obj:`DictTransform`
+
+
+   A class that defines the interface for transforming a dict.
+
+   The dict is usually a row in a dataset, and the transform
+   will take the input columns, apply some transformation, and return
+   a new dict with the transformed values added to the original dict.
+
+   User should implement the `transform` method to define the specific
+   transformation logic.
+
+   If you use a dataclass or BaseModel as the return type of
+   the transform method, `output_columns` will be automatically
+   inferred from the fields of the dataclass or BaseModel. Otherwise,
+   you should implement the `output_columns` property to return the
+   expected output columns for the transform.
+
+
+   For Transform whose input and output columns are not known
+   at the time of configuration, the input and output columns
+   properties should not be used, and the `check_return_columns`
+   configuration should be set to False. This will prevent runtime
+   errors when the transform is called with a row dict.
+
+
+
+   .. py:attribute:: cfg
+      :type:  ConcatDictTransformConfig[DictTransform]
+
+
+   .. py:property:: input_columns
+      :type: list[str]
+
+
+      The input columns that this transform requires.
+
+      This should be a list of column names that are required
+      for the transformation. The transform method will be called
+      with these columns as keyword arguments.
+
+      By default this property uses the signature of the
+      `transform` method to determine the input columns. If you
+      need to customize the input columns, you should override this
+      property in your subclass.
+
+
+   .. py:method:: mapped_input_columns() -> list[str]
+
+      Get the input columns for this transform.
+
+
+
+   .. py:property:: output_columns
+      :type: list[str]
+
+
+      Get the output columns for this transform.
+
+
+   .. py:method:: mapped_output_columns() -> list[str]
+
+      Get the output columns for this transform.
+
+
+
+   .. py:method:: transform(**kwargs) -> dict
+
+      Transform the input columns into a new row dict to be updated.
+
+      All input columns will be passed as keyword arguments.
+
+
+
+.. py:class:: ConcatDictTransformConfig
+
+   Bases: :py:obj:`DictTransformConfig`\ [\ :py:obj:`ConcatDictTransform`\ ], :py:obj:`Generic`\ [\ :py:obj:`DictTransformType`\ ]
+
+
+   Abstract base class for generic types.
+
+   A generic type is typically declared by inheriting from
+   this class parameterized with one or more type variables.
+   For example, a generic mapping type might be defined as::
+
+     class Mapping(Generic[KT, VT]):
+         def __getitem__(self, key: KT) -> VT:
+             ...
+         # Etc.
+
+   This class can then be used as follows::
+
+     def lookup_name(mapping: Mapping[KT, VT], key: KT, default: VT) -> VT:
+         try:
+             return mapping[key]
+         except KeyError:
+             return default
+
+
+   .. py:attribute:: class_type
+      :type:  Type[ConcatDictTransform]
+
+
+   .. py:attribute:: transforms
+      :type:  Sequence[DictTransformConfig[DictTransformType]]
+      :value: None
+
+
+      A sequence of transforms to apply to the input columns.
+
+

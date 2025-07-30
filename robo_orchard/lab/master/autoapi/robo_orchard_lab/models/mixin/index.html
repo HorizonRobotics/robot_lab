@@ -188,7 +188,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -482,6 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../bip3d/utils/index.html">utils</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../codec/index.html">codec</a></li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../finegrasp/index.html">finegrasp</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5 has-children"><a class="reference internal" href="../finegrasp/backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../finegrasp/backbone/minkunet/index.html">minkunet</a></li>
@@ -516,6 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../sem_modules/robot_state_encoder/index.html">robot_state_encoder</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../torch_model/index.html">torch_model</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -547,7 +549,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../pipeline/trainer/index.html">trainer</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/padding/index.html">padding</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../utils/build/index.html">build</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../utils/env/index.html">env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../utils/geometry/index.html">geometry</a></li>
@@ -600,7 +607,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -608,211 +615,6 @@ document.addEventListener('DOMContentLoaded', function() {
         <article role="main" id="furo-main-content">
           <section id="module-robo_orchard_lab.models.mixin">
 <span id="mixin"></span><h1>mixin<a class="headerlink" href="#module-robo_orchard_lab.models.mixin" title="Link to this heading">¶</a></h1>
-<section id="attributes">
-<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper autosummary longtable docutils container">
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.mixin.logger" title="robo_orchard_lab.models.mixin.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchNNModuleTypeCo" title="robo_orchard_lab.models.mixin.TorchNNModuleTypeCo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TorchNNModuleTypeCo</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchModuleCfgType_co" title="robo_orchard_lab.models.mixin.TorchModuleCfgType_co"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TorchModuleCfgType_co</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="classes">
-<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper autosummary longtable docutils container">
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchModuleCfg" title="robo_orchard_lab.models.mixin.TorchModuleCfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TorchModuleCfg</span></code></a></p></td>
-<td><p>Configuration class for PyTorch nn.Module.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.models.mixin.ModelMixin" title="robo_orchard_lab.models.mixin.ModelMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelMixin</span></code></a></p></td>
-<td><p>A mixin class for PyTorch <cite>nn.Module</cite> providing model saving and loading utilities.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
-<dl class="py data">
-<dt class="sig sig-object py" id="robo_orchard_lab.models.mixin.logger">
-<span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.mixin.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#robo_orchard_lab.models.mixin.logger" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="robo_orchard_lab.models.mixin.TorchNNModuleTypeCo">
-<span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.mixin.</span></span><span class="sig-name descname"><span class="pre">TorchNNModuleTypeCo</span></span><a class="headerlink" href="#robo_orchard_lab.models.mixin.TorchNNModuleTypeCo" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="robo_orchard_lab.models.mixin.TorchModuleCfg">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.mixin.</span></span><span class="sig-name descname"><span class="pre">TorchModuleCfg</span></span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/models/mixin.html#TorchModuleCfg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.mixin.TorchModuleCfg" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_core.utils.config.ClassConfig</span></code>[<a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchNNModuleTypeCo" title="robo_orchard_lab.models.mixin.TorchNNModuleTypeCo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TorchNNModuleTypeCo</span></code></a>]</p>
-<p>Configuration class for PyTorch nn.Module.</p>
-<p>This class extends <cite>ClassConfig</cite> to specifically handle configurations
-for PyTorch modules, ensuring type safety for the module class.</p>
-</dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="robo_orchard_lab.models.mixin.TorchModuleCfgType_co">
-<span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.mixin.</span></span><span class="sig-name descname"><span class="pre">TorchModuleCfgType_co</span></span><a class="headerlink" href="#robo_orchard_lab.models.mixin.TorchModuleCfgType_co" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="robo_orchard_lab.models.mixin.ModelMixin">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.mixin.</span></span><span class="sig-name descname"><span class="pre">ModelMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchModuleCfg" title="robo_orchard_lab.models.mixin.TorchModuleCfg"><span class="pre">TorchModuleCfg</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/models/mixin.html#ModelMixin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.mixin.ModelMixin" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_core.utils.config.ClassInitFromConfigMixin</span></code></p>
-<p>A mixin class for PyTorch <cite>nn.Module</cite> providing model saving and loading utilities.</p>
-<p>This mixin standardizes how models are configured, saved, and loaded,
-integrating with a configuration system and supporting <cite>safetensors</cite>
-for model weights.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.models.mixin.ModelMixin.cfg">
-<span class="sig-name descname"><span class="pre">cfg</span></span><a class="headerlink" href="#robo_orchard_lab.models.mixin.ModelMixin.cfg" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="robo_orchard_lab.models.mixin.ModelMixin.accelerator_save_state_pre_hook">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">accelerator_save_state_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">models</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><span class="pre">torch.nn.Module</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.5)"><span class="pre">torch.Tensor</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/models/mixin.html#ModelMixin.accelerator_save_state_pre_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.mixin.ModelMixin.accelerator_save_state_pre_hook" title="Link to this definition">¶</a></dt>
-<dd><p>Pre-hook for Hugging Face Accelerate to save model configurations.</p>
-<p>This static method is designed to be registered with Accelerate’s
-<cite>save_state</cite> mechanism. It iterates through the provided models and,
-if a model is an instance of <cite>ModelMixin</cite>, saves its configuration
-to a JSON file in the <cite>output_dir</cite>.</p>
-<p>The configuration for the first model (index 0) is saved as
-<cite>model.config.json</cite>, and subsequent models are saved as
-<cite>model_idx.config.json</cite>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This hook only saves the configuration. The model weights (<cite>state_dict</cite>)
-are expected to be saved by the Accelerate framework itself.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>models</strong> – A list of <cite>torch.nn.Module</cite> instances to process.</p></li>
-<li><p><strong>weights</strong> – A list of model state dictionaries. This argument is part
-of the Accelerate hook signature but is not directly used by
-this method as Accelerate handles weight saving.</p></li>
-<li><p><strong>output_dir</strong> – The directory where the configuration files will be saved.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="robo_orchard_lab.models.mixin.ModelMixin.save_model">
-<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'model'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_shared_tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">required_empty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/models/mixin.html#ModelMixin.save_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.mixin.ModelMixin.save_model" title="Link to this definition">¶</a></dt>
-<dd><p>Saves the model’s config and weights to a directory.</p>
-<p>This method saves the model’s configuration to <cite>{model_prefix}.config.json</cite>
-and its weights to <cite>{model_prefix}.safetensors</cite>.</p>
-<p>If <cite>allow_shared_tensor</cite> is True, it handles models with tied weights by:</p>
-<ol class="arabic simple">
-<li><p>Saving only a single copy of each shared tensor to the <cite>.safetensors</cite> file.</p></li>
-</ol>
-<p>2.  Creating a <cite>{model_prefix}.shared_keys.json</cite> file that maps the
-duplicate parameter names to their original counterparts. This allows for
-perfect model restoration with <cite>strict=True</cite> loading.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>directory</strong> – The path to the directory for saving the model.</p></li>
-<li><p><strong>model_prefix</strong> – The file prefix for the config and weights files.</p></li>
-<li><p><strong>allow_shared_tensor</strong> – If True, enables the logic to handle
-tied weights by saving a de-duplicated state dict and a
-key-sharing map.</p></li>
-<li><p><strong>required_empty</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, raises an error if the target
-directory is not empty. Defaults to True.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="../../utils/path/index.html#robo_orchard_lab.utils.path.DirectoryNotEmptyError" title="robo_orchard_lab.utils.path.DirectoryNotEmptyError"><strong>DirectoryNotEmptyError</strong></a> – If the target directory already exists and
-is not empty.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="robo_orchard_lab.models.mixin.ModelMixin.load_model">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'model'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#robo_orchard_lab.models.mixin.ModelMixin" title="robo_orchard_lab.models.mixin.ModelMixin"><span class="pre">ModelMixin</span></a></span></span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/models/mixin.html#ModelMixin.load_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.models.mixin.ModelMixin.load_model" title="Link to this definition">¶</a></dt>
-<dd><p>Loads a model from a local directory or the Hugging Face Hub.</p>
-<p>This method supports loading from a local path or a Hugging Face Hub
-repository. For Hub models, a URI format is used:
-<cite>hf://[&lt;token&gt;&#64;]&lt;repo_id&gt;</cite></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Public model: `hf://google/gemma-7b`
-
-Private model: `hf://hf_YourToken@username/private-repo`
-</pre></div>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Embedding tokens directly in the URL can be a security risk.
-The URL may be logged in shell history or server logs. It is often safer
-to rely on the environment variable <strong>HF_TOKEN</strong> or the
-local token cache from <cite>huggingface-cli login</cite>.</p>
-</div>
-<p>This method first loads the model’s configuration from a JSON file
-(e.g., “model.config.json”) found in the given directory. It then
-instantiates the model using this configuration. The instantiation
-occurs within a context where the <strong>ORCHARD_LAB_CHECKPOINT_DIRECTORY</strong>
-environment variable is temporarily set to the <cite>directory</cite> path.</p>
-<p>If <cite>load_model</cite> is True, the method proceeds to load the model’s
-weights (state dictionary) from a “.safetensors” file (e.g.,
-“model.safetensors”) located in the same directory.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>directory</strong> – The path to the directory containing the model’s
-configuration file and, if applicable, the state dictionary file.</p></li>
-<li><p><strong>load_model</strong> – If True (default), the model’s state dictionary is
-loaded from the “.safetensors” file. If False, the model is
-initialized from the configuration but weights are not loaded.</p></li>
-<li><p><strong>strict</strong> – A boolean indicating whether to strictly enforce that the keys
-in <cite>state_dict</cite> match the keys returned by this module’s
-<cite>state_dict()</cite> function. Passed to <cite>model.load_state_dict()</cite>.
-Defaults to True.</p></li>
-<li><p><strong>device</strong> – The device (e.g., “cpu”, “cuda:0”) onto which the model’s
-state dictionary should be loaded. Passed to <cite>load_file</cite> for
-loading the safetensors file. Defaults to “cpu”.</p></li>
-<li><p><strong>model_prefix</strong> – The prefix for the configuration and state dictionary
-files. For example, if “model”, files will be sought as
-“model.config.json” and “model.safetensors”. Defaults to “model”.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>An instance of the model (typed as “ModelMixin” or a subclass),</dt><dd><p>initialized from the configuration and optionally with weights loaded.</p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)">torch.nn.Module</a></p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#FileNotFoundError" title="(in Python v3.10)"><strong>FileNotFoundError</strong></a> – If the specified <cite>directory</cite> does not exist,
-or if the configuration file (<cite>{model_prefix}.config.json</cite>)
-or the state dictionary file (<cite>{model_prefix}.safetensors}</cite>,
-when <cite>load_model</cite> is True) is not found in the directory.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#ValueError" title="(in Python v3.10)"><strong>ValueError</strong></a> – If the Hugging Face Hub URI is invalid.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
 </section>
 
         </article>
@@ -865,42 +667,8 @@ when <cite>load_model</cite> is True) is not found in the directory.</p></li>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">mixin</a><ul>
-<li><a class="reference internal" href="#attributes">Attributes</a></li>
-<li><a class="reference internal" href="#classes">Classes</a></li>
-<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#robo_orchard_lab.models.mixin.logger"><code class="docutils literal notranslate"><span class="pre">logger</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchNNModuleTypeCo"><code class="docutils literal notranslate"><span class="pre">TorchNNModuleTypeCo</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchModuleCfg"><code class="docutils literal notranslate"><span class="pre">TorchModuleCfg</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.models.mixin.TorchModuleCfgType_co"><code class="docutils literal notranslate"><span class="pre">TorchModuleCfgType_co</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.models.mixin.ModelMixin"><code class="docutils literal notranslate"><span class="pre">ModelMixin</span></code></a><ul>
-<li><a class="reference internal" href="#robo_orchard_lab.models.mixin.ModelMixin.cfg"><code class="docutils literal notranslate"><span class="pre">ModelMixin.cfg</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.models.mixin.ModelMixin.accelerator_save_state_pre_hook"><code class="docutils literal notranslate"><span class="pre">ModelMixin.accelerator_save_state_pre_hook()</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.models.mixin.ModelMixin.save_model"><code class="docutils literal notranslate"><span class="pre">ModelMixin.save_model()</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.models.mixin.ModelMixin.load_model"><code class="docutils literal notranslate"><span class="pre">ModelMixin.load_model()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

@@ -481,6 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/bip3d/utils/index.html">utils</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/codec/index.html">codec</a></li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/index.html">finegrasp</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/backbone/minkunet/index.html">minkunet</a></li>
@@ -515,6 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/sem_modules/robot_state_encoder/index.html">robot_state_encoder</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/torch_model/index.html">torch_model</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -546,7 +548,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/pipeline/trainer/index.html">trainer</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/transforms/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/transforms/padding/index.html">padding</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/build/index.html">build</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/env/index.html">env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/geometry/index.html">geometry</a></li>
@@ -692,9 +699,15 @@ document.addEventListener('DOMContentLoaded', function() {
 <a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html#robo_orchard_lab.dataset.robot.row_sampler.MultiRowSampler.sample_row_idx">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">sample_row_idx</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">index_dataset</span><span class="p">:</span> <span class="n">HFDataset</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">index_dataset</span><span class="p">:</span> <span class="n">HFDataset</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sample a list of row indices from the index dataset.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index_dataset (HFDataset): The dataset from which to sample rows.</span>
+<span class="sd">            index (int): The index or indices to sample.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            dict[str, list[int | None]]: A dictionary where keys are column</span>
@@ -735,6 +748,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <span class="k">class</span> <span class="nc">IndexFrameCache</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cache for frames indexed by their timestamps.</span>
+
+<span class="sd">    Note that the cached frame should be in the same episode,</span>
+<span class="sd">    and the</span>
+<span class="sd">    timestamp_min and timestamp_max should be defined in the frame.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the IndexFrameCache.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_frame_ts_min_list</span> <span class="o">=</span> <span class="n">SortedList</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -835,8 +855,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="k">def</span> <span class="nf">sample_row_idx</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">index_dataset</span><span class="p">:</span> <span class="n">HFDataset</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]]:</span>
-        <span class="n">cache</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_cache</span><span class="p">(</span><span class="n">index_dataset</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
         <span class="n">cur_row</span> <span class="o">=</span> <span class="n">index_dataset</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">cache</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_cache</span><span class="p">(</span><span class="n">index_dataset</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
         <span class="n">ret</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">delta_ts_list</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">column_delta_ts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">sampled_rows</span> <span class="o">=</span> <span class="p">[]</span>
@@ -869,9 +889,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     <span class="k">def</span> <span class="nf">_prepare_cache</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">index_dataset</span><span class="p">:</span> <span class="n">HFDataset</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">index_dataset</span><span class="p">:</span> <span class="n">HFDataset</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">cache</span><span class="p">:</span> <span class="n">IndexFrameCache</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IndexFrameCache</span><span class="p">:</span>
-        <span class="n">cache</span> <span class="o">=</span> <span class="n">IndexFrameCache</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">cache</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cache</span> <span class="o">=</span> <span class="n">IndexFrameCache</span><span class="p">()</span>
         <span class="n">cur_row</span> <span class="o">=</span> <span class="n">index_dataset</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
         <span class="n">cache</span><span class="o">.</span><span class="n">add_frame</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">cur_row</span><span class="p">)</span>
         <span class="n">cur_episode</span> <span class="o">=</span> <span class="n">cur_row</span><span class="p">[</span><span class="s2">&quot;episode_index&quot;</span><span class="p">]</span>
@@ -923,7 +947,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="k">class</span> <span class="nc">DeltaTimestampSamplerConfig</span><span class="p">(</span>
     <span class="n">MultiRowSamplerConfig</span><span class="p">[</span><span class="n">DeltaTimestampSampler</span><span class="p">]</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration class for DeltaTimestampSampler.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration class for DeltaTimestampSampler.</span>
+
+<span class="sd">    This configuration define the sampling strategy based on delta timestamps</span>
+<span class="sd">    for each column. It allows specifying the delta timestamps and the</span>
+<span class="sd">    tolerance for matching timestamps.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">class_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">DeltaTimestampSampler</span><span class="p">]</span> <span class="o">=</span> <span class="n">DeltaTimestampSampler</span>
 

@@ -481,6 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/models/bip3d/utils/index.html">utils</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/models/codec/index.html">codec</a></li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/models/finegrasp/index.html">finegrasp</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/models/finegrasp/backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/models/finegrasp/backbone/minkunet/index.html">minkunet</a></li>
@@ -515,6 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/models/sem_modules/robot_state_encoder/index.html">robot_state_encoder</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/models/torch_model/index.html">torch_model</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -546,7 +548,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/pipeline/trainer/index.html">trainer</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/transforms/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/transforms/padding/index.html">padding</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/utils/build/index.html">build</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/utils/env/index.html">env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_lab/utils/geometry/index.html">geometry</a></li>
@@ -629,6 +636,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;RODataFeature&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RODictDataFeature&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TypedDictFeatureDecode&quot;</span><span class="p">,</span>
     <span class="s2">&quot;FeatureDecodeMixin&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ToDataFeatureMixin&quot;</span><span class="p">,</span>
     <span class="s2">&quot;hg_dataset_feature&quot;</span><span class="p">,</span>
@@ -639,18 +648,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div class="viewcode-block" id="FeatureDecodeMixin">
 <a class="viewcode-back" href="../../../../../autoapi/robo_orchard_lab/dataset/datatypes/hg_features/base/index.html#robo_orchard_lab.dataset.datatypes.hg_features.base.FeatureDecodeMixin">[docs]</a>
-<span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">FeatureDecodeMixin</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Mixin class for features that support decoding.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="FeatureDecodeMixin.decode_example">
 <a class="viewcode-back" href="../../../../../autoapi/robo_orchard_lab/dataset/datatypes/hg_features/base/index.html#robo_orchard_lab.dataset.datatypes.hg_features.base.FeatureDecodeMixin.decode_example">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">decode_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">decode_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Decode the example value from its stored format.&quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
             <span class="s2">&quot;Subclasses must implement decode_example method.&quot;</span>
         <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TypedDictFeatureDecode">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_lab/dataset/datatypes/hg_features/base/index.html#robo_orchard_lab.dataset.datatypes.hg_features.base.TypedDictFeatureDecode">[docs]</a>
+<span class="k">class</span> <span class="nc">TypedDictFeatureDecode</span><span class="p">(</span><span class="n">FeatureDecodeMixin</span><span class="p">):</span>
+    <span class="n">_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">_decode_type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">decode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="TypedDictFeatureDecode.decode_example">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_lab/dataset/datatypes/hg_features/base/index.html#robo_orchard_lab.dataset.datatypes.hg_features.base.TypedDictFeatureDecode.decode_example">[docs]</a>
+    <span class="k">def</span> <span class="nf">decode_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;This feature does not support decoding. &quot;</span>
+                <span class="s2">&quot;Set decode=True to enable decoding.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">ret</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">decode_nested_example</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">value</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decode_type</span><span class="p">(</span><span class="o">**</span><span class="n">ret</span><span class="p">)</span></div>
 </div>
 
 
@@ -694,6 +725,57 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+<div class="viewcode-block" id="RODictDataFeature">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_lab/dataset/datatypes/hg_features/base/index.html#robo_orchard_lab.dataset.datatypes.hg_features.base.RODictDataFeature">[docs]</a>
+<span class="k">class</span> <span class="nc">RODictDataFeature</span><span class="p">(</span><span class="n">RODataFeature</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature that is composed of a dictionary of features.</span>
+
+<span class="sd">    This class provide a easy way to define a feature that is a dictionary</span>
+<span class="sd">    of features. It is useful for defining complex features that are</span>
+<span class="sd">    composed of multiple fields. The user should define the `_dict` attribute</span>
+<span class="sd">    as a dictionary mapping field names to features. The keys of the dictionary</span>
+<span class="sd">    are the field names, and the values are the features.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pa_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pa</span><span class="o">.</span><span class="n">DataType</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the pyarrow data type for this feature.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">get_nested_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RODictDataFeature.encode_example">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_lab/dataset/datatypes/hg_features/base/index.html#robo_orchard_lab.dataset.datatypes.hg_features.base.RODictDataFeature.encode_example">[docs]</a>
+    <span class="k">def</span> <span class="nf">encode_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">encode_nested_example</span><span class="p">(</span>
+            <span class="n">schema</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">value</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RODictDataFeature.items">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_lab/dataset/datatypes/hg_features/base/index.html#robo_orchard_lab.dataset.datatypes.hg_features.base.RODictDataFeature.items">[docs]</a>
+    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the items of the dictionary.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="RODictDataFeature.keys">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_lab/dataset/datatypes/hg_features/base/index.html#robo_orchard_lab.dataset.datatypes.hg_features.base.RODictDataFeature.keys">[docs]</a>
+    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the keys of the dictionary.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="RODictDataFeature.values">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_lab/dataset/datatypes/hg_features/base/index.html#robo_orchard_lab.dataset.datatypes.hg_features.base.RODictDataFeature.values">[docs]</a>
+    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the values of the dictionary.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()</span></div>
+</div>
+
+
+
 <div class="viewcode-block" id="ToDataFeatureMixin">
 <a class="viewcode-back" href="../../../../../autoapi/robo_orchard_lab/dataset/datatypes/hg_features/base/index.html#robo_orchard_lab.dataset.datatypes.hg_features.base.ToDataFeatureMixin">[docs]</a>
 <span class="k">class</span> <span class="nc">ToDataFeatureMixin</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
@@ -707,6 +789,13 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
             <span class="s2">&quot;Subclasses must implement dataset_feature method.&quot;</span>
         <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ToDataFeatureMixin.get">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_lab/dataset/datatypes/hg_features/base/index.html#robo_orchard_lab.dataset.datatypes.hg_features.base.ToDataFeatureMixin.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the value of the feature by key.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
 </div>
 
 

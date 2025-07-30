@@ -482,6 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/bip3d/utils/index.html">utils</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/codec/index.html">codec</a></li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/finegrasp/index.html">finegrasp</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5 has-children"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/finegrasp/backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/finegrasp/backbone/minkunet/index.html">minkunet</a></li>
@@ -516,6 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/sem_modules/robot_state_encoder/index.html">robot_state_encoder</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/torch_model/index.html">torch_model</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../autoapi/robo_orchard_lab/ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -547,7 +549,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/pipeline/trainer/index.html">trainer</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../autoapi/robo_orchard_lab/transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/transforms/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/transforms/padding/index.html">padding</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/utils/build/index.html">build</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/utils/env/index.html">env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/utils/geometry/index.html">geometry</a></li>
@@ -616,9 +623,9 @@ to download the full example code.</p>
 <section id="core-concepts">
 <h2>Core concepts<a class="headerlink" href="#core-concepts" title="Link to this heading">¶</a></h2>
 <p>Before we begin, let’s understand the two key classes:</p>
-<p>1. <a class="reference internal" href="../../autoapi/robo_orchard_lab/models/mixin/index.html#robo_orchard_lab.models.mixin.TorchModuleCfg" title="robo_orchard_lab.models.mixin.TorchModuleCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">TorchModuleCfg</span></code></a>: This is a specialized configuration class designed to define all the necessary parameters for a PyTorch <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>,
+<p>1. <code class="xref py py-class docutils literal notranslate"><span class="pre">TorchModuleCfg</span></code>: This is a specialized configuration class designed to define all the necessary parameters for a PyTorch <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>,
 such as layer counts, dimensions, activation functions, etc. Your model will be instantiated from it.</p>
-<p>2. <a class="reference internal" href="../../autoapi/robo_orchard_lab/models/mixin/index.html#robo_orchard_lab.models.mixin.ModelMixin" title="robo_orchard_lab.models.mixin.ModelMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMixin</span></code></a>: This is a mixin class. Your custom model class should inherit from it.
+<p>2. <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMixin</span></code>: This is a mixin class. Your custom model class should inherit from it.
 It provides the essential <code class="docutils literal notranslate"><span class="pre">save_model</span></code> and <code class="docutils literal notranslate"><span class="pre">load_model</span></code> methods.</p>
 </section>
 <section id="step-1-define-your-model-and-configuration">
@@ -626,8 +633,8 @@ It provides the essential <code class="docutils literal notranslate"><span class
 <p>First, we need to define the model’s architecture and its corresponding configuration.</p>
 <p>Let’s create a simple fully-connected network called <code class="docutils literal notranslate"><span class="pre">SimpleNet</span></code>.</p>
 <ol class="arabic simple">
-<li><p>Create the config class <code class="docutils literal notranslate"><span class="pre">SimpleNetCfg</span></code>: This class must inherit from <a class="reference internal" href="../../autoapi/robo_orchard_lab/models/mixin/index.html#robo_orchard_lab.models.mixin.TorchModuleCfg" title="robo_orchard_lab.models.mixin.TorchModuleCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">TorchModuleCfg</span></code></a> and should define the parameters your model needs (e.g., <cite>input_size</cite>, <cite>hidden_size</cite>, <cite>output_size</cite>).</p></li>
-<li><p>Create the model class <code class="docutils literal notranslate"><span class="pre">SimpleNet</span></code>: This class must inherit from <a class="reference internal" href="../../autoapi/robo_orchard_lab/models/mixin/index.html#robo_orchard_lab.models.mixin.ModelMixin" title="robo_orchard_lab.models.mixin.ModelMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMixin</span></code></a>. In its <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method, it accepts a config object <code class="docutils literal notranslate"><span class="pre">cfg</span></code> and calls <code class="docutils literal notranslate"><span class="pre">super().__init__(cfg)</span></code> to complete the setup.</p></li>
+<li><p>Create the config class <code class="docutils literal notranslate"><span class="pre">SimpleNetCfg</span></code>: This class must inherit from <code class="xref py py-class docutils literal notranslate"><span class="pre">TorchModuleCfg</span></code> and should define the parameters your model needs (e.g., <cite>input_size</cite>, <cite>hidden_size</cite>, <cite>output_size</cite>).</p></li>
+<li><p>Create the model class <code class="docutils literal notranslate"><span class="pre">SimpleNet</span></code>: This class must inherit from <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMixin</span></code>. In its <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method, it accepts a config object <code class="docutils literal notranslate"><span class="pre">cfg</span></code> and calls <code class="docutils literal notranslate"><span class="pre">super().__init__(cfg)</span></code> to complete the setup.</p></li>
 </ol>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 
@@ -666,7 +673,7 @@ It provides the essential <code class="docutils literal notranslate"><span class
 </section>
 <section id="step-2-instantiate-and-save-the-model">
 <h2>Step 2: Instantiate and Save the Model<a class="headerlink" href="#step-2-instantiate-and-save-the-model" title="Link to this heading">¶</a></h2>
-<p>The <a class="reference internal" href="../../autoapi/robo_orchard_lab/models/mixin/index.html#robo_orchard_lab.models.mixin.ModelMixin" title="robo_orchard_lab.models.mixin.ModelMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMixin</span></code></a> provides the <code class="docutils literal notranslate"><span class="pre">save_model</span></code> method,
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMixin</span></code> provides the <code class="docutils literal notranslate"><span class="pre">save_model</span></code> method,
 which automatically performs two actions:</p>
 <ol class="arabic simple">
 <li><p>Saves the model’s configuration <code class="docutils literal notranslate"><span class="pre">cfg</span></code> to <code class="docutils literal notranslate"><span class="pre">model.config.json</span></code>.</p></li>
@@ -734,7 +741,7 @@ which automatically performs two actions:</p>
 </section>
 <section id="integrating-with-hugging-face-accelerator">
 <h2>Integrating with Hugging Face Accelerator<a class="headerlink" href="#integrating-with-hugging-face-accelerator" title="Link to this heading">¶</a></h2>
-<p><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/mixin/index.html#robo_orchard_lab.models.mixin.ModelMixin" title="robo_orchard_lab.models.mixin.ModelMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMixin</span></code></a> provides a pre-built hook, <code class="docutils literal notranslate"><span class="pre">accelerator_save_state_pre_hook</span></code>,
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMixin</span></code> provides a pre-built hook, <code class="docutils literal notranslate"><span class="pre">accelerator_save_state_pre_hook</span></code>,
 for seamless integration with the 🤗 Accelerate training library.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">accelerate</span> <span class="kn">import</span> <span class="n">Accelerator</span>
 
@@ -745,7 +752,7 @@ for seamless integration with the 🤗 Accelerate training library.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;torch.utils.hooks.RemovableHandle object at 0x7f91def64ac0&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;torch.utils.hooks.RemovableHandle object at 0x7fe92b860460&gt;
 </pre></div>
 </div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.014 seconds)</p>

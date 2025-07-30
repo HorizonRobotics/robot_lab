@@ -42,8 +42,22 @@ Module Contents
    Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvStepReturn`\ [\ :py:obj:`dict`\ [\ :py:obj:`str`\ , :py:obj:`Any`\ ]\ :py:obj:`| None`\ , :py:obj:`bool`\ ]
 
 
+   The return type of the `step` function in the environment.
+
+   This class extends gymnasium's Env step return type to be a dataclass
+   with generic types for observations and rewards.
+
+
+   Template Args:
+       ObsType: The type of the observations returned by the environment.
+       RewardsType: The type of the rewards returned by the environment.
+
+
+
    .. py:attribute:: observations
       :type:  dict[str, Any] | None
+
+      The observations returned by the environment after taking a step.
 
 
    .. py:attribute:: rewards

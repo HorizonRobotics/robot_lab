@@ -482,6 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../bip3d/utils/index.html">utils</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../codec/index.html">codec</a></li>
 <li class="toctree-l4 current has-children"><a class="reference internal" href="../index.html">finegrasp</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l5 has-children"><a class="reference internal" href="../backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../backbone/minkunet/index.html">minkunet</a></li>
@@ -516,6 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../sem_modules/robot_state_encoder/index.html">robot_state_encoder</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../torch_model/index.html">torch_model</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -547,7 +549,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../../pipeline/trainer/index.html">trainer</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/padding/index.html">padding</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/build/index.html">build</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/env/index.html">env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/geometry/index.html">geometry</a></li>
@@ -695,7 +702,7 @@ evaluation mode.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.finegrasp.finegrasp.</span></span><span class="sig-name descname"><span class="pre">FineGrasp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig" title="robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig"><span class="pre">FineGraspConfig</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../mixin/index.html#robo_orchard_lab.models.mixin.ModelMixin" title="robo_orchard_lab.models.mixin.ModelMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_lab.models.mixin.ModelMixin</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_lab.models.mixin.ModelMixin</span></code></p>
 <p>A mixin class for PyTorch <cite>nn.Module</cite> providing model saving and loading utilities.</p>
 <p>This mixin standardizes how models are configured, saved, and loaded,
 integrating with a configuration system and supporting <cite>safetensors</cite>
@@ -805,7 +812,7 @@ for model weights.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.models.finegrasp.finegrasp.</span></span><span class="sig-name descname"><span class="pre">FineGraspConfig</span></span><a class="headerlink" href="#robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../mixin/index.html#robo_orchard_lab.models.mixin.TorchModuleCfg" title="robo_orchard_lab.models.mixin.TorchModuleCfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_lab.models.mixin.TorchModuleCfg</span></code></a>[<a class="reference internal" href="#robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp" title="robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FineGrasp</span></code></a>]</p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_lab.models.mixin.TorchModuleCfg</span></code>[<a class="reference internal" href="#robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp" title="robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FineGrasp</span></code></a>]</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig.class_type">
 <span class="sig-name descname"><span class="pre">class_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">robo_orchard_lab.models.mixin.ClassType_co</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp" title="robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp"><span class="pre">FineGrasp</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig.class_type" title="Link to this definition">¶</a></dt>

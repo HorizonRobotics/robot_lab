@@ -482,6 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../models/bip3d/utils/index.html">utils</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../models/codec/index.html">codec</a></li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/finegrasp/index.html">finegrasp</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5 has-children"><a class="reference internal" href="../../../models/finegrasp/backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../../models/finegrasp/backbone/minkunet/index.html">minkunet</a></li>
@@ -516,6 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../models/sem_modules/robot_state_encoder/index.html">robot_state_encoder</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../models/torch_model/index.html">torch_model</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -547,7 +549,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../../pipeline/trainer/index.html">trainer</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/padding/index.html">padding</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/build/index.html">build</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/env/index.html">env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/geometry/index.html">geometry</a></li>
@@ -613,23 +620,23 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature" title="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchTransform3DFeature</span></code></a></p></td>
-<td><p>A feature for storing batch frame transforms in a dataset.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3D" title="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchTransform3D</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3D" title="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchTransform3D</span></code></a></p></td>
 <td><p>A batch of 3D transformations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature" title="robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchPoseFeature</span></code></a></p></td>
-<td><p>A feature for storing batch poses in a dataset.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPose" title="robo_orchard_lab.dataset.datatypes.geometry.BatchPose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchPose</span></code></a></p></td>
-<td><p>A batch of 6D poses.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature" title="robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchFrameTransformFeature</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature" title="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchTransform3DFeature</span></code></a></p></td>
 <td><p>A feature for storing batch frame transforms in a dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransform" title="robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchFrameTransform</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPose" title="robo_orchard_lab.dataset.datatypes.geometry.BatchPose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchPose</span></code></a></p></td>
+<td><p>A batch of 6D poses.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature" title="robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchPoseFeature</span></code></a></p></td>
+<td><p>A feature for storing batch poses in a dataset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransform" title="robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchFrameTransform</span></code></a></p></td>
 <td><p>A batch of transformations between two coordinate frames in 3D space.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature" title="robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchFrameTransformFeature</span></code></a></p></td>
+<td><p>A feature for storing batch frame transforms in a dataset.</p></td>
 </tr>
 </tbody>
 </table>
@@ -637,43 +644,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.datatypes.geometry.</span></span><span class="sig-name descname"><span class="pre">BatchTransform3DFeature</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchTransform3DFeature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_lab.dataset.datatypes.hg_features.RODataFeature</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_lab.dataset.datatypes.hg_features.FeatureDecodeMixin</span></code></p>
-<p>A feature for storing batch frame transforms in a dataset.</p>
-<p>The underlying data is stored as a serialized numpy array
-with additional metadata about the frame transforms.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.dtype">
-<span class="sig-name descname"><span class="pre">dtype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'float32'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'float64'</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'float32'</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.dtype" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.decode">
-<span class="sig-name descname"><span class="pre">decode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.decode" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.pa_type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pa_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pyarrow.StructType</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.pa_type" title="Link to this definition">¶</a></dt>
-<dd><p>Return the pyarrow data type for this feature.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.encode_example">
-<span class="sig-name descname"><span class="pre">encode_example</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">robo_orchard_core.datatypes.geometry.BatchTransform3D</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchTransform3DFeature.encode_example"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.encode_example" title="Link to this definition">¶</a></dt>
-<dd><p>Encode the example value into a format suitable for storage.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.decode_example">
-<span class="sig-name descname"><span class="pre">decode_example</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3D" title="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3D"><span class="pre">BatchTransform3D</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchTransform3DFeature.decode_example"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.decode_example" title="Link to this definition">¶</a></dt>
-<dd><p>Decode the example value from its stored format.</p>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3D">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.datatypes.geometry.</span></span><span class="sig-name descname"><span class="pre">BatchTransform3D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchTransform3D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3D" title="Link to this definition">¶</a></dt>
@@ -689,29 +659,21 @@ useful when dealing with multiple objects or poses at once.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.datatypes.geometry.</span></span><span class="sig-name descname"><span class="pre">BatchPoseFeature</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchPoseFeature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature" title="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchTransform3DFeature</span></code></a></p>
-<p>A feature for storing batch poses in a dataset.</p>
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.datatypes.geometry.</span></span><span class="sig-name descname"><span class="pre">BatchTransform3DFeature</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchTransform3DFeature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_lab.dataset.datatypes.hg_features.RODictDataFeature</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_lab.dataset.datatypes.hg_features.TypedDictFeatureDecode</span></code></p>
+<p>A feature for storing batch frame transforms in a dataset.</p>
 <p>The underlying data is stored as a serialized numpy array
-with additional metadata about the poses.</p>
-<dl class="py property">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature.pa_type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pa_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pyarrow.StructType</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature.pa_type" title="Link to this definition">¶</a></dt>
-<dd><p>Return the pyarrow data type for this feature.</p>
-</dd></dl>
+with additional metadata about the frame transforms.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.dtype">
+<span class="sig-name descname"><span class="pre">dtype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'float32'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'float64'</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'float32'</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.dtype" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature.encode_example">
-<span class="sig-name descname"><span class="pre">encode_example</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">robo_orchard_core.datatypes.geometry.BatchPose</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchPoseFeature.encode_example"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature.encode_example" title="Link to this definition">¶</a></dt>
-<dd><p>Encode the example value into a format suitable for storage.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature.decode_example">
-<span class="sig-name descname"><span class="pre">decode_example</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPose" title="robo_orchard_lab.dataset.datatypes.geometry.BatchPose"><span class="pre">BatchPose</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchPoseFeature.decode_example"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature.decode_example" title="Link to this definition">¶</a></dt>
-<dd><p>Decode the example value from its stored format.</p>
-</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.decode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -736,30 +698,12 @@ specify the coordinate frame ID of reference for the pose.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.datatypes.geometry.</span></span><span class="sig-name descname"><span class="pre">BatchFrameTransformFeature</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchFrameTransformFeature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.datatypes.geometry.</span></span><span class="sig-name descname"><span class="pre">BatchPoseFeature</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchPoseFeature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature" title="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchTransform3DFeature</span></code></a></p>
-<p>A feature for storing batch frame transforms in a dataset.</p>
+<p>A feature for storing batch poses in a dataset.</p>
 <p>The underlying data is stored as a serialized numpy array
-with additional metadata about the frame transforms.</p>
-<dl class="py property">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature.pa_type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pa_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pyarrow.StructType</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature.pa_type" title="Link to this definition">¶</a></dt>
-<dd><p>Return the pyarrow data type for this feature.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature.encode_example">
-<span class="sig-name descname"><span class="pre">encode_example</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">robo_orchard_core.datatypes.geometry.BatchFrameTransform</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchFrameTransformFeature.encode_example"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature.encode_example" title="Link to this definition">¶</a></dt>
-<dd><p>Encode the example value into a format suitable for storage.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature.decode_example">
-<span class="sig-name descname"><span class="pre">decode_example</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransform" title="robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransform"><span class="pre">BatchFrameTransform</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchFrameTransformFeature.decode_example"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature.decode_example" title="Link to this definition">¶</a></dt>
-<dd><p>Decode the example value from its stored format.</p>
-</dd></dl>
-
+with additional metadata about the poses.</p>
 </dd></dl>
 
 <dl class="py class">
@@ -774,6 +718,15 @@ and all sample should share the same parent and child frames.</p>
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dataset_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'float32'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'float64'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'float32'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature" title="robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature"><span class="pre">BatchFrameTransformFeature</span></a></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchFrameTransform.dataset_feature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransform.dataset_feature" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.datatypes.geometry.</span></span><span class="sig-name descname"><span class="pre">BatchFrameTransformFeature</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/datatypes/geometry.html#BatchFrameTransformFeature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature" title="robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchTransform3DFeature</span></code></a></p>
+<p>A feature for storing batch frame transforms in a dataset.</p>
+<p>The underlying data is stored as a serialized numpy array
+with additional metadata about the frame transforms.</p>
 </dd></dl>
 
 </section>
@@ -844,38 +797,25 @@ and all sample should share the same parent and child frames.</p>
 <li><a class="reference internal" href="#">geometry</a><ul>
 <li><a class="reference internal" href="#classes">Classes</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature"><code class="docutils literal notranslate"><span class="pre">BatchTransform3DFeature</span></code></a><ul>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.dtype"><code class="docutils literal notranslate"><span class="pre">BatchTransform3DFeature.dtype</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.decode"><code class="docutils literal notranslate"><span class="pre">BatchTransform3DFeature.decode</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.pa_type"><code class="docutils literal notranslate"><span class="pre">BatchTransform3DFeature.pa_type</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.encode_example"><code class="docutils literal notranslate"><span class="pre">BatchTransform3DFeature.encode_example()</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.decode_example"><code class="docutils literal notranslate"><span class="pre">BatchTransform3DFeature.decode_example()</span></code></a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3D"><code class="docutils literal notranslate"><span class="pre">BatchTransform3D</span></code></a><ul>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3D.dataset_feature"><code class="docutils literal notranslate"><span class="pre">BatchTransform3D.dataset_feature()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature"><code class="docutils literal notranslate"><span class="pre">BatchPoseFeature</span></code></a><ul>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature.pa_type"><code class="docutils literal notranslate"><span class="pre">BatchPoseFeature.pa_type</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature.encode_example"><code class="docutils literal notranslate"><span class="pre">BatchPoseFeature.encode_example()</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature.decode_example"><code class="docutils literal notranslate"><span class="pre">BatchPoseFeature.decode_example()</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature"><code class="docutils literal notranslate"><span class="pre">BatchTransform3DFeature</span></code></a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.dtype"><code class="docutils literal notranslate"><span class="pre">BatchTransform3DFeature.dtype</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.decode"><code class="docutils literal notranslate"><span class="pre">BatchTransform3DFeature.decode</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPose"><code class="docutils literal notranslate"><span class="pre">BatchPose</span></code></a><ul>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPose.dataset_feature"><code class="docutils literal notranslate"><span class="pre">BatchPose.dataset_feature()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature"><code class="docutils literal notranslate"><span class="pre">BatchFrameTransformFeature</span></code></a><ul>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature.pa_type"><code class="docutils literal notranslate"><span class="pre">BatchFrameTransformFeature.pa_type</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature.encode_example"><code class="docutils literal notranslate"><span class="pre">BatchFrameTransformFeature.encode_example()</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature.decode_example"><code class="docutils literal notranslate"><span class="pre">BatchFrameTransformFeature.decode_example()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature"><code class="docutils literal notranslate"><span class="pre">BatchPoseFeature</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransform"><code class="docutils literal notranslate"><span class="pre">BatchFrameTransform</span></code></a><ul>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransform.dataset_feature"><code class="docutils literal notranslate"><span class="pre">BatchFrameTransform.dataset_feature()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature"><code class="docutils literal notranslate"><span class="pre">BatchFrameTransformFeature</span></code></a></li>
 </ul>
 </li>
 </ul>

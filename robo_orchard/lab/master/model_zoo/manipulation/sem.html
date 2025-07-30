@@ -451,6 +451,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/bip3d/utils/index.html">utils</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/codec/index.html">codec</a></li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/finegrasp/index.html">finegrasp</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5 has-children"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/finegrasp/backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/finegrasp/backbone/minkunet/index.html">minkunet</a></li>
@@ -485,6 +486,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/sem_modules/robot_state_encoder/index.html">robot_state_encoder</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/models/torch_model/index.html">torch_model</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../autoapi/robo_orchard_lab/ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -516,7 +518,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/pipeline/trainer/index.html">trainer</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../autoapi/robo_orchard_lab/transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/transforms/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/transforms/padding/index.html">padding</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/utils/build/index.html">build</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/utils/env/index.html">env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/robo_orchard_lab/utils/geometry/index.html">geometry</a></li>
@@ -637,10 +644,10 @@ and internal robot embodiment, resulting in more robust, generalizable, and prec
 <h2>Using the pretrained model<a class="headerlink" href="#using-the-pretrained-model" title="Link to this heading">¶</a></h2>
 <p>You can easily load and use pre-trained <strong>BIP3D</strong> models.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://pytorch.org/docs/stable/torch.html#module-torch" title="torch"><span class="nn">torch</span></a>
-<span class="kn">from</span> <a class="sphinx-codeautolink-a" href="../../autoapi/robo_orchard_lab/models/index.html#module-robo_orchard_lab.models" title="robo_orchard_lab.models"><span class="nn">robo_orchard_lab.models</span></a> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../autoapi/robo_orchard_lab/models/mixin/index.html#robo_orchard_lab.models.mixin.ModelMixin" title="robo_orchard_lab.models.mixin.ModelMixin"><span class="n">ModelMixin</span></a>
+<span class="kn">from</span> <a class="sphinx-codeautolink-a" href="../../autoapi/robo_orchard_lab/models/index.html#module-robo_orchard_lab.models" title="robo_orchard_lab.models"><span class="nn">robo_orchard_lab.models</span></a> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../autoapi/robo_orchard_lab/models/torch_model/index.html#robo_orchard_lab.models.torch_model.TorchModelMixin" title="robo_orchard_lab.models.torch_model.TorchModelMixin"><span class="n">ModelMixin</span></a>
 
 <span class="c1"># Load the pre-trained BIP3D Tiny Detection model from Hugging Face Hub</span>
-<a class="sphinx-codeautolink-a" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><span class="n">model</span></a><span class="p">:</span> <a class="sphinx-codeautolink-a" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../autoapi/robo_orchard_lab/models/mixin/index.html#robo_orchard_lab.models.mixin.ModelMixin.load_model" title="robo_orchard_lab.models.mixin.ModelMixin.load_model"><span class="n">ModelMixin</span><span class="o">.</span><span class="n">load_model</span></a><span class="p">(</span><span class="s2">"hf://HorizonRobotics/SEM-RoboTwin-Tiny"</span><span class="p">)</span>
+<a class="sphinx-codeautolink-a" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><span class="n">model</span></a><span class="p">:</span> <a class="sphinx-codeautolink-a" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../autoapi/robo_orchard_lab/models/torch_model/index.html#robo_orchard_lab.models.torch_model.TorchModelMixin.load_model" title="robo_orchard_lab.models.torch_model.TorchModelMixin.load_model"><span class="n">ModelMixin</span><span class="o">.</span><span class="n">load_model</span></a><span class="p">(</span><span class="s2">"hf://HorizonRobotics/SEM-RoboTwin-Tiny"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

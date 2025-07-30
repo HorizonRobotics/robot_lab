@@ -9,58 +9,16 @@ Classes
 
 .. autoapisummary::
 
-   robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature
    robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3D
-   robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature
+   robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature
    robo_orchard_lab.dataset.datatypes.geometry.BatchPose
-   robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature
+   robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature
    robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransform
+   robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature
 
 
 Module Contents
 ---------------
-
-.. py:class:: BatchTransform3DFeature
-
-   Bases: :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.RODataFeature`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.FeatureDecodeMixin`
-
-
-   A feature for storing batch frame transforms in a dataset.
-
-   The underlying data is stored as a serialized numpy array
-   with additional metadata about the frame transforms.
-
-
-   .. py:attribute:: dtype
-      :type:  Literal['float32', 'float64']
-      :value: 'float32'
-
-
-
-   .. py:attribute:: decode
-      :type:  bool
-      :value: True
-
-
-
-   .. py:property:: pa_type
-      :type: pyarrow.StructType
-
-
-      Return the pyarrow data type for this feature.
-
-
-   .. py:method:: encode_example(value: robo_orchard_core.datatypes.geometry.BatchTransform3D | None) -> dict | None
-
-      Encode the example value into a format suitable for storage.
-
-
-
-   .. py:method:: decode_example(value: dict | None, **kwargs) -> BatchTransform3D | None
-
-      Decode the example value from its stored format.
-
-
 
 .. py:class:: BatchTransform3D(*args, **kwargs)
 
@@ -78,33 +36,26 @@ Module Contents
 
 
 
-.. py:class:: BatchPoseFeature
+.. py:class:: BatchTransform3DFeature
 
-   Bases: :py:obj:`BatchTransform3DFeature`
+   Bases: :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.RODictDataFeature`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.TypedDictFeatureDecode`
 
 
-   A feature for storing batch poses in a dataset.
+   A feature for storing batch frame transforms in a dataset.
 
    The underlying data is stored as a serialized numpy array
-   with additional metadata about the poses.
+   with additional metadata about the frame transforms.
 
 
-   .. py:property:: pa_type
-      :type: pyarrow.StructType
-
-
-      Return the pyarrow data type for this feature.
-
-
-   .. py:method:: encode_example(value: robo_orchard_core.datatypes.geometry.BatchPose | None) -> dict | None
-
-      Encode the example value into a format suitable for storage.
+   .. py:attribute:: dtype
+      :type:  Literal['float32', 'float64']
+      :value: 'float32'
 
 
 
-   .. py:method:: decode_example(value: dict | None, **kwargs) -> BatchPose | None
-
-      Decode the example value from its stored format.
+   .. py:attribute:: decode
+      :type:  bool
+      :value: True
 
 
 
@@ -133,34 +84,15 @@ Module Contents
 
 
 
-.. py:class:: BatchFrameTransformFeature
+.. py:class:: BatchPoseFeature
 
    Bases: :py:obj:`BatchTransform3DFeature`
 
 
-   A feature for storing batch frame transforms in a dataset.
+   A feature for storing batch poses in a dataset.
 
    The underlying data is stored as a serialized numpy array
-   with additional metadata about the frame transforms.
-
-
-   .. py:property:: pa_type
-      :type: pyarrow.StructType
-
-
-      Return the pyarrow data type for this feature.
-
-
-   .. py:method:: encode_example(value: robo_orchard_core.datatypes.geometry.BatchFrameTransform | None) -> dict | None
-
-      Encode the example value into a format suitable for storage.
-
-
-
-   .. py:method:: decode_example(value: dict | None, **kwargs) -> BatchFrameTransform | None
-
-      Decode the example value from its stored format.
-
+   with additional metadata about the poses.
 
 
 .. py:class:: BatchFrameTransform(*args, **kwargs)
@@ -177,5 +109,16 @@ Module Contents
    .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchFrameTransformFeature
       :classmethod:
 
+
+
+.. py:class:: BatchFrameTransformFeature
+
+   Bases: :py:obj:`BatchTransform3DFeature`
+
+
+   A feature for storing batch frame transforms in a dataset.
+
+   The underlying data is stored as a serialized numpy array
+   with additional metadata about the frame transforms.
 
 

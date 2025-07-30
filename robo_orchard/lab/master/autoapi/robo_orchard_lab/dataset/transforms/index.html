@@ -188,7 +188,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -482,6 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../models/bip3d/utils/index.html">utils</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/codec/index.html">codec</a></li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../models/finegrasp/index.html">finegrasp</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5 has-children"><a class="reference internal" href="../../models/finegrasp/backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../models/finegrasp/backbone/minkunet/index.html">minkunet</a></li>
@@ -516,6 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../models/sem_modules/robot_state_encoder/index.html">robot_state_encoder</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/torch_model/index.html">torch_model</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -547,7 +549,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../pipeline/trainer/index.html">trainer</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/padding/index.html">padding</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../utils/build/index.html">build</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../utils/env/index.html">env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../utils/geometry/index.html">geometry</a></li>
@@ -600,7 +607,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -608,144 +615,6 @@ document.addEventListener('DOMContentLoaded', function() {
         <article role="main" id="furo-main-content">
           <section id="module-robo_orchard_lab.dataset.transforms">
 <span id="transforms"></span><h1>transforms<a class="headerlink" href="#module-robo_orchard_lab.dataset.transforms" title="Link to this heading">¶</a></h1>
-<section id="attributes">
-<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper autosummary longtable docutils container">
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransformType" title="robo_orchard_lab.dataset.transforms.RowDictTransformType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RowDictTransformType</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="classes">
-<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper autosummary longtable docutils container">
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransform" title="robo_orchard_lab.dataset.transforms.RowDictTransform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RowDictTransform</span></code></a></p></td>
-<td><p>A class that defines the interface for transforming a row dict.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransformConfig" title="robo_orchard_lab.dataset.transforms.RowDictTransformConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RowDictTransformConfig</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransform" title="robo_orchard_lab.dataset.transforms.ConcatDictTransform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConcatDictTransform</span></code></a></p></td>
-<td><p>A class that defines the interface for transforming a row dict.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig" title="robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConcatDictTransformConfig</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.RowDictTransform">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.transforms.</span></span><span class="sig-name descname"><span class="pre">RowDictTransform</span></span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/dataset/transforms.html#RowDictTransform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.RowDictTransform" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_core.datatypes.adaptor.TypeAdaptorImpl</span></code>[<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>, <a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>]</p>
-<p>A class that defines the interface for transforming a row dict.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.RowDictTransform.cfg">
-<span class="sig-name descname"><span class="pre">cfg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransformConfig" title="robo_orchard_lab.dataset.transforms.RowDictTransformConfig"><span class="pre">RowDictTransformConfig</span></a></em><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.RowDictTransform.cfg" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.RowDictTransform.input_columns">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">input_columns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.RowDictTransform.input_columns" title="Link to this definition">¶</a></dt>
-<dd><p>The input columns that this transform requires.</p>
-<p>This should be a list of column names that are required
-for the transformation. The transform method will be called
-with these columns as keyword arguments.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.RowDictTransform.transform">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span></span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/dataset/transforms.html#RowDictTransform.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.RowDictTransform.transform" title="Link to this definition">¶</a></dt>
-<dd><p>Transform the input columns into a new row dict to be updated.</p>
-<p>All input columns will be passed as keyword arguments.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.RowDictTransformType">
-<span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.transforms.</span></span><span class="sig-name descname"><span class="pre">RowDictTransformType</span></span><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.RowDictTransformType" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.RowDictTransformConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.transforms.</span></span><span class="sig-name descname"><span class="pre">RowDictTransformConfig</span></span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/dataset/transforms.html#RowDictTransformConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.RowDictTransformConfig" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">robo_orchard_core.utils.config.ClassConfig</span></code>[<a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransformType" title="robo_orchard_lab.dataset.transforms.RowDictTransformType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RowDictTransformType</span></code></a>]</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.RowDictTransformConfig.class_type">
-<span class="sig-name descname"><span class="pre">class_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">RowDictTransformType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.RowDictTransformConfig.class_type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.RowDictTransformConfig.input_column_mapping">
-<span class="sig-name descname"><span class="pre">input_column_mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.RowDictTransformConfig.input_column_mapping" title="Link to this definition">¶</a></dt>
-<dd><p>The input columns that need to be mapped to fit
-the transform’s input_columns.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.RowDictTransformConfig.output_column_mapping">
-<span class="sig-name descname"><span class="pre">output_column_mapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.RowDictTransformConfig.output_column_mapping" title="Link to this definition">¶</a></dt>
-<dd><p>The output columns that the transform will produce.
-This should be a mapping from the output column names to the
-names that the transform will use to return the transformed values.
-If the transform does not produce any output, this can be an empty dict.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.ConcatDictTransform">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.transforms.</span></span><span class="sig-name descname"><span class="pre">ConcatDictTransform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig" title="robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig"><span class="pre">ConcatDictTransformConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/dataset/transforms.html#ConcatDictTransform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransform" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransform" title="robo_orchard_lab.dataset.transforms.RowDictTransform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RowDictTransform</span></code></a></p>
-<p>A class that defines the interface for transforming a row dict.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.ConcatDictTransform.cfg">
-<span class="sig-name descname"><span class="pre">cfg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig" title="robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig"><span class="pre">ConcatDictTransformConfig</span></a></em><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransform.cfg" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.ConcatDictTransform.input_columns">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">input_columns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransform.input_columns" title="Link to this definition">¶</a></dt>
-<dd><p>Get the input columns for this transform.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.ConcatDictTransform.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><span class="pre">dict</span></a></span></span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/dataset/transforms.html#ConcatDictTransform.transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransform.transform" title="Link to this definition">¶</a></dt>
-<dd><p>Transform the input columns into a new row dict to be updated.</p>
-<p>All input columns will be passed as keyword arguments.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.transforms.</span></span><span class="sig-name descname"><span class="pre">ConcatDictTransformConfig</span></span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/dataset/transforms.html#ConcatDictTransformConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransformConfig" title="robo_orchard_lab.dataset.transforms.RowDictTransformConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RowDictTransformConfig</span></code></a>[<a class="reference internal" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransform" title="robo_orchard_lab.dataset.transforms.ConcatDictTransform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConcatDictTransform</span></code></a>]</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig.class_type">
-<span class="sig-name descname"><span class="pre">class_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransform" title="robo_orchard_lab.dataset.transforms.ConcatDictTransform"><span class="pre">ConcatDictTransform</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig.class_type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig.transforms">
-<span class="sig-name descname"><span class="pre">transforms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransformConfig" title="robo_orchard_lab.dataset.transforms.RowDictTransformConfig"><span class="pre">RowDictTransformConfig</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransform" title="robo_orchard_lab.dataset.transforms.RowDictTransform"><span class="pre">RowDictTransform</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig.transforms" title="Link to this definition">¶</a></dt>
-<dd><p>A sequence of transforms to apply to the input columns.</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
 </section>
 
         </article>
@@ -798,55 +667,8 @@ If the transform does not produce any output, this can be an empty dict.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">transforms</a><ul>
-<li><a class="reference internal" href="#attributes">Attributes</a></li>
-<li><a class="reference internal" href="#classes">Classes</a></li>
-<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransform"><code class="docutils literal notranslate"><span class="pre">RowDictTransform</span></code></a><ul>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransform.cfg"><code class="docutils literal notranslate"><span class="pre">RowDictTransform.cfg</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransform.input_columns"><code class="docutils literal notranslate"><span class="pre">RowDictTransform.input_columns</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransform.transform"><code class="docutils literal notranslate"><span class="pre">RowDictTransform.transform()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransformType"><code class="docutils literal notranslate"><span class="pre">RowDictTransformType</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransformConfig"><code class="docutils literal notranslate"><span class="pre">RowDictTransformConfig</span></code></a><ul>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransformConfig.class_type"><code class="docutils literal notranslate"><span class="pre">RowDictTransformConfig.class_type</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransformConfig.input_column_mapping"><code class="docutils literal notranslate"><span class="pre">RowDictTransformConfig.input_column_mapping</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.RowDictTransformConfig.output_column_mapping"><code class="docutils literal notranslate"><span class="pre">RowDictTransformConfig.output_column_mapping</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransform"><code class="docutils literal notranslate"><span class="pre">ConcatDictTransform</span></code></a><ul>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransform.cfg"><code class="docutils literal notranslate"><span class="pre">ConcatDictTransform.cfg</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransform.input_columns"><code class="docutils literal notranslate"><span class="pre">ConcatDictTransform.input_columns</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransform.transform"><code class="docutils literal notranslate"><span class="pre">ConcatDictTransform.transform()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig"><code class="docutils literal notranslate"><span class="pre">ConcatDictTransformConfig</span></code></a><ul>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig.class_type"><code class="docutils literal notranslate"><span class="pre">ConcatDictTransformConfig.class_type</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig.transforms"><code class="docutils literal notranslate"><span class="pre">ConcatDictTransformConfig.transforms</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

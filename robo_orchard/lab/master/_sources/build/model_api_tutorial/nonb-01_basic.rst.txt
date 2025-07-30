@@ -248,7 +248,7 @@ for seamless integration with the 🤗 Accelerate training library.
  .. code-block:: none
 
 
-    <torch.utils.hooks.RemovableHandle object at 0x7f91def64ac0>
+    <torch.utils.hooks.RemovableHandle object at 0x7fe92b860460>
 
 
 

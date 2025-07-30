@@ -10,7 +10,9 @@ Classes
 .. autoapisummary::
 
    robo_orchard_lab.dataset.datatypes.hg_features.base.FeatureDecodeMixin
+   robo_orchard_lab.dataset.datatypes.hg_features.base.TypedDictFeatureDecode
    robo_orchard_lab.dataset.datatypes.hg_features.base.RODataFeature
+   robo_orchard_lab.dataset.datatypes.hg_features.base.RODictDataFeature
    robo_orchard_lab.dataset.datatypes.hg_features.base.ToDataFeatureMixin
 
 
@@ -32,9 +34,29 @@ Module Contents
    Mixin class for features that support decoding.
 
 
-   .. py:method:: decode_example(value: Any) -> Any
+   .. py:method:: decode_example(value: Any, **kwargs) -> Any
       :abstractmethod:
 
+
+      Decode the example value from its stored format.
+
+
+
+.. py:class:: TypedDictFeatureDecode
+
+   Bases: :py:obj:`FeatureDecodeMixin`
+
+
+   Mixin class for features that support decoding.
+
+
+   .. py:attribute:: decode
+      :type:  bool
+      :value: True
+
+
+
+   .. py:method:: decode_example(value: Any, **kwargs) -> Any
 
       Decode the example value from its stored format.
 
@@ -66,6 +88,52 @@ Module Contents
 
 
 
+.. py:class:: RODictDataFeature
+
+   Bases: :py:obj:`RODataFeature`
+
+
+   A feature that is composed of a dictionary of features.
+
+   This class provide a easy way to define a feature that is a dictionary
+   of features. It is useful for defining complex features that are
+   composed of multiple fields. The user should define the `_dict` attribute
+   as a dictionary mapping field names to features. The keys of the dictionary
+   are the field names, and the values are the features.
+
+
+
+   .. py:property:: pa_type
+      :type: pyarrow.DataType
+
+
+      Return the pyarrow data type for this feature.
+
+
+   .. py:method:: encode_example(value: Any) -> Any
+
+      Encode the example value into a format suitable for storage.
+
+
+
+   .. py:method:: items()
+
+      Return the items of the dictionary.
+
+
+
+   .. py:method:: keys()
+
+      Return the keys of the dictionary.
+
+
+
+   .. py:method:: values()
+
+      Return the values of the dictionary.
+
+
+
 .. py:class:: ToDataFeatureMixin
 
    Mixin class for features that can be converted to a pyarrow DataType.
@@ -75,6 +143,12 @@ Module Contents
       :classmethod:
 
       :abstractmethod:
+
+
+
+   .. py:method:: get(key: str, default: Any = None) -> Any
+
+      Get the value of the feature by key.
 
 
 

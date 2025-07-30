@@ -16,7 +16,7 @@ Classes
 Module Contents
 ---------------
 
-.. py:class:: RODataset(dataset_path: str, storage_options: dict | None = None, meta_index2meta: bool = True)
+.. py:class:: RODataset(dataset_path: str, storage_options: dict | None = None, meta_index2meta: bool = False)
 
    Bases: :py:obj:`TorchDataset`
 
@@ -68,7 +68,114 @@ Module Contents
       objects when accessing the dataset.
 
 
+   .. py:property:: features
+      :type: datasets.Features
+
+
+
+   .. py:method:: select_columns(column_names: str | list[str], new_fingerprint: str | None = None) -> RODataset
+
+      Select one or more columns from the dataset.
+
+      :param column_names: The name(s) of the column(s) to
+                           select. If a single column name is provided, it can be a
+                           string.
+      :type column_names: str | list[str]
+      :param new_fingerprint: The new fingerprint of
+                              the frame dataset after transform. If `None`, the new
+                              fingerprint is computed using a hash of the previous
+                              fingerprint, and the transform arguments. This argument is
+                              used in the `select_columns` method of the Hugging Face
+                              Dataset to ensure that the dataset is properly cached and
+                              can be loaded efficiently
+                              in the future. Defaults to None.
+      :type new_fingerprint: str | None, optional
+
+      :returns: A new instance of `RODataset` with the selected columns.
+      :rtype: RODataset
+
+
+
+   .. py:method:: save_to_disk(dataset_path: str, max_shard_size: str | int = '2000MB', num_shards: int | None = None, num_proc: int | None = None, storage_options: dict | None = None)
+
+      Saves a dataset to filesystem.
+
+      :param dataset_path: The path to the dataset directory where
+                           the dataset will be saved.
+      :type dataset_path: str
+      :param max_shard_size: The maximum size of
+                             each shard. Defaults to "2000MB". This can be a string
+                             (e.g., "2000MB") or an integer (e.g., 2000 * 1024 * 1024
+                             for 2000MB).
+      :type max_shard_size: str | int , optional
+      :param num_shards: The number of shards to create.
+                         Number of shards to write. By default the number of shards
+                         depends on `max_shard_size` and `num_proc`.
+      :type num_shards: int | None, optional
+      :param num_proc: The number of processes to use
+                       for saving the dataset. Defaults to None.
+      :type num_proc: int | None, optional
+      :param storage_options: Additional Key/value pairs
+                              to be passed on to the file-system backend, if any. Defaults
+                              to None.
+      :type storage_options: dict | None, optional
+
+
+
+   .. py:method:: select(indices: Iterable, keep_in_memory: bool = False, indices_cache_file_name: str | None = None, writer_batch_size: int = 1000, new_fingerprint: str | None = None) -> RODataset
+
+      Select a subset of the dataset based on indices.
+
+      This method is similar to the `select` method in Hugging Face
+      Datasets.
+
+      :param indices: The indices of the frames to select.
+                      This can be a list of integers or a slice object.
+      :type indices: Iterable
+      :param keep_in_memory: Whether to keep the indices
+                             mapping in memory instead of writing to a cache file. If
+                             indices is too large, it is recommended to set this
+                             to False to avoid memory issues. Defaults to False.
+      :type keep_in_memory: bool, optional
+      :param indices_cache_file_name: The name of the
+                                      cache file to store the indices mapping. If `None`, the
+                                      indices mapping will not be cached. This argument should
+                                      be set to a valid file path if `keep_in_memory` is False.
+                                      Defaults to None.
+      :type indices_cache_file_name: str | None, optional
+      :param writer_batch_size: The batch size to use
+                                when writing the indices mapping to the cache file. Higher
+                                batch size can improve performance, but may also increase
+                                memory usage. Defaults to 1000.
+      :type writer_batch_size: int , optional
+      :param new_fingerprint: The new fingerprint of
+                              the frame dataset after transform. If `None`, the new
+                              fingerprint is computed using a hash of the previous
+                              fingerprint, and the transform arguments.
+      :type new_fingerprint: str | None, optional
+
+
+
+   .. py:method:: convert_meta_index2meta(data: dict[str, Any]) -> dict[str, Any]
+                  convert_meta_index2meta(data: list[Any], column_name: str) -> list[Any]
+
+      Convert the metadata index in `data` to actual metadata objects.
+
+      :param data: The data to convert. If `data` is a dict
+                   with index-based metadata, it will be converted to actual
+                   metadata objects. If `data` is a list, it will be converted
+                   to a list of metadata objects.
+      :type data: dict | list
+      :param column_name: The name of the column
+                          to convert. If `data` is a list, this argument must be
+                          provided to convert the index-based metadata to actual
+                          metadata objects. Defaults to None.
+      :type column_name: str | None, optional
+
+
+
    .. py:method:: get_meta(meta_type: type[MetaType], index: int | None) -> MetaType | None
+                  get_meta(meta_type: type[MetaType], index: list[int | None] | datasets.arrow_dataset.Column) -> list[MetaType | None]
 
       Get metadata of a specific type.
 
@@ -78,9 +185,16 @@ Module Contents
 
       :param meta_type: The type of metadata to retrieve.
       :type meta_type: type[MetaType]
-      :param index: The index of the metadata to retrieve.
-                    If None, returns None.
-      :type index: int | None
+      :param index: The index of the metadata
+                    to retrieve. If None, returns None.
+      :type index: int | None | list[int | None]
+
+      :returns:
+
+                The metadata object or
+                    None if not found. If `index` is a list, returns a list of
+                    metadata objects or None for each index.
+      :rtype: MetaType | None | list[MetaType | None]
 
 
 
@@ -121,5 +235,19 @@ Module Contents
                            metadata to actual metadata objects when accessing the dataset.
                            Defaults to True.
    :type meta_index2meta: bool, optional
+
+
+   .. py:method:: from_dataset(dataset: RODataset, row_sampler: robo_orchard_lab.dataset.robot.row_sampler.MultiRowSamplerConfig) -> ROMultiRowDataset
+      :staticmethod:
+
+
+      Create a ROMultiRowDataset from an existing RODataset.
+
+      :param dataset: The base dataset to extend.
+      :type dataset: RODataset
+      :param row_sampler: The configuration for the
+                          multi-row sampler.
+      :type row_sampler: MultiRowSamplerConfig
+
 
 

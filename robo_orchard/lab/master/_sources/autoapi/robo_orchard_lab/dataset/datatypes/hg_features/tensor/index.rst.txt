@@ -58,14 +58,13 @@ Module Contents
 
 .. py:class:: TypedTensorFeature
 
-   Bases: :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.base.RODataFeature`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.base.FeatureDecodeMixin`
+   Bases: :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.base.RODictDataFeature`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.base.FeatureDecodeMixin`
 
 
    A feature for storing typed tensors in a dataset.
 
    The underlying data is stored as a flattened numpy array
    with shape information.
-
 
 
    .. py:attribute:: dtype
@@ -82,13 +81,6 @@ Module Contents
       :type:  bool
       :value: True
 
-
-
-   .. py:property:: pa_type
-      :type: pyarrow.DataType
-
-
-      Return the pyarrow data type for this feature.
 
 
    .. py:method:: encode_example(value: numpy.ndarray | torch.Tensor | None) -> TensorFeatureSerialized | None

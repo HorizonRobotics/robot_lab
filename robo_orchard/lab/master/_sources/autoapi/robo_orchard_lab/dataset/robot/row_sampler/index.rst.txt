@@ -32,6 +32,11 @@ Module Contents
 
       Sample a list of row indices from the index dataset.
 
+      :param index_dataset: The dataset from which to sample rows.
+      :type index_dataset: HFDataset
+      :param index: The index or indices to sample.
+      :type index: int
+
       :returns: A dictionary where keys are column
                 names and values are lists of row indices.
       :rtype: dict[str, list[int | None]]
@@ -86,6 +91,11 @@ Module Contents
 
       Sample a list of row indices from the index dataset.
 
+      :param index_dataset: The dataset from which to sample rows.
+      :type index_dataset: HFDataset
+      :param index: The index or indices to sample.
+      :type index: int
+
       :returns: A dictionary where keys are column
                 names and values are lists of row indices.
       :rtype: dict[str, list[int | None]]
@@ -98,6 +108,11 @@ Module Contents
 
 
    Configuration class for DeltaTimestampSampler.
+
+   This configuration define the sampling strategy based on delta timestamps
+   for each column. It allows specifying the delta timestamps and the
+   tolerance for matching timestamps.
+
 
 
    .. py:attribute:: class_type

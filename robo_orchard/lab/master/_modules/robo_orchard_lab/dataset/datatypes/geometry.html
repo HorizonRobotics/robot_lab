@@ -481,6 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/bip3d/utils/index.html">utils</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/codec/index.html">codec</a></li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/index.html">finegrasp</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/backbone/minkunet/index.html">minkunet</a></li>
@@ -515,6 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/sem_modules/robot_state_encoder/index.html">robot_state_encoder</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/torch_model/index.html">torch_model</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -546,7 +548,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/pipeline/trainer/index.html">trainer</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/transforms/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/transforms/padding/index.html">padding</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/build/index.html">build</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/env/index.html">env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/geometry/index.html">geometry</a></li>
@@ -617,11 +624,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="c1"># permissions and limitations under the License.</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
-<span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
 
-<span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+<span class="kn">import</span> <span class="nn">datasets</span> <span class="k">as</span> <span class="nn">hg_datasets</span>
 <span class="kn">from</span> <span class="nn">robo_orchard_core.datatypes.geometry</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">BatchFrameTransform</span> <span class="k">as</span> <span class="n">_BatchFrameTransform</span><span class="p">,</span>
     <span class="n">BatchPose</span> <span class="k">as</span> <span class="n">_BatchPose</span><span class="p">,</span>
@@ -629,9 +635,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.dataset.datatypes.hg_features</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">FeatureDecodeMixin</span><span class="p">,</span>
-    <span class="n">RODataFeature</span><span class="p">,</span>
+    <span class="n">RODictDataFeature</span><span class="p">,</span>
     <span class="n">ToDataFeatureMixin</span><span class="p">,</span>
+    <span class="n">TypedDictFeatureDecode</span><span class="p">,</span>
     <span class="n">check_fields_consistency</span><span class="p">,</span>
     <span class="n">hg_dataset_feature</span><span class="p">,</span>
 <span class="p">)</span>
@@ -649,77 +655,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="p">]</span>
 
 
-<div class="viewcode-block" id="BatchTransform3DFeature">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/geometry/index.html#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature">[docs]</a>
-<span class="nd">@hg_dataset_feature</span>
-<span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">BatchTransform3DFeature</span><span class="p">(</span><span class="n">RODataFeature</span><span class="p">,</span> <span class="n">FeatureDecodeMixin</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature for storing batch frame transforms in a dataset.</span>
-
-<span class="sd">    The underlying data is stored as a serialized numpy array</span>
-<span class="sd">    with additional metadata about the frame transforms.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">dtype</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="s2">&quot;float64&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span>
-    <span class="n">decode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_typed_tensor_feature</span> <span class="o">=</span> <span class="n">TypedTensorFeature</span><span class="p">(</span>
-            <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">as_torch_tensor</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">pa_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pa</span><span class="o">.</span><span class="n">StructType</span><span class="p">:</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="n">_BatchTransform3D</span><span class="o">.</span><span class="n">model_fields</span>
-
-        <span class="n">ret_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">DataType</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">ret_dict</span><span class="p">[</span><span class="s2">&quot;xyz&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typed_tensor_feature</span><span class="o">.</span><span class="n">pa_type</span>
-        <span class="n">ret_dict</span><span class="p">[</span><span class="s2">&quot;quat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typed_tensor_feature</span><span class="o">.</span><span class="n">pa_type</span>
-        <span class="n">ret_dict</span><span class="p">[</span><span class="s2">&quot;timestamps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">list_</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">int64</span><span class="p">())</span>
-
-        <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">field_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ret_dict</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Field </span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2"> has no type defined in &quot;</span>
-                    <span class="s2">&quot;BatchTransform3DFeature. This means that the &quot;</span>
-                    <span class="s2">&quot;feature is not fully implemented.&quot;</span>
-                <span class="p">)</span>
-        <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">struct</span><span class="p">([</span><span class="n">pa</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ret_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
-
-<div class="viewcode-block" id="BatchTransform3DFeature.encode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/geometry/index.html#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.encode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">encode_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_BatchTransform3D</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">tensor_feature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typed_tensor_feature</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;xyz&quot;</span><span class="p">:</span> <span class="n">tensor_feature</span><span class="o">.</span><span class="n">encode_example</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">xyz</span><span class="p">),</span>
-            <span class="s2">&quot;quat&quot;</span><span class="p">:</span> <span class="n">tensor_feature</span><span class="o">.</span><span class="n">encode_example</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">quat</span><span class="p">),</span>
-            <span class="s2">&quot;timestamps&quot;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">timestamps</span><span class="p">,</span>
-        <span class="p">}</span></div>
-
-
-<div class="viewcode-block" id="BatchTransform3DFeature.decode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/geometry/index.html#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature.decode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">decode_example</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchTransform3D</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="s2">&quot;Decoding is disabled for this feature. Please use &quot;</span>
-                <span class="s2">&quot;BatchTransform3DFeature(decode=True) instead.&quot;</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">tensor_feature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typed_tensor_feature</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="n">value</span><span class="p">[</span><span class="s2">&quot;xyz&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tensor_feature</span><span class="o">.</span><span class="n">decode_example</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;xyz&quot;</span><span class="p">])</span>
-        <span class="n">value</span><span class="p">[</span><span class="s2">&quot;quat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tensor_feature</span><span class="o">.</span><span class="n">decode_example</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;quat&quot;</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">BatchTransform3D</span><span class="p">(</span><span class="o">**</span><span class="n">value</span><span class="p">)</span></div>
-</div>
-
-
-
 <div class="viewcode-block" id="BatchTransform3D">
 <a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/geometry/index.html#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3D">[docs]</a>
 <span class="k">class</span> <span class="nc">BatchTransform3D</span><span class="p">(</span><span class="n">_BatchTransform3D</span><span class="p">,</span> <span class="n">ToDataFeatureMixin</span><span class="p">):</span>
@@ -730,55 +665,42 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="bp">cls</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="s2">&quot;float64&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchTransform3DFeature</span><span class="p">:</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="n">BatchTransform3DFeature</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-
         <span class="n">check_fields_consistency</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">ret</span><span class="o">.</span><span class="n">pa_type</span><span class="p">)</span>
-
         <span class="k">return</span> <span class="n">ret</span></div>
 </div>
 
 
 
-<div class="viewcode-block" id="BatchPoseFeature">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/geometry/index.html#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature">[docs]</a>
+<div class="viewcode-block" id="BatchTransform3DFeature">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/geometry/index.html#robo_orchard_lab.dataset.datatypes.geometry.BatchTransform3DFeature">[docs]</a>
 <span class="nd">@hg_dataset_feature</span>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">BatchPoseFeature</span><span class="p">(</span><span class="n">BatchTransform3DFeature</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature for storing batch poses in a dataset.</span>
+<span class="k">class</span> <span class="nc">BatchTransform3DFeature</span><span class="p">(</span><span class="n">RODictDataFeature</span><span class="p">,</span> <span class="n">TypedDictFeatureDecode</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature for storing batch frame transforms in a dataset.</span>
 
 <span class="sd">    The underlying data is stored as a serialized numpy array</span>
-<span class="sd">    with additional metadata about the poses.</span>
+<span class="sd">    with additional metadata about the frame transforms.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">pa_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pa</span><span class="o">.</span><span class="n">StructType</span><span class="p">:</span>
-        <span class="n">parent_fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">pa_type</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
-        <span class="n">parent_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;frame_id&quot;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">string</span><span class="p">()))</span>
-        <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">struct</span><span class="p">(</span><span class="n">parent_fields</span><span class="p">)</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="s2">&quot;float64&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span>
+    <span class="n">decode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">_decode_type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">BatchTransform3D</span>
 
-<div class="viewcode-block" id="BatchPoseFeature.encode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/geometry/index.html#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature.encode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">encode_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_BatchPose</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">parent_ret</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">encode_example</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">parent_ret</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="n">parent_ret</span><span class="p">[</span><span class="s2">&quot;frame_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">frame_id</span>
-        <span class="k">return</span> <span class="n">parent_ret</span></div>
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">typed_tensor_feature</span> <span class="o">=</span> <span class="n">TypedTensorFeature</span><span class="p">(</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">as_torch_tensor</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;xyz&quot;</span><span class="p">:</span> <span class="n">typed_tensor_feature</span><span class="p">,</span>
+            <span class="s2">&quot;quat&quot;</span><span class="p">:</span> <span class="n">typed_tensor_feature</span><span class="p">,</span>
+            <span class="s2">&quot;timestamps&quot;</span><span class="p">:</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">Sequence</span><span class="p">(</span><span class="n">hg_datasets</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;int64&quot;</span><span class="p">)),</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_dict&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="p">,</span> <span class="n">Field</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span> <span class="o">=</span> <span class="p">{}</span>
 
-
-<div class="viewcode-block" id="BatchPoseFeature.decode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/geometry/index.html#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature.decode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">decode_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchPose</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="s2">&quot;Decoding is disabled for this feature. Please use &quot;</span>
-                <span class="s2">&quot;BatchPoseFeature(decode=True) instead.&quot;</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">parent_ret</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">decode_example</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">BatchPose</span><span class="p">(</span><span class="n">frame_id</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;frame_id&quot;</span><span class="p">],</span> <span class="o">**</span><span class="n">parent_ret</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span></div>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="p">)</span></div>
 
 
 
@@ -798,57 +720,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<div class="viewcode-block" id="BatchFrameTransformFeature">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/geometry/index.html#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature">[docs]</a>
+<div class="viewcode-block" id="BatchPoseFeature">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/geometry/index.html#robo_orchard_lab.dataset.datatypes.geometry.BatchPoseFeature">[docs]</a>
 <span class="nd">@hg_dataset_feature</span>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">BatchFrameTransformFeature</span><span class="p">(</span><span class="n">BatchTransform3DFeature</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature for storing batch frame transforms in a dataset.</span>
+<span class="k">class</span> <span class="nc">BatchPoseFeature</span><span class="p">(</span><span class="n">BatchTransform3DFeature</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature for storing batch poses in a dataset.</span>
 
 <span class="sd">    The underlying data is stored as a serialized numpy array</span>
-<span class="sd">    with additional metadata about the frame transforms.</span>
+<span class="sd">    with additional metadata about the poses.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">pa_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pa</span><span class="o">.</span><span class="n">StructType</span><span class="p">:</span>
-        <span class="n">parent_fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">pa_type</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
-        <span class="n">parent_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;parent_frame_id&quot;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">string</span><span class="p">()))</span>
-        <span class="n">parent_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;child_frame_id&quot;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">string</span><span class="p">()))</span>
-        <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">struct</span><span class="p">(</span><span class="n">parent_fields</span><span class="p">)</span>
+    <span class="n">_decode_type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">BatchPose</span>
 
-<div class="viewcode-block" id="BatchFrameTransformFeature.encode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/geometry/index.html#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature.encode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">encode_example</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_BatchFrameTransform</span> <span class="o">|</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">parent_ret</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">encode_example</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">parent_ret</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="n">parent_ret</span><span class="p">[</span><span class="s2">&quot;parent_frame_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">parent_frame_id</span>
-        <span class="n">parent_ret</span><span class="p">[</span><span class="s2">&quot;child_frame_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">child_frame_id</span>
-        <span class="k">return</span> <span class="n">parent_ret</span></div>
-
-
-<div class="viewcode-block" id="BatchFrameTransformFeature.decode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/geometry/index.html#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature.decode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">decode_example</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchFrameTransform</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="s2">&quot;Decoding is disabled for this feature. Please use &quot;</span>
-                <span class="s2">&quot;BatchFrameTransformFeature(decode=True) instead.&quot;</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">parent_ret</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">decode_example</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">BatchFrameTransform</span><span class="p">(</span>
-            <span class="n">parent_frame_id</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;parent_frame_id&quot;</span><span class="p">],</span>
-            <span class="n">child_frame_id</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;child_frame_id&quot;</span><span class="p">],</span>
-            <span class="o">**</span><span class="n">parent_ret</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">,</span>
-        <span class="p">)</span></div>
-</div>
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="p">[</span><span class="s2">&quot;frame_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">)</span></div>
 
 
 
@@ -865,6 +752,26 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="n">check_fields_consistency</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">ret</span><span class="o">.</span><span class="n">pa_type</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 </div>
+
+
+
+<div class="viewcode-block" id="BatchFrameTransformFeature">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/geometry/index.html#robo_orchard_lab.dataset.datatypes.geometry.BatchFrameTransformFeature">[docs]</a>
+<span class="nd">@hg_dataset_feature</span>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">BatchFrameTransformFeature</span><span class="p">(</span><span class="n">BatchTransform3DFeature</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature for storing batch frame transforms in a dataset.</span>
+
+<span class="sd">    The underlying data is stored as a serialized numpy array</span>
+<span class="sd">    with additional metadata about the frame transforms.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_decode_type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">BatchFrameTransform</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="p">[</span><span class="s2">&quot;parent_frame_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="p">[</span><span class="s2">&quot;child_frame_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">)</span></div>
 
 </pre></div>
         </article>

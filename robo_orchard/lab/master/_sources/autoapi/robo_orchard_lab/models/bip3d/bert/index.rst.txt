@@ -115,8 +115,6 @@ Module Contents
 
 
    .. py:attribute:: tokenizer
-      :value: False
-
 
 
    .. py:attribute:: language_backbone

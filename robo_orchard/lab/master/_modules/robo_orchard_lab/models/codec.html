@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>robo_orchard_lab.dataset.transforms - RoboOrchard Lab</title>
+        <title>robo_orchard_lab.models.codec - RoboOrchard Lab</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
@@ -481,6 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/bip3d/utils/index.html">utils</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/codec/index.html">codec</a></li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/index.html">finegrasp</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5 has-children"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/backbone/minkunet/index.html">minkunet</a></li>
@@ -515,6 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/sem_modules/robot_state_encoder/index.html">robot_state_encoder</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/torch_model/index.html">torch_model</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -546,7 +548,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/pipeline/trainer/index.html">trainer</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/transforms/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/transforms/padding/index.html">padding</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/utils/build/index.html">build</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/utils/env/index.html">env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/utils/geometry/index.html">geometry</a></li>
@@ -599,7 +606,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for robo_orchard_lab.dataset.transforms</h1><div class="highlight"><pre>
+          <h1>Source code for robo_orchard_lab.models.codec</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Project RoboOrchard</span>
 <span class="c1">#</span>
 <span class="c1"># Copyright (c) 2024-2025 Horizon Robotics. All Rights Reserved.</span>
@@ -616,158 +623,36 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="c1"># implied. See the License for the specific language governing</span>
 <span class="c1"># permissions and limitations under the License.</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
-<span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TypeVar</span>
 
-<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Field</span>
-<span class="kn">from</span> <span class="nn">robo_orchard_core.datatypes.adaptor</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">TypeAdaptorImpl</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">robo_orchard_core.utils.config</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">ClassConfig</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">import</span> <span class="nn">torch</span>
 
 
-<div class="viewcode-block" id="RowDictTransform">
-<a class="viewcode-back" href="../../../autoapi/robo_orchard_lab/dataset/transforms/index.html#robo_orchard_lab.dataset.transforms.RowDictTransform">[docs]</a>
-<span class="k">class</span> <span class="nc">RowDictTransform</span><span class="p">(</span><span class="n">TypeAdaptorImpl</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A class that defines the interface for transforming a row dict.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="CodecMixin">
+<a class="viewcode-back" href="../../../autoapi/robo_orchard_lab/models/codec/index.html#robo_orchard_lab.models.codec.CodecMixin">[docs]</a>
+<span class="k">class</span> <span class="nc">CodecMixin</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;CodecMixin is an API for encoding and decoding data.</span>
 
-    <span class="n">cfg</span><span class="p">:</span> <span class="n">RowDictTransformConfig</span>
+<span class="sd">    The codec concept is suitable for `Tokenizer`, `VAE`, and other models</span>
+<span class="sd">    that transform data into a different representation and back.</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">input_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The input columns that this transform requires.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<span class="sd">        This should be a list of column names that are required</span>
-<span class="sd">        for the transformation. The transform method will be called</span>
-<span class="sd">        with these columns as keyword arguments.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># use inspect to get the parameters of the transform method</span>
-        <span class="n">sig</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="n">param</span><span class="o">.</span><span class="n">name</span>
-            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;self&quot;</span>
-        <span class="p">]</span>
-
-<div class="viewcode-block" id="RowDictTransform.transform">
-<a class="viewcode-back" href="../../../autoapi/robo_orchard_lab/dataset/transforms/index.html#robo_orchard_lab.dataset.transforms.RowDictTransform.transform">[docs]</a>
+<div class="viewcode-block" id="CodecMixin.encode">
+<a class="viewcode-back" href="../../../autoapi/robo_orchard_lab/models/codec/index.html#robo_orchard_lab.models.codec.CodecMixin.encode">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transform the input columns into a new row dict to be updated.</span>
-
-<span class="sd">        All input columns will be passed as keyword arguments.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Encode data.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses should implement this method.&quot;</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Call the transform on a row dict.</span>
-
-<span class="sd">        This method will extract the input columns from the row dict,</span>
-<span class="sd">        call the transform method, and return a new row dict with the</span>
-<span class="sd">        transformed values added to the original row dict.</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">mapped_input</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">src_name</span><span class="p">,</span> <span class="n">dst_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">input_column_mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">src_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mapped_input</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Input column </span><span class="si">{</span><span class="n">src_name</span><span class="si">}</span><span class="s2"> not found in row dict.&quot;</span>
-                <span class="p">)</span>
-            <span class="n">mapped_input</span><span class="p">[</span><span class="n">dst_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_input</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">src_name</span><span class="p">)</span>
-
-        <span class="n">columns_after</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
-            <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">mapped_input</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_columns</span><span class="p">}</span>
-        <span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">src_name</span><span class="p">,</span> <span class="n">dst_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">output_column_mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">dst_name</span> <span class="ow">in</span> <span class="n">columns_after</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Output column </span><span class="si">{</span><span class="n">dst_name</span><span class="si">}</span><span class="s2"> already exists in transformed &quot;</span>
-                    <span class="s2">&quot;columns.&quot;</span>
-                <span class="p">)</span>
-            <span class="k">if</span> <span class="n">src_name</span> <span class="ow">in</span> <span class="n">columns_after</span><span class="p">:</span>
-                <span class="n">columns_after</span><span class="p">[</span><span class="n">dst_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">columns_after</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">src_name</span><span class="p">)</span>
-
-        <span class="n">ret</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">ret</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">columns_after</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">ret</span></div>
-
-
-
-<span class="n">RowDictTransformType</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;RowDictTransformType&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">RowDictTransform</span><span class="p">)</span>
-
-
-<div class="viewcode-block" id="RowDictTransformConfig">
-<a class="viewcode-back" href="../../../autoapi/robo_orchard_lab/dataset/transforms/index.html#robo_orchard_lab.dataset.transforms.RowDictTransformConfig">[docs]</a>
-<span class="k">class</span> <span class="nc">RowDictTransformConfig</span><span class="p">(</span><span class="n">ClassConfig</span><span class="p">[</span><span class="n">RowDictTransformType</span><span class="p">]):</span>
-    <span class="n">class_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">RowDictTransformType</span><span class="p">]</span>
-
-    <span class="n">input_column_mapping</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The input columns that need to be mapped to fit</span>
-<span class="sd">    the transform&#39;s input_columns.&quot;&quot;&quot;</span>
-
-    <span class="n">output_column_mapping</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The output columns that the transform will produce.</span>
-<span class="sd">    This should be a mapping from the output column names to the</span>
-<span class="sd">    names that the transform will use to return the transformed values.</span>
-<span class="sd">    If the transform does not produce any output, this can be an empty dict.</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
-
-
-
-<div class="viewcode-block" id="ConcatDictTransform">
-<a class="viewcode-back" href="../../../autoapi/robo_orchard_lab/dataset/transforms/index.html#robo_orchard_lab.dataset.transforms.ConcatDictTransform">[docs]</a>
-<span class="k">class</span> <span class="nc">ConcatDictTransform</span><span class="p">(</span><span class="n">RowDictTransform</span><span class="p">):</span>
-    <span class="n">cfg</span><span class="p">:</span> <span class="n">ConcatDictTransformConfig</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="n">ConcatDictTransformConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">cfg</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">t</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">transforms</span>
-        <span class="p">]</span>  <span class="c1"># Instantiate all transforms</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">input_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the input columns for this transform.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">input_columns</span>
-
-<div class="viewcode-block" id="ConcatDictTransform.transform">
-<a class="viewcode-back" href="../../../autoapi/robo_orchard_lab/dataset/transforms/index.html#robo_orchard_lab.dataset.transforms.ConcatDictTransform.transform">[docs]</a>
-    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-            <span class="s2">&quot;ConcatDictTransform does not implement transform method. &quot;</span>
-            <span class="s2">&quot;Use the __call__ method instead.&quot;</span>
-        <span class="p">)</span></div>
-
-
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Concatenate the input columns into a new row dict.</span>
-
-<span class="sd">        This method will apply all transforms in the order they are defined</span>
-<span class="sd">        in the configuration, and return a new row dict with the transformed</span>
-<span class="sd">        values added to the original row dict.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">transform</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">:</span>
-            <span class="n">row</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">row</span></div>
-
-
-
-<div class="viewcode-block" id="ConcatDictTransformConfig">
-<a class="viewcode-back" href="../../../autoapi/robo_orchard_lab/dataset/transforms/index.html#robo_orchard_lab.dataset.transforms.ConcatDictTransformConfig">[docs]</a>
-<span class="k">class</span> <span class="nc">ConcatDictTransformConfig</span><span class="p">(</span><span class="n">RowDictTransformConfig</span><span class="p">[</span><span class="n">ConcatDictTransform</span><span class="p">]):</span>
-    <span class="n">class_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ConcatDictTransform</span><span class="p">]</span> <span class="o">=</span> <span class="n">ConcatDictTransform</span>
-
-    <span class="n">transforms</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">RowDictTransformConfig</span><span class="p">[</span><span class="n">RowDictTransform</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="p">)</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A sequence of transforms to apply to the input columns.&quot;&quot;&quot;</span></div>
+<div class="viewcode-block" id="CodecMixin.decode">
+<a class="viewcode-back" href="../../../autoapi/robo_orchard_lab/models/codec/index.html#robo_orchard_lab.models.codec.CodecMixin.decode">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Decode data.&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses should implement this method.&quot;</span><span class="p">)</span></div>
+</div>
 
 </pre></div>
         </article>

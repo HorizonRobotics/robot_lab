@@ -481,6 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/bip3d/utils/index.html">utils</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/codec/index.html">codec</a></li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/index.html">finegrasp</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/backbone/minkunet/index.html">minkunet</a></li>
@@ -515,6 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/sem_modules/robot_state_encoder/index.html">robot_state_encoder</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/torch_model/index.html">torch_model</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -546,7 +548,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/pipeline/trainer/index.html">trainer</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/transforms/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/transforms/padding/index.html">padding</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/build/index.html">build</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/env/index.html">env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/utils/geometry/index.html">geometry</a></li>
@@ -617,11 +624,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="c1"># permissions and limitations under the License.</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
-<span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Literal</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
 
-<span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+<span class="kn">import</span> <span class="nn">datasets</span> <span class="k">as</span> <span class="nn">hg_datasets</span>
 <span class="kn">from</span> <span class="nn">robo_orchard_core.datatypes.camera_data</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">BatchCameraData</span> <span class="k">as</span> <span class="n">_BatchCameraData</span><span class="p">,</span>
     <span class="n">BatchCameraDataEncoded</span> <span class="k">as</span> <span class="n">_BatchCameraDataEncoded</span><span class="p">,</span>
@@ -633,9 +639,9 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="n">BatchFrameTransformFeature</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.dataset.datatypes.hg_features</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">FeatureDecodeMixin</span><span class="p">,</span>
-    <span class="n">RODataFeature</span><span class="p">,</span>
+    <span class="n">RODictDataFeature</span><span class="p">,</span>
     <span class="n">ToDataFeatureMixin</span><span class="p">,</span>
+    <span class="n">TypedDictFeatureDecode</span><span class="p">,</span>
     <span class="n">check_fields_consistency</span><span class="p">,</span>
     <span class="n">hg_dataset_feature</span><span class="p">,</span>
 <span class="p">)</span>
@@ -656,68 +662,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="p">]</span>
 
 
-<div class="viewcode-block" id="DistortionFeature">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.DistortionFeature">[docs]</a>
-<span class="nd">@hg_dataset_feature</span>
-<span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">DistortionFeature</span><span class="p">(</span><span class="n">RODataFeature</span><span class="p">,</span> <span class="n">FeatureDecodeMixin</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature for storing distortion parameters in a dataset.</span>
-
-<span class="sd">    The underlying data is stored as a serialized numpy array</span>
-<span class="sd">    with additional metadata about the distortion parameters.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">dtype</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="s2">&quot;float64&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span>
-    <span class="n">decode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_typed_tensor_feature</span> <span class="o">=</span> <span class="n">TypedTensorFeature</span><span class="p">(</span>
-            <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">as_torch_tensor</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">pa_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pa</span><span class="o">.</span><span class="n">StructType</span><span class="p">:</span>
-        <span class="c1"># initialize with None</span>
-        <span class="n">ret_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">DataType</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">string</span><span class="p">(),</span>
-            <span class="s2">&quot;coefficients&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typed_tensor_feature</span><span class="o">.</span><span class="n">pa_type</span><span class="p">,</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">struct</span><span class="p">([</span><span class="n">pa</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ret_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
-
-<div class="viewcode-block" id="DistortionFeature.encode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.DistortionFeature.encode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">encode_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_Distortion</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
-            <span class="s2">&quot;coefficients&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typed_tensor_feature</span><span class="o">.</span><span class="n">encode_example</span><span class="p">(</span>
-                <span class="n">value</span><span class="o">.</span><span class="n">coefficients</span>
-            <span class="p">),</span>
-        <span class="p">}</span></div>
-
-
-<div class="viewcode-block" id="DistortionFeature.decode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.DistortionFeature.decode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">decode_example</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Distortion</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="s2">&quot;Decoding is disabled for this feature. Please use &quot;</span>
-                <span class="s2">&quot;DistortionFeature(decode=True) instead.&quot;</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="n">value</span><span class="p">[</span><span class="s2">&quot;coefficients&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typed_tensor_feature</span><span class="o">.</span><span class="n">decode_example</span><span class="p">(</span>
-            <span class="n">value</span><span class="p">[</span><span class="s2">&quot;coefficients&quot;</span><span class="p">]</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="n">Distortion</span><span class="p">(</span><span class="o">**</span><span class="n">value</span><span class="p">)</span></div>
-</div>
-
-
-
 <div class="viewcode-block" id="Distortion">
 <a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.Distortion">[docs]</a>
 <span class="k">class</span> <span class="nc">Distortion</span><span class="p">(</span><span class="n">_Distortion</span><span class="p">,</span> <span class="n">ToDataFeatureMixin</span><span class="p">):</span>
@@ -736,88 +680,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<div class="viewcode-block" id="BatchCameraInfoFeature">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.BatchCameraInfoFeature">[docs]</a>
+<div class="viewcode-block" id="DistortionFeature">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.DistortionFeature">[docs]</a>
 <span class="nd">@hg_dataset_feature</span>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">BatchCameraInfoFeature</span><span class="p">(</span><span class="n">RODataFeature</span><span class="p">,</span> <span class="n">FeatureDecodeMixin</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature for storing batch camera info in a dataset.</span>
+<span class="k">class</span> <span class="nc">DistortionFeature</span><span class="p">(</span><span class="n">RODictDataFeature</span><span class="p">,</span> <span class="n">TypedDictFeatureDecode</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature for storing distortion parameters in a dataset.</span>
 
 <span class="sd">    The underlying data is stored as a serialized numpy array</span>
-<span class="sd">    with additional metadata about the camera info.</span>
+<span class="sd">    with additional metadata about the distortion parameters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">dtype</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="s2">&quot;float64&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span>
     <span class="n">decode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">_decode_type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">Distortion</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_typed_tensor_feature</span> <span class="o">=</span> <span class="n">TypedTensorFeature</span><span class="p">(</span>
-            <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">as_torch_tensor</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_distortion_feature</span> <span class="o">=</span> <span class="n">DistortionFeature</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tf_feature</span> <span class="o">=</span> <span class="n">BatchFrameTransformFeature</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">pa_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pa</span><span class="o">.</span><span class="n">StructType</span><span class="p">:</span>
-        <span class="c1"># initialize with None</span>
-        <span class="n">ret_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">DataType</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">string</span><span class="p">(),</span>
-            <span class="s2">&quot;frame_id&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">string</span><span class="p">(),</span>
-            <span class="s2">&quot;image_shape&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">list_</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">int32</span><span class="p">()),</span>
-            <span class="s2">&quot;intrinsic_matrices&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typed_tensor_feature</span><span class="o">.</span><span class="n">pa_type</span><span class="p">,</span>
-            <span class="s2">&quot;distortion&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_distortion_feature</span><span class="o">.</span><span class="n">pa_type</span><span class="p">,</span>
-            <span class="s2">&quot;pose&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tf_feature</span><span class="o">.</span><span class="n">pa_type</span><span class="p">,</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">struct</span><span class="p">([</span><span class="n">pa</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ret_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
-
-<div class="viewcode-block" id="BatchCameraInfoFeature.encode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.BatchCameraInfoFeature.encode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">encode_example</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_BatchCameraInfo</span> <span class="o">|</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">tensor_feature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typed_tensor_feature</span>
-        <span class="n">distortion_feature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_distortion_feature</span>
-        <span class="n">tf_feature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tf_feature</span>
-
-        <span class="n">encoded_data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">topic</span><span class="p">,</span>
-            <span class="s2">&quot;frame_id&quot;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">frame_id</span><span class="p">,</span>
-            <span class="s2">&quot;image_shape&quot;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">image_shape</span><span class="p">,</span>
-            <span class="s2">&quot;intrinsic_matrices&quot;</span><span class="p">:</span> <span class="n">tensor_feature</span><span class="o">.</span><span class="n">encode_example</span><span class="p">(</span>
-                <span class="n">value</span><span class="o">.</span><span class="n">intrinsic_matrices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;coefficients&quot;</span><span class="p">:</span> <span class="n">TypedTensorFeature</span><span class="p">(</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">as_torch_tensor</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">),</span>
-            <span class="s2">&quot;distortion&quot;</span><span class="p">:</span> <span class="n">distortion_feature</span><span class="o">.</span><span class="n">encode_example</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">distortion</span><span class="p">),</span>
-            <span class="s2">&quot;pose&quot;</span><span class="p">:</span> <span class="n">tf_feature</span><span class="o">.</span><span class="n">encode_example</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">pose</span><span class="p">),</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">encoded_data</span></div>
-
-
-<div class="viewcode-block" id="BatchCameraInfoFeature.decode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.BatchCameraInfoFeature.decode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">decode_example</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchCameraInfo</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="s2">&quot;Decoding is disabled for this feature. Please use &quot;</span>
-                <span class="s2">&quot;BatchCameraInfoFeature(decode=True) instead.&quot;</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="n">value</span><span class="p">[</span><span class="s2">&quot;intrinsic_matrices&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_typed_tensor_feature</span><span class="o">.</span><span class="n">decode_example</span><span class="p">(</span>
-                <span class="n">value</span><span class="p">[</span><span class="s2">&quot;intrinsic_matrices&quot;</span><span class="p">]</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">value</span><span class="p">[</span><span class="s2">&quot;distortion&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_distortion_feature</span><span class="o">.</span><span class="n">decode_example</span><span class="p">(</span>
-            <span class="n">value</span><span class="p">[</span><span class="s2">&quot;distortion&quot;</span><span class="p">]</span>
-        <span class="p">)</span>
-        <span class="n">value</span><span class="p">[</span><span class="s2">&quot;pose&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tf_feature</span><span class="o">.</span><span class="n">decode_example</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;pose&quot;</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">BatchCameraInfo</span><span class="p">(</span><span class="o">**</span><span class="n">value</span><span class="p">)</span></div>
-</div>
+        <span class="p">}</span></div>
 
 
 
@@ -839,77 +723,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<div class="viewcode-block" id="BatchCameraDataEncodedFeature">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.BatchCameraDataEncodedFeature">[docs]</a>
+<div class="viewcode-block" id="BatchCameraInfoFeature">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.BatchCameraInfoFeature">[docs]</a>
 <span class="nd">@hg_dataset_feature</span>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">BatchCameraDataEncodedFeature</span><span class="p">(</span><span class="n">RODataFeature</span><span class="p">,</span> <span class="n">FeatureDecodeMixin</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature for storing batch camera data in a dataset.</span>
+<span class="k">class</span> <span class="nc">BatchCameraInfoFeature</span><span class="p">(</span><span class="n">RODictDataFeature</span><span class="p">,</span> <span class="n">TypedDictFeatureDecode</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature for storing batch camera info in a dataset.</span>
 
 <span class="sd">    The underlying data is stored as a serialized numpy array</span>
-<span class="sd">    with additional metadata about the camera data.</span>
+<span class="sd">    with additional metadata about the camera info.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">dtype</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="s2">&quot;float64&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span>
     <span class="n">decode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">_decode_type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">BatchCameraInfo</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_camera_info_feature</span> <span class="o">=</span> <span class="n">BatchCameraInfoFeature</span><span class="p">(</span>
-            <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">decode</span>
-        <span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">pa_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pa</span><span class="o">.</span><span class="n">StructType</span><span class="p">:</span>
-        <span class="n">field_list</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">pa</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;sensor_data&quot;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">list_</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">binary</span><span class="p">()),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-            <span class="n">pa</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">string</span><span class="p">(),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-            <span class="n">pa</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;timestamps&quot;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">list_</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">int64</span><span class="p">()),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-        <span class="p">]</span>
-        <span class="n">field_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_camera_info_feature</span><span class="o">.</span><span class="n">pa_type</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">struct</span><span class="p">(</span><span class="n">field_list</span><span class="p">)</span>
-
-<div class="viewcode-block" id="BatchCameraDataEncodedFeature.encode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.BatchCameraDataEncodedFeature.encode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">encode_example</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_BatchCameraDataEncoded</span> <span class="o">|</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">camera_info_feature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera_info_feature</span>
-        <span class="n">encoded_data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;sensor_data&quot;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">sensor_data</span><span class="p">,</span>
-            <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">format</span><span class="p">,</span>
-            <span class="s2">&quot;timestamps&quot;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">timestamps</span><span class="p">,</span>
-        <span class="p">}</span>
-        <span class="n">parent_dict</span> <span class="o">=</span> <span class="n">camera_info_feature</span><span class="o">.</span><span class="n">encode_example</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">parent_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="n">encoded_data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">parent_dict</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">encoded_data</span></div>
-
-
-<div class="viewcode-block" id="BatchCameraDataEncodedFeature.decode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.BatchCameraDataEncodedFeature.decode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">decode_example</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchCameraDataEncoded</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="s2">&quot;Decoding is disabled for this feature. Please use &quot;</span>
-                <span class="s2">&quot;BatchCameraDataEncodedFeature(decode=True) instead.&quot;</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="n">parent_ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera_info_feature</span><span class="o">.</span><span class="n">decode_example</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">parent_ret</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">BatchCameraDataEncoded</span><span class="p">(</span>
-            <span class="n">sensor_data</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;sensor_data&quot;</span><span class="p">],</span>
-            <span class="nb">format</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;format&quot;</span><span class="p">],</span>
-            <span class="n">timestamps</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;timestamps&quot;</span><span class="p">],</span>
-            <span class="o">**</span><span class="n">parent_ret</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">,</span>
-        <span class="p">)</span></div>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;frame_id&quot;</span><span class="p">:</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;image_shape&quot;</span><span class="p">:</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">Sequence</span><span class="p">(</span>
+                <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;intrinsic_matrices&quot;</span><span class="p">:</span> <span class="n">TypedTensorFeature</span><span class="p">(</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">as_torch_tensor</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;distortion&quot;</span><span class="p">:</span> <span class="n">DistortionFeature</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
+            <span class="s2">&quot;pose&quot;</span><span class="p">:</span> <span class="n">BatchFrameTransformFeature</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
+        <span class="p">}</span></div>
 
 
 
@@ -931,11 +772,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<div class="viewcode-block" id="BatchCameraDataFeature">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.BatchCameraDataFeature">[docs]</a>
+<div class="viewcode-block" id="BatchCameraDataEncodedFeature">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.BatchCameraDataEncodedFeature">[docs]</a>
 <span class="nd">@hg_dataset_feature</span>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">BatchCameraDataFeature</span><span class="p">(</span><span class="n">RODataFeature</span><span class="p">,</span> <span class="n">FeatureDecodeMixin</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">BatchCameraDataEncodedFeature</span><span class="p">(</span><span class="n">BatchCameraInfoFeature</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature for storing batch camera data in a dataset.</span>
 
 <span class="sd">    The underlying data is stored as a serialized numpy array</span>
@@ -944,70 +785,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <span class="n">dtype</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="s2">&quot;float64&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span>
     <span class="n">decode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">_decode_type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">BatchCameraDataEncoded</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_camera_info_feature</span> <span class="o">=</span> <span class="n">BatchCameraInfoFeature</span><span class="p">(</span>
-            <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">decode</span>
-        <span class="p">)</span>
-        <span class="c1"># Camera data can have any tensor type, so we use AnyTensorFeature</span>
-        <span class="c1"># to store the sensor data. This allows for flexibility in the type of</span>
-        <span class="c1"># sensor data stored (e.g., images, point clouds, etc.).</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_sensor_data_feature</span> <span class="o">=</span> <span class="n">AnyTensorFeature</span><span class="p">()</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">pa_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pa</span><span class="o">.</span><span class="n">StructType</span><span class="p">:</span>
-        <span class="n">field_list</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">pa</span><span class="o">.</span><span class="n">field</span><span class="p">(</span>
-                <span class="s2">&quot;sensor_data&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sensor_data_feature</span><span class="o">.</span><span class="n">pa_type</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span>
-            <span class="p">),</span>
-            <span class="n">pa</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;pix_fmt&quot;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">string</span><span class="p">(),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-            <span class="n">pa</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;timestamps&quot;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">list_</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">int64</span><span class="p">()),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-        <span class="p">]</span>
-        <span class="n">field_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_camera_info_feature</span><span class="o">.</span><span class="n">pa_type</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">struct</span><span class="p">(</span><span class="n">field_list</span><span class="p">)</span>
-
-<div class="viewcode-block" id="BatchCameraDataFeature.encode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.BatchCameraDataFeature.encode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">encode_example</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_BatchCameraData</span> <span class="o">|</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">camera_info_feature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera_info_feature</span>
-        <span class="n">encoded_data</span> <span class="o">=</span> <span class="n">camera_info_feature</span><span class="o">.</span><span class="n">encode_example</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">encoded_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="n">encoded_data</span><span class="p">[</span><span class="s2">&quot;sensor_data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sensor_data_feature</span><span class="o">.</span><span class="n">encode_example</span><span class="p">(</span>
-            <span class="n">value</span><span class="o">.</span><span class="n">sensor_data</span>
-        <span class="p">)</span>
-        <span class="n">encoded_data</span><span class="p">[</span><span class="s2">&quot;pix_fmt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">pix_fmt</span>
-        <span class="n">encoded_data</span><span class="p">[</span><span class="s2">&quot;timestamps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">timestamps</span>
-        <span class="k">return</span> <span class="n">encoded_data</span></div>
-
-
-<div class="viewcode-block" id="BatchCameraDataFeature.decode_example">
-<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.BatchCameraDataFeature.decode_example">[docs]</a>
-    <span class="k">def</span> <span class="nf">decode_example</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchCameraData</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="s2">&quot;Decoding is disabled for this feature. Please use &quot;</span>
-                <span class="s2">&quot;BatchCameraDataFeature(decode=True) instead.&quot;</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">parent_ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera_info_feature</span><span class="o">.</span><span class="n">decode_example</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">parent_ret</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">BatchCameraData</span><span class="p">(</span>
-            <span class="n">pix_fmt</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;pix_fmt&quot;</span><span class="p">],</span>
-            <span class="n">timestamps</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;timestamps&quot;</span><span class="p">],</span>
-            <span class="n">sensor_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_sensor_data_feature</span><span class="o">.</span><span class="n">decode_example</span><span class="p">(</span>
-                <span class="n">value</span><span class="p">[</span><span class="s2">&quot;sensor_data&quot;</span><span class="p">]</span>
-            <span class="p">),</span>  <span class="c1"># type: ignore</span>
-            <span class="o">**</span><span class="n">parent_ret</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">,</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;sensor_data&quot;</span><span class="p">:</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">Sequence</span><span class="p">(</span>
+                    <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;binary&quot;</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;timestamps&quot;</span><span class="p">:</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">Sequence</span><span class="p">(</span>
+                    <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">}</span>
         <span class="p">)</span></div>
-</div>
 
 
 
@@ -1026,6 +818,35 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="n">check_fields_consistency</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">ret</span><span class="o">.</span><span class="n">pa_type</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 </div>
+
+
+
+<div class="viewcode-block" id="BatchCameraDataFeature">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/dataset/datatypes/camera/index.html#robo_orchard_lab.dataset.datatypes.camera.BatchCameraDataFeature">[docs]</a>
+<span class="nd">@hg_dataset_feature</span>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">BatchCameraDataFeature</span><span class="p">(</span><span class="n">BatchCameraInfoFeature</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A feature for storing batch camera data in a dataset.</span>
+
+<span class="sd">    The underlying data is stored as a serialized numpy array</span>
+<span class="sd">    with additional metadata about the camera data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dtype</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="s2">&quot;float64&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span>
+    <span class="n">decode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">_decode_type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">BatchCameraData</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;sensor_data&quot;</span><span class="p">:</span> <span class="n">AnyTensorFeature</span><span class="p">(),</span>
+                <span class="s2">&quot;pix_fmt&quot;</span><span class="p">:</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;timestamps&quot;</span><span class="p">:</span> <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">Sequence</span><span class="p">(</span>
+                    <span class="n">hg_datasets</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">}</span>
+        <span class="p">)</span></div>
 
 </pre></div>
         </article>
