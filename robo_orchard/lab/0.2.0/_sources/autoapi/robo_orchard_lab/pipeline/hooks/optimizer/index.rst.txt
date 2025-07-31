@@ -1,0 +1,40 @@
+optimizer
+=========
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.optimizer
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.optimizer.OptimizerHook
+   robo_orchard_lab.pipeline.hooks.optimizer.OptimizerHookConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: OptimizerHook(cfg: OptimizerHookConfig | None)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   A hook for optimizing the model during training.
+
+   This hook is responsible for performing the optimization step
+   and updating the learning rate scheduler. It performs the
+   updating after each step of the training process.
+
+
+
+.. py:class:: OptimizerHookConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`OptimizerHook`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  type[OptimizerHook]
+
+

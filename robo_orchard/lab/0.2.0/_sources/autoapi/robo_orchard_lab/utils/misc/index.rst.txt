@@ -1,0 +1,97 @@
+misc
+====
+
+.. py:module:: robo_orchard_lab.utils.misc
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.misc.as_sequence
+   robo_orchard_lab.utils.misc.to_tensor
+   robo_orchard_lab.utils.misc.stack_batch
+
+
+Module Contents
+---------------
+
+.. py:function:: as_sequence(objs: Optional[Union[Any, Sequence[Any]]], check_type: bool = False, required_types: Union[Type, Tuple[Type, Ellipsis]] = ()) -> Sequence[Any]
+
+   Make input as sequence.
+
+   Converts an input object or a sequence of objects into a sequence (list).
+
+   If `objs` is not already a sequence, it wraps `objs` into a single-element
+   list. Optionally, checks if each element in the resulting sequence matches
+   the specified `required_types`.
+
+   :param objs: An object or a sequence of
+                objects to be converted into a sequence. If `None`, an empty list
+                is returned.
+   :type objs: Optional[Union[Any, Sequence[Any]]]
+   :param check_type: If `True`, checks each element in the resulting
+                      sequence to ensure it is an instance of `required_types`.
+                      Defaults to `False`.
+   :type check_type: bool
+   :param required_types: A type or tuple of
+                          types that each element in the sequence should match.
+                          Only checked if `check_type` is `True`. Defaults to an empty tuple.
+   :type required_types: Union[Type, Tuple[Type, ...]]
+
+   :returns: A sequence (list) of objects, with `objs` wrapped in a
+             list if it was a single object or `None`.
+   :rtype: Sequence[Any]
+
+   :raises TypeError: If `check_type` is `True` and an element in `objs` does
+   :raises not match `required_types`.:
+
+   .. rubric:: Examples
+
+   >>> as_sequence(5)
+   [5]
+
+   >>> as_sequence([1, 2, 3])
+   [1, 2, 3]
+
+   >>> as_sequence(None)
+   []
+
+   >>> as_sequence("hello", check_type=True, required_types=str)
+   ["hello"]
+
+   >>> as_sequence([1, "text"], check_type=True,
+   >>>              required_types=(int, str))
+   [1, "text"]
+
+   >>> as_sequence([1, 2.5], check_type=True, required_types=int)
+   TypeError: The 2-th entry of sequence should be instance of type
+   <class 'int'>, but get <class 'float'>
+
+
+.. py:function:: to_tensor(data: Union[torch.Tensor, numpy.ndarray, Sequence, int, float]) -> torch.Tensor
+
+.. py:function:: stack_batch(tensor_list: List[torch.Tensor], pad_size_divisor: int = 1, pad_value: Union[int, float] = 0) -> torch.Tensor
+
+   Stack batch.
+
+   Stack multiple tensors to form a batch and pad the tensor to the max
+   shape use the right bottom padding mode in these images. If
+   ``pad_size_divisor > 0``, add padding to ensure the shape of each dim is
+   divisible by ``pad_size_divisor``.
+
+   :param tensor_list: A list of tensors with the same dim.
+   :type tensor_list: List[Tensor]
+   :param pad_size_divisor: If ``pad_size_divisor > 0``, add padding
+                            to ensure the shape of each dim is divisible by
+                            ``pad_size_divisor``. This depends on the model, and many
+                            models need to be divisible by 32. Defaults to 1
+   :type pad_size_divisor: int
+   :param pad_value: The padding value. Defaults to 0.
+   :type pad_value: int, float
+
+   :returns: The n dim tensor.
+   :rtype: torch.Tensor
+
+

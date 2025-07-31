@@ -1,0 +1,123 @@
+model
+=====
+
+.. py:module:: robo_orchard_lab.models.aux_think.model
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.aux_think.model.AuxThink
+   robo_orchard_lab.models.aux_think.model.AuxThinkConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: AuxThink(cfg: AuxThinkConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.models.mixin.ModelMixin`
+
+
+   A mixin class for PyTorch `nn.Module` providing model saving and loading utilities.
+
+   This mixin standardizes how models are configured, saved, and loaded,
+   integrating with a configuration system and supporting `safetensors`
+   for model weights.
+
+
+   .. py:attribute:: cfg
+      :type:  AuxThinkConfig
+
+
+   .. py:attribute:: model
+      :value: None
+
+
+
+   .. py:method:: load_from_llava_model(model_path)
+
+
+   .. py:method:: generate_content(prompt)
+
+
+   .. py:method:: forward(inputs)
+
+
+   .. py:method:: save_pretrained(directory: str)
+
+
+   .. py:method:: load_model(directory: str)
+      :classmethod:
+
+
+      Loads a model from a local directory or the Hugging Face Hub.
+
+      This method supports loading from a local path or a Hugging Face Hub
+      repository. For Hub models, a URI format is used:
+      `hf://[<token>@]<repo_id>`
+
+      .. code-block:: text
+
+          Public model: `hf://google/gemma-7b`
+
+          Private model: `hf://hf_YourToken@username/private-repo`
+
+      .. warning::
+
+          Embedding tokens directly in the URL can be a security risk.
+          The URL may be logged in shell history or server logs. It is often safer
+          to rely on the environment variable **HF_TOKEN** or the
+          local token cache from `huggingface-cli login`.
+
+      This method first loads the model's configuration from a JSON file
+      (e.g., "model.config.json") found in the given directory. It then
+      instantiates the model using this configuration. The instantiation
+      occurs within a context where the **ORCHARD_LAB_CHECKPOINT_DIRECTORY**
+      environment variable is temporarily set to the `directory` path.
+
+      If `load_model` is True, the method proceeds to load the model's
+      weights (state dictionary) from a ".safetensors" file (e.g.,
+      "model.safetensors") located in the same directory.
+
+      :param directory: The path to the directory containing the model's
+                        configuration file and, if applicable, the state dictionary file.
+      :param load_model: If True (default), the model's state dictionary is
+                         loaded from the ".safetensors" file. If False, the model is
+                         initialized from the configuration but weights are not loaded.
+      :param strict: A boolean indicating whether to strictly enforce that the keys
+                     in `state_dict` match the keys returned by this module's
+                     `state_dict()` function. Passed to `model.load_state_dict()`.
+                     Defaults to True.
+      :param device: The device (e.g., "cpu", "cuda:0") onto which the model's
+                     state dictionary should be loaded. Passed to `load_file` for
+                     loading the safetensors file. Defaults to "cpu".
+      :param model_prefix: The prefix for the configuration and state dictionary
+                           files. For example, if "model", files will be sought as
+                           "model.config.json" and "model.safetensors". Defaults to "model".
+
+      :returns:
+
+                An instance of the model (typed as "ModelMixin" or a subclass),
+                    initialized from the configuration and optionally with weights loaded.
+      :rtype: torch.nn.Module
+
+      :raises FileNotFoundError: If the specified `directory` does not exist,
+          or if the configuration file (`{model_prefix}.config.json`)
+          or the state dictionary file (`{model_prefix}.safetensors}`,
+          when `load_model` is True) is not found in the directory.
+      :raises ValueError: If the Hugging Face Hub URI is invalid.
+
+
+
+.. py:class:: AuxThinkConfig
+
+   Bases: :py:obj:`robo_orchard_lab.models.mixin.TorchModuleCfg`\ [\ :py:obj:`AuxThink`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.models.mixin.ClassType_co[AuxThink]
+
+

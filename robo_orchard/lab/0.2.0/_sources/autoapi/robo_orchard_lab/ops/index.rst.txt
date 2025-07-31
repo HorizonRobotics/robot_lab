@@ -1,0 +1,17 @@
+ops
+===
+
+.. py:module:: robo_orchard_lab.ops
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_lab/ops/deformable_aggregation/index
+
+

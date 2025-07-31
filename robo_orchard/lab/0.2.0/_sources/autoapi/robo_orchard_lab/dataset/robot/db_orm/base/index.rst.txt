@@ -1,0 +1,217 @@
+base
+====
+
+.. py:module:: robo_orchard_lab.dataset.robot.db_orm.base
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.db_orm.base.ColumnValueUnmatchedError
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.db_orm.base.PrimaryKeyMixin
+   robo_orchard_lab.dataset.robot.db_orm.base.DatasetORMBase
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.db_orm.base.register_table_mapper
+
+
+Module Contents
+---------------
+
+.. py:function:: register_table_mapper(cls)
+
+   Register the table mapper to the table name.
+
+
+.. py:exception:: ColumnValueUnmatchedError
+
+   Bases: :py:obj:`Exception`
+
+
+   Common base class for all non-exit exceptions.
+
+
+.. py:class:: PrimaryKeyMixin
+
+   Mixin class for classes that have primary keys.
+
+
+   .. py:method:: pk_bytes(obj: Any) -> bytes
+      :classmethod:
+
+
+      Get the primary key as bytes.
+
+
+
+   .. py:method:: pk_scalar(session: SessionType, obj: Any) -> Optional[Any]
+      :classmethod:
+
+
+      Query an object by its primary key and return a scalar value.
+
+      :param session: The session to query.
+      :type session: SessionType
+      :param obj: The object to query.
+      :type obj: Any
+
+
+
+   .. py:method:: pk_equal(lhs: Any, rhs: Any) -> Any
+      :classmethod:
+
+
+      Whether two objects are equal by their keys.
+
+      :param lhs: The left hand side object.
+      :type lhs: Any
+      :param rhs: The right hand side object.
+      :type rhs: Any
+
+      :returns: The equality expression. Can be boolean or a SQL expression.
+      :rtype: Any
+
+
+
+   .. py:method:: pk_copy(src: Any, dst: Any)
+      :classmethod:
+
+
+      Copy primary keys from rhs to lhs.
+
+      :param src: The source object.
+      :type src: Any
+      :param dst: The destination object.
+      :type dst: Any
+
+
+
+   .. py:method:: primary_key_names(names_not_in: Optional[list[str]] = None) -> list[str]
+      :classmethod:
+
+
+
+   .. py:method:: pk_value_in(instances: Iterable[Any]) -> Any
+      :classmethod:
+
+
+      Get the where condition for objects of given class and pk.
+
+      Expression of (cls.key1, cls.key2) in ((inst.key1, inst.key2), ...).
+
+      :param instances: The list of objects to check.
+      :type instances: List[Any]
+
+      :returns: The equality expression. Can be boolean or a SQL expression.
+      :rtype: Any
+
+
+
+   .. py:method:: value_in(keys: list[str], instances: Iterable[Any]) -> Any
+      :classmethod:
+
+
+      Get the where condition for objects of given class and keys.
+
+      Get the condition of:
+          cls.key1 == inst1.key1 and cls.key2 == inst1.key2...
+          or cls.key1 == inst2.key1 and cls.key2 == inst2.key2...
+
+      :param keys: The list of keys to check.
+      :type keys: List[str]
+      :param instances: The list of objects to check.
+      :type instances: List[Any]
+
+      :returns: The equality expression. Can be boolean or a SQL expression.
+      :rtype: Any
+
+
+
+.. py:class:: DatasetORMBase
+
+   Bases: :py:obj:`PrimaryKeyMixin`, :py:obj:`sqlalchemy.orm.DeclarativeBase`
+
+
+   Base class for all ORM classes working with all db engines.
+
+
+   .. py:method:: column_equal(lhs: Any, rhs: Any, skip_left_null=False) -> bool
+      :classmethod:
+
+
+      Whether two objects are equal by their columns.
+
+      :param lhs: The left hand side object.
+      :type lhs: Any
+      :param rhs: The right hand side object.
+      :type rhs: Any
+      :param skip_left_null: Whether to skip null values in lhs.
+                             Defaults to False.
+      :type skip_left_null: bool
+
+
+
+   .. py:method:: column_copy(src: Any, dst: Any)
+      :classmethod:
+
+
+      Copy columns from src to dst.
+
+
+
+   .. py:method:: clone_to_session(session: SessionType, with_relationships=False) -> Any
+
+      Clone the object and assign relationships to a new session.
+
+
+
+   .. py:method:: get_column_kv(with_relationships: bool = False, keep_null: bool = False, pk_prefix='') -> Dict[str, Any]
+
+      Get all column key-value pairs.
+
+      :param with_relationships: Whether to include relationships.
+                                 Defaults to False.
+      :type with_relationships: bool
+
+      :returns: A dictionary of column key-value pairs.
+      :rtype: Dict[str, Any]
+
+
+
+   .. py:method:: init_default_value()
+
+      Initialize default values for all columns if applicable.
+
+      Note that this function does not initialize default values for
+      autoincrement columns.
+
+
+
+
+   .. py:method:: get_remote(session: SessionType, check_equal: bool = True) -> Optional[typing_extensions.Self]
+
+      Get the remote object in the given session.
+
+      :param session: The session to query.
+      :type session: SessionType
+      :param check_equal: Whether to check if the remote object is equal
+                          to self. Defaults to False. If True, the function will raise
+                          ValueError if the remote object is not equal to self.
+      :type check_equal: bool
+
+
+

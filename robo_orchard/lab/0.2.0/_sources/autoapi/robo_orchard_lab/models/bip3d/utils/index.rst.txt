@@ -1,0 +1,19 @@
+utils
+=====
+
+.. py:module:: robo_orchard_lab.models.bip3d.utils
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.bip3d.utils.deformable_format
+
+
+Module Contents
+---------------
+
+.. py:function:: deformable_format(feature_maps, spatial_shapes=None, level_start_index=None, flat_batch=False, batch_size=None)
+

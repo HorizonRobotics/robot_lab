@@ -1,0 +1,301 @@
+robotwin
+========
+
+.. py:module:: robo_orchard_lab.envs.robotwin
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.envs.robotwin.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.envs.robotwin.RoboTwinEnvStepReturn
+   robo_orchard_lab.envs.robotwin.RoboTwinEnv
+   robo_orchard_lab.envs.robotwin.RoboTwinEnvCfg
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.envs.robotwin.config_robotwin_path
+   robo_orchard_lab.envs.robotwin.in_robotwin_workspace
+   robo_orchard_lab.envs.robotwin.create_task_from_name
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: RoboTwinEnvStepReturn
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvStepReturn`\ [\ :py:obj:`dict`\ [\ :py:obj:`str`\ , :py:obj:`Any`\ ]\ :py:obj:`| None`\ , :py:obj:`bool`\ ]
+
+
+   The return type of the `step` function in the environment.
+
+   This class extends gymnasium's Env step return type to be a dataclass
+   with generic types for observations and rewards.
+
+
+   Template Args:
+       ObsType: The type of the observations returned by the environment.
+       RewardsType: The type of the rewards returned by the environment.
+
+
+
+   .. py:attribute:: observations
+      :type:  dict[str, Any] | None
+
+      The observations returned by the environment after taking a step.
+
+
+   .. py:attribute:: rewards
+      :type:  bool
+
+      The rewards is a boolean indicating whether the task was successful.
+
+
+   .. py:attribute:: truncated
+      :type:  bool
+
+      Whether the episode was truncated due to reaching the step limit.
+
+
+.. py:class:: RoboTwinEnv(cfg: RoboTwinEnvCfg)
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvBase`\ [\ :py:obj:`RoboTwinEnvStepReturn`\ ]
+
+
+   RoboTwin environment.
+
+   This class provides RoboTwin environment with robo_orchard_core interface.
+   To make it work, you need to install RoboTwin and set the `RoboTwin_PATH`
+   environment variable to the path of the RoboTwin package.
+
+
+
+
+   .. py:attribute:: cfg
+
+
+   .. py:property:: instructions
+      :type: dict | None
+
+
+      The instructions for the environment.
+
+      This property is only valid if the environment is initialized
+      with `check_expert=True` or `check_task_init=True`.
+
+
+   .. py:method:: step(action: list[float] | numpy.ndarray) -> RoboTwinEnvStepReturn
+
+      Take a step in the environment.
+
+      :param action: The action to take in the
+                     environment. Actually it is the joint positions of the
+                     robot. The action should be 1-D array with length matching
+                     the task.
+      :type action: list[float] | np.ndarray
+
+      :returns:
+
+                The observation and environment
+                    state after taking the action, or None if the episode
+                    has ended.
+      :rtype: RoboTwinEnvStepReturn | None
+
+
+
+   .. py:method:: reset(env_ids: Sequence[int] | None = None, clear_cache: bool = False)
+
+      Reset the environment.
+
+
+
+   .. py:method:: close(clear_cache: bool = True)
+
+      Close the environment.
+
+
+
+   .. py:property:: num_envs
+      :type: int
+
+
+      The number of instances of the environment that are running.
+
+      For example, if the environment is a single instance, then this
+      should return 1. This is the case for most classical environments.
+
+      In the case of reforcement learning, usually a vectorized environment
+      is used to run multiple instances of the environment in parallel to
+      speed up the training process. In this case, this function should
+      return the number of instances of the environment that are running.
+
+      The number of instances of the environment is used in other parts of
+      the code to manage the environment.
+
+
+   .. py:property:: action_space
+      :type: gymnasium.Space
+
+
+      The action space of the environment.
+
+      Actually RoboTwin does not implement the action space!
+      Call this method will raise an error!
+
+      :returns: The action space of the environment.
+      :rtype: gym.Space
+
+
+   .. py:property:: observation_space
+      :type: gymnasium.Space
+
+
+      The observation space of the environment.
+
+      Actually RoboTwin does not implement the observation space!
+      Call this method will raise an error!
+
+      :returns: The observation space of the environment.
+      :rtype: gym.Space
+
+
+   .. py:method:: unwrapped_env() -> envs._base_task.Base_Task
+
+      Get the original RoboTwin environment.
+
+
+
+.. py:class:: RoboTwinEnvCfg
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvBaseCfg`\ [\ :py:obj:`RoboTwinEnv`\ ]
+
+
+   Configuration for the RoboTwin environment.
+
+
+   .. py:attribute:: class_type
+      :type:  type[RoboTwinEnv]
+
+
+   .. py:attribute:: task_name
+      :type:  str
+
+      The name of the task to run, e.g., 'place_object_scale'.
+
+
+   .. py:attribute:: seed
+      :type:  int
+      :value: 0
+
+
+      The random seed for the environment.
+
+
+   .. py:attribute:: episode_id
+      :type:  int
+      :value: 0
+
+
+      The episode ID for the environment, used for logging and tracking.
+
+
+   .. py:attribute:: check_expert
+      :type:  bool
+      :value: False
+
+
+      Whether to check the expert trajectory for the task.
+
+      If true, the environment will attempt to run the task with given seed
+      to check if the task can be completed successfully using the expert
+      trajectory. If fails, new seed will be generated and used.
+
+
+   .. py:attribute:: check_task_init
+      :type:  bool
+      :value: True
+
+
+      Whether to check the task initialization.
+
+      If true, the environment will call `play_once()` to execute the task
+      with expert trajectory to check if the task can be initialized
+      successfully.
+
+      This field should be set to True because some task attributes that
+      required for interaction may be initialized in the `play_once()` method,
+      such as `place_object_scale` task.
+
+      This should be a BUG in RoboTwin and will significantly affect the
+      performance of the environment initialization.
+
+
+   .. py:attribute:: eval_mode
+      :type:  bool
+      :value: False
+
+
+      Whether for evaluation.
+
+      If true, the environment will use unseen texture_type.
+
+
+   .. py:attribute:: max_instruction_num
+      :type:  int
+      :value: 10
+
+
+      The maximum number of instructions to generate for the env.
+
+
+   .. py:property:: task_config_path
+      :type: str
+
+
+      Path to the task configuration file.
+
+
+   .. py:property:: embodiment_config_path
+      :type: str
+
+
+      Path to the embodiment configuration file.
+
+
+   .. py:property:: camera_config_path
+      :type: str
+
+
+      Path to the camera configuration file.
+
+
+   .. py:method:: get_task_config() -> dict[str, Any]
+
+      Get the configuration for the task.
+
+
+
+.. py:function:: config_robotwin_path() -> str
+
+.. py:function:: in_robotwin_workspace()
+
+   Context manager to temporarily change the `cwd` to the RoboTwin root.
+
+
+.. py:function:: create_task_from_name(task_name: str) -> envs._base_task.Base_Task
+

@@ -1,0 +1,142 @@
+row_sampler
+===========
+
+.. py:module:: robo_orchard_lab.dataset.robot.row_sampler
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.row_sampler.MultiRowSampler
+   robo_orchard_lab.dataset.robot.row_sampler.MultiRowSamplerConfig
+   robo_orchard_lab.dataset.robot.row_sampler.DeltaTimestampSampler
+   robo_orchard_lab.dataset.robot.row_sampler.DeltaTimestampSamplerConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: MultiRowSampler
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`
+
+
+   Class for sampling multiple rows of specific columns from a dataset.
+
+
+   .. py:method:: sample_row_idx(index_dataset: datasets.Dataset, index: int) -> dict[str, list[int | None]]
+      :abstractmethod:
+
+
+      Sample a list of row indices from the index dataset.
+
+      :param index_dataset: The dataset from which to sample rows.
+      :type index_dataset: HFDataset
+      :param index: The index or indices to sample.
+      :type index: int
+
+      :returns: A dictionary where keys are column
+                names and values are lists of row indices.
+      :rtype: dict[str, list[int | None]]
+
+
+
+   .. py:property:: column_rows_keys
+      :type: dict[str, list]
+
+      :abstractmethod:
+
+
+      Get the keys of the rows that are sampled.
+
+      This property is expected to return a dictionary where keys are
+      column names and values are lists of row keys. It is useful
+      for understanding which columns are sampled and what are the
+      corresponding row keys.
+
+
+.. py:class:: MultiRowSamplerConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`MultiRowSamplerType`\ ]
+
+
+   Configuration class for MultiRowSampler.
+
+
+   .. py:attribute:: class_type
+      :type:  Type[MultiRowSamplerType]
+
+
+.. py:class:: DeltaTimestampSampler(cfg: DeltaTimestampSamplerConfig)
+
+   Bases: :py:obj:`MultiRowSampler`
+
+
+   Class for sampling multiple rows of specific columns from a dataset.
+
+
+   .. py:attribute:: cfg
+
+
+   .. py:property:: column_rows_keys
+      :type: dict[str, list]
+
+
+      Get the keys of the rows that are sampled.
+
+
+   .. py:method:: sample_row_idx(index_dataset: datasets.Dataset, index: int) -> dict[str, list[int | None]]
+
+      Sample a list of row indices from the index dataset.
+
+      :param index_dataset: The dataset from which to sample rows.
+      :type index_dataset: HFDataset
+      :param index: The index or indices to sample.
+      :type index: int
+
+      :returns: A dictionary where keys are column
+                names and values are lists of row indices.
+      :rtype: dict[str, list[int | None]]
+
+
+
+.. py:class:: DeltaTimestampSamplerConfig
+
+   Bases: :py:obj:`MultiRowSamplerConfig`\ [\ :py:obj:`DeltaTimestampSampler`\ ]
+
+
+   Configuration class for DeltaTimestampSampler.
+
+   This configuration define the sampling strategy based on delta timestamps
+   for each column. It allows specifying the delta timestamps and the
+   tolerance for matching timestamps.
+
+
+
+   .. py:attribute:: class_type
+      :type:  Type[DeltaTimestampSampler]
+
+
+   .. py:attribute:: column_delta_ts
+      :type:  dict[str, list[float]]
+
+      A dictionary where keys are column names and values are lists of
+      delta timestamps in seconds. This is used to sample rows based on
+      the delta timestamps for each column.
+
+
+   .. py:attribute:: tolerance
+      :type:  float
+      :value: 0.01
+
+
+      The tolerance in seconds for matching timestamps.
+
+      The first row that matches the delta_timestamp +/- tolerance will be
+      selected. This is useful for ensuring that the sampled rows are close
+      to the desired delta timestamps, allowing for some flexibility in
+      matching due to potential variations in the data.
+
+

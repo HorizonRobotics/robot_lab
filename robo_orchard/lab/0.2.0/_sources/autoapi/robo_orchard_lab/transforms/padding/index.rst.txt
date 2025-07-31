@@ -1,0 +1,125 @@
+padding
+=======
+
+.. py:module:: robo_orchard_lab.transforms.padding
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.transforms.padding.Padding
+   robo_orchard_lab.transforms.padding.PaddingConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: Padding(cfg: PaddingConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransform`
+
+
+   A class that defines the interface for transforming a dict.
+
+   The dict is usually a row in a dataset, and the transform
+   will take the input columns, apply some transformation, and return
+   a new dict with the transformed values added to the original dict.
+
+   User should implement the `transform` method to define the specific
+   transformation logic.
+
+   If you use a dataclass or BaseModel as the return type of
+   the transform method, `output_columns` will be automatically
+   inferred from the fields of the dataclass or BaseModel. Otherwise,
+   you should implement the `output_columns` property to return the
+   expected output columns for the transform.
+
+
+   For Transform whose input and output columns are not known
+   at the time of configuration, the input and output columns
+   properties should not be used, and the `check_return_columns`
+   configuration should be set to False. This will prevent runtime
+   errors when the transform is called with a row dict.
+
+
+
+   .. py:attribute:: cfg
+      :type:  PaddingConfig
+
+
+   .. py:method:: input_columns() -> list[str]
+
+      The input columns that this transform requires.
+
+      This should be a list of column names that are required
+      for the transformation. The transform method will be called
+      with these columns as keyword arguments.
+
+      By default this property uses the signature of the
+      `transform` method to determine the input columns. If you
+      need to customize the input columns, you should override this
+      property in your subclass.
+
+
+
+
+   .. py:method:: output_columns() -> list[str]
+
+      The output columns are the same as the input columns.
+
+
+
+   .. py:method:: transform(**kwargs) -> dict
+
+      Apply padding to the input columns.
+
+      This method replaces None values in the head of input lists with the
+      first non-None value found in the list for each column, and replaces
+      None values in the tail of input lists with the last non-None value
+      found in the list for each column.
+
+
+
+
+.. py:class:: PaddingConfig
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransformConfig`\ [\ :py:obj:`Padding`\ ]
+
+
+   Configuration class for Padding transform.
+
+   This configuration defines the padding size and the padding value.
+   It is used to create a Padding transform that pads the input tensors.
+
+
+
+   .. py:attribute:: class_type
+      :type:  Type[Padding]
+
+
+   .. py:attribute:: input_columns
+      :type:  Sequence[str]
+      :value: None
+
+
+
+   .. py:attribute:: pad_mode
+      :type:  Literal['replace_none']
+      :value: 'replace_none'
+
+
+      The padding mode to use. Currently only 'replace_none' is supported.
+
+      -replace_none: Replace None values in the head and tail of input lists
+          with the first and last non-None values found in the list,
+          respectively.
+
+
+   .. py:attribute:: check_return_columns
+      :type:  bool
+      :value: True
+
+
+

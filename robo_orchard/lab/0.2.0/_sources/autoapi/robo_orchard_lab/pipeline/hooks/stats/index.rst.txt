@@ -1,0 +1,102 @@
+stats
+=====
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.stats
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.stats.StatsMonitor
+   robo_orchard_lab.pipeline.hooks.stats.StatsMonitorConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: StatsMonitor(cfg: StatsMonitorConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   A hook to monitor and log training statistics.
+
+   Including training speed, estimated time remaining, learning rate.
+
+
+   .. py:attribute:: batch_size
+
+
+   .. py:attribute:: steps_per_epoch
+
+
+   .. py:attribute:: step_log_freq
+
+
+   .. py:attribute:: epoch_log_freq
+
+
+   .. py:attribute:: total_batch_size
+      :value: None
+
+
+
+.. py:class:: StatsMonitorConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`StatsMonitor`\ ]
+
+
+   Configuration class for StatsMonitor.
+
+
+   .. py:attribute:: class_type
+      :type:  type[StatsMonitor]
+
+
+   .. py:attribute:: batch_size
+      :type:  Optional[int]
+      :value: None
+
+
+      The batch size per process. If None, it attempts to be inferred
+      from the dataloader.
+
+
+   .. py:attribute:: steps_per_epoch
+      :type:  Optional[int]
+      :value: None
+
+
+      The number of steps per epoch. If None, it attempts to be inferred
+      from the dataloader.
+
+
+   .. py:attribute:: step_log_freq
+      :type:  int
+      :value: 512
+
+
+      Frequency to log stats at the step level. Logs are output every
+      `step_log_freq` steps.
+
+
+   .. py:attribute:: epoch_log_freq
+      :type:  int
+      :value: 1
+
+
+      Frequency to log stats at the epoch level. Logs are output every
+      `epoch_log_freq` epochs.
+
+
+   .. py:attribute:: window_size
+      :type:  int
+      :value: 128
+
+
+      The size of the sliding window used to smooth the step time
+      calculation, making the remaining time estimate more stable.
+
+

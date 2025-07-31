@@ -1,0 +1,168 @@
+camera
+======
+
+.. py:module:: robo_orchard_lab.dataset.datatypes.camera
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.datatypes.camera.Distortion
+   robo_orchard_lab.dataset.datatypes.camera.DistortionFeature
+   robo_orchard_lab.dataset.datatypes.camera.BatchCameraInfo
+   robo_orchard_lab.dataset.datatypes.camera.BatchCameraInfoFeature
+   robo_orchard_lab.dataset.datatypes.camera.BatchCameraDataEncoded
+   robo_orchard_lab.dataset.datatypes.camera.BatchCameraDataEncodedFeature
+   robo_orchard_lab.dataset.datatypes.camera.BatchCameraData
+   robo_orchard_lab.dataset.datatypes.camera.BatchCameraDataFeature
+
+
+Module Contents
+---------------
+
+.. py:class:: Distortion(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.camera_data.Distortion`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.ToDataFeatureMixin`
+
+
+   A class for distortion parameters with dataset feature support.
+
+
+   .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> DistortionFeature
+      :classmethod:
+
+
+
+.. py:class:: DistortionFeature
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.RODictDataFeature`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.TypedDictFeatureDecode`
+
+
+   A feature for storing distortion parameters in a dataset.
+
+   The underlying data is stored as a serialized numpy array
+   with additional metadata about the distortion parameters.
+
+
+   .. py:attribute:: dtype
+      :type:  Literal['float32', 'float64']
+      :value: 'float32'
+
+
+
+   .. py:attribute:: decode
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: BatchCameraInfo(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.camera_data.BatchCameraInfo`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.ToDataFeatureMixin`
+
+
+   A class for batch camera info with dataset feature support.
+
+
+   .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchCameraInfoFeature
+      :classmethod:
+
+
+
+.. py:class:: BatchCameraInfoFeature
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.RODictDataFeature`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.TypedDictFeatureDecode`
+
+
+   A feature for storing batch camera info in a dataset.
+
+   The underlying data is stored as a serialized numpy array
+   with additional metadata about the camera info.
+
+
+   .. py:attribute:: dtype
+      :type:  Literal['float32', 'float64']
+      :value: 'float32'
+
+
+
+   .. py:attribute:: decode
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: BatchCameraDataEncoded(*args, **kwargs)
+
+   Bases: :py:obj:`BatchCameraInfo`, :py:obj:`robo_orchard_core.datatypes.camera_data.BatchCameraDataEncoded`
+
+
+   A class for batch camera data with dataset feature support.
+
+
+   .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchCameraDataEncodedFeature
+      :classmethod:
+
+
+
+.. py:class:: BatchCameraDataEncodedFeature
+
+   Bases: :py:obj:`BatchCameraInfoFeature`
+
+
+   A feature for storing batch camera data in a dataset.
+
+   The underlying data is stored as a serialized numpy array
+   with additional metadata about the camera data.
+
+
+   .. py:attribute:: dtype
+      :type:  Literal['float32', 'float64']
+      :value: 'float32'
+
+
+
+   .. py:attribute:: decode
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: BatchCameraData(*args, **kwargs)
+
+   Bases: :py:obj:`BatchCameraInfo`, :py:obj:`robo_orchard_core.datatypes.camera_data.BatchCameraData`
+
+
+   A class for batch camera data with dataset feature support.
+
+
+   .. py:method:: dataset_feature(dtype: Literal['float32', 'float64'] = 'float32') -> BatchCameraDataFeature
+      :classmethod:
+
+
+
+.. py:class:: BatchCameraDataFeature
+
+   Bases: :py:obj:`BatchCameraInfoFeature`
+
+
+   A feature for storing batch camera data in a dataset.
+
+   The underlying data is stored as a serialized numpy array
+   with additional metadata about the camera data.
+
+
+   .. py:attribute:: dtype
+      :type:  Literal['float32', 'float64']
+      :value: 'float32'
+
+
+
+   .. py:attribute:: decode
+      :type:  bool
+      :value: True
+
+
+

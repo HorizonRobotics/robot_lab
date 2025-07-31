@@ -1,0 +1,67 @@
+path
+====
+
+.. py:module:: robo_orchard_lab.utils.path
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.path.DirectoryNotEmptyError
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.path.is_empty_directory
+   robo_orchard_lab.utils.path.in_cwd
+
+
+Module Contents
+---------------
+
+.. py:exception:: DirectoryNotEmptyError
+
+   Bases: :py:obj:`Exception`
+
+
+   Exception raised when a directory is not empty as expected.
+
+
+.. py:function:: is_empty_directory(directory: str) -> bool
+
+.. py:function:: in_cwd(destination: str)
+
+   Context manager to temporarily change the current working directory.
+
+   This provides a safe way to perform operations within a specific directory.
+   It changes the directory to the given path upon entering the 'with'
+   block and guarantees that the original directory is restored upon exiting,
+   even if an exception occurs.
+
+   :param destination: The path of the directory to change into.
+   :type destination: str
+
+   :Yields: *str* -- The changed directory
+
+   .. rubric:: Example
+
+   >>> import os
+   >>> if not os.path.exists("my_temp_dir"):
+   ...     os.makedirs("my_temp_dir")
+   >>> original_dir = os.getcwd()
+   >>> print(f"Starting in: {original_dir}")
+   Starting in: /path/to/current
+   >>> with in_cwd("my_temp_dir"):
+   ...     print(f"Inside 'with' block: {os.getcwd()}")
+   Inside 'with' block: /path/to/current/my_temp_dir
+   >>> print(f"Back in: {os.getcwd()}")
+   Back in: /path/to/current
+   >>> os.getcwd() == original_dir
+   True
+
+

@@ -1,0 +1,19 @@
+collates
+========
+
+.. py:module:: robo_orchard_lab.dataset.collates
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.collates.collate_batch_dict
+
+
+Module Contents
+---------------
+
+.. py:function:: collate_batch_dict(batch)
+

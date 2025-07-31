@@ -1,0 +1,126 @@
+processor
+=========
+
+.. py:module:: robo_orchard_lab.models.sem_modules.processor
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.sem_modules.processor.SEMProcessor
+   robo_orchard_lab.models.sem_modules.processor.SEMProcessorCfg
+
+
+Module Contents
+---------------
+
+.. py:class:: SEMProcessor(cfg: SEMProcessorCfg)
+
+   Bases: :py:obj:`robo_orchard_lab.inference.processor.ProcessorMixin`
+
+
+   An abstract base class for data processing modules.
+
+   This class defines a standard interface for data processors, which are
+   responsible for encapsulating the pre-processing and post-processing logic
+   required for a model. Subclasses must implement the `pre_process` method.
+
+   The primary role of a processor is to convert raw, user-provided data into
+   a format suitable for model consumption (pre-processing) and to convert the
+   model's raw output into a user-friendly, understandable format
+   (post-processing).
+
+
+   .. py:attribute:: cfg
+      :type:  SEMProcessorCfg
+
+
+   .. py:attribute:: ts
+      :value: None
+
+
+
+   .. py:method:: pre_process(data: robo_orchard_lab.inference.multi_arm_manipulation.MultiArmManipulationInput)
+
+      Transforms raw data into a model-ready format.
+
+      Subclasses must implement this method to handle the conversion of
+      user-provided input into the specific format expected by the model.
+
+      :param data: The raw input data.
+
+      :returns: The processed data, ready to be collated into a batch.
+
+
+
+   .. py:method:: post_process(batch, model_outputs) -> robo_orchard_lab.inference.multi_arm_manipulation.MultiArmManipulationOutput
+
+      Transforms model output into a user-friendly format.
+
+      This method can be overridden by subclasses to convert the raw tensor
+      outputs from the model into a more structured or interpretable format,
+      such as dictionaries with meaningful keys, text, or image objects.
+
+      By default, it performs an identity mapping, returning the model
+      outputs as is.
+
+      :param batch: The transformed batch.
+      :param model_outputs: The raw output from the model's forward pass.
+
+      :returns: The post-processed, user-friendly output.
+
+
+
+.. py:class:: SEMProcessorCfg
+
+   Bases: :py:obj:`robo_orchard_lab.inference.processor.ProcessorMixinCfg`\ [\ :py:obj:`SEMProcessor`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.inference.processor.ClassType_co[SEMProcessor]
+
+
+   .. py:attribute:: load_image
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: load_depth
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: hist_steps
+      :type:  int
+      :value: 1
+
+
+
+   .. py:attribute:: pred_steps
+      :type:  int
+      :value: 64
+
+
+
+   .. py:attribute:: resize_dst_wh
+      :type:  tuple[int, int] | list[int]
+
+
+   .. py:attribute:: resize_dst_intrinsic
+      :type:  list[list[float]]
+
+
+   .. py:attribute:: scale_shift_list
+      :type:  list[list[float]]
+
+
+   .. py:attribute:: valid_action_step
+      :type:  int
+      :value: 32
+
+
+

@@ -1,0 +1,99 @@
+grad_clip
+=========
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.grad_clip
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.grad_clip.GradientClippingHook
+   robo_orchard_lab.pipeline.hooks.grad_clip.GradientClippingHookConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: GradientClippingHook(cfg: GradientClippingHookConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   A hook for gradient clipping during training.
+
+   This hook is responsible for clipping the gradients of the model
+   parameters to prevent exploding gradients. It performs the clipping
+   after each step of the training process.
+
+   .. note::
+
+      If you are using OptimizerHook and GradientClippingHook together,
+      make sure that GradientClippingHook is registered before OptimizerHook
+      in the pipeline. This ensures that the gradients are clipped before
+      the optimizer step is performed.
+
+   :param cfg: The configuration for the
+               GradientClippingHook.
+   :type cfg: GradientClippingHookConfig
+
+
+   .. py:attribute:: clip_mode
+
+
+   .. py:attribute:: clip_value
+
+
+   .. py:attribute:: max_norm
+
+
+   .. py:attribute:: norm_type
+
+
+.. py:class:: GradientClippingHookConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`GradientClippingHook`\ ]
+
+
+   Configuration class for GradientClippingHook.
+
+
+   .. py:attribute:: class_type
+      :type:  type[GradientClippingHook]
+
+
+   .. py:attribute:: clip_mode
+      :type:  Literal['norm', 'value']
+
+      The mode of gradient clipping.
+      - "norm": Clips gradients by norm.
+      - "value": Clips gradients by value.
+
+
+   .. py:attribute:: clip_value
+      :type:  float | None
+      :value: None
+
+
+      The maximum norm to clip the gradients to. This parameter
+      is only used when `clip_mode` is "norm".
+
+
+   .. py:attribute:: max_norm
+      :type:  float | None
+      :value: None
+
+
+      The maximum norm to clip the gradients to. This parameter is only
+      used when `clip_mode` is "norm".
+
+
+   .. py:attribute:: norm_type
+      :type:  float
+      :value: 2.0
+
+
+      The type of norm to use for clipping. Default is 2.0 (L2 norm).
+
+

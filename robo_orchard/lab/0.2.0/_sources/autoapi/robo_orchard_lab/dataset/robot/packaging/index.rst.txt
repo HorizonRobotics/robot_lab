@@ -1,0 +1,293 @@
+packaging
+=========
+
+.. py:module:: robo_orchard_lab.dataset.robot.packaging
+
+.. autoapi-nested-parse::
+
+   Packaging a RoboOrchard Dataset.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.packaging.EpisodeMeta
+   robo_orchard_lab.dataset.robot.packaging.DataFrame
+   robo_orchard_lab.dataset.robot.packaging.EpisodePackaging
+   robo_orchard_lab.dataset.robot.packaging.DatasetPackaging
+   robo_orchard_lab.dataset.robot.packaging.EpisodeData
+   robo_orchard_lab.dataset.robot.packaging.RobotData
+   robo_orchard_lab.dataset.robot.packaging.TaskData
+   robo_orchard_lab.dataset.robot.packaging.InstructionData
+
+
+Module Contents
+---------------
+
+.. py:class:: EpisodeMeta
+
+   Metadata for an episode packaging in a RoboOrchard dataset.
+
+   This is the data structure used during the packaging process to
+   represent the episode information to be stored in the database.
+
+
+   .. py:attribute:: episode
+      :type:  EpisodeData
+
+
+   .. py:attribute:: robot
+      :type:  RobotData | None
+      :value: None
+
+
+
+   .. py:attribute:: task
+      :type:  TaskData | None
+      :value: None
+
+
+
+   .. py:method:: get_transient_orm(index_state: DatasetIndexState, session: sqlalchemy.orm.Session) -> EpisodeMetaORM
+
+      Get the transient ORM instance of the episode metadata.
+
+
+
+.. py:class:: DataFrame
+
+   Data for a single frame in a RoboOrchard dataset.
+
+
+   .. py:attribute:: features
+      :type:  dict[str, Any]
+
+
+   .. py:attribute:: instruction
+      :type:  InstructionData | None
+      :value: None
+
+
+
+   .. py:attribute:: timestamp_ns_min
+      :type:  int | None
+      :value: None
+
+
+      The minimum timestamp of the frame in nanoseconds.
+
+
+   .. py:attribute:: timestamp_ns_max
+      :type:  int | None
+      :value: None
+
+
+      The maximum timestamp of the frame in nanoseconds.
+
+
+.. py:class:: EpisodePackaging
+
+   .. py:method:: generate_episode_meta() -> EpisodeMeta
+      :abstractmethod:
+
+
+      Generate metadata for the episode.
+
+      :returns: Metadata containing the episode, robot, and task.
+      :rtype: EpisodeMeta
+
+
+
+   .. py:method:: generate_frames() -> Generator[DataFrame, None, None]
+      :abstractmethod:
+
+
+      Generate frame data for the episode.
+
+
+
+.. py:class:: DatasetPackaging(features: datasets.Features, database_driver: str = 'duckdb', check_timestamp: bool = False)
+
+   Class for packaging a RoboOrchard dataset.
+
+   :param features: The features of the dataset.
+   :type features: hg_datasets.Features
+   :param database_driver: The database driver to use for the meta
+                           database. Default is "duckdb".
+   :type database_driver: str
+   :param check_timestamp: Whether to check the
+                           timestamp of the frames. Timestamps are required for time-based
+                           queries and operations. If True, it will raise an error
+                           if the timestamp is not set or if timestamp_min is greater
+                           than timestamp_max. Default is False.
+   :type check_timestamp: bool, optional
+
+
+   .. py:property:: features
+      :type: datasets.Features
+
+
+
+   .. py:method:: packaging(episodes: Iterable[EpisodePackaging], dataset_path: str, dataset_info: datasets.DatasetInfo | None = None, writer_batch_size: int = 8, max_shard_size: str | int = '2GB', split: datasets.Split | None = None, force_overwrite: bool = False)
+
+      Package the dataset and save it to the specified path.
+
+      :param episodes: An iterable of episode
+                       packaging instances.
+      :type episodes: Iterable[EpisodePackaging]
+      :param dataset_path: The path to save the packaged dataset.
+      :type dataset_path: str
+      :param dataset_info: Information about
+                           the dataset, such as description, citation, and homepage.
+                           If None, use the default dataset info.
+      :type dataset_info: hg_datasets.DatasetInfo | None
+      :param writer_batch_size: The batch size for writing the arrow file.
+                                This may affect the performance of packaging or reading the
+                                dataset later. Default is 8.
+      :type writer_batch_size: int
+      :param max_shard_size: The maximum size of each shard.
+                             If None, no sharding will be applied. This can be a string
+                             like '10GB' or an integer representing the size in bytes.
+                             default is "500MB".
+      :type max_shard_size: str | int | None
+      :param split: The split of the dataset.
+                    If None, use "train" as the default split.
+      :type split: hg_datasets.Split | None
+      :param force_overwrite: If True, overwrite the existing dataset
+                              at the specified path. If False, raise an error if the path
+                              already exists. Default is False.
+      :type force_overwrite: bool
+
+
+
+.. py:class:: EpisodeData
+
+   Data for an episode information which is used for packaging.
+
+
+   .. py:attribute:: frame_num
+      :type:  int | None
+      :value: None
+
+
+      The total number of frames in the episode.
+
+
+   .. py:attribute:: prev_episode_index
+      :type:  int | None
+      :value: None
+
+
+      The index of the previous episode in the dataset.
+
+
+   .. py:attribute:: dataset_begin_index
+      :type:  int | None
+      :value: None
+
+
+      The index of the first dataset item in this episode.
+
+
+.. py:class:: RobotData
+
+   Data for a robot information which is used for packaging.
+
+
+   .. py:attribute:: name
+      :type:  str
+
+      The name of the robot.
+
+
+   .. py:attribute:: urdf_content
+      :type:  str
+
+      The URDF content of the robot.
+
+
+   .. py:method:: make_transient_orm(index_state: DatasetIndexState, session: sqlalchemy.orm.Session | None) -> robo_orchard_lab.dataset.robot.db_orm.Robot
+
+      Create a transient ORM instance of the robot.
+
+      If session is provided, it will check if the robot already exists
+      in the database using its name and URDF content. If it exists, it
+      will return the existing robot instance, otherwise it will create a
+      new transient instance with the next index.
+
+      If session is None, it will create a new transient instance with the
+      next index without checking the database.
+
+
+
+
+.. py:class:: TaskData
+
+   Data for a task information which is used for packaging.
+
+
+   .. py:attribute:: name
+      :type:  str
+
+      The name of the task.
+
+
+   .. py:attribute:: description
+      :type:  str | None
+      :value: None
+
+
+      The description of the task.
+
+
+   .. py:method:: make_transient_orm(index_state: DatasetIndexState, session: sqlalchemy.orm.Session | None) -> robo_orchard_lab.dataset.robot.db_orm.Task
+
+      Create a transient ORM instance of the task.
+
+      If session is provided, it will check if the task already exists
+      in the database using its name and description. If it exists, it
+      will return the existing task instance, otherwise it will create a
+      new transient instance with the next index.
+
+      If session is None, it will create a new transient instance with the
+      next index without checking the database.
+
+
+
+
+.. py:class:: InstructionData
+
+   Data for an instruction information which is used for packaging.
+
+
+   .. py:attribute:: name
+      :type:  str | None
+
+      The name of the instruction.
+
+
+   .. py:attribute:: json_content
+      :type:  dict[str, Any] | None
+
+      The content of the instruction, typically a dictionary with keys like
+      'instruction', 'robot', and 'task'.
+
+
+   .. py:method:: make_transient_orm(index_state: DatasetIndexState, session: sqlalchemy.orm.Session | None = None) -> robo_orchard_lab.dataset.robot.db_orm.Instruction
+
+      Create a transient ORM instance of the instruction.
+
+      If session is provided, it will check if the instruction already exists
+      in the database using its name and JSON content. If it exists, it
+      will return the existing instruction instance, otherwise it will
+      create a new transient instance with the next index.
+
+      If session is None, it will create a new transient instance with the
+      next index without checking the database.
+
+
+
+

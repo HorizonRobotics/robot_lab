@@ -1,0 +1,57 @@
+instruction
+===========
+
+.. py:module:: robo_orchard_lab.dataset.robot.db_orm.instruction
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.db_orm.instruction.Instruction
+
+
+Module Contents
+---------------
+
+.. py:class:: Instruction
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.robot.db_orm.base.DatasetORMBase`, :py:obj:`robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin`\ [\ :py:obj:`Instruction`\ ]
+
+
+   Base class for all ORM classes working with all db engines.
+
+
+   .. py:attribute:: index
+      :type:  sqlalchemy.orm.Mapped[int]
+
+
+   .. py:attribute:: name
+      :type:  sqlalchemy.orm.Mapped[str | None]
+
+
+   .. py:attribute:: json_content
+      :type:  sqlalchemy.orm.Mapped[dict | None]
+
+
+   .. py:attribute:: md5
+      :type:  sqlalchemy.orm.Mapped[bytes]
+
+
+   .. py:method:: update_md5() -> bytes
+
+      Generate a unique MD5 hash for the instruction content.
+
+      The MD5 hash is generated from the JSON content and name.
+
+
+
+   .. py:method:: query_by_content_with_md5(session: sqlalchemy.orm.Session, name: str | None, json_content: dict | None) -> Instruction | None
+      :staticmethod:
+
+
+      Query a robot by its name and URDF content.
+
+
+

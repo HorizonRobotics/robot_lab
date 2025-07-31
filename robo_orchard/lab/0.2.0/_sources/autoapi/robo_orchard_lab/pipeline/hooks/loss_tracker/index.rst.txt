@@ -1,0 +1,56 @@
+loss_tracker
+============
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.loss_tracker
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.loss_tracker.LossMovingAverageTracker
+   robo_orchard_lab.pipeline.hooks.loss_tracker.LossMovingAverageTrackerConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: LossMovingAverageTracker(cfg: LossMovingAverageTrackerConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   Loss moving average tracker.
+
+   A loss tracker hook for log the losses at specified step intervals.
+
+   :param cfg: Configuration objects containing
+               parameters for loss tracker.
+   :type cfg: LossMovingAverageTrackerConfig
+
+
+   .. py:attribute:: step_log_freq
+
+
+   .. py:method:: reset()
+
+
+.. py:class:: LossMovingAverageTrackerConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`LossMovingAverageTracker`\ ]
+
+
+   Configuration class for LossMovingAverageTracker.
+
+
+   .. py:attribute:: class_type
+      :type:  type[LossMovingAverageTracker]
+
+
+   .. py:attribute:: step_log_freq
+      :type:  Optional[int]
+      :value: 25
+
+
+

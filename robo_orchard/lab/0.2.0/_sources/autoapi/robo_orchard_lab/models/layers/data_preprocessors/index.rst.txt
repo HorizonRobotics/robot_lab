@@ -1,0 +1,196 @@
+data_preprocessors
+==================
+
+.. py:module:: robo_orchard_lab.models.layers.data_preprocessors
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.layers.data_preprocessors.BaseDataPreprocessor
+   robo_orchard_lab.models.layers.data_preprocessors.GridMask
+
+
+Module Contents
+---------------
+
+.. py:class:: BaseDataPreprocessor(mean: Optional[Sequence[float]] = None, std: Optional[Sequence[float]] = None, channel_dim: int = -1, channel_flip: bool = False, channel_order: Optional[Sequence[int]] = None, hwc_to_chw: bool = True, image_keys: Union[Sequence[str], str] = 'imgs', depth_keys: Union[Sequence[str], str] = 'depths', unsqueeze_depth_channel: bool = False, batch_transforms: Optional[Sequence[Union[Dict, Callable]]] = None)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   BaseDataPreprocessor.
+
+   A base class for preprocessing data, particularly images
+   This class handles image normalization, image channel manipulation,
+   and optional grid masking augmentation.
+
+   :param mean: The mean values for normalization.
+   :type mean: Optional[Sequence[float]]
+   :param std: The standard deviation values for
+               normalization.
+   :type std: Optional[Sequence[float]]
+   :param channel_dim: The dimension along which the channels are located.
+   :type channel_dim: int
+   :param channel_flip: Whether to flip the channel order.
+   :type channel_flip: bool
+   :param channel_order: The desired order of channels.
+   :type channel_order: Optional[Sequence[int]]
+   :param hwc_to_chw: Whether to convert the data format from HWC to CHW.
+   :type hwc_to_chw: bool
+   :param image_keys: The keys corresponding to the
+                      images.
+   :type image_keys: Union[List[str], str]
+   :param depth_keys: The keys corresponding to the
+                      depths.
+   :type depth_keys: Union[List[str], str]
+   :param grid_mask_config: Configuration for the grid mask.
+   :type grid_mask_config: Optional[Dict]
+   :param batch_transforms: transforms for batch data.
+
+
+   .. py:attribute:: mean
+
+
+   .. py:attribute:: std
+
+
+   .. py:attribute:: channel_dim
+      :value: -1
+
+
+
+   .. py:attribute:: channel_flip
+      :value: False
+
+
+
+   .. py:attribute:: channel_order
+      :value: None
+
+
+
+   .. py:attribute:: hwc_to_chw
+      :value: True
+
+
+
+   .. py:attribute:: image_keys
+      :value: []
+
+
+
+   .. py:attribute:: depth_keys
+      :value: []
+
+
+
+   .. py:attribute:: unsqueeze_depth_channel
+      :value: False
+
+
+
+   .. py:attribute:: batch_transforms
+
+
+   .. py:method:: cast_data(data, device='cuda')
+
+
+   .. py:method:: process_img(imgs)
+
+
+   .. py:method:: forward(data, device='cuda')
+
+
+.. py:class:: GridMask(use_h=True, use_w=True, rotate=1, offset=False, ratio=0.5, mode=1, prob=0.7, apply_grid_mask_keys=('imgs', 'depths'), image_keys='imgs')
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: use_h
+      :value: True
+
+
+
+   .. py:attribute:: use_w
+      :value: True
+
+
+
+   .. py:attribute:: rotate
+      :value: 1
+
+
+
+   .. py:attribute:: offset
+      :value: False
+
+
+
+   .. py:attribute:: ratio
+      :value: 0.5
+
+
+
+   .. py:attribute:: mode
+      :value: 1
+
+
+
+   .. py:attribute:: st_prob
+      :value: 0.7
+
+
+
+   .. py:attribute:: prob
+      :value: 0.7
+
+
+
+   .. py:attribute:: apply_grid_mask_keys
+      :value: ('imgs', 'depths')
+
+
+
+   .. py:attribute:: image_keys
+      :value: 'imgs'
+
+
+
+   .. py:method:: forward(data)
+
+

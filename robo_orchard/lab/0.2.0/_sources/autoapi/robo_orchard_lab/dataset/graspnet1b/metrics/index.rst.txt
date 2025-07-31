@@ -1,0 +1,151 @@
+metrics
+=======
+
+.. py:module:: robo_orchard_lab.dataset.graspnet1b.metrics
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.graspnet1b.metrics.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetEvalScale
+   robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetMetric
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: GraspNetEvalScale
+
+   Bases: :py:obj:`graspnetAPI.GraspNetEval`
+
+
+   GraspNet evaluation for scale-balanced grasping.
+
+   Reference:
+       https://github.com/mahaoxiang822/Scale-Balanced-Grasp/blob/main/evaluate_scale.py
+
+
+   .. py:method:: eval(dump_folder, scene_ids, scale, note, proc=2)
+
+
+   .. py:method:: eval_all(dump_folder, scale, proc=2)
+
+
+   .. py:method:: eval_grasp(grasp_group, models, dexnet_models, poses, config, table=None, voxel_size=0.008, TOP_K=50)
+
+      Evaluate grasps.
+
+      :param grasp_group: GraspGroup instance for evaluation.
+      :param models: in model coordinate
+      :param dexnet_models: models in dexnet format
+      :param poses: from model to camera coordinate
+      :param config: dexnet config.
+      :param table: in camera coordinate
+      :param voxel_size: float of the voxel size.
+      :param TOP_K: int of the number of top grasps to evaluate.
+
+
+
+   .. py:method:: eval_scene(scene_id, dump_folder, scale, TOP_K=20, return_list=False, vis=False, max_width=0.1)
+
+      Evaluate a single scene.
+
+      :param scene_id: int of the scene index.
+      :param dump_folder: string of the folder that saves the dumped npy files.
+      :param TOP_K: int of the top number of grasp to evaluate
+      :param return_list: bool of whether to return the result list.
+      :param vis: bool of whether to show the result
+      :param max_width: float of the maximum gripper width in evaluation
+
+      :returns: np.array[256, 50, 6] of the accuracy tensor.
+      :rtype: scene_accuracy
+
+
+
+   .. py:method:: parallel_eval_scenes(scene_ids, dump_folder, scale, proc=2)
+
+      Parallel evaluation of multiple scenes.
+
+      :param scene_ids: list of int of scene index.
+      :param dump_folder: string of the folder that saves the npy files.
+      :param proc: int of the number of processes to use to evaluate.
+
+      :returns: list of the scene accuracy.
+      :rtype: scene_acc_list
+
+
+
+.. py:class:: GraspNetMetric(voxel_size_cd: float = 0.005, collision_thresh: float = 0.01, eval_save_dir: str = './eval_results', camera: str = 'realsense', test_mode: List[str] = ['test', 'test_scale'], num_test_proc: int = 16, grasp_max_width: float = 0.1, num_seed_points: int = 4096, data_root: str = './data')
+
+   .. py:attribute:: voxel_size_cd
+      :value: 0.005
+
+
+
+   .. py:attribute:: collision_thresh
+      :value: 0.01
+
+
+
+   .. py:attribute:: eval_save_dir
+      :value: './eval_results'
+
+
+
+   .. py:attribute:: camera
+      :value: 'realsense'
+
+
+
+   .. py:attribute:: test_mode
+      :value: ['test', 'test_scale']
+
+
+
+   .. py:attribute:: num_test_proc
+      :value: 16
+
+
+
+   .. py:attribute:: grasp_max_width
+      :value: 0.1
+
+
+
+   .. py:attribute:: num_seed_points
+      :value: 4096
+
+
+
+   .. py:attribute:: data_root
+      :value: './data'
+
+
+
+   .. py:attribute:: results
+
+
+   .. py:method:: update(batch, model_outputs)
+
+
+   .. py:method:: compute(accelerator)
+
+
+   .. py:method:: eval()
+
+
+   .. py:method:: reset()
+
+

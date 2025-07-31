@@ -1,0 +1,60 @@
+robot_state_encoder
+===================
+
+.. py:module:: robo_orchard_lab.models.sem_modules.robot_state_encoder
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.sem_modules.robot_state_encoder.SEMRobotStateEncoder
+
+
+Module Contents
+---------------
+
+.. py:class:: SEMRobotStateEncoder(embed_dims, joint_self_attn, norm_layer, ffn, temp_self_attn=None, state_dims=8, num_encoder=4, act_cfg=None, operation_order=None, chunk_size=5, pre_norm=True)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Spatial Enhanced Manipulation (SEM) Robot State Encoder.
+
+   Robot state encoder implementation from the paper
+      'https://arxiv.org/abs/2505.16196'.
+
+
+   .. py:attribute:: embed_dims
+
+
+   .. py:attribute:: chunk_size
+      :value: 5
+
+
+
+   .. py:attribute:: pre_norm
+      :value: True
+
+
+
+   .. py:attribute:: input_fc
+
+
+   .. py:attribute:: layers
+      :value: []
+
+
+
+   .. py:attribute:: operation_order
+      :value: None
+
+
+
+   .. py:attribute:: op_config_map
+
+
+   .. py:method:: forward(robot_state, joint_distance=None)
+
+

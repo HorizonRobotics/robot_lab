@@ -1,0 +1,78 @@
+utils
+=====
+
+.. py:module:: robo_orchard_lab.models.bip3d.grounding_decoder.utils
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.bip3d.grounding_decoder.utils.decode_box
+   robo_orchard_lab.models.bip3d.grounding_decoder.utils.convert_grounding_to_cls_scores
+   robo_orchard_lab.models.bip3d.grounding_decoder.utils.create_positive_map_label_to_token
+   robo_orchard_lab.models.bip3d.grounding_decoder.utils.rotation_3d_in_euler
+   robo_orchard_lab.models.bip3d.grounding_decoder.utils.wasserstein_distance
+   robo_orchard_lab.models.bip3d.grounding_decoder.utils.center_distance
+   robo_orchard_lab.models.bip3d.grounding_decoder.utils.get_positive_map
+   robo_orchard_lab.models.bip3d.grounding_decoder.utils.get_entities
+   robo_orchard_lab.models.bip3d.grounding_decoder.utils.linear_act_ln
+
+
+Module Contents
+---------------
+
+.. py:function:: decode_box(box, min_size=None, max_size=None)
+
+.. py:function:: convert_grounding_to_cls_scores(logits: torch.Tensor, positive_maps: List[dict])
+
+   Convert logits to class scores.
+
+
+.. py:function:: create_positive_map_label_to_token(positive_map: torch.Tensor, plus: int = 0)
+
+   Create a dictionary mapping the label to the token.
+
+   :param positive_map: The positive map tensor.
+   :type positive_map: Tensor
+   :param plus: Value added to the label for indexing.
+                Defaults to 0.
+   :type plus: int, optional
+
+   :returns: The dictionary mapping the label to the token.
+   :rtype: dict
+
+
+.. py:function:: rotation_3d_in_euler(points, angles, return_mat=False)
+
+   Rotate points by angles according to axis.
+
+   This function was originally copied from the [mmdetection3d] repository:
+   https://github.com/open-mmlab/mmdetection3d
+
+   :param points: Points of shape (N, M, 3).
+   :type points: np.ndarray | torch.Tensor | list | tuple
+   :param angles: Vector of angles in shape (N, 3)
+   :type angles: np.ndarray | torch.Tensor | list | tuple
+   :param return_mat: Whether or not return the rotation matrix (transposed).
+                      Defaults to False.
+   :param clockwise: Whether the rotation is clockwise. Defaults to False.
+
+   :raises ValueError: when the axis is not in range [0, 1, 2], it will
+       raise value error.
+
+   :returns: Rotated points in shape (N, M, 3).
+   :rtype: (torch.Tensor | np.ndarray)
+
+
+.. py:function:: wasserstein_distance(source, target)
+
+.. py:function:: center_distance(source, target)
+
+.. py:function:: get_positive_map(char_positive, text_dict)
+
+.. py:function:: get_entities(text, char_positive, sep_token='[SEP]')
+
+.. py:function:: linear_act_ln(embed_dims, in_loops, out_loops, input_dims=None, act_cfg=None, norm_cfg=None)
+

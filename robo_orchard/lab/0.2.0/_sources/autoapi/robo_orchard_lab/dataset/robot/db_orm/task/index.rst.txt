@@ -1,0 +1,57 @@
+task
+====
+
+.. py:module:: robo_orchard_lab.dataset.robot.db_orm.task
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.db_orm.task.Task
+
+
+Module Contents
+---------------
+
+.. py:class:: Task
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.robot.db_orm.base.DatasetORMBase`, :py:obj:`robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin`\ [\ :py:obj:`Task`\ ]
+
+
+   ORM model for a task in a RoboOrchard dataset.
+
+
+   .. py:attribute:: index
+      :type:  sqlalchemy.orm.Mapped[int]
+
+
+   .. py:attribute:: name
+      :type:  sqlalchemy.orm.Mapped[str]
+
+
+   .. py:attribute:: description
+      :type:  sqlalchemy.orm.Mapped[str | None]
+
+
+   .. py:attribute:: md5
+      :type:  sqlalchemy.orm.Mapped[bytes]
+
+
+   .. py:method:: update_md5() -> bytes
+
+      Generate a unique MD5 hash for the instruction content.
+
+      The MD5 hash is generated from the JSON content and name.
+
+
+
+   .. py:method:: query_by_content_with_md5(session: sqlalchemy.orm.Session, name: str, description: str | None) -> Task | None
+      :staticmethod:
+
+
+      Query a robot by its name and URDF content.
+
+
+

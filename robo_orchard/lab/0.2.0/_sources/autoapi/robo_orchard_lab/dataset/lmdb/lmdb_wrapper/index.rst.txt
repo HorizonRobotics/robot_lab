@@ -1,0 +1,121 @@
+lmdb_wrapper
+============
+
+.. py:module:: robo_orchard_lab.dataset.lmdb.lmdb_wrapper
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.lmdb.lmdb_wrapper.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.lmdb.lmdb_wrapper.Lmdb
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: Lmdb(uri: str, writable: bool = True, commit_step: int = 1, map_size: int = None, encoding_mode: str = 'utf-8', **kwargs)
+
+   Bases: :py:obj:`object`
+
+
+   Abstact class of LMDB, which include all operators.
+
+   :param uri: Path to lmdb file.
+   :param writable: Writable flag for opening LMDB.
+   :param commit_step: The step for commit.
+   :param map_size: Maximum size database may grow to, used to size the memory mapping.
+                    If map_size is None, map_size will set to 10M while reading,
+                    set to 1T while writing.
+   :param kwargs: Kwargs for open lmdb file.
+
+
+   .. py:attribute:: uri
+
+
+   .. py:attribute:: writable
+      :value: True
+
+
+
+   .. py:attribute:: kwargs
+
+
+   .. py:attribute:: env
+      :value: None
+
+
+
+   .. py:attribute:: txn
+      :value: None
+
+
+
+   .. py:attribute:: commit_step
+      :value: 1
+
+
+
+   .. py:attribute:: encoding_mode
+      :value: 'utf-8'
+
+
+
+   .. py:attribute:: put_idx
+      :value: 0
+
+
+
+   .. py:method:: read(idx: Union[int, str]) -> bytes
+
+      Read data by idx.
+
+
+
+   .. py:method:: get(idx: Union[int, str]) -> bytes
+
+
+   .. py:method:: write(idx: Union[int, str], record: bytes, commit=False)
+
+      Write data into lmdb file.
+
+
+
+   .. py:method:: open_lmdb()
+
+
+   .. py:method:: open()
+
+      Open lmdb file.
+
+
+
+   .. py:method:: close()
+
+      Close lmdb file.
+
+
+
+   .. py:method:: reset()
+
+      Reset open file.
+
+
+
+   .. py:method:: keys()
+
+      Get all keys.
+
+
+

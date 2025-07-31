@@ -8,5 +8,10 @@
         "url": "https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/0.1.0/index.html",
         "name": "0.1.0",
         "id": "0.1.0"
+    },
+    {
+        "url": "https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/0.2.0/index.html",
+        "name": "0.2.0",
+        "id": "0.2.0"
     }
 ]

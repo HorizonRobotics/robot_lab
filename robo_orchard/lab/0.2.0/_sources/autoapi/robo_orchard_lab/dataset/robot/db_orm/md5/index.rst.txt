@@ -1,0 +1,79 @@
+md5
+===
+
+.. py:module:: robo_orchard_lab.dataset.robot.db_orm.md5
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.db_orm.md5.T
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin
+
+
+Module Contents
+---------------
+
+.. py:data:: T
+
+.. py:class:: MD5FieldMixin
+
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`T`\ ]
+
+
+   Abstract base class for generic types.
+
+   A generic type is typically declared by inheriting from
+   this class parameterized with one or more type variables.
+   For example, a generic mapping type might be defined as::
+
+     class Mapping(Generic[KT, VT]):
+         def __getitem__(self, key: KT) -> VT:
+             ...
+         # Etc.
+
+   This class can then be used as follows::
+
+     def lookup_name(mapping: Mapping[KT, VT], key: KT, default: VT) -> VT:
+         try:
+             return mapping[key]
+         except KeyError:
+             return default
+
+
+   .. py:attribute:: md5
+      :type:  sqlalchemy.orm.Mapped[bytes]
+
+
+   .. py:method:: update_md5() -> bytes
+      :abstractmethod:
+
+
+      Generate a unique MD5 hash for the class.
+
+      The MD5 hash is generated from the JSON content and name.
+
+
+
+   .. py:method:: query_by_content_with_md5(session: sqlalchemy.orm.Session, cls: Type[T], **kwargs) -> T | None
+      :staticmethod:
+
+
+      Query an instance of the class by its content and MD5 hash.
+
+      This method use the MD5 hash to filter results, and then checks
+      if all provided keyword arguments match the attributes of the
+      instance.
+
+
+
+

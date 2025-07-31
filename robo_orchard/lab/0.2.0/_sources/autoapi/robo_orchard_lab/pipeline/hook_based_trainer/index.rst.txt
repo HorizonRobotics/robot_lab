@@ -1,0 +1,281 @@
+hook_based_trainer
+==================
+
+.. py:module:: robo_orchard_lab.pipeline.hook_based_trainer
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hook_based_trainer.PipelineHookOrConfigType
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hook_based_trainer.GradientClippingHookConfig
+   robo_orchard_lab.pipeline.hook_based_trainer.ValidationHookConfig
+   robo_orchard_lab.pipeline.hook_based_trainer.ResumeCheckpointConfig
+   robo_orchard_lab.pipeline.hook_based_trainer.HookBasedTrainer
+
+
+Module Contents
+---------------
+
+.. py:class:: GradientClippingHookConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`GradientClippingHook`\ ]
+
+
+   Configuration class for GradientClippingHook.
+
+
+   .. py:attribute:: class_type
+      :type:  type[GradientClippingHook]
+
+
+   .. py:attribute:: clip_mode
+      :type:  Literal['norm', 'value']
+
+      The mode of gradient clipping.
+      - "norm": Clips gradients by norm.
+      - "value": Clips gradients by value.
+
+
+   .. py:attribute:: clip_value
+      :type:  float | None
+      :value: None
+
+
+      The maximum norm to clip the gradients to. This parameter
+      is only used when `clip_mode` is "norm".
+
+
+   .. py:attribute:: max_norm
+      :type:  float | None
+      :value: None
+
+
+      The maximum norm to clip the gradients to. This parameter is only
+      used when `clip_mode` is "norm".
+
+
+   .. py:attribute:: norm_type
+      :type:  float
+      :value: 2.0
+
+
+      The type of norm to use for clipping. Default is 2.0 (L2 norm).
+
+
+.. py:class:: ValidationHookConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`ValidationHook`\ ]
+
+
+   Configuration class for ValidationHook.
+
+
+   .. py:attribute:: class_type
+      :type:  type[ValidationHook]
+
+
+   .. py:attribute:: eval_callback
+      :type:  Callable[[], None]
+
+      A callback function to be called for evaluation. This function should
+      not take no argument and should not return any values. A common use case
+      is to pass a closure that performs the evaluation.
+
+
+   .. py:attribute:: step_eval_freq
+      :type:  int | None
+      :value: None
+
+
+      The frequency of evaluation in terms of  steps. If specified,
+      the evaluation will be performed every `step_eval_freq` steps.
+
+
+   .. py:attribute:: epoch_eval_freq
+      :type:  int | None
+      :value: None
+
+
+      The frequency of evaluation in terms of epochs. If specified, the
+      evaluation will be performed every `epoch_eval_freq` epochs.
+
+
+.. py:class:: ResumeCheckpointConfig(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.Config`
+
+
+   A configuration class for resuming from checkpoints.
+
+
+   .. py:attribute:: resume_from
+      :type:  str
+
+      The directory containing the checkpoints.
+
+
+   .. py:attribute:: cache_dir
+      :type:  str | None
+      :value: None
+
+
+      The directory to cache the checkpoints if from a remote path.
+
+
+   .. py:attribute:: safe_serialization
+      :type:  bool
+      :value: True
+
+
+      Whether to use safe serialization when loading the state.
+
+      This is used when input_dir is a remote path. The names of checkpoint
+      files depend on whether `safe_serialization` is set to `True` or
+      `False`. Users should ensure that the checkpoint files in the
+      remote directory are compatible with the specified `safe_serialization`
+      option.
+
+
+   .. py:method:: load_state(accelerator: accelerate.Accelerator, **kwargs) -> None
+
+      Loads the state of the accelerator from a checkpoint.
+
+      :param accelerator: The `Accelerator` instance to load the
+                          state into.
+      :type accelerator: Accelerator
+
+
+
+.. py:data:: PipelineHookOrConfigType
+
+.. py:class:: HookBasedTrainer(accelerator: accelerate.Accelerator, model: torch.nn.Module, dataloader: torch.utils.data.DataLoader | Iterable, batch_processor: robo_orchard_lab.pipeline.batch_processor.mixin.BatchProcessorMixin, optimizer: torch.optim.Optimizer, lr_scheduler: torch.optim.lr_scheduler.LRScheduler, hooks: PipelineHookOrConfigType | Iterable[PipelineHookOrConfigType], max_step: int | None = None, max_epoch: int | None = None, grad_clip: robo_orchard_lab.pipeline.hooks.grad_clip.GradientClippingHookConfig | None = None, validation: robo_orchard_lab.pipeline.hooks.validation.ValidationHookConfig | None = None, resume_from: ResumeCheckpointConfig | None = None)
+
+   A trainer class that uses hooks to manage the training process.
+
+   The data loader, model, optimizer, and learning rate scheduler are
+   prepared using the `Accelerator` instance, which provides
+   distributed training capabilities. The `PipelineHooks` are used to
+   manage the training process, allowing for custom hooks to be defined
+   for various stages of the training loop.
+
+   The whole training process with hooks is as follows:
+
+   .. code-block:: text
+
+       with on_loop:
+           with on_epoch:
+               for batch in dataloader:
+                   with on_step:
+                       with on_batch:
+                           batch_processor(...)
+                           ...
+
+                       update step id
+           update epoch id
+
+
+   .. note::
+
+      The trainer will register the following default hooks in order:
+      
+      - `GradientClippingHook`: This hook is responsible for clipping
+          the gradients to prevent exploding gradients. It will be
+          registered if the `grad_clip` argument is provided.
+      
+      - `OptimizerHook`: This hook is responsible for performing the
+          optimization step and updating the learning rate scheduler.
+      
+      - `ValidationHook`: This hook is responsible for performing
+          validation during training. It will call the evaluation
+          callback function at the specified frequency. It will be
+          registered if the `validation` argument is provided.
+
+   :param accelerator: The `Accelerator` instance managing
+                       distributed training.
+   :type accelerator: Accelerator
+   :param model: The model to be trained.
+   :type model: torch.nn.Module
+   :param dataloader: The data loader for feeding
+                      batches to the model during training.
+   :type dataloader: DataLoader | Iterable
+   :param batch_processor: The batch processor
+                           responsible for processing the batches and backpropagating
+                           the loss.
+   :type batch_processor: BatchProcessorMixin
+   :param optimizer: The optimizer used during
+                     training.
+   :type optimizer: torch.optim.Optimizer
+   :param lr_scheduler: The learning
+                        rate scheduler used during training.
+   :type lr_scheduler: torch.optim.lr_scheduler.LRScheduler
+   :param hooks: The hooks to be
+                 used during training. These hooks can be used to customize
+                 various stages of the training process.
+   :type hooks: PipelineHooks | Iterable[PipelineHooks]
+   :param max_step: The maximum number of steps for
+                    training. Either `max_step` or `max_epoch` must be specified.
+   :type max_step: int | None
+   :param max_epoch: The maximum number of epochs for
+                     training. Either `max_step` or `max_epoch` must be specified.
+   :type max_epoch: int | None
+   :param grad_clip: The gradient clipping
+                     configuration.
+   :type grad_clip: GradClipConfig | None
+   :param validation: The validation
+                      configuration. If not specified, no validation will be
+                      performed.
+   :type validation: ValidationConfig | None
+   :param resume_from: The configuration
+                       for resuming from checkpoints. If not specified, training
+                       will start from scratch.
+   :type resume_from: ResumeCheckpointConfig | None
+
+
+   .. py:attribute:: accelerator
+
+
+   .. py:attribute:: max_step
+      :value: None
+
+
+
+   .. py:attribute:: max_epoch
+      :value: None
+
+
+
+   .. py:attribute:: model
+      :type:  torch.nn.Module
+
+
+   .. py:attribute:: dataloader
+      :type:  torch.utils.data.DataLoader
+
+
+   .. py:attribute:: optimizer
+      :type:  accelerate.optimizer.AcceleratedOptimizer
+
+
+   .. py:attribute:: lr_scheduler
+      :type:  accelerate.scheduler.AcceleratedScheduler
+
+
+   .. py:attribute:: trainer_progress_state
+
+
+   .. py:attribute:: batch_processor
+
+
+   .. py:attribute:: hooks
+
+

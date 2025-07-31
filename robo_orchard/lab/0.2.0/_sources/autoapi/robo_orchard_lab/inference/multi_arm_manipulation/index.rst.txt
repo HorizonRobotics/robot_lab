@@ -1,0 +1,164 @@
+multi_arm_manipulation
+======================
+
+.. py:module:: robo_orchard_lab.inference.multi_arm_manipulation
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.inference.multi_arm_manipulation.MultiArmManipulationInput
+   robo_orchard_lab.inference.multi_arm_manipulation.MultiArmManipulationOutput
+   robo_orchard_lab.inference.multi_arm_manipulation.MultiArmManipulationPipeline
+   robo_orchard_lab.inference.multi_arm_manipulation.MultiArmManipulationPipelineCfg
+
+
+Module Contents
+---------------
+
+.. py:class:: MultiArmManipulationInput
+
+   Data structure for inputs to a multi-arm manipulation pipeline.
+
+   This class defines the expected inputs for a robotics policy that may use
+   various modalities like vision, proprioception, and language instructions.
+
+
+   .. py:attribute:: image
+      :type:  dict[str, list[TENSOR_TYPE]] | None
+      :value: None
+
+
+      A dictionary mapping camera names to lists of RGB images.
+      Allows for multiple viewpoints.
+
+
+   .. py:attribute:: depth
+      :type:  dict[str, list[TENSOR_TYPE]] | None
+      :value: None
+
+
+      A dictionary mapping camera names to lists of depth maps.
+
+
+   .. py:attribute:: intrinsic
+      :type:  dict[str, TENSOR_TYPE] | None
+      :value: None
+
+
+      A dictionary mapping camera names to their intrinsic
+      parameter matrices.
+
+
+   .. py:attribute:: t_world2cam
+      :type:  dict[str, TENSOR_TYPE] | None
+      :value: None
+
+
+      A dictionary mapping camera names to their world-to-camera
+      transformation matrices (e.g., extrinsic parameters).
+
+
+   .. py:attribute:: t_robot2world
+      :type:  TENSOR_TYPE | None
+      :value: None
+
+
+      The transformation from the robot's base frame to the
+      world coordinate frame.
+
+
+   .. py:attribute:: t_robot2ego
+      :type:  TENSOR_TYPE | None
+      :value: None
+
+
+      The transformation from the robot's base frame to an
+      egocentric frame, if applicable.
+
+
+   .. py:attribute:: history_joint_state
+      :type:  list[TENSOR_TYPE] | None
+      :value: None
+
+
+      A list of past joint states, representing the
+      robot's proprioceptive history.
+
+
+   .. py:attribute:: history_ee_pose
+      :type:  list[TENSOR_TYPE] | None
+      :value: None
+
+
+      A list of past end-effector poses.
+
+
+   .. py:attribute:: instruction
+      :type:  str | None
+      :value: None
+
+
+      A natural language command or goal for the task.
+
+
+   .. py:attribute:: urdf
+      :type:  str | None
+      :value: None
+
+
+      The URDF (Unified Robot Description Format) of the robot as a
+      string, describing its kinematic and dynamic properties.
+
+
+.. py:class:: MultiArmManipulationOutput
+
+   Data structure for outputs from a multi-arm manipulation pipeline.
+
+   This class encapsulates the results produced by the inference pipeline,
+   primarily the predicted action for the robot.
+
+
+   .. py:attribute:: action
+      :type:  TENSOR_TYPE
+
+      The predicted action tensor. This could represent target joint
+      positions, end-effector velocities, or another action space format.
+
+
+.. py:class:: MultiArmManipulationPipeline(model: robo_orchard_lab.models.mixin.ModelMixin, cfg: InferencePipelineCfg)
+
+   Bases: :py:obj:`robo_orchard_lab.inference.basic.InferencePipeline`\ [\ :py:obj:`MultiArmManipulationInput`\ , :py:obj:`MultiArmManipulationOutput`\ ]
+
+
+   An inference pipeline specialized for multi-arm manipulation tasks.
+
+   This class specializes the generic `InferencePipeline` for the specific
+   needs of multi-arm manipulation by defining the concrete input and output
+   data structures. It inherits the standard inference workflow (pre-process,
+   collate, forward, post-process) from its parent class.
+
+
+   .. py:attribute:: cfg
+      :type:  MultiArmManipulationPipelineCfg
+
+
+.. py:class:: MultiArmManipulationPipelineCfg
+
+   Bases: :py:obj:`robo_orchard_lab.inference.basic.InferencePipelineCfg`\ [\ :py:obj:`MultiArmManipulationPipeline`\ ]
+
+
+   Configuration class for the `MultiArmManipulationPipeline`.
+
+   This class links the `MultiArmManipulationPipeline` to the configuration
+   system, allowing it to be instantiated dynamically from a configuration
+   file. It sets the `class_type` to point directly to the
+   `MultiArmManipulationPipeline`.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.inference.basic.ClassType_co[MultiArmManipulationPipeline]
+
+

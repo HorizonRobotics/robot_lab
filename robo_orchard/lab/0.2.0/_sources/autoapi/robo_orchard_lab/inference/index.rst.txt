@@ -1,0 +1,20 @@
+inference
+=========
+
+.. py:module:: robo_orchard_lab.inference
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_lab/inference/basic/index
+   /autoapi/robo_orchard_lab/inference/mixin/index
+   /autoapi/robo_orchard_lab/inference/multi_arm_manipulation/index
+   /autoapi/robo_orchard_lab/inference/processor/index
+
+
