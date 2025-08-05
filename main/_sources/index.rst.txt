@@ -51,11 +51,15 @@ RoboOrchard
 
 * **RoboOrchardSchemas**: A library of data models for the RoboOrchard project.
 
-  `Code <https://github.com/HorizonRobotics/robo_orchard_schemas>`__
+  `Code <https://github.com/HorizonRobotics/robo_orchard_schemas>`__ | `Pypi <https://pypi.org/project/robo-orchard-schemas>`__
 
 * **RoboOrchardLab**: Training and evaluating embodied AI algorithm
 
   `Code <https://github.com/HorizonRobotics/robo_orchard_lab>`__ | `Docs <https://horizonrobotics.github.io/robot_lab/robo_orchard/lab/master/index.html>`__ | `Pypi <https://pypi.org/project/robo-orchard-lab>`__ | `Model Zoo <https://huggingface.co/collections/HorizonRobotics/robo-orchard-lab-682aaf611e571caf8d62cb51>`__
+
+* **RoboOrchardGraspLabel**: A set of tools to generate grasp labels for objects
+
+  `Code <https://github.com/HorizonRobotics/robo_orchard_grasp_label>`__
 
 
 Publications
