@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Uni3R: Unified 3D Reconstruction and Semantic Understanding via Generalizable Gaussian Splatting from Unposed Multi-View Images">
+  <meta name="keywords" content="Feed-Forward 3D Reconstruction, Generalizable 3D Gaussian Splatting, 3D Scene Understanding">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Uni3R: Unified 3D Reconstruction and Semantic Understanding via Generalizable Gaussian Splatting from Unposed Multi-View Images</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL'); -->
+  <!-- </script> -->
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #f9fafe, #eaf3ff);
+      color: #222;
+    }
+
+    .container-custom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .hero {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .hero img {
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1a1a1a;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #4a4a4a;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    .authors, .affiliations {
+      font-size: 0.95rem;
+      color: #555;
+      margin-top: 1rem;
+    }
+
+    .author-block {
+      margin: 0 0.5em;
+      display: inline-block;
+    }
+
+    .main-section {
+      margin-top: -120px;
+    }
+    
+    .btn-group {
+      margin-top: 1.2rem;
+    }
+    .btn-group a {
+      display: inline-flex;            
+      align-items: center;           
+      gap: 0.8em;              
+      margin: 0.5rem;
+      border: none;
+      background: linear-gradient(90deg, #5d8eff, #8fa7ff);
+      color: white;
+      border-radius: 999px;
+      padding: 0.6em 1.2em;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+      font-size: 0.8em;
+      margin-right: 9px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .huggingface-icon {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      background-image: url('https://huggingface.co/front/assets/huggingface_logo-noborder.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      vertical-align: middle;
+      margin-right: 0.4em;
+    }
+
+
+    .main-section {
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    .main-section img {
+      max-width: 80%;
+      height: auto;
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .main-section p {
+      color: #444;
+      font-size: 1.1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .model-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const swiper = new Swiper('.swiper1', {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: false,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const swiper = new Swiper('.swiper2', {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    });
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+</head>
+<body>
+
+  
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+
+          <div style="display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 100%; margin-top: -80px;">
+            <img src="./static/images/logo.png" alt="Logo" style="height: 4cm; margin-bottom: 1rem;"/>
+            <h1 class="title is-1 publication-title" style="margin: 0; font-size: 1.8rem;">
+              <!-- <span style="display: block; font-weight: bold; font-size: 1.2em;">EmbodiedGen</span> -->
+              <span style="display: block; font-size: 0.95em; margin-top: -0.2em;">
+                Unified 3D Reconstruction and Semantic Understanding via Generalizable Gaussian Splatting from Unposed Multi-View Images
+              </span>
+            </h1>
+          </div>
+
+
+          <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                  Xiangyu Sun</a><sup>1*</sup>,</span>
+              <span class="author-block">
+                  Haoyi Jiang</a><sup>2*</sup>,</span>
+              <span class="author-block">
+                  Liu Liu</a><sup>4</sup>,</span>
+              <span class="author-block">
+                  Seungtae Nam<sup>3</sup>,</span>
+              <span class="author-block">
+                  Gyeongjin Kang<sup>1</sup>,</span>
+              <span class="author-block">
+                  Xinjie Wang<sup>4</sup>,</span></p>
+              <span class="author-block">
+                  Wei Sui<sup>5</sup>,</span>
+              <span class="author-block">
+                  Zhizhong Su<sup>4</sup>,</span>
+              <span class="author-block">
+                  Wenyu Liu<sup>2</sup>,</span>
+              <span class="author-block">
+                  Xinggang Wang<sup>2</sup>,</span>
+              <span class="author-block">
+                  Eunbyung Park<sup>3</sup>,</span>
+              </span>
+          </div>
+      
+          <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Sungkyunkwan University,</span>
+              <span class="author-block"><sup>2</sup>Huazhong University of Science & Technology,</span>
+              <span class="author-block"><sup>3</sup>Yonsei University,</span>
+              <span class="author-block"><sup>4</sup>Horizon Robotics,</span>
+              <span class="author-block"><sup>5</sup>D-Robotics,</span>
+              <span class="eql-cntrb">
+                <small><br><sup>*</sup>Equal Contribution
+              </span>
+          </div>
+
+          <div class="btn-group">
+            <a href="https://arxiv.org/pdf/2508.03643" target="_blank" rel="noopener">
+              <i class="ai ai-arxiv"></i>arXiv
+            </a>
+            <!-- <a href="https://www.youtube.com/watch?v=rG4odybuJRk" target="_blank" rel="noopener">
+              <i class="fab fa-youtube"></i>Video
+            </a> -->
+            <a href="https://github.com/HorizonRobotics/Uni3R" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>Code
+            </a>
+            <!-- <a href="" target="_blank" rel="noopener">
+              <i class="huggingface-icon"></i>Hugging Face
+            </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="main-section">
+  <div class="container-custom">
+    <img src="./static/images/overall2.png" alt="Overview" />
+    <p style="margin-top: -20px;"><strong><em>EmbodiedGen</em></strong> generates interactive 3D worlds with real-world scale and physical realism at low cost.</p>
+  </div>
+</section> -->
+
+<section class="main-section">
+  <div class="container-custom">
+
+    <video poster="" id="1" autoplay controls muted loop playsinline height="100%">
+      <source src="./static/videos/Uni3R.mp4"
+              type="video/mp4">
+    </video>
+
+    <div class="youtube-thumbnail-wrapper" onclick="loadYoutube(this)" 
+          style="display: flex; justify-content: center; align-items: center; margin-top: 50px;">
+
+      <img src="static/images/figure1.jpg" style="max-width: 80%; max-height: 100%;" alt="Video thumbnail" />        
+    </div>
+  </div>
+  <p style="margin-top: -20px; text-align: justify;"><strong><em>Uni3R</em></strong>  takes unposed multi-view images and produces a unified 3D Gaussian scene representation, enabling view synthesis, semantic segmentation, and depth estimation within a single forward pass. The radar chart compares Uni3R with existing methods, showing consistently competitive or superior performance.</p>
+</section>
+
+<section class="main-section">
+  <div class="container-custom">
+    <!-- Abstract. -->
+  <!-- abstract -->
+  <h2 class="title is-3"> Abstract </h2>
+  <p style="text-align: justify; margin-top: -0.4em;">
+    Reconstructing and semantically interpreting 3D scenes from sparse 2D views remains a fundamental challenge in computer vision. Conventional methods often decouple semantic understanding from reconstruction or necessitate costly per-scene optimization, thereby restricting their scalability and generalizability. In this paper, we introduce <strong><em>Uni3R</em></strong>, a novel feed-forward framework that jointly reconstructs a unified 3D scene representation enriched with open-vocabulary semantics, directly from unposed multi-view images. Our approach leverages a Cross-View Transformer to robustly integrate information across arbitrary multi-view inputs, which then regresses a set of 3D Gaussian primitives endowed with semantic feature fields. This unified representation facilitates high-fidelity novel view synthesis, open-vocabulary 3D semantic segmentation, and depth prediction—all within a single, feed-forward pass. Extensive experiments demonstrate that Uni3R establishes a new state-of-the-art across multiple benchmarks, including RE10K and ScanNet datasets. Our work signifies a novel paradigm towards generalizable, unified 3D scene reconstruction and understanding.
+  </p>
+  </div>
+</section>
+
+<section class="main-section" style="margin-top: -120px;">
+  <div class="container-custom">
+    <h2 class="title is-3">Framework</h2>
+    <img  style="margin-top: 0px;" src="./static/images/overall_method2.jpg" alt="Framework Overview" />
+    <div style="text-align: justify; margin-top: -1.2em;">  
+      <p>
+        Architectural overview of the <strong><em>Uni3R</em></strong> pipeline for multi-task 3D reconstruction and scene understanding. Uni3R predicts a set of Gaussian primitives with jointly integrated geometry, appearance, and open-vocabulary semantics in a single pass, eliminating the need for per-scene optimization. Its cross-frame attention mechanism enables robust feature fusion to produce globally consistent scene representations from an arbitrary number of input views, while its predicted point maps provide potent geometric guidance.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="main-section">
+  <div class="container-custom">
+    <div class=" has-text-centered">
+      <h2 class="title is-3">Results</h2>
+
+      <h2 class="title is-3" style="text-align: center; font-size: 130%; margin-bottom: 10px;"> Novel-View Segmentation</h2>
+      <img  style="margin-top: 0px;" src="./static/images/vis1.jpg" alt="Visualization" />
+
+      <h2 class="title is-3" style="text-align: center; font-size: 130%; margin-bottom: 10px;"> Quantitative Comparison on ScanNet.</h2>
+      <img  style="margin-top: 0px;" src="./static/images/table1.jpg" alt="Quantative_table1" />
+      <div style="text-align: justify; margin-bottom: 2.5em; margin-top: -1.2em;">  
+        <p>
+          We evaluate performance on novel view synthesis, depth estimation and open-vocabulary semantic segmantation. <strong><em>Unlike LSM, Uni3R is trained without ground truth 3D point clouds.</em></strong>
+        </p>
+      </div>
+
+      <h2 class="title is-3" style="text-align: center; font-size: 130%; margin-bottom: 10px;">ScanNet Multi-Views Input (2, 8 and 16 views)</h2>
+      <div id="results-carousel" class="carousel results-carousel" data-slides-to-show="4">
+        <div class="item item-s1">
+          <video poster="" id="s1" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/scannet/8views/1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-s2">
+          <video poster="" id="s2" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/scannet/8views/2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-s3">
+          <video poster="" id="s3" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/scannet/8views/3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-s4">
+          <video poster="" id="s4" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/scannet/8views/4.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-s5">
+          <video poster="" id="s5" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/scannet/8views/5.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-s6">
+          <video poster="" id="s6" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/scannet/8views/6.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-s7">
+          <video poster="" id="s7" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/scannet/8views/7.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-s8">
+          <video poster="" id="s8" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/scannet/8views/8.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-s9">
+          <video poster="" id="s9" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/scannet/8views/9.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-s10">
+          <video poster="" id="s10" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/scannet/8views/10.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <!-- <h2 class="title is-3" style="text-align: center; font-size: 130%; margin-bottom: -0.1%;">re10k 4views input</h2>
+      <div id="results-carousel" class="carousel results-carousel" data-slides-to-show="4">
+        <div class="item item-1">
+          <video poster="" id="1" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-2">
+          <video poster="" id="2" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-3">
+          <video poster="" id="3" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-4">
+          <video poster="" id="4" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/4.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-5">
+          <video poster="" id="5" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/5.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-6">
+          <video poster="" id="6" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/6.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-7">
+          <video poster="" id="7" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/7.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-8">
+          <video poster="" id="8" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/8.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-9">
+          <video poster="" id="9" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/9.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-10">
+          <video poster="" id="10" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/10.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-11">
+          <video poster="" id="11" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/11.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-12">
+          <video poster="" id="12" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/12.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-13">
+          <video poster="" id="13" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/13.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-14">
+          <video poster="" id="14" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/14.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-15">
+          <video poster="" id="15" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/15.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-16">
+          <video poster="" id="16" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/4views/16.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div> -->
+
+      <h2 class="title is-3" style="text-align: center; font-size: 130%; margin-bottom: 10px; margin-top: 30px;"> Quantitative Comparison on RE10K.</h2>
+      <img  style="margin-top: 0px;" src="./static/images/table2.jpg" alt="Quantative_table2" />
+      <div style="text-align: justify; margin-bottom: 2.0em; margin-top: -1.2em;">  
+        <p>
+          Comparison with 4 and 8-views on the RE10k dataset and zero-shot performance on the ScanNet dataset.
+        </p>
+      </div>
+
+      <h2 class="title is-3" style="text-align: center; font-size: 130%;  margin-top: 20px; margin-bottom: 10px;">RE10K Multi-Views Input (4 and 8 views)</h2>
+      <div id="results-carousel" class="carousel results-carousel" data-slides-to-show="4">
+        <div class="item item-1">
+          <video poster="" id="1" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-2">
+          <video poster="" id="2" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-3">
+          <video poster="" id="3" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-4">
+          <video poster="" id="4" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/4.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-5">
+          <video poster="" id="5" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/5.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-6">
+          <video poster="" id="6" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/6.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-7">
+          <video poster="" id="7" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/7.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-8">
+          <video poster="" id="8" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/8.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-9">
+          <video poster="" id="9" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/9.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-10">
+          <video poster="" id="10" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/10.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-11">
+          <video poster="" id="11" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/11.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-12">
+          <video poster="" id="12" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/12.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-13">
+          <video poster="" id="13" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/13.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-14">
+          <video poster="" id="14" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/14.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-15">
+          <video poster="" id="15" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/15.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-16">
+          <video poster="" id="16" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/re10k/8views/16.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{sun2025uni3runified3dreconstruction,
+      title={Uni3R: Unified 3D Reconstruction and Semantic Understanding via Generalizable Gaussian Splatting from Unposed Multi-View Images}, 
+      author={Xiangyu Sun and Haoyi Jiang and Liu Liu and Seungtae Nam and Gyeongjin Kang and Xinjie Wang and Wei Sui and Zhizhong Su and Wenyu Liu and Xinggang Wang and Eunbyung Park},
+      year={2025},
+      eprint={2508.03643},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2508.03643}, 
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer" style="max-height: 280px;">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/pdf/2508.03643">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/HorizonRobotics/Uni3R" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+      <a class="icon-link" href="">
+        <i class="huggingface-icon"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          🌟 Website based on template from <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">nerfies</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
