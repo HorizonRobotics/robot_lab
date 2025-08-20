@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="description" content="FineGrasp: Towards Robust Grasping for Delicate Objects">
+<meta name="keywords" content="Robotic, Video Generation, Imitation Learning, Data Augmentation">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FineGrasp: Towards Robust Grasping for Delicate Objects</title>
+
+<!-- Global site tag (gtag.js) - Google Analytics
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+
+  gtag('js', new Date());
+
+  gtag('config', 'G-PYVRSFMDRL'); -->
+<!-- </script> -->
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #ffffff;
+    color: #222;
+  }
+
+  .container-custom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+
+  .hero {
+    padding: 3rem 1.5rem 2rem;
+    text-align: center;
+  }
+
+  .hero img {
+    height: 80px;
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    color: #4a4a4a;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+  }
+
+  .authors,
+  .affiliations {
+    font-size: 0.95rem;
+    color: #555;
+    margin-top: 1rem;
+  }
+
+  .author-block {
+    margin: 0 0.5em;
+    display: inline-block;
+  }
+
+  .main-section {
+    margin-top: -120px;
+  }
+
+  .btn-group {
+    margin-top: 1.2rem;
+  }
+
+  .btn-group a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8em;
+    margin: 0.5rem;
+    border: none;
+    background: linear-gradient(90deg, #5d8eff, #8fa7ff);
+    color: white;
+    border-radius: 999px;
+    padding: 0.6em 1.2em;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    font-size: 0.8em;
+    margin-right: 9px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  .huggingface-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-image: url('https://huggingface.co/front/assets/huggingface_logo-noborder.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    margin-right: 0.4em;
+  }
+
+
+  .main-section {
+    padding: 4rem 1.5rem;
+    text-align: center;
+  }
+
+  .main-section img {
+    max-width: 80%;
+    height: auto;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .main-section p {
+    color: #444;
+    font-size: 1.1rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .model-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+</style>
+
+
+<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+<link rel="stylesheet" href="./static/css/bulma.min.css">
+<link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+<link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+<link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+<link rel="stylesheet" href="./static/css/index.css">
+<link rel="icon" href="./static/images/method/finegrasp_logo.png">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script defer src="./static/js/fontawesome.all.min.js"></script>
+<script src="./static/js/bulma-carousel.min.js"></script>
+<script src="./static/js/bulma-slider.min.js"></script>
+<script src="./static/js/index.js"></script>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiper1', {
+      slidesPerView: 3,
+      spaceBetween: 20,
+      loop: true,
+      autoplay: false,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiper2', {
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  });
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container-custom">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            
+            <div style="display: flex; align-items: center; justify-content: center; max-width: 100%; margin-top: -80px; gap: 2rem;">
+              <img src="./static/images/method/finegrasp_logo.png" alt="Logo" style="height: 2cm;"/>
+              <div style="text-align: left;">
+                <h1 class="title is-1 publication-title" style="margin: 0; font-size: 1.8rem;">
+                  <span style="display: block; font-size: 0.95em;">
+                    FineGrasp: Towards Robust Grasping for Delicate Objects
+                  </span>
+                </h1>
+              </div>
+            </div>
+            
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=Ke5SamYAAAAJ&hl=en" target="_blank">Yun Du*</a>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?hl=en&user=aB02FDEAAAAJ" target="_blank">Mengao Zhao*</a>,
+              </span>
+              <span class="author-block">
+                <a href="https://wzmsltw.github.io/" target="_blank">Tianwei Lin</a>,
+              </span>
+              <span class="author-block">
+                <a href="" target="_blank">Yiwei Jin</a>,
+              </span>
+              <span class="author-block">
+                <a href="" target="_blank">Chaodong Huang</a>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=HQfc8TEAAAAJ&hl=en" target="_blank">Zhizhong Su</a>
+              </span>
+            </div>
+  
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Horizon Robotics</span>
+            </div>
+            
+            <p><small><sup>*</sup> Equal contribution</small></p>
+  
+            <div class="btn-group">
+              <a href="https://github.com/HorizonRobotics/robo_orchard_lab/tree/master/projects/finegrasp_graspnet1b" target="_blank" rel="noopener">
+                <i class="fab fa-github"></i>Model Code
+              </a>
+              <a href="https://github.com/HorizonRobotics/robo_orchard_grasp_label" target="_blank" rel="noopener">
+                <i class="fab fa-github"></i>Grasp Label Code
+              </a>
+              <a href="https://arxiv.org/abs/2507.05978" target="_blank" rel="noopener">
+                <i class="ai ai-arxiv"></i>arXiv
+              </a>
+              <a href="https://huggingface.co/HorizonRobotics/Finegrasp" target="_blank" rel="noopener">
+                <i class="huggingface-icon"></i>Hugging Face
+              </a>
+            </div>
+
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Experiments Section -->
+<section class="section">
+  <div class="container-custom">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="margin-top: -130px;"></h2>
+        <div class="content has-text-justified">
+
+      <figure style="margin: 0;">
+        <video controls muted loop style="width: 100%; height: auto; clip-path: inset(1px 0 0 10px);">
+          <source src="./static/videos/FineGrasp--Towards Robust Grasping for Delicate Objects.mp4"
+            type="video/mp4">
+        </video>
+        <figcaption class="has-text-centered is-size-7 mt-1" style="font-style: normal;">FineGrasp: Towards Robust Grasping for Delicate
+          Objects.</figcaption>
+      </figure>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 1rem; padding-bottom: 1rem;">
+  <div class="container-custom">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="margin-top: -80px;">Abstract</h2>
+
+        <div class="content has-text-justified">
+          <!-- Framework Image -->
+
+          <p>
+            Recent advancements in robotic grasping have led to its integration as a core module in many manipulation
+            systems. For instance, language-driven semantic segmentation enables the grasping of any designated object
+            or object part.
+            However, existing methods often struggle to generate feasible
+            grasp poses for small objects or delicate components, potentially
+            causing the entire pipeline to fail.
+          </p>
+
+          <p>
+            To address this issue, we
+            propose a novel grasping method, FineGrasp, which introduces
+            improvements in three key aspects. First, we introduce multiple
+            network modifications to enhance the model`s ability to handle
+            delicate regions. Second, we address the issue of label imbalance
+            and propose a refined graspness label normalization strategy.
+            Third, we introduce a new simulated grasp dataset and show
+            that mixed sim-to-real training further improves grasp performance.
+          </p>
+
+          <p>
+            Experimental results show significant improvements, especially in grasping small objects,
+            and confirm the effectiveness of our system in semantic grasping. Code will be available at
+            <a
+              href="https://github.com/HorizonRobotics/robo_orchard_lab/tree/master/projects/finegrasp_graspnet1b">robo_orchard_lab/finegrasp</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 论文结构图 -->
+<section class="section" style="padding-top: 1rem; padding-bottom: 1rem;">
+  <div class="container-custom">
+    <div class="structure-image">
+      <img src="static/images/method/framework.png" alt="FineGrasp Structure">
+      <p class="structure-description">
+        <strong>Overall framework of FineGrasp.</strong> Based on EconomicGrasp, we introduce three key improvements:
+        (1) Instance-normalized
+        graspness labels to better balance different objects and ensure delicate objects are not overlooked during
+        seed sampling; (2) Multi-range feature attention
+        module more effective aggregation of multi-scale features. (3) Normal prior as an input to guide the network
+        in identifying the optimal grasping orientation..
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 1rem; padding-bottom: 1rem;">
+  <div class="container-custom">
+    <div class="structure-image">
+      <img src="static/images/method/fig_page2.png" alt="Intra-instance Normalized Graspness">
+      <p class="structure-description">
+        <strong>Intra-instance Normalized Graspness.</strong> Illustrating the challenges of delicate object grasping
+        based on EconomicGrasp: (a) Two typical failure scenarios: the left image shows the model
+        failing to generate a usable grasp pose for small objects in a cluttered scene, while the right image shows
+        poor pose quality, leading to potential failure. (b)
+        Issues in graspness ground truth generation: the middle image shows ground truth after cross-object
+        normalization, where scissors are ignored. The right
+        image shows our strategy, normalizing within each object first to ensure consistent scoring across objects.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 1rem; padding-bottom: 1rem;">
+  <div class="container-custom">
+    <div style="display: flex; gap: 2rem; align-items: flex-start; justify-content: center;">
+      <div class="structure-image" style="flex: 1;">
+        <img src="static/images/method/MRA.png" alt="Multi Range Attention">
+        <p class="structure-description">
+          <strong>Multi Range Attention.</strong> Point features are aggregated across multiple ranges through
+          a Transformer encoder, enabling cross-scale feature interaction. Adaptive
+          fusion weights dynamically combine these features, facilitating grasp pose
+          learning for varying sizes.
+        </p>
+      </div>
+      <div class="structure-image" style="flex: 1;">
+        <img src="static/images/method/NormalPrior.png" alt="Normal Prior">
+        <p class="structure-description">
+          <strong>Normal Prior.</strong> The force closure score distribution in GraspNet1B exhibits a
+          view-dependent bias, the normal vector provides a approaching prior for
+          high-quality grasping poses regression
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 1rem; padding-bottom: 1rem;">
+  <div class="container-custom">
+    <!-- Method Section -->
+    <!-- <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+      <h2 class="title is-3">Method</h2>
+      <div class="content has-text-justified">
+        
+        <h3 class="title is-4">Model</h3>
+        <img src="./static/images/method/model.png" alt="Framework Diagram" style="max-width: 100%; height: auto; margin-bottom: 20px;">
+        <p>
+          To ensure multi-view consistency
+          during generation, we perform multi-view consistent modeling, enabling the generation process to
+          reason jointly over information from different viewpoints. On the conditions side, RoboTransfer in-
+          corporates fine-grained control by encoding both geometric and appearance information. Specifically,
+          we represent geometry using scaled depth maps and surface normal maps, capturing the underlying
+          3D structure of the scene. Meanwhile, the appearance is encoded using reference background images
+          and object-specific images, providing detailed control over texture, color, and contextual appearance.
+          In the following sections, we first introduce the multi-view consistent modeling, and then describe
+          the encoding mechanisms for geometric and appearance conditions, respectively.
+        </p>
+
+        <h3 class="title is-4">Dataset Construction</h3>
+        <img src="./static/images/method/data_construct.png" alt="Framework Diagram" style="max-width: 100%; height: auto; margin-bottom: 20px;">
+        <p>
+          The data processing pipeline consists of two
+          main components: Geometry conditions (left) are derived by using Mono-Normal and Video Depth
+          Anything, which are scale-aligned with sensor depth to ensure consistency. Appearance conditions
+          (right) are obtained by sampling keyframes from the video. GPT-4 is used to generate object
+          descriptions, which are then processed by Grounding-SAM to create per-object masks. Additionally,
+          background inpainting is used to generate complete reference backgrounds.          
+        </p>
+
+      </div>
+    </div>
+  </div> -->
+  </div>
+</section>
+
+<!-- Results Section -->
+<section class="section">
+  <div class="container-custom">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="margin-top: -160px;">Experimental Results</h2>
+        <div class="content has-text-justified">
+          <section aria-labelledby="real2real-title">
+
+            <h3 id="real2real-title" class="title is-4">1. Comparison with the State-of-the-art</h3>
+            <!-- <p> Given the same structured input, the model allows for flexible editing of 
+            background attributes such as texture and color. 
+            This real-to-real generation framework enriches the diversity of training data 
+            for downstream tasks, contributing to better generalization of the policy model.</p>
+          -->
+
+
+            <section class="section" style="padding-top: 1rem; padding-bottom: 1rem;">
+              <div class="container-custom">
+                <div
+                  style="display: flex; gap: 2rem; align-items: flex-start; justify-content: center; max-width:100%; margin: 0 auto;">
+                  <div class="structure-image" style="flex: 1;">
+                    <img src="static/images/method/Table1.png" alt="Multi Range Attention">
+                    <p class="structure-description" style="text-align: center;">
+                      <strong>Comparison with the State-of-the-art.</strong> Experiment on GraspNet-1B dataset.
+                      Showing APs on Realsense split. CD means Collision Detection
+                    </p>
+                  </div>
+                  <div class="structure-image" style="flex: 1;">
+                    <img src="static/images/method/table4.png" alt="Normal Prior">
+                    <p class="structure-description" style="text-align: center;">
+                      <strong>The experiment on simulation dataset.</strong>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <div class="structure-image" style="flex: 1;">
+              <img src="static/images/method/table3.png" alt="Normal Prior">
+              <p class="structure-description" style="text-align: center;">
+                <strong>Ablation Study.</strong> The impact of components in the proposed method: NP (Normal Prior),
+                MRA (Multi-range Attention), and ING (Instance-norm Graspness).
+              </p>
+            </div>
+
+
+            <!-- Sim2Real -->
+            <h3 class="title is-4">2. Real-world experiment</h3>
+
+            <div style="display: flex; gap: 2rem; align-items: flex-start; position: relative; margin-bottom: -60px;">
+              <!-- Image 1 -->
+              <div style="flex: 1;">
+                <img src="static/images/method/table5.png" alt="Real-world experiment on delicate objects"
+                  style="width: 100%; height: auto;">
+                <p class="structure-description" style="text-align: center;">
+                  <strong>Real-world experiment on delicate objects.</strong>
+                </p>
+              </div>
+
+              <!-- Video 1 -->
+              <figure style="flex: 1; margin: 0; position: relative; top: -80px;">
+                <video controls muted loop style="width: 100%; height: auto;">
+                  <source src="./static/videos/Grasp-Fine.mp4" type="video/mp4">
+                </video>
+                <figcaption class="has-text-centered is-size-7 mt-1"></figcaption>
+              </figure>
+            </div>
+
+            <section class="section" style="padding-top: 1rem; padding-bottom: 1rem;">
+              <div style="display: flex; gap: 2rem; align-items: flex-start;">
+                <!-- Image 1 -->
+                <div style="flex: 1;">
+                  <img src="static/images/method/Table6.png" alt="Real-world experiment on object-grounding grasp"
+                    style="width: 100%; height: auto;">
+                  <p class="structure-description" style="text-align: center;">
+                    <strong>Real-world experiment on object-grounding grasp.</strong>
+                  </p>
+                </div>
+
+                <!-- Video 1 -->
+                <figure style="flex: 1; margin: 0;">
+                  <video controls muted loop style="width: 100%; height: auto;">
+                    <source src="./static/videos/Grasp-Object-Grounding.mp4" type="video/mp4">
+                  </video>
+                  <figcaption class="has-text-centered is-size-7 mt-1"></figcaption>
+                </figure>
+              </div>
+            </section>
+
+            <section class="section" style="padding-top: 1rem; padding-bottom: 1rem;">
+              <div style="display: flex; gap: 2rem; align-items: flex-start;" margin-bottom: -60px;">
+                <!-- Image 1 -->
+                <div style="flex: 1;">
+                  <img src="static/images/method/Table7.png" alt="Real-world experiment on part-grounding grasp"
+                    style="width: 100%; height: auto;">
+                  <p class="structure-description" style="text-align: center;">
+                    <strong>Real-world experiment on part-grounding grasp.</strong>
+                  </p>
+                </div>
+
+                <!-- Video 1 -->
+                <figure style="flex: 1; margin: 0;">
+                  <video controls muted loop style="width: 100%; height: auto;">
+                    <source src="./static/videos/Grasp-Part-Grounding.mp4" type="video/mp4">
+                  </video>
+                  <figcaption class="has-text-centered is-size-7 mt-1"></figcaption>
+                </figure>
+              </div>
+            </section>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container-custom content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+    @misc{du2025finegrasp,
+      title={FineGrasp: Towards Robust Grasping for Delicate Objects}, 
+      author={Yun Du and Mengao Zhao and Tianwei Lin and Yiwei Jin and Chaodong Huang and Zhizhong Su},
+      year={2025},
+      eprint={2507.05978},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2507.05978}, 
+}
+</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Thanks for the page template from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+
+</html>
