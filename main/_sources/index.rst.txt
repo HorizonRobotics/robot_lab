@@ -69,6 +69,86 @@ Publications
    :widths: 20 80
    :class: publication-table
 
+
+   * - .. image:: _static/publications/HRDT.gif
+          :class: publication-thumbnail
+          :alt: HRDT Logo
+          :target: _static/publications/HRDT.gif
+
+     - **H-RDT: Human Manipulation Enhanced Bimanual Robotic Manipulation**
+
+       :blue:`Hongzhe Bi`, Lingxuan Wu, :blue:`Tianwei Lin`, Hengkai Tan, :blue:`Zhizhong Su`, Hang Su, Jun Zhu
+
+       Arxiv 2025
+
+       `Webpage <https://embodiedfoundation.github.io/hrdt>`__ | `Paper <https://arxiv.org/abs/2507.23523>`__ | `Code <https://github.com/HongzheBi/H_RDT>`__
+
+   * - .. image:: _static/publications/monodream.gif
+          :class: publication-thumbnail
+          :alt: MonoDream Logo
+          :target: _static/publications/monodream.gif
+
+     - **MonoDream: Monocular Vision-Language Navigation with Panoramic Dreaming**
+        
+       :blue:`Shuo Wang`, Yongcai Wang, Wanting Li, :blue:`Yucheng Wang`, :blue:`Maiyue Chen`, :blue:`Kaihui Wang`, :blue:`Zhizhong Su`, Xudong Cai, Yeying Jin, Deying Li, Zhaoxin Fan
+
+       Arxiv 2025
+
+       `Webpage <https://horizonrobotics.github.io/robot_lab/monodream/>`__ | `Paper <https://arxiv.org/abs/2508.02549>`__
+
+   * - .. image:: _static/publications/Uni3R.gif
+          :class: publication-thumbnail
+          :alt: Uni3R Logo
+          :target: _static/publications/Uni3R.gif
+
+     - **Uni3R: Unified 3D Reconstruction and Semantic Understanding via Generalizable Gaussian Splatting from Unposed Multi-View Images**
+
+       :blue:`Xiangyu Sun`, :blue:`Haoyi Jiang`, :blue:`Liu Liu`, Seungtae Nam, Gyeongjin Kang, :blue:`Xinjie Wang`, :blue:`Wei Sui`, :blue:`Zhizhong Su`, Wenyu Liu, Xinggang Wang, Eunbyung Park
+
+       Arxiv 2025
+
+       `Webpage <https://horizonrobotics.github.io/robot_lab/uni3R/>`__ | `Paper <https://arxiv.org/pdf/2508.03643>`__ | `Code <https://github.com/HorizonRobotics/Uni3R>`__
+
+   * - .. image:: _static/publications/IGFuse.gif
+          :class: publication-thumbnail
+          :alt: IGFuse Logo
+          :target: _static/publications/IGFuse.gif
+
+     - **IGFuse: Interactive 3D Gaussian Scene Reconstruction via Multi-Scans Fusion**
+
+       :blue:`Wenhao Hu`, Zesheng Li, Haonan Zhou, :blue:`Liu Liu`, Xuexiang Wen, :blue:`Zhizhong Su`, Xi Li, Gaoang Wang
+
+       Arxiv 2025
+
+       `Webpage <https://whhu7.github.io/IGFuse/>`__ | `Paper <https://arxiv.org/pdf/2508.13153>`__ | `Code <https://github.com/whhu7/IGFuse-code>`__
+
+   * - .. image:: _static/publications/DreamLifting.gif
+          :class: publication-thumbnail
+          :alt: DreamLifting Logo
+          :target: _static/publications/DreamLifting.gif
+
+     - **DreamLifting: A Plug-in Module Lifting MV Diffusion Models for 3D Asset Generation**
+
+       :blue:`Ze-Xin Yin`, :blue:`Jiaxiong Qiu`, :blue:`Liu Liu`, :blue:`Xinjie Wang`, :blue:`Wei Sui`, :blue:`Zhizhong Su`, Jian Yang, Jin Xie
+
+       Arxiv 2025
+
+       `Webpage <https://zx-yin.github.io/dreamlifting>`__
+
+   * - .. image:: _static/publications/finegrasp.gif
+          :class: publication-thumbnail
+          :alt: FineGrasp Logo
+          :target: _static/publications/finegrasp.gif
+
+     - **FineGrasp: Towards Robust Grasping for Delicate Objects**
+
+       :blue:`Yun Du`, :blue:`Mengao Zhao`, :blue:`Tianwei Lin`, :blue:`Yiwei Jin`, :blue:`Chaodong Huang`, :blue:`Zhizhong Su`
+
+       Arxiv 2025
+
+       `Webpage <https://horizonrobotics.github.io/robot_lab/finegrasp/index.html>`__ | `Paper <https://arxiv.org/abs/2507.05978>`__ | `Code <https://github.com/HorizonRobotics/robo_orchard_lab/tree/master/projects/finegrasp_graspnet1b>`__
+
+
    * - .. image:: _static/publications/embodied_gen.gif
           :class: publication-thumbnail
           :alt: EmbodiedGen Logo
@@ -80,7 +160,7 @@ Publications
 
        Arxiv 2025
 
-       `Webpage <https://horizonrobotics.github.io/robot_lab/embodied_gen/index.html>`__ | `Paper <https://arxiv.org/abs/2506.10600>`__ | `Code <https://github.com/HorizonRobotics/EmbodiedGen>`__
+       `Webpage <https://horizonrobotics.github.io/robot_lab/embodied_gen/index.html>`__ | `Paper <https://arxiv.org/abs/2506.10600>`__ | `Code <https://github.com/HorizonRobotics/EmbodiedGen>`__ | `HF Demo <https://huggingface.co/collections/HorizonRobotics/embodiedgen-684c3ec6cfd908bb1d6069bf>`__
 
    * - .. image:: _static/publications/robotransfer.gif
           :class: publication-thumbnail
@@ -93,7 +173,7 @@ Publications
 
        Arxiv 2025
 
-       `Webpage <https://horizonrobotics.github.io/robot_lab/robotransfer/index.html>`__ | `Paper <https://arxiv.org/abs/2505.23171>`__
+       `Webpage <https://horizonrobotics.github.io/robot_lab/robotransfer/index.html>`__ | `Paper <https://arxiv.org/abs/2505.23171>`__ | `Code <https://github.com/HorizonRobotics/RoboTransfer>`__
 
    * - .. image:: _static/publications/dipo.gif
           :class: publication-thumbnail
@@ -106,7 +186,7 @@ Publications
 
        Arxiv 2025
 
-       `Webpage <https://rq-wu.github.io/projects/DIPO>`__ | `Paper <https://arxiv.org/abs/2505.20460>`__
+       `Webpage <https://rq-wu.github.io/projects/DIPO>`__ | `Paper <https://arxiv.org/abs/2505.20460>`__ | `Code <https://github.com/RQ-Wu/DIPO>`__
 
    * - .. image:: _static/publications/sem.gif
           :class: publication-thumbnail
@@ -136,7 +216,7 @@ Publications
 
    * - .. image:: _static/publications/GeomFlow.gif
           :class: publication-thumbnail
-          :alt: GeoFlow Slam Logo
+          :alt: GeomFlow Logo
           :target: _static/publications/GeomFlow.gif
 
      - **GeoFlow-SLAM: A Robust Tightly-Coupled RGBD-Inertial Fusion SLAM for Dynamic Legged Robotics**
@@ -145,14 +225,14 @@ Publications
 
        IROS 2025
 
-       `Paper <https://arxiv.org/abs/2503.14247>`__ | `Code <https://github.com/nsn-hello/geoflow-slam>`__
+       `Paper <https://arxiv.org/abs/2503.14247>`__ | `Code <https://github.com/HorizonRobotics/GeoFlowSlam>`__
 
    * - .. image:: _static/publications/gstr.gif
           :class: publication-thumbnail
           :alt: GaussTR Logo
           :target: _static/publications/gstr.gif
 
-     - **Gausstr: Foundation model-aligned gaussian transformer for self-supervised 3d spatial understanding**
+     - **GaussTR: Foundation model-aligned gaussian transformer for self-supervised 3d spatial understanding**
 
        :blue:`Haoyi Jiang`, :blue:`Liu Liu`, Tianheng Cheng, :blue:`Xinjie Wang`, :blue:`Tianwei Lin`, :blue:`Zhizhong Su`, Wenyu Liu, Xinggang Wang
 
@@ -193,11 +273,11 @@ Publications
 
      - **GLS: Geometry-aware 3D Language Gaussian Splatting**
 
-       :blue:`Jiaxiong Qiu`, :blue:`Liu Liu`, :blue:`Tianwei Lin`, :blue:`Zhizhong Su`
+       :blue:`Jiaxiong Qiu`, :blue:`Liu Liu`, :blue:`Xinjie Wang`, :blue:`Tianwei Lin`, :blue:`Wei Sui`, :blue:`Zhizhong Su`
 
        Arxiv 2024
 
-       `Webpage <https://jiaxiongq.github.io/GLS_ProjectPage>`__ | `Paper <https://arxiv.org/abs/2411.18066>`__ | `Code <https://github.com/JiaxiongQ/GLS>`__
+       `Webpage <https://jiaxiongq.github.io/GLS_ProjectPage>`__ | `Paper <https://arxiv.org/abs/2411.18066>`__ | `Code <https://github.com/HorizonRobotics/GLS>`__
 
 
 Join US
