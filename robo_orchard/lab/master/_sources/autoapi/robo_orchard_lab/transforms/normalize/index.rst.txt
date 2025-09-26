@@ -1,0 +1,177 @@
+normalize
+=========
+
+.. py:module:: robo_orchard_lab.transforms.normalize
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.transforms.normalize.NormStatistics
+   robo_orchard_lab.transforms.normalize.Normalize
+   robo_orchard_lab.transforms.normalize.UnNormalize
+   robo_orchard_lab.transforms.normalize.NormalizeConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: NormStatistics(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.Config`
+
+
+   Statistics for normalization.
+
+
+   .. py:attribute:: mean
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+
+   .. py:attribute:: std
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+
+   .. py:attribute:: min
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+
+   .. py:attribute:: max
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+
+   .. py:attribute:: q01
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+
+   .. py:attribute:: q99
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+
+.. py:class:: Normalize(cfg: NormalizeConfig[Normalize])
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransform`
+
+
+   A transform to normalize the input data.
+
+
+   .. py:attribute:: cfg
+      :type:  NormalizeConfig[Normalize]
+
+
+   .. py:method:: transform(**kwargs) -> dict
+
+      Transform the input columns into a new row dict to be updated.
+
+      All input columns will be passed as keyword arguments.
+
+
+
+.. py:class:: UnNormalize(cfg: NormalizeConfig[UnNormalize])
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransform`
+
+
+   A class that defines the interface for transforming a dict.
+
+   The dict is usually a row in a dataset, and the transform
+   will take the input columns, apply some transformation, and return
+   a new dict with the transformed values added to the original dict.
+
+   User should implement the `transform` method to define the specific
+   transformation logic.
+
+   If you use a dataclass or BaseModel as the return type of
+   the transform method, `output_columns` will be automatically
+   inferred from the fields of the dataclass or BaseModel. Otherwise,
+   you should implement the `output_columns` property to return the
+   expected output columns for the transform.
+
+
+   For Transform whose input and output columns are not known
+   at the time of configuration, the input and output columns
+   properties should not be used, and the `check_return_columns`
+   configuration should be set to False. This will prevent runtime
+   errors when the transform is called with a row dict.
+
+
+
+   .. py:attribute:: cfg
+      :type:  NormalizeConfig[UnNormalize]
+
+
+   .. py:method:: transform(**kwargs) -> dict
+
+      Transform the input columns into a new row dict to be updated.
+
+      All input columns will be passed as keyword arguments.
+
+
+
+.. py:class:: NormalizeConfig
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransformConfig`\ [\ :py:obj:`NormT`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.transforms.base.ClassType[NormT]
+
+      Class type of normalization transform.
+
+      Can be either Normalize or UnNormalize.
+
+
+   .. py:attribute:: stats
+      :type:  robo_orchard_lab.models.codec.normalize.NormStatistics
+
+      Statistics for normalization.
+
+
+   .. py:attribute:: eps
+      :type:  float
+      :value: 1e-08
+
+
+
+   .. py:attribute:: norm_type
+      :type:  Literal['mean_std', 'min_max', 'quantile']
+      :value: 'min_max'
+
+
+      Type of normalization to apply.
+
+
+   .. py:attribute:: clip_min
+      :type:  float | None
+      :value: None
+
+
+      Minimum value to clip the normalized data.
+
+
+   .. py:attribute:: clip_max
+      :type:  float | None
+      :value: None
+
+
+      Maximum value to clip the normalized data.
+
+
+   .. py:method:: generate_codec_cfg() -> robo_orchard_lab.models.codec.normalize.NormalizeCodecConfig[robo_orchard_lab.models.codec.normalize.NormalizeCodec]
+
+

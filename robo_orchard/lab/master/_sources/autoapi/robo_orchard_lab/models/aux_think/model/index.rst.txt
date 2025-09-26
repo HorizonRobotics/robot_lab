@@ -75,28 +75,47 @@ Module Contents
       This method first loads the model's configuration from a JSON file
       (e.g., "model.config.json") found in the given directory. It then
       instantiates the model using this configuration. The instantiation
-      occurs within a context where the **ORCHARD_LAB_CHECKPOINT_DIRECTORY**
-      environment variable is temporarily set to the `directory` path.
+      occurs within a context where the current working directory is set to
+      the specified directory.
 
-      If `load_model` is True, the method proceeds to load the model's
+      If `load_weight` is True, the method proceeds to load the model's
       weights (state dictionary) from a ".safetensors" file (e.g.,
       "model.safetensors") located in the same directory.
 
       :param directory: The path to the directory containing the model's
-                        configuration file and, if applicable, the state dictionary file.
-      :param load_model: If True (default), the model's state dictionary is
-                         loaded from the ".safetensors" file. If False, the model is
-                         initialized from the configuration but weights are not loaded.
-      :param strict: A boolean indicating whether to strictly enforce that the keys
+                        configuration file and state dictionary file.
+      :type directory: str
+      :param device: The device (e.g., "cpu", "cuda:0")
+                     onto which the model's state dictionary should be loaded.
+                     Passed to `load_file` for loading the safetensors file.
+                     Defaults to "cpu".
+      :type device: str|None, optional
+      :param device_map: A device map to specify how to distribute the model's
+                         layers across multiple devices. This parameter is only used
+                         when `load_impl` is "accelerate". `device` and `device_map`
+                         cannot be both specified. Defaults to None.
+      :type device_map: str | dict[str, int | str | torch.device] | None, optional
+      :param strict: Whether to strictly enforce that the keys
                      in `state_dict` match the keys returned by this module's
                      `state_dict()` function. Passed to `model.load_state_dict()`.
                      Defaults to True.
-      :param device: The device (e.g., "cpu", "cuda:0") onto which the model's
-                     state dictionary should be loaded. Passed to `load_file` for
-                     loading the safetensors file. Defaults to "cpu".
-      :param model_prefix: The prefix for the configuration and state dictionary
-                           files. For example, if "model", files will be sought as
-                           "model.config.json" and "model.safetensors". Defaults to "model".
+      :type strict: bool, optional
+      :param model_prefix: The prefix for the configuration
+                           and state dictionary files. For example, if "model", files
+                           will be sought as "model.config.json" and "model.safetensors".
+                           Defaults to "model".
+      :type model_prefix: str, optional
+      :param load_impl: The
+                        implementation to use for loading the model weights:
+
+                          - "native": Uses the native PyTorch loading mechanism via
+                            `safetensors.torch.load_file`.
+                          - "accelerate": Uses Hugging Face Accelerate's
+                            `load_checkpoint_and_dispatch`, which supports
+                            advanced features like device mapping and offloading.
+
+                        Defaults to "accelerate".
+      :type load_impl: Literal["native", "accelerate"], optional
 
       :returns:
 
@@ -107,7 +126,7 @@ Module Contents
       :raises FileNotFoundError: If the specified `directory` does not exist,
           or if the configuration file (`{model_prefix}.config.json`)
           or the state dictionary file (`{model_prefix}.safetensors}`,
-          when `load_model` is True) is not found in the directory.
+          when `load_weight` is True) is not found in the directory.
       :raises ValueError: If the Hugging Face Hub URI is invalid.
 
 

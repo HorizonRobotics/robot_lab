@@ -9,65 +9,33 @@ Classes
 
 .. autoapisummary::
 
-   robo_orchard_lab.transforms.padding.Padding
-   robo_orchard_lab.transforms.padding.PaddingConfig
+   robo_orchard_lab.transforms.padding.PaddingList
+   robo_orchard_lab.transforms.padding.PaddingListConfig
 
 
 Module Contents
 ---------------
 
-.. py:class:: Padding(cfg: PaddingConfig)
+.. py:class:: PaddingList(cfg: PaddingListConfig)
 
    Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransform`
 
 
-   A class that defines the interface for transforming a dict.
+   A transform that applies padding to input lists.
 
-   The dict is usually a row in a dataset, and the transform
-   will take the input columns, apply some transformation, and return
-   a new dict with the transformed values added to the original dict.
-
-   User should implement the `transform` method to define the specific
-   transformation logic.
-
-   If you use a dataclass or BaseModel as the return type of
-   the transform method, `output_columns` will be automatically
-   inferred from the fields of the dataclass or BaseModel. Otherwise,
-   you should implement the `output_columns` property to return the
-   expected output columns for the transform.
-
-
-   For Transform whose input and output columns are not known
-   at the time of configuration, the input and output columns
-   properties should not be used, and the `check_return_columns`
-   configuration should be set to False. This will prevent runtime
-   errors when the transform is called with a row dict.
+   This transform supports padding input lists by replacing None values in the
+   head and tail of the list with the first and last non-None values found in
+   the list, respectively.
 
 
 
    .. py:attribute:: cfg
-      :type:  PaddingConfig
+      :type:  PaddingListConfig
 
 
-   .. py:method:: input_columns() -> list[str]
-
-      The input columns that this transform requires.
-
-      This should be a list of column names that are required
-      for the transformation. The transform method will be called
-      with these columns as keyword arguments.
-
-      By default this property uses the signature of the
-      `transform` method to determine the input columns. If you
-      need to customize the input columns, you should override this
-      property in your subclass.
-
-
-
-
-   .. py:method:: output_columns() -> list[str]
-
-      The output columns are the same as the input columns.
+   .. py:attribute:: is_variadic
+      :type:  bool
+      :value: True
 
 
 
@@ -83,9 +51,9 @@ Module Contents
 
 
 
-.. py:class:: PaddingConfig
+.. py:class:: PaddingListConfig
 
-   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransformConfig`\ [\ :py:obj:`Padding`\ ]
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransformConfig`\ [\ :py:obj:`PaddingList`\ ]
 
 
    Configuration class for Padding transform.
@@ -96,7 +64,7 @@ Module Contents
 
 
    .. py:attribute:: class_type
-      :type:  Type[Padding]
+      :type:  robo_orchard_lab.transforms.base.ClassType[PaddingList]
 
 
    .. py:attribute:: input_columns
@@ -119,7 +87,7 @@ Module Contents
 
    .. py:attribute:: check_return_columns
       :type:  bool
-      :value: True
+      :value: False
 
 
 

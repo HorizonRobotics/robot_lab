@@ -1,0 +1,130 @@
+base
+====
+
+.. py:module:: robo_orchard_lab.models.codec.base
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.codec.base.CodecT_co
+   robo_orchard_lab.models.codec.base.CodecConfigT_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.codec.base.Codec
+   robo_orchard_lab.models.codec.base.CodecConfig
+   robo_orchard_lab.models.codec.base.ChainCodec
+   robo_orchard_lab.models.codec.base.ChainCodecConfig
+
+
+Module Contents
+---------------
+
+.. py:data:: CodecT_co
+
+.. py:class:: Codec
+
+   CodecMixin is an API for encoding and decoding data.
+
+   The codec concept is suitable for `Tokenizer`, `VAE`, and other models
+   that transform data into a different representation and back.
+
+
+
+   .. py:attribute:: cfg
+      :type:  CodecConfig
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+   .. py:method:: encode(data: Any) -> Any
+      :abstractmethod:
+
+
+      Encode data.
+
+
+
+   .. py:method:: decode(data: Any) -> Any
+      :abstractmethod:
+
+
+      Decode data.
+
+
+
+   .. py:method:: from_config(config_path: str) -> Codec
+      :classmethod:
+
+
+      Load a Codec from a configuration file.
+
+
+
+.. py:class:: CodecConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`CodecT_co`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType[CodecT_co]
+
+
+.. py:data:: CodecConfigT_co
+
+.. py:class:: ChainCodec(cfg: ChainCodecConfig)
+
+   Bases: :py:obj:`Codec`
+
+
+   ChainCodec is a codec that applies multiple codecs in sequence.
+
+
+   .. py:attribute:: cfg
+      :type:  ChainCodecConfig
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+   .. py:method:: encode(data: Any) -> Any
+
+      Encode data.
+
+
+
+   .. py:method:: decode(data: Any) -> Any
+
+      Decode data.
+
+
+
+.. py:class:: ChainCodecConfig
+
+   Bases: :py:obj:`CodecConfig`\ [\ :py:obj:`ChainCodec`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType[ChainCodec]
+
+
+   .. py:attribute:: codecs
+      :type:  Sequence[robo_orchard_core.utils.config.ConfigInstanceOf[CodecConfig[Codec]]]
+      :value: None
+
+
+

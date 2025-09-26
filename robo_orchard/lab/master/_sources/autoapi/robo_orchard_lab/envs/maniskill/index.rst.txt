@@ -33,7 +33,7 @@ Module Contents
 
 .. py:class:: ManiSkillEnv(cfg: ManiSkillEnvCfg)
 
-   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvBase`\ [\ :py:obj:`ManiSkillEnvReturn`\ ]
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvBase`\ [\ :py:obj:`dict`\ [\ :py:obj:`str`\ , :py:obj:`Any`\ ]\ , :py:obj:`torch.Tensor`\ ]
 
 
    The ManiSkill environment base class.

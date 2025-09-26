@@ -16,16 +16,16 @@ Classes
 Module Contents
 ---------------
 
-.. py:class:: InferencePipeline(model: robo_orchard_lab.models.mixin.ModelMixin, cfg: InferencePipelineCfg)
+.. py:class:: InferencePipeline(cfg: InferencePipelineCfg)
 
-   Bases: :py:obj:`robo_orchard_lab.inference.mixin.InferencePipelineMixin`\ [\ :py:obj:`robo_orchard_lab.inference.mixin.InputType`\ , :py:obj:`robo_orchard_lab.inference.mixin.OutputType`\ ]
+   Bases: :py:obj:`robo_orchard_lab.inference.mixin.InferencePipelineMixin`\ [\ :py:obj:`robo_orchard_lab.inference.mixin.InputType`\ , :py:obj:`robo_orchard_lab.inference.mixin.OutputType`\ ], :py:obj:`Generic`\ [\ :py:obj:`robo_orchard_lab.inference.mixin.InputType`\ , :py:obj:`robo_orchard_lab.inference.mixin.OutputType`\ ]
 
 
    A high-level, concrete implementation of an end-to-end inference pipeline.
 
-   This class provides a standard, out-of-the-box workflow for inference that
-   is suitable for many common use cases. It orchestrates a multi-step process
-   by integrating a `ProcessorMixin` for data handling.
+   Like `Pipeline` in huggingface transformers, this class provides a user-friendly
+   interface for performing inference with a model, handling all necessary steps
+   such as pre-processing, batching, model forwarding, and post-processing.
 
    The defined workflow in the `__call__` method is:
 
@@ -33,24 +33,25 @@ Module Contents
 
    2. Collate the processed data into a mini-batch.
 
-   3. Move the batch to the model's device.
+   3. Perform model inference (forward pass).
 
-   4. Perform model inference (forward pass).
-
-   5. Post-process the model's output using the processor.
+   4. Post-process the model's output using the processor.
 
 
 
    .. py:attribute:: cfg
       :type:  InferencePipelineCfg
 
+      The configuration for the pipeline
+
 
    .. py:attribute:: processor
+      :type:  robo_orchard_lab.inference.processor.ProcessorMixin | None
 
 
 .. py:class:: InferencePipelineCfg
 
-   Bases: :py:obj:`robo_orchard_lab.inference.mixin.InferencePipelineMixinCfg`
+   Bases: :py:obj:`robo_orchard_lab.inference.mixin.InferencePipelineMixinCfg`\ [\ :py:obj:`InferencePipelineType_co`\ ]
 
 
    Configuration for the concrete `InferencePipeline`.
@@ -61,22 +62,29 @@ Module Contents
 
 
    .. py:attribute:: processor
-      :type:  robo_orchard_lab.inference.processor.ProcessorMixinCfgType_co
+      :type:  robo_orchard_core.utils.config.ConfigInstanceOf[robo_orchard_lab.inference.processor.ProcessorMixinCfg] | None
       :value: None
 
 
-      The configuration for the data processor. Defaults to an identity processor that does nothing.
+      The configuration for the data processor.
 
 
    .. py:attribute:: collate_fn
-      :type:  robo_orchard_core.utils.config.CallableType[[list[Any]], Any]
+      :type:  robo_orchard_core.utils.config.CallableType[[list[Any]], Any] | None
+      :value: None
 
-      The function used to collate a list of single data items into a single batch for the model.
+
+      The function used to collate single data items into a single batch.
+
+      This method is required when the input data is an iterable (e.g., dataset,
+      list, generator).
 
 
-   .. py:attribute:: to_device_fn
-      :type:  robo_orchard_core.utils.config.CallableType[[Any, torch.device], Any]
+   .. py:attribute:: batch_size
+      :type:  int
+      :value: 1
 
-      The function used to move a batch of data to the correct torch device.
+
+      The number of samples to process in each mini-batch during inference.
 
 

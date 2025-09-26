@@ -141,8 +141,6 @@ Module Contents
 
 
    .. py:attribute:: transforms
-      :value: []
-
 
 
    .. py:attribute:: interval

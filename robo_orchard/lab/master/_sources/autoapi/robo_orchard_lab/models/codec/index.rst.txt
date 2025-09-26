@@ -4,39 +4,15 @@ codec
 .. py:module:: robo_orchard_lab.models.codec
 
 
-Classes
--------
-
-.. autoapisummary::
-
-   robo_orchard_lab.models.codec.CodecMixin
 
 
-Module Contents
----------------
+Submodules
+----------
 
-.. py:class:: CodecMixin
+.. toctree::
+   :maxdepth: 1
 
-   CodecMixin is an API for encoding and decoding data.
-
-   The codec concept is suitable for `Tokenizer`, `VAE`, and other models
-   that transform data into a different representation and back.
-
-
-
-   .. py:method:: encode(data: torch.Tensor, *args, **kwargs) -> torch.Tensor
-      :abstractmethod:
-
-
-      Encode data.
-
-
-
-   .. py:method:: decode(data: torch.Tensor, *args, **kwargs) -> torch.Tensor
-      :abstractmethod:
-
-
-      Decode data.
-
+   /autoapi/robo_orchard_lab/models/codec/base/index
+   /autoapi/robo_orchard_lab/models/codec/normalize/index
 
 

@@ -1,0 +1,184 @@
+evaluator
+=========
+
+.. py:module:: robo_orchard_lab.policy.evaluator
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.policy.evaluator.PolicyEvaluator
+   robo_orchard_lab.policy.evaluator.PolicyEvaluatorConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: PolicyEvaluator(cfg: PolicyEvaluatorConfig)
+
+   Evaluate a policy using a set of metrics on an environment.
+
+   :param cfg: Configuration for the
+               PolicyEvaluator instance.
+   :type cfg: PolicyEvaluatorConfig
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: metrics
+      :type:  robo_orchard_lab.metrics.base.MetricDict
+
+
+   .. py:attribute:: policy
+      :type:  robo_orchard_core.policy.base.PolicyMixin
+
+
+   .. py:attribute:: env
+      :type:  robo_orchard_core.envs.env_base.EnvBase
+
+
+   .. py:attribute:: cfg
+      :type:  PolicyEvaluatorConfig
+
+
+   .. py:method:: reconfigure_metrics(metrics: robo_orchard_lab.metrics.base.MetricDict) -> None
+
+      Reconfigure the metrics with a new set of metrics.
+
+      :param metrics: A dictionary where keys are
+                      metric names and values are callable metric functions that
+                      follow the MetricProtocol.
+      :type metrics: MetricDict
+
+
+
+   .. py:method:: reconfigure_env(env_cfg: robo_orchard_core.envs.env_base.EnvBaseCfg) -> None
+
+      Reconfigure the environment with a new configuration.
+
+      :param env_cfg: The new configuration for the environment.
+      :type env_cfg: EnvBaseCfg
+
+
+
+   .. py:method:: reconfigure_policy(policy_cfg: robo_orchard_core.policy.base.PolicyConfig) -> None
+
+      Reconfigure the policy with a new configuration.
+
+      :param policy_cfg: The new configuration for the policy.
+      :type policy_cfg: PolicyConfig
+
+
+
+   .. py:method:: evaluate_episode(max_steps: int, env_reset_kwargs: dict[str, Any] | None = None, policy_reset_kwargs: dict[str, Any] | None = None) -> None
+
+      Non-generator version of make_episode_evaluation.
+
+
+
+   .. py:method:: make_episode_evaluation(max_steps: int, env_reset_kwargs: dict[str, Any] | None = None, policy_reset_kwargs: dict[str, Any] | None = None, rollout_steps: int = 5) -> Generator[int, None, None]
+
+      Make a generator to evaluate the policy on episodes.
+
+      This method yields the number of steps taken in each rollout
+      until the episode ends or the maximum number of steps is reached.
+
+      At the beginning of each episode, the environment and policy
+      are reset using the provided keyword arguments. And after the
+      episode ends, the metrics are updated with the last action
+      and step result.
+
+      :param max_steps: The maximum number of steps to evaluate
+                        the policy for.
+      :type max_steps: int
+      :param env_reset_kwargs: Keyword arguments to
+                               pass to the environment's reset method. Defaults to None.
+      :type env_reset_kwargs: dict, optional
+      :param policy_reset_kwargs: Keyword arguments to
+                                  pass to the policy's reset method. Defaults to None.
+      :type policy_reset_kwargs: dict, optional
+      :param rollout_steps: The number of steps to roll
+                            out in each iteration. Defaults to 5.
+      :type rollout_steps: int, optional
+
+
+
+   .. py:method:: reset_metrics(metrics_reset_kwargs: dict[str, Any] | None = None)
+
+      Reset all metrics.
+
+      :param metrics_reset_kwargs: Additional
+                                   arguments to pass to the reset method of each metric.
+                                   Defaults to None.
+      :type metrics_reset_kwargs: dict[str, Any] | None
+
+
+
+   .. py:method:: reset_policy(policy_reset_kwargs: dict[str, Any] | None = None)
+
+      Reset the policy.
+
+      :param policy_reset_kwargs: Additional
+                                  arguments to pass to the reset method of the policy.
+                                  Defaults to None.
+      :type policy_reset_kwargs: dict[str, Any] | None
+
+
+
+   .. py:method:: compute_metrics() -> dict[str, Any]
+
+      Compute all metrics and return the results as a dictionary.
+
+      :returns:
+
+                A dictionary where keys are metric names and values are
+                    the computed metric values.
+      :rtype: dict
+
+
+
+.. py:class:: PolicyEvaluatorConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`PolicyEvaluator`\ ]
+
+
+   Configuration class for PolicyEvaluator.
+
+   This class is used to configure and instantiate a PolicyEvaluator
+   object with the specified environment, policy, and metrics.
+
+   :param env_cfg: The configuration for the environment.
+   :type env_cfg: EnvBaseCfg
+   :param policy_cfg: The configuration for the policy.
+   :type policy_cfg: PolicyConfig
+   :param metrics: A dictionary where keys are
+                   metric names and values are callable metric functions that
+                   follow the MetricProtocol.
+   :type metrics: dict | MetricDict
+
+
+   .. py:attribute:: class_type
+      :type:  type[PolicyEvaluator]
+
+
+   .. py:attribute:: env_cfg
+      :type:  robo_orchard_core.utils.config.ConfigInstanceOf[robo_orchard_core.envs.env_base.EnvBaseCfg]
+
+
+   .. py:attribute:: policy_cfg
+      :type:  robo_orchard_core.utils.config.ConfigInstanceOf[robo_orchard_core.policy.base.PolicyConfig]
+
+
+   .. py:attribute:: metrics
+      :type:  robo_orchard_lab.metrics.base.MetricDictConfig
+
+
+   .. py:method:: as_remote(remote_class_config: robo_orchard_core.utils.ray.RayRemoteClassConfig | None = None, ray_init_config: dict[str, Any] | None = None, check_init_timeout: int = 60) -> robo_orchard_lab.policy.remote.PolicyEvaluatorRemoteConfig
+
+

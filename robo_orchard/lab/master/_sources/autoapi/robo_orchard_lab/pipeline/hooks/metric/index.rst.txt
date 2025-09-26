@@ -119,7 +119,7 @@ Module Contents
 
 
    .. py:attribute:: class_type
-      :type:  type[MetricTracker]
+      :type:  robo_orchard_core.utils.config.ClassType[MetricTracker]
 
 
    .. py:attribute:: metric_entrys

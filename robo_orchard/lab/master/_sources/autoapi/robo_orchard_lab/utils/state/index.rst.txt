@@ -1,0 +1,217 @@
+state
+=====
+
+.. py:module:: robo_orchard_lab.utils.state
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.state.State
+   robo_orchard_lab.utils.state.StateList
+   robo_orchard_lab.utils.state.StateSaveLoadMixin
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.state.obj2state
+   robo_orchard_lab.utils.state.state2obj
+
+
+Module Contents
+---------------
+
+.. py:class:: State(/, **data: Any)
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+
+   The state dataclass when pickling a object.
+
+   This class provides a way to save and load the state of an object
+   in a structured way.
+
+
+
+   .. py:attribute:: model_config
+
+      Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType[Any] | None
+      :value: None
+
+
+      The class type of the state. This is used to identify which class
+      the state belongs to when loading it back.
+
+
+   .. py:attribute:: state
+      :type:  dict[str, Any]
+
+      The state of the object. It should be picklable.
+
+
+   .. py:attribute:: config
+      :type:  robo_orchard_core.utils.config.ClassConfig | None
+
+      The configuration of the object if it has one.
+
+
+   .. py:attribute:: parameters
+      :type:  dict[str, robo_orchard_core.utils.config.TorchTensor | robo_orchard_core.utils.config.NumpyTensor] | None
+      :value: None
+
+
+      The parameters of the state. It should be picklable.
+
+      Different from the state which including runtime information,
+      the parameters are the static information such as NN parameters.
+
+      The parameters should be a dictionary mapping parameter names
+      to tensors. If the transform does not have any parameters,
+      this can be None.
+
+
+   .. py:attribute:: save_to_path
+      :type:  bool | None
+      :value: None
+
+
+      If this is set to True, the state will be saved to the given path as
+      a separate folder. Otherwise, the state will be a part of the parent
+      object state.
+
+      This is useful for transforms that need to save their state to structured
+      files not just a single file.
+
+      If None, this flag will inherit from the parent object.
+
+
+   .. py:method:: save(path: str, protocol: Literal['pickle'] = 'pickle') -> None
+
+      Save the state of the transform to a file.
+
+      The structure of the saved files will be:
+          - path/
+              - meta.json
+              - state.pkl (if self.save_to_path is not True)
+              - parameters.pkl (if self.save_to_path is not True)
+              - config.json
+              - parameters/ (if self.save_to_path is True)
+                  - <parameter_name>.pkl
+              - state/ (if self.save_to_path is True)
+                  - <state_name>.pkl (for each state if not
+                      State nor StateList)
+                  - <state_name> (for State or StateList type)
+
+      :param folder: The folder path to save the state.
+      :type folder: str
+      :param protocol: The protocol to use for saving.
+      :type protocol: Literal["pickle"]
+
+
+
+   .. py:method:: load(path: str) -> State
+      :classmethod:
+
+
+      Load the state of the transform from a file.
+
+
+
+.. py:class:: StateList(*args, save_to_path: bool | None = None)
+
+   Bases: :py:obj:`list`
+
+
+   A dataclass to hold a list of TransformState objects.
+
+
+   .. py:attribute:: save_to_path
+      :type:  bool | None
+      :value: None
+
+
+      Whether to save the state of the transforms to a separate path.
+
+
+   .. py:method:: copy() -> StateList
+
+      Return a shallow copy of the list.
+
+
+
+   .. py:method:: model_copy() -> StateList
+
+
+   .. py:method:: save(path: str, protocol: Literal['pickle'] = 'pickle') -> None
+
+      Save the state of the transforms to a file.
+
+      The structure of the saved files will be:
+          - path/
+              - meta.json
+              - all.pkl (if self.save_to_path is not True)
+              - 0/ (for State or StateList type if their save_to_path is True)
+                  - ...
+              - 1.pkl (for other types if self.save_to_path is True)
+
+
+      :param path: The folder path to save the state.
+      :type path: str
+      :param protocol: The protocol to use for saving.
+                       Defaults to "pickle".
+      :type protocol: Literal["pickle"]
+
+
+
+   .. py:method:: load(path: str) -> StateList
+      :staticmethod:
+
+
+      Load the state of the transforms from a file.
+
+      :param path: The folder path to load the state from.
+      :type path: str
+
+
+
+.. py:class:: StateSaveLoadMixin
+
+   .. py:method:: save(path: str, protocol: Literal['pickle'] = 'pickle') -> None
+
+      Save the state of the object to a file.
+
+
+
+   .. py:method:: load(path: str) -> typing_extensions.Self
+      :classmethod:
+
+
+      Load the state of the object from a file.
+
+
+
+.. py:function:: obj2state(obj: Any) -> Any
+
+   Convert an object to a State if applicable.
+
+   This method recursively converts objects to State if they are
+   instances of StateSaveLoadMixin.
+
+   :param obj: The object to convert.
+   :type obj: Any
+
+
+.. py:function:: state2obj(obj: Any) -> Any
+
+   Convert a State back to its original object.
+
+

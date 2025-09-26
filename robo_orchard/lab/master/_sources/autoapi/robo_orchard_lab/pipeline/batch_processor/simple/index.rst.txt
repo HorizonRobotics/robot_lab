@@ -32,7 +32,8 @@ Module Contents
    Common base class for all non-exit exceptions.
 
 
-.. py:class:: SimpleBatchProcessor(need_backward: bool = True, transforms: Optional[Callable | Sequence[Callable]] = None)
+.. py:class:: SimpleBatchProcessor(need_backward: bool = True)
+              SimpleBatchProcessor(need_backward: bool = True, transforms: Optional[Callable | Sequence[Callable]] = None)
 
    Bases: :py:obj:`robo_orchard_lab.pipeline.batch_processor.mixin.BatchProcessorMixin`
 
@@ -43,9 +44,6 @@ Module Contents
    .. py:attribute:: need_backward
       :value: True
 
-
-
-   .. py:attribute:: transform
 
 
    .. py:attribute:: accelerator
@@ -98,7 +96,7 @@ Module Contents
                     - The first element is the model's outputs. It can be any type
                       that the model produces, such as a tensor, a list of tensors,
                       or a dictionary.
-                    - The second element is an optional reduced loss tensor. This
+                    - The second element is an optional loss tensor. This
                       is used during training when backward computation is required.
                       If loss is not applicable (e.g., during inference), this value
                       can be `None`.
@@ -122,7 +120,8 @@ Module Contents
 
 
 
-.. py:class:: BatchProcessorFromCallable(forward_fn: forward_fn_type, need_backward: bool = True, transforms: Optional[Callable | Sequence[Callable]] = None)
+.. py:class:: BatchProcessorFromCallable(forward_fn: forward_fn_type)
+              BatchProcessorFromCallable(forward_fn: forward_fn_type, need_backward: bool = True, transforms: Optional[Callable | Sequence[Callable]] = None)
 
    Bases: :py:obj:`SimpleBatchProcessor`
 
@@ -156,7 +155,7 @@ Module Contents
                     - The first element is the model's outputs. It can be any type
                       that the model produces, such as a tensor, a list of tensors,
                       or a dictionary.
-                    - The second element is an optional reduced loss tensor. This
+                    - The second element is an optional loss tensor. This
                       is used during training when backward computation is required.
                       If loss is not applicable (e.g., during inference), this value
                       can be `None`.

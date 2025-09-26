@@ -230,6 +230,9 @@ Module Contents
    .. py:method:: forward(query, key, value=None, query_pos=None, key_pos=None, attn_mask=None, pre_scale=True, key_padding_mask=None, identity=None, **kwargs)
 
 
+   .. py:method:: apply_position_encode(q, query_pos, k, key_pos)
+
+
 .. py:class:: JointGraphAttention(embed_dims, num_heads=8, qkv_bias=True, qk_scale=None)
 
    Bases: :py:obj:`torch.nn.Module`
@@ -355,6 +358,9 @@ Module Contents
 
 
 
+   .. py:method:: apply_ada_func(x, c)
+
+
 .. py:class:: UpsampleHead(upsample_sizes, input_dim, dims, norm, act, norm_act_idx)
 
    Bases: :py:obj:`torch.nn.Module`
@@ -396,6 +402,9 @@ Module Contents
 
 
    .. py:attribute:: upsamples
+
+
+   .. py:attribute:: convs
 
 
    .. py:attribute:: act_and_norm

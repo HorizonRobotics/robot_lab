@@ -1,0 +1,331 @@
+env
+===
+
+.. py:module:: robo_orchard_lab.envs.robotwin.env
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.envs.robotwin.env.RoboTwinEnvStepReturn
+   robo_orchard_lab.envs.robotwin.env.RoboTwinEnv
+   robo_orchard_lab.envs.robotwin.env.RoboTwinEnvCfg
+
+
+Module Contents
+---------------
+
+.. py:class:: RoboTwinEnvStepReturn
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvStepReturn`\ [\ :py:obj:`dict`\ [\ :py:obj:`str`\ , :py:obj:`Any`\ ]\ :py:obj:`| None`\ , :py:obj:`bool`\ ]
+
+
+   The return type of the `step` function in the environment.
+
+   This class extends gymnasium's Env step return type to be a dataclass
+   with generic types for observations and rewards.
+
+
+   Template Args:
+       ObsType: The type of the observations returned by the environment.
+       RewardsType: The type of the rewards returned by the environment.
+
+
+
+   .. py:attribute:: observations
+      :type:  dict[str, Any] | None
+
+      The observations returned by the environment after taking a step.
+
+
+   .. py:attribute:: terminated
+      :type:  bool
+
+      Whether the environment has reached a terminal state.
+
+      Usually the environment is considered to be in a terminal state
+      when the agent has reached the goal or failed to reach the goal.
+
+      User should call `reset` function to reset the environment
+      after the environment has reached a terminal state.
+
+
+   .. py:attribute:: rewards
+      :type:  bool
+
+      The rewards is a boolean indicating whether the task was successful.
+
+
+   .. py:attribute:: truncated
+      :type:  bool
+
+      Whether the episode was truncated due to reaching the step limit.
+
+
+.. py:class:: RoboTwinEnv(cfg: RoboTwinEnvCfg)
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvBase`\ [\ :py:obj:`dict`\ [\ :py:obj:`str`\ , :py:obj:`Any`\ ]\ :py:obj:`| None`\ , :py:obj:`bool`\ ]
+
+
+   RoboTwin environment.
+
+   This class provides RoboTwin environment with robo_orchard_core interface.
+   To make it work, you need to install RoboTwin and set the `RoboTwin_PATH`
+   environment variable to the path of the RoboTwin package.
+
+
+   After initialization, you need to call `reset()` to create the environment.
+
+
+
+   .. py:attribute:: cfg
+
+
+   .. py:property:: current_seed
+      :type: int
+
+
+      The current seed of the environment.
+
+
+   .. py:property:: instructions
+      :type: dict | None | str
+
+
+      The instructions for the environment.
+
+      This property is only valid if the environment is initialized
+      with `check_expert=True` or `check_task_init=True`.
+
+      If in eval_mode, return the instruction from the task, usually
+      a string, otherwise the returned instruction is a dictionary
+      containing multiple instructions, with maximum number specified
+      by `max_instruction_num`.
+
+
+   .. py:method:: step(action: list[float] | numpy.ndarray) -> RoboTwinEnvStepReturn
+
+      Take a step in the environment.
+
+      :param action: The action to take in the
+                     environment. Actually it is the joint positions of the
+                     robot. The action should be 1-D array with length matching
+                     the task.
+      :type action: list[float] | np.ndarray
+
+      :returns:
+
+                The observation and environment
+                    state after taking the action, or None if the episode
+                    has ended.
+      :rtype: RoboTwinEnvStepReturn | None
+
+
+
+   .. py:method:: reset(env_ids: Sequence[int] | None = None, seed: int | None = None, clear_cache: bool = False) -> tuple[dict[str, Any] | None, dict]
+
+      Reset the environment.
+
+      If the environment has not been reset before, or the seed is
+      different from the previous one, the environment will be re-created
+      and check the seed.
+
+      .. warning::
+
+         RoboTwin does not use local RandomGenerator, when the environment
+         is re-created, the seed will be set to the one in the config
+         for both numpy and torch. This may affect the randomness of other
+         parts of the code!
+         This is a BUG in RoboTwin!
+
+
+
+   .. py:method:: close(clear_cache: bool = True)
+
+      Close the environment.
+
+
+
+   .. py:property:: num_envs
+      :type: int
+
+
+      The number of instances of the environment that are running.
+
+      For example, if the environment is a single instance, then this
+      should return 1. This is the case for most classical environments.
+
+      In the case of reforcement learning, usually a vectorized environment
+      is used to run multiple instances of the environment in parallel to
+      speed up the training process. In this case, this function should
+      return the number of instances of the environment that are running.
+
+      The number of instances of the environment is used in other parts of
+      the code to manage the environment.
+
+
+   .. py:property:: action_space
+      :type: gymnasium.Space
+
+
+      The action space of the environment.
+
+      Actually RoboTwin does not implement the action space!
+      Call this method will raise an error!
+
+      :returns: The action space of the environment.
+      :rtype: gym.Space
+
+
+   .. py:property:: observation_space
+      :type: gymnasium.Space
+
+
+      The observation space of the environment.
+
+      Actually RoboTwin does not implement the observation space!
+      Call this method will raise an error!
+
+      :returns: The observation space of the environment.
+      :rtype: gym.Space
+
+
+   .. py:method:: unwrapped_env() -> envs._base_task.Base_Task
+
+      Get the original RoboTwin environment.
+
+
+
+.. py:class:: RoboTwinEnvCfg
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvBaseCfg`\ [\ :py:obj:`RoboTwinEnv`\ ]
+
+
+   Configuration for the RoboTwin environment.
+
+
+   .. py:attribute:: class_type
+      :type:  type[RoboTwinEnv]
+
+
+   .. py:attribute:: task_name
+      :type:  str
+
+      The name of the task to run, e.g., 'place_object_scale'.
+
+
+   .. py:attribute:: seed
+      :type:  int
+      :value: 0
+
+
+      The random seed for the environment.
+
+      If eval_mode is True, the seed will be changed in `__post_init__` to
+      `100000 * (1 + seed)` to match the implementation in RoboTwin.
+
+
+   .. py:attribute:: episode_id
+      :type:  int
+      :value: 0
+
+
+      The episode ID for the environment, used for logging and tracking.
+
+
+   .. py:attribute:: check_expert
+      :type:  bool
+      :value: False
+
+
+      Whether to check the expert trajectory for the task.
+
+      If true, the environment will attempt to run the task with given seed
+      to check if the task can be completed successfully using the expert
+      trajectory. If fails, new seed will be generated and used.
+
+      This field is used to make sure that the environment can be recorded
+      successfully using the expert trajectory for imitation learning.
+
+
+   .. py:attribute:: check_task_init
+      :type:  bool
+      :value: True
+
+
+      Whether to check the task initialization.
+
+      If true, the environment will call `play_once()` to execute the task
+      with expert trajectory to check if the task can be initialized
+      successfully.
+
+      This field should be set to True because some task attributes that
+      required for interaction may be initialized in the `play_once()` method,
+      such as `place_object_scale` task.
+
+      This should be a BUG in RoboTwin and will significantly affect the
+      performance of the environment initialization.
+
+
+   .. py:attribute:: eval_mode
+      :type:  bool
+      :value: False
+
+
+      Whether for evaluation.
+
+      If true, the environment will use unseen texture_type.
+
+
+   .. py:attribute:: max_instruction_num
+      :type:  int
+      :value: 10
+
+
+      The maximum number of instructions to generate for the env.
+
+
+   .. py:attribute:: format_datatypes
+      :type:  bool
+      :value: False
+
+
+      whether to format obs as robo_orchard datatypes.
+
+      If true, the observation will be formatted as:
+          - "joints": dict of joint name to joint position. This key will
+              replace the original "joint_action" key.
+          - "cameras": dict of camera name to camera image. This key will
+              replace the original "observation" key.
+          - other keys in the original observation will be kept.
+
+
+   .. py:property:: task_config_path
+      :type: str
+
+
+      Path to the task configuration file.
+
+
+   .. py:property:: embodiment_config_path
+      :type: str
+
+
+      Path to the embodiment configuration file.
+
+
+   .. py:property:: camera_config_path
+      :type: str
+
+
+      Path to the camera configuration file.
+
+
+   .. py:method:: get_task_config() -> dict[str, Any]
+
+      Get the configuration for the task.
+
+
+

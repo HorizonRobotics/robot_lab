@@ -37,12 +37,13 @@ Module Contents
       :type:  SEMProcessorCfg
 
 
-   .. py:attribute:: ts
-      :value: None
+   .. py:attribute:: struction_to_dict
 
 
+   .. py:attribute:: transforms
 
-   .. py:method:: pre_process(data: robo_orchard_lab.inference.multi_arm_manipulation.MultiArmManipulationInput)
+
+   .. py:method:: pre_process(data: Union[MultiArmManipulationInput, Dict])
 
       Transforms raw data into a model-ready format.
 
@@ -55,7 +56,7 @@ Module Contents
 
 
 
-   .. py:method:: post_process(batch, model_outputs) -> robo_orchard_lab.inference.multi_arm_manipulation.MultiArmManipulationOutput
+   .. py:method:: post_process(model_outputs, _) -> MultiArmManipulationOutput
 
       Transforms model output into a user-friendly format.
 
@@ -66,8 +67,10 @@ Module Contents
       By default, it performs an identity mapping, returning the model
       outputs as is.
 
-      :param batch: The transformed batch.
       :param model_outputs: The raw output from the model's forward pass.
+      :param model_input: The transformed batch as model input. For some
+                          processors, this may be needed for context during
+                          post-processing.
 
       :returns: The post-processed, user-friendly output.
 
@@ -94,33 +97,21 @@ Module Contents
 
 
 
-   .. py:attribute:: hist_steps
-      :type:  int
-      :value: 1
+   .. py:attribute:: cam_names
+      :type:  Optional[List[str]]
+      :value: None
 
-
-
-   .. py:attribute:: pred_steps
-      :type:  int
-      :value: 64
-
-
-
-   .. py:attribute:: resize_dst_wh
-      :type:  tuple[int, int] | list[int]
-
-
-   .. py:attribute:: resize_dst_intrinsic
-      :type:  list[list[float]]
-
-
-   .. py:attribute:: scale_shift_list
-      :type:  list[list[float]]
 
 
    .. py:attribute:: valid_action_step
-      :type:  int
-      :value: 32
+      :type:  Optional[int]
+      :value: None
+
+
+
+   .. py:attribute:: transforms
+      :type:  Optional[List[robo_orchard_lab.utils.build.DelayInitDictType]]
+      :value: None
 
 
 

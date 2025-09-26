@@ -11,6 +11,7 @@ Classes
 
    robo_orchard_lab.dataset.robot.dataset.RODataset
    robo_orchard_lab.dataset.robot.dataset.ROMultiRowDataset
+   robo_orchard_lab.dataset.robot.dataset.ConcatRODataset
 
 
 Module Contents
@@ -39,7 +40,7 @@ Module Contents
                            metadata to actual metadata objects when accessing the dataset.
                            If True, the `episode`, `task`, `robot`, and `instruction` fields
                            will be added and the corresponding index fields will be removed.
-                           Defaults to True.
+                           Defaults to False.
    :type meta_index2meta: bool, optional
 
 
@@ -47,6 +48,10 @@ Module Contents
       :type:  datasets.Dataset
 
       The Hugging Face Dataset object containing the frame data.
+
+      The dataset should not be shuffled or modified after loading, as the
+      metadata database relies on the index columns to retrieve the episode-level
+      information.
 
 
    .. py:attribute:: db_engine
@@ -60,6 +65,10 @@ Module Contents
 
       The same as `frame_dataset`, but only contains the preserved index columns.
 
+      The dataset should not be shuffled or modified after loading, as the
+      metadata database relies on the index columns to retrieve the episode-level
+      information.
+
 
    .. py:attribute:: meta_index2meta
       :type:  bool
@@ -72,8 +81,45 @@ Module Contents
       :type: datasets.Features
 
 
+      Get the features of the dataset.
 
-   .. py:method:: select_columns(column_names: str | list[str], new_fingerprint: str | None = None) -> RODataset
+      Features are the schema of the original dataset without transforms.
+
+
+   .. py:property:: transform
+      :type: Callable[[dict], dict] | None
+
+
+
+   .. py:method:: set_transform(transform: Callable[[dict], dict] | None)
+
+
+   .. py:method:: transform_context(transform: Callable[[dict], dict] | None)
+
+      Context manager to temporarily set a transform for the dataset.
+
+      This is useful for applying a transform only within a specific
+      context, without permanently changing the dataset's transform.
+
+
+
+   .. py:method:: rename_columns(column_mapping: dict[str, str], new_fingerprint: str | None = None) -> typing_extensions.Self
+
+      Rename several columns in the dataset.
+
+      :param column_mapping: A dictionary mapping the old
+                             column name to the new column name. The dictionary should
+                             contain exactly one key-value pair.
+      :type column_mapping: dict[str, str]
+      :param new_column_name: The new name of the column.
+      :type new_column_name: str
+
+      :returns: A new instance of type(self) with the renamed column.
+      :rtype: Self
+
+
+
+   .. py:method:: select_columns(column_names: str | list[str], new_fingerprint: str | None = None, include_index: bool = True) -> typing_extensions.Self
 
       Select one or more columns from the dataset.
 
@@ -90,9 +136,13 @@ Module Contents
                               can be loaded efficiently
                               in the future. Defaults to None.
       :type new_fingerprint: str | None, optional
+      :param include_index: Whether to include the index
+                            columns in the selected columns. If True, the index columns
+                            will be included in the selected columns. Defaults to True.
+      :type include_index: bool, optional
 
-      :returns: A new instance of `RODataset` with the selected columns.
-      :rtype: RODataset
+      :returns: A new instance of type(self) with the selected columns.
+      :rtype: Self
 
 
 
@@ -122,7 +172,7 @@ Module Contents
 
 
 
-   .. py:method:: select(indices: Iterable, keep_in_memory: bool = False, indices_cache_file_name: str | None = None, writer_batch_size: int = 1000, new_fingerprint: str | None = None) -> RODataset
+   .. py:method:: select(indices: Iterable, keep_in_memory: bool = False, indices_cache_file_name: str | None = None, writer_batch_size: int = 1000, new_fingerprint: str | None = None) -> typing_extensions.Self
 
       Select a subset of the dataset based on indices.
 
@@ -156,8 +206,14 @@ Module Contents
 
 
 
-   .. py:method:: convert_meta_index2meta(data: dict[str, Any]) -> dict[str, Any]
-                  convert_meta_index2meta(data: list[Any], column_name: str) -> list[Any]
+   .. py:method:: make_iter() -> Iterable[dict]
+
+      Create an iterator over the dataset.
+
+
+
+   .. py:method:: convert_meta_index2meta(data: dict[str, robo_orchard_lab.dataset.datatypes.Any]) -> dict[str, robo_orchard_lab.dataset.datatypes.Any]
+                  convert_meta_index2meta(data: list[robo_orchard_lab.dataset.datatypes.Any], column_name: MetaIndexKeyType) -> list[robo_orchard_lab.dataset.datatypes.Any]
 
       Convert the metadata index in `data` to actual metadata objects.
 
@@ -166,11 +222,11 @@ Module Contents
                    metadata objects. If `data` is a list, it will be converted
                    to a list of metadata objects.
       :type data: dict | list
-      :param column_name: The name of the column
-                          to convert. If `data` is a list, this argument must be
+      :param column_name: The name of the
+                          column to convert. If `data` is a list, this argument must be
                           provided to convert the index-based metadata to actual
                           metadata objects. Defaults to None.
-      :type column_name: str | None, optional
+      :type column_name: MetaIndexKeyType | None, optional
 
 
 
@@ -195,6 +251,21 @@ Module Contents
                     None if not found. If `index` is a list, returns a list of
                     metadata objects or None for each index.
       :rtype: MetaType | None | list[MetaType | None]
+
+
+
+   .. py:method:: iterate_meta(meta_type: type[MetaType], ordered: bool = True, transient: bool = True) -> Iterable[MetaType]
+
+      Create an iterator over the meta information in the dataset.
+
+      :param meta_type: The type of metadata to iterate over.
+      :type meta_type: type[MetaType]
+      :param ordered: Whether to iterate in order of index.
+                      Defaults to True.
+      :type ordered: bool, optional
+      :param transient: Whether to make the metadata objects
+                        transient to avoid session issues. Defaults to True.
+      :type transient: bool, optional
 
 
 
@@ -248,6 +319,67 @@ Module Contents
       :param row_sampler: The configuration for the
                           multi-row sampler.
       :type row_sampler: MultiRowSamplerConfig
+
+
+
+.. py:class:: ConcatRODataset(datasets: list[RODataset])
+
+   Bases: :py:obj:`TorchDataset`
+
+
+   Concatenate multiple RODataset instances into a single dataset.
+
+   This class extends `RODataset` to support concatenation of multiple
+   datasets. It provides a unified interface to access data from all
+   concatenated datasets.
+
+   :param datasets: A list of RODataset instances to
+                    concatenate.
+   :type datasets: list[RODataset]
+
+
+   .. py:attribute:: dataset_index_key
+      :type:  str
+      :value: 'dataset_index'
+
+
+
+   .. py:attribute:: datasets
+
+
+   .. py:attribute:: cumulative_sizes
+      :value: []
+
+
+
+   .. py:property:: meta_index2meta
+      :type: bool
+
+
+
+   .. py:property:: features
+      :type: datasets.Features
+
+
+      Get the features of the concatenated dataset.
+
+      Features are the schema of the original dataset without transforms.
+
+
+   .. py:property:: transform
+      :type: Callable[[dict], dict] | None
+
+
+
+   .. py:method:: set_transform(transform: Callable[[dict], dict] | None)
+
+
+   .. py:method:: transform_context(transform: Callable[[dict], dict] | None)
+
+      Context manager to temporarily set a transform for the dataset.
+
+      This is useful for applying a transform only within a specific
+      context, without permanently changing the dataset's transform.
 
 
 

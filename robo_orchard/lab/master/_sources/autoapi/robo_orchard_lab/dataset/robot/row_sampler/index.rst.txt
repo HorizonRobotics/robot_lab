@@ -26,7 +26,7 @@ Module Contents
    Class for sampling multiple rows of specific columns from a dataset.
 
 
-   .. py:method:: sample_row_idx(index_dataset: datasets.Dataset, index: int) -> dict[str, list[int | None]]
+   .. py:method:: sample_row_idx(index_dataset: datasets.Dataset | CachedIndexDataset, index: int) -> dict[str, list[int | None]]
       :abstractmethod:
 
 
@@ -87,7 +87,7 @@ Module Contents
       Get the keys of the rows that are sampled.
 
 
-   .. py:method:: sample_row_idx(index_dataset: datasets.Dataset, index: int) -> dict[str, list[int | None]]
+   .. py:method:: sample_row_idx(index_dataset: datasets.Dataset | CachedIndexDataset, index: int) -> dict[str, list[int | None]]
 
       Sample a list of row indices from the index dataset.
 

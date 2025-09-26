@@ -28,7 +28,7 @@ Module Contents
 
 .. py:class:: DictTransform
 
-   Bases: :py:obj:`robo_orchard_core.datatypes.adaptor.ClassInitFromConfigMixin`
+   Bases: :py:obj:`robo_orchard_lab.utils.state.StateSaveLoadMixin`
 
 
    A class that defines the interface for transforming a dict.
@@ -55,6 +55,12 @@ Module Contents
 
 
 
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
    .. py:attribute:: cfg
       :type:  DictTransformConfig
 
@@ -77,10 +83,9 @@ Module Contents
       for the transformation. The transform method will be called
       with these columns as keyword arguments.
 
-      By default this property uses the signature of the
-      `transform` method to determine the input columns. If you
-      need to customize the input columns, you should override this
-      property in your subclass.
+      The input columns are determined by the signature of the
+      `transform` method, and if the `input_columns` configuration
+      is set, it will be used as well to determine the input columns.
 
 
 
@@ -88,6 +93,9 @@ Module Contents
    .. py:method:: mapped_input_columns() -> list[str]
 
       The input columns that this transform requires for column mapping.
+
+      If no mapping is required, this will be the same as input_columns.
+
 
 
 
@@ -114,6 +122,14 @@ Module Contents
 
 
 
+   .. py:method:: from_config(config_path: str) -> DictTransformType
+      :classmethod:
+
+
+      Load a DictTransform from a configuration file.
+
+
+
 .. py:data:: DictTransformType
 
 .. py:class:: DictTransformConfig
@@ -122,16 +138,31 @@ Module Contents
 
 
    .. py:attribute:: class_type
-      :type:  Type[DictTransformType]
+      :type:  robo_orchard_core.utils.config.ClassType[DictTransformType]
 
 
-   .. py:attribute:: input_column_mapping
-      :type:  dict[str, str]
+   .. py:attribute:: input_columns
+      :type:  dict[str, str] | Sequence[str]
       :value: None
 
 
       The input columns that need to be mapped to fit
-      the transform's input_columns.
+      the transform's input_columns, or a list of input columns
+      as extra input columns.
+
+      If this is a dict, it should map the source column names
+      to the destination column names, and the destination column names
+      will be used as the input columns for the transform.
+
+
+   .. py:attribute:: missing_input_columns_as_none
+      :type:  bool
+      :value: None
+
+
+      If True, missing input columns will be set to None.
+
+      If False, an error will be raised if any input column is missing.
 
 
    .. py:attribute:: output_column_mapping
@@ -160,7 +191,19 @@ Module Contents
       configuration, this should be set to False to avoid runtime errors.
 
 
-.. py:class:: ConcatDictTransform(cfg: ConcatDictTransformConfig[DictTransform])
+   .. py:attribute:: keep_input_columns
+      :type:  bool
+      :value: True
+
+
+      Whether to keep the input columns in the output dict.
+
+      If this is set to True, the input columns will be included in the
+      output dict. If this is set to False, the input columns will be
+      removed from the output dict.
+
+
+.. py:class:: ConcatDictTransform(cfg: ConcatDictTransformConfig)
 
    Bases: :py:obj:`DictTransform`
 
@@ -190,7 +233,7 @@ Module Contents
 
 
    .. py:attribute:: cfg
-      :type:  ConcatDictTransformConfig[DictTransform]
+      :type:  ConcatDictTransformConfig
 
 
    .. py:property:: input_columns
@@ -203,10 +246,9 @@ Module Contents
       for the transformation. The transform method will be called
       with these columns as keyword arguments.
 
-      By default this property uses the signature of the
-      `transform` method to determine the input columns. If you
-      need to customize the input columns, you should override this
-      property in your subclass.
+      The input columns are determined by the signature of the
+      `transform` method, and if the `input_columns` configuration
+      is set, it will be used as well to determine the input columns.
 
 
    .. py:method:: mapped_input_columns() -> list[str]
@@ -238,38 +280,27 @@ Module Contents
 
 .. py:class:: ConcatDictTransformConfig
 
-   Bases: :py:obj:`DictTransformConfig`\ [\ :py:obj:`ConcatDictTransform`\ ], :py:obj:`Generic`\ [\ :py:obj:`DictTransformType`\ ]
-
-
-   Abstract base class for generic types.
-
-   A generic type is typically declared by inheriting from
-   this class parameterized with one or more type variables.
-   For example, a generic mapping type might be defined as::
-
-     class Mapping(Generic[KT, VT]):
-         def __getitem__(self, key: KT) -> VT:
-             ...
-         # Etc.
-
-   This class can then be used as follows::
-
-     def lookup_name(mapping: Mapping[KT, VT], key: KT, default: VT) -> VT:
-         try:
-             return mapping[key]
-         except KeyError:
-             return default
+   Bases: :py:obj:`DictTransformConfig`\ [\ :py:obj:`ConcatDictTransform`\ ]
 
 
    .. py:attribute:: class_type
-      :type:  Type[ConcatDictTransform]
+      :type:  robo_orchard_core.utils.config.ClassType[ConcatDictTransform]
 
 
    .. py:attribute:: transforms
-      :type:  Sequence[DictTransformConfig[DictTransformType]]
+      :type:  Sequence[robo_orchard_core.utils.config.ConfigInstanceOf[DictTransformConfig[DictTransform]]]
       :value: None
 
 
       A sequence of transforms to apply to the input columns.
+
+
+   .. py:attribute:: input_columns
+      :type:  None
+      :value: None
+
+
+      Input columns are not used in ConcatDictTransform, as the input columns
+      are determined by the transforms themselves. This should be set to None.
 
 

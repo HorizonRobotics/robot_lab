@@ -4,14 +4,6 @@ bert
 .. py:module:: robo_orchard_lab.models.bip3d.bert
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   robo_orchard_lab.models.bip3d.bert.AutoTokenizer
-
-
 Classes
 -------
 
@@ -31,10 +23,6 @@ Functions
 
 Module Contents
 ---------------
-
-.. py:data:: AutoTokenizer
-   :value: None
-
 
 .. py:function:: generate_masks_with_special_tokens_and_transfer_map(tokenized, special_tokens_list)
 

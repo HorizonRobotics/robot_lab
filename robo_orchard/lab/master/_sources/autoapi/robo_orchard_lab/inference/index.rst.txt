@@ -3,6 +3,16 @@ inference
 
 .. py:module:: robo_orchard_lab.inference
 
+.. autoapi-nested-parse::
+
+   Inference pipeline components and utilities.
+
+   The inference pipeline focuses on the data processing and model
+   inference parts, and can be used in various scenarios. The inference
+   pipeline is a more generic concept than policy, which is
+   used to interact with the environment.
+
+
 
 
 
@@ -14,7 +24,6 @@ Submodules
 
    /autoapi/robo_orchard_lab/inference/basic/index
    /autoapi/robo_orchard_lab/inference/mixin/index
-   /autoapi/robo_orchard_lab/inference/multi_arm_manipulation/index
    /autoapi/robo_orchard_lab/inference/processor/index
 
 

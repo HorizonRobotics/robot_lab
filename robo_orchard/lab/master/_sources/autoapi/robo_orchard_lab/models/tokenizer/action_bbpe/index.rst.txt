@@ -1,0 +1,251 @@
+action_bbpe
+===========
+
+.. py:module:: robo_orchard_lab.models.tokenizer.action_bbpe
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.tokenizer.action_bbpe.ToTextCodecT_co
+   robo_orchard_lab.models.tokenizer.action_bbpe.ToTextCodecConfigT_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.tokenizer.action_bbpe.ToTextCodec
+   robo_orchard_lab.models.tokenizer.action_bbpe.ToTextCodecConfig
+   robo_orchard_lab.models.tokenizer.action_bbpe.DCTAction2Text
+   robo_orchard_lab.models.tokenizer.action_bbpe.DCTAction2TextConfig
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.tokenizer.action_bbpe.train_bbpe
+
+
+Module Contents
+---------------
+
+.. py:class:: ToTextCodec
+
+   Bases: :py:obj:`robo_orchard_lab.models.codec.Codec`
+
+
+   CodecMixin is an API for encoding and decoding data.
+
+   The codec concept is suitable for `Tokenizer`, `VAE`, and other models
+   that transform data into a different representation and back.
+
+
+
+   .. py:property:: special_tokens
+      :type: list[str]
+
+      :abstractmethod:
+
+
+      List of special tokens used in the encoding/decoding process.
+
+
+   .. py:method:: get_alphabet_wo_special_tokens() -> list[str]
+      :abstractmethod:
+
+
+      Get the alphabet used for encoding, excluding special tokens.
+
+
+
+.. py:data:: ToTextCodecT_co
+
+.. py:class:: ToTextCodecConfig
+
+   Bases: :py:obj:`robo_orchard_lab.models.codec.CodecConfig`\ [\ :py:obj:`ToTextCodecT_co`\ ]
+
+
+   Configuration for the ToTextCodecMixin codec.
+
+
+.. py:data:: ToTextCodecConfigT_co
+
+.. py:class:: DCTAction2Text(cfg: DCTAction2TextConfig)
+
+   Bases: :py:obj:`ToTextCodec`
+
+
+   CodecMixin is an API for encoding and decoding data.
+
+   The codec concept is suitable for `Tokenizer`, `VAE`, and other models
+   that transform data into a different representation and back.
+
+
+
+   .. py:attribute:: cfg
+      :type:  DCTAction2TextConfig
+
+
+   .. py:method:: get_alphabet_wo_special_tokens() -> list[str]
+
+      Get the alphabet used for encoding, excluding special tokens.
+
+
+
+   .. py:property:: special_tokens
+      :type: list[str]
+
+
+      List of special tokens used in the encoding/decoding process.
+
+
+   .. py:property:: arm_token
+      :type: str
+
+
+
+   .. py:property:: gripper_token
+      :type: str
+
+
+
+   .. py:method:: encode(data: numpy.ndarray | torch.Tensor) -> str
+
+      Encode a 2D array of actions into a string.
+
+      :param data: A 2D array of shape (timestamps, action_dim).
+                   The input data should be of type int32, and should be in
+                   the range of [0, max_token].
+      :type data: np.ndarray
+
+      :returns:
+
+                A string representation of the actions, with arm and gripper
+                    tokens separating the arm and gripper actions. For example,
+                    the action data [T]x[D] after DCT on time dimension is
+                    [[1, 2, 3], [5, 6, 7]],  and if `gripper_dim` is 1, the output
+                    will be flattened as column-first string like
+                    "<arm>chr(1)chr(2)chr(5)chr(6)<gripper>chr(3)chr(7)".
+                    The arm actions are encoded as a string of characters, and the
+                    gripper actions are encoded as a string of characters after
+                    the gripper.
+      :rtype: str
+
+
+
+   .. py:method:: decode_sample(data: str) -> torch.Tensor
+
+      Decode a string representation of actions into a 2D array.
+
+      :param data: A string representation of the actions, with arm and
+                   gripper tokens separating the arm and gripper actions. For
+                   example, "<arm>chr(1)chr(2)chr(5)chr(6)<gripper>chr(3)chr(7>".
+      :type data: str
+
+      :returns:
+
+                A 2D array of shape (timestamps, action_dim), where
+                    `action_dim` is the sum of arm and gripper dimensions.
+      :rtype: torch.Tensor
+
+
+
+   .. py:method:: decode(data: str | list[str]) -> torch.Tensor
+
+      Decode a string or list of strings into a 2D or 3D array.
+
+      :param data: A string or list of strings representing
+                   the actions.
+      :type data: str | list[str]
+
+      :returns:
+
+                A 2D array of shape (timestamps, action_dim) if
+                    input is a single string, or a 3D array of shape
+                    (batch, timestamps, action_dim) if input is a list of strings.
+      :rtype: torch.Tensor
+
+
+
+.. py:class:: DCTAction2TextConfig
+
+   Bases: :py:obj:`ToTextCodecConfig`\ [\ :py:obj:`DCTAction2Text`\ ]
+
+
+   Configuration for the DCTAction2Text codec.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.models.codec.ClassType[DCTAction2Text]
+
+
+   .. py:attribute:: action_dim
+      :type:  int
+
+      The total dimension of the action data, including arm and gripper.
+
+
+   .. py:attribute:: gripper_dim
+      :type:  int
+
+      The dimension of the gripper action data.
+
+
+   .. py:attribute:: max_token
+      :type:  int
+
+      The maximum token value for encoding the action data.
+
+      This should be set to the maximum value of the action data after DCT.
+
+
+   .. py:attribute:: arm_token
+      :type:  str
+      :value: '<arm>'
+
+
+      Token to separate arm actions in the encoded string.
+
+
+   .. py:attribute:: gripper_token
+      :type:  str
+      :value: '<gripper>'
+
+
+      Token to separate gripper actions in the encoded string.
+
+
+.. py:function:: train_bbpe(action_data: numpy.ndarray | list[numpy.ndarray], action_codec_cfg: robo_orchard_lab.models.codec.CodecConfig, to_text_codec_cfg: ToTextCodecConfig, vocab_size: int = 1024, min_frequency=2, max_token_length=10000, show_progress=True) -> transformers.PreTrainedTokenizerFast
+
+   Train a Byte-Pair Encoding (BPE) tokenizer on the provided action data.
+
+   :param action_data: The action data to train
+                       the tokenizer on (3D array or list of 2D arrays). The data should
+                       be in the shape of (batch, timestamps, action_dim) for 3D.
+   :type action_data: np.ndarray | list[np.ndarray]
+   :param action_codec: The codec to encode the action data into
+                        a new format that `to_text_codec` can handle.
+   :type action_codec: CodecMixin
+   :param to_text_codec: The codec to convert the encoded
+                         action data into a text format suitable for BPE training.
+   :type to_text_codec: ToTextCodecMixin
+   :param vocab_size: The size of the vocabulary to be created.
+                      Defaults to 1024.
+   :type vocab_size: int, optional
+   :param min_frequency: The minimum frequency of tokens to be
+                         included in the vocabulary. Defaults to 2.
+   :type min_frequency: int, optional
+   :param max_token_length: The maximum length of tokens to be
+                            considered during training. Defaults to 10000.
+   :type max_token_length: int, optional
+   :param show_progress: Whether to show the training progress.
+                         Defaults to True.
+   :type show_progress: bool, optional
+
+

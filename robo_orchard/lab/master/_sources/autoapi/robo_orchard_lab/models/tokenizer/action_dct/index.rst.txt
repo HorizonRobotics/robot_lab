@@ -1,0 +1,202 @@
+action_dct
+==========
+
+.. py:module:: robo_orchard_lab.models.tokenizer.action_dct
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.tokenizer.action_dct.NormStatistics
+   robo_orchard_lab.models.tokenizer.action_dct.ActionDCTCodec
+   robo_orchard_lab.models.tokenizer.action_dct.ActionDCTCodecConfig
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.tokenizer.action_dct.calculate_norm_stats
+
+
+Module Contents
+---------------
+
+.. py:class:: NormStatistics(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.Config`
+
+
+   Statistics for normalization.
+
+
+   .. py:attribute:: mean
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+
+   .. py:attribute:: std
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+
+   .. py:attribute:: min
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+
+   .. py:attribute:: max
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+
+   .. py:attribute:: q01
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+
+   .. py:attribute:: q99
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+
+.. py:class:: ActionDCTCodec(cfg: ActionDCTCodecConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.models.codec.Codec`
+
+
+   A codec for action data using DCT normalization.
+
+   Action DCT is used in pi0-Fast by Physical-Intelligence
+   (https://arxiv.org/pdf/2501.09747).
+
+   This is an implementation based on:
+   https://huggingface.co/physical-intelligence/fast/blob/main/processing_action_tokenizer.py
+
+
+
+
+   .. py:attribute:: cfg
+      :type:  ActionDCTCodecConfig
+
+
+   .. py:property:: dct_coeff_min
+      :type: float | int | None
+
+
+      Get the minimum value for the DCT coefficients.
+
+
+   .. py:property:: quantize_scale
+      :type: int | None
+
+
+      Get the quantization scale for the DCT coefficients.
+
+
+   .. py:method:: encode(data: numpy.ndarray | torch.Tensor) -> torch.Tensor
+
+      Encode the action using DCT normalization.
+
+      :param data: The action to encode. Should be
+                   in size of [B, T, D] or [T, D] where B is the batch size,
+                   T is the time window size, and D is the action dimension.
+                   The DCT always operates on the time dimension (T).
+      :type data: np.ndarray|torch.Tensor
+
+      :returns: The encoded action.
+      :rtype: np.ndarray
+
+
+
+   .. py:method:: decode(data: numpy.ndarray | torch.Tensor) -> torch.Tensor
+
+      Decode the DCT normalized action back to the original action.
+
+      :param data: The DCT normalized action to decode.
+      :type data: np.ndarray
+
+      :returns: The decoded action.
+      :rtype: np.ndarray
+
+
+
+.. py:class:: ActionDCTCodecConfig
+
+   Bases: :py:obj:`robo_orchard_lab.models.codec.CodecConfig`\ [\ :py:obj:`ActionDCTCodec`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.models.codec.ClassType[ActionDCTCodec]
+
+
+   .. py:attribute:: action_dim
+      :type:  int
+
+      The dimension of the action data.
+
+
+   .. py:attribute:: time_window_size
+      :type:  int | None
+      :value: None
+
+
+      The size of the time window for the action.
+
+      If None, the time window size will be inferred from the data.
+      If specified, check the data shape to match this size.
+
+
+   .. py:attribute:: quantize_scale
+      :type:  int | None
+      :value: None
+
+
+      The scale to quantize the DCT coefficients.
+
+      If specified, the coefficients will be rounded to the nearest multiple
+      of `quantize_scale` and returned as an integer array.
+
+
+   .. py:attribute:: dct_coeff_min
+      :type:  float | int | None
+      :value: None
+
+
+      The minimum value for the DCT coefficients.
+
+      If specified, the DCT coefficients will be shifted by this value
+      after encoding and before decoding. If None, no shifting is applied.
+
+
+.. py:function:: calculate_norm_stats(arr: numpy.ndarray, quantize_scale=128, time_window_size: int | None = None) -> robo_orchard_lab.models.codec.NormStatistics
+
+   Calculate the min and max values  based on the given percentiles.
+
+   :param arr: The input array. Should be of shape
+               (batch, timesteps, joints).
+   :type arr: np.array
+   :param q: A tuple containing the percentiles to calculate.
+   :type q: tuple
+   :param quantize_scale: The scale to quantize the min and max values.
+                          When quantizing, the values are rounded to the nearest multiple
+                          of 1/quantize_scale.
+   :type quantize_scale: int
+   :param time_window_size: If specified, the array will be
+                            sliced to this time window before calculating min and max.
+                            Default is None,
+   :type time_window_size: int, optional
+
+   :returns: The min and max values based on the specified percentiles.
+   :rtype: tuple
+
+

@@ -14,12 +14,14 @@ Submodules
 
    /autoapi/robo_orchard_lab/models/aux_think/index
    /autoapi/robo_orchard_lab/models/bip3d/index
+   /autoapi/robo_orchard_lab/models/checkpoints/index
    /autoapi/robo_orchard_lab/models/codec/index
    /autoapi/robo_orchard_lab/models/finegrasp/index
    /autoapi/robo_orchard_lab/models/layers/index
    /autoapi/robo_orchard_lab/models/mixin/index
    /autoapi/robo_orchard_lab/models/modules/index
    /autoapi/robo_orchard_lab/models/sem_modules/index
+   /autoapi/robo_orchard_lab/models/tokenizer/index
    /autoapi/robo_orchard_lab/models/torch_model/index
 
 

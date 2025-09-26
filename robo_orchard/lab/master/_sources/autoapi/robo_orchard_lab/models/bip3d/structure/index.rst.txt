@@ -78,22 +78,25 @@ Module Contents
       This method saves the model's configuration to `{model_prefix}.config.json`
       and its weights to `{model_prefix}.safetensors`.
 
-      If `allow_shared_tensor` is True, it handles models with tied weights by:
-
-      1.  Saving only a single copy of each shared tensor to the `.safetensors` file.
-
-      2.  Creating a `{model_prefix}.shared_keys.json` file that maps the
-      duplicate parameter names to their original counterparts. This allows for
-      perfect model restoration with `strict=True` loading.
+      If an `accelerator` instance is provided, it uses the accelerator's
+      `save_model` method to save the model, which is useful for distributed
+      training scenarios. In this case, `model_prefix` is ignored.
 
       :param directory: The path to the directory for saving the model.
       :param model_prefix: The file prefix for the config and weights files.
+                           If None and `accelerator` is not provided, defaults to "model".
+                           Ignored if `accelerator` is provided.
       :param allow_shared_tensor: If True, enables the logic to handle
                                   tied weights by saving a de-duplicated state dict and a
-                                  key-sharing map.
+                                  key-sharing map. This field is deprecated and will be
+                                  removed in future versions. The shared tensor handling
+                                  is always enabled.
       :param required_empty: If True, raises an error if the target
                              directory is not empty. Defaults to True.
       :type required_empty: bool
+      :param accerator: An optional `Accelerator` instance from Hugging Face
+                        Accelerate. If provided, the model will be saved using the
+                        accelerator's `save_model` method.
 
       :raises DirectoryNotEmptyError: If the target directory already exists and
           is not empty.

@@ -43,7 +43,7 @@ Module Contents
 
 
 
-   .. py:method:: post_process(batch, model_outputs)
+   .. py:method:: post_process(model_outputs, _)
 
       Returns the model outputs without modification.
 

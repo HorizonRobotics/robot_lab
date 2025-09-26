@@ -16,5 +16,6 @@ Submodules
    /autoapi/robo_orchard_lab/dataset/datatypes/geometry/index
    /autoapi/robo_orchard_lab/dataset/datatypes/hg_features/index
    /autoapi/robo_orchard_lab/dataset/datatypes/joint_state/index
+   /autoapi/robo_orchard_lab/dataset/datatypes/tf_graph/index
 
 

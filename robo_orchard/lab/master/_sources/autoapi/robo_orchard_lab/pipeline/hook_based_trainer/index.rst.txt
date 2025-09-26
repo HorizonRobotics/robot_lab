@@ -158,9 +158,9 @@ Module Contents
 
 .. py:data:: PipelineHookOrConfigType
 
-.. py:class:: HookBasedTrainer(accelerator: accelerate.Accelerator, model: torch.nn.Module, dataloader: torch.utils.data.DataLoader | Iterable, batch_processor: robo_orchard_lab.pipeline.batch_processor.mixin.BatchProcessorMixin, optimizer: torch.optim.Optimizer, lr_scheduler: torch.optim.lr_scheduler.LRScheduler, hooks: PipelineHookOrConfigType | Iterable[PipelineHookOrConfigType], max_step: int | None = None, max_epoch: int | None = None, grad_clip: robo_orchard_lab.pipeline.hooks.grad_clip.GradientClippingHookConfig | None = None, validation: robo_orchard_lab.pipeline.hooks.validation.ValidationHookConfig | None = None, resume_from: ResumeCheckpointConfig | None = None)
+.. py:class:: HookBasedTrainer(accelerator: accelerate.Accelerator, model: torch.nn.Module, dataloader: torch.utils.data.DataLoader | Iterable, batch_processor: robo_orchard_lab.pipeline.batch_processor.mixin.BatchProcessorMixin, optimizer: torch.optim.Optimizer, lr_scheduler: torch.optim.lr_scheduler.LRScheduler, hooks: PipelineHookOrConfigType | Iterable[PipelineHookOrConfigType] | None = None, max_step: int | None = None, max_epoch: int | None = None, grad_clip: robo_orchard_lab.pipeline.hooks.grad_clip.GradientClippingHookConfig | None = None, validation: robo_orchard_lab.pipeline.hooks.validation.ValidationHookConfig | None = None, resume_from: ResumeCheckpointConfig | None = None)
 
-   A trainer class that uses hooks to manage the training process.
+   An NN trainer class that uses hooks to manage the training process.
 
    The data loader, model, optimizer, and learning rate scheduler are
    prepared using the `Accelerator` instance, which provides
@@ -186,7 +186,8 @@ Module Contents
 
    .. note::
 
-      The trainer will register the following default hooks in order:
+      The trainer will register the following default hooks in order
+      at beginning:
       
       - `GradientClippingHook`: This hook is responsible for clipping
           the gradients to prevent exploding gradients. It will be
@@ -241,7 +242,41 @@ Module Contents
    :type resume_from: ResumeCheckpointConfig | None
 
 
+   .. py:attribute:: hooks
+      :type:  robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks
+
+      All hooks to be used during training.
+
+
    .. py:attribute:: accelerator
+      :type:  accelerate.Accelerator
+
+      The `Accelerator` instance managing distributed training.
+
+
+   .. py:attribute:: dataloader
+      :type:  torch.utils.data.DataLoader
+
+      The data loader for feeding batches to the model during training.
+
+
+   .. py:attribute:: model
+      :type:  torch.nn.Module
+
+      The model to be trained.
+
+
+   .. py:attribute:: optimizer
+      :type:  accelerate.optimizer.AcceleratedOptimizer
+
+      The optimizer after being prepared by the `Accelerator`.
+
+
+   .. py:attribute:: lr_scheduler
+      :type:  accelerate.scheduler.AcceleratedScheduler
+
+      The learning rate scheduler after being prepared by the
+      `Accelerator`.
 
 
    .. py:attribute:: max_step
@@ -254,28 +289,9 @@ Module Contents
 
 
 
-   .. py:attribute:: model
-      :type:  torch.nn.Module
-
-
-   .. py:attribute:: dataloader
-      :type:  torch.utils.data.DataLoader
-
-
-   .. py:attribute:: optimizer
-      :type:  accelerate.optimizer.AcceleratedOptimizer
-
-
-   .. py:attribute:: lr_scheduler
-      :type:  accelerate.scheduler.AcceleratedScheduler
-
-
    .. py:attribute:: trainer_progress_state
 
 
    .. py:attribute:: batch_processor
-
-
-   .. py:attribute:: hooks
 
 

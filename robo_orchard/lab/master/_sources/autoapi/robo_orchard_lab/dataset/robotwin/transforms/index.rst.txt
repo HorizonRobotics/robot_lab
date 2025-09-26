@@ -9,15 +9,163 @@ Classes
 
 .. autoapisummary::
 
+   robo_orchard_lab.dataset.robotwin.transforms.ImageChannelFlip
+   robo_orchard_lab.dataset.robotwin.transforms.EpisodeSamplerConfig
+   robo_orchard_lab.dataset.robotwin.transforms.ArrowDataParse
+   robo_orchard_lab.dataset.robotwin.transforms.AddItems
+   robo_orchard_lab.dataset.robotwin.transforms.AddScaleShift
+   robo_orchard_lab.dataset.robotwin.transforms.JointStateNoise
    robo_orchard_lab.dataset.robotwin.transforms.SimpleStateSampling
    robo_orchard_lab.dataset.robotwin.transforms.Resize
    robo_orchard_lab.dataset.robotwin.transforms.ToTensor
+   robo_orchard_lab.dataset.robotwin.transforms.ConvertDataType
+   robo_orchard_lab.dataset.robotwin.transforms.ItemSelection
    robo_orchard_lab.dataset.robotwin.transforms.DualArmKinematics
    robo_orchard_lab.dataset.robotwin.transforms.GetProjectionMat
+   robo_orchard_lab.dataset.robotwin.transforms.UnsqueezeBatch
 
 
 Module Contents
 ---------------
+
+.. py:class:: ImageChannelFlip(output_channel=None)
+
+   .. py:attribute:: output_channel
+      :value: None
+
+
+
+.. py:class:: EpisodeSamplerConfig
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.robot.row_sampler.MultiRowSamplerConfig`\ [\ :py:obj:`EpisodeSampler`\ ]
+
+
+   Configuration for the EpisodeSampler.
+
+
+   .. py:attribute:: class_type
+      :type:  Type[EpisodeSampler]
+
+
+   .. py:attribute:: target_columns
+      :type:  list[str]
+
+
+.. py:class:: ArrowDataParse(cam_names: list[str], load_image=True, load_depth=True, load_extrinsic=True, load_ee_state=False, depth_scale=1000)
+
+   The dataset class for manipulation tasks in RoboOrchard.
+
+   :param dataset_path: Path to the dataset.
+   :type dataset_path: str
+   :param cam_names: List of camera names to load data from.
+   :type cam_names: list[str]
+   :param load_image: Whether to load image data. Default is True.
+   :type load_image: bool
+   :param load_depth: Whether to load depth data. Default is True.
+   :type load_depth: bool
+   :param load_extrinsic: Whether to load camera extrinsic data.
+                          Default is True.
+   :type load_extrinsic: bool
+   :param load_ee_state: Whether to load end-effector state data.
+                         Default is False.
+   :type load_ee_state: bool
+   :param transforms: List of transformations to
+                      apply to the data.
+   :type transforms: list[dict] or dict, optional
+   :param depth_scale: Scale factor for depth data. Default is 1000.
+   :type depth_scale: float
+   :param \*\*kwargs: Additional arguments for the base RODataset class.
+
+
+   .. py:attribute:: cam_names
+
+
+   .. py:attribute:: load_image
+      :value: True
+
+
+
+   .. py:attribute:: load_depth
+      :value: True
+
+
+
+   .. py:attribute:: load_extrinsic
+      :value: True
+
+
+
+   .. py:attribute:: load_ee_state
+      :value: False
+
+
+
+   .. py:attribute:: depth_scale
+      :value: 1000
+
+
+
+   .. py:method:: get_instruction(data)
+
+      Parse instruction text from the data.
+
+
+
+   .. py:method:: get_depths(data)
+
+      Parse depth images from the data.
+
+
+
+   .. py:method:: get_images(data)
+
+      Parse rgb images from the data.
+
+
+
+   .. py:method:: get_intrinsic(data)
+
+      Parse camera intrinsic matrices from the data.
+
+
+
+   .. py:method:: get_joints(data)
+
+      Parse robot joint states from the data.
+
+
+
+   .. py:method:: get_master_joints(data)
+
+      Parse master (controller) joint states from the data.
+
+
+
+   .. py:method:: get_extrinsic(data)
+
+      Parse camera extrinsic matrices from the data.
+
+
+
+.. py:class:: AddItems(to_numpy=True, **kwargs)
+
+   .. py:attribute:: items
+
+
+.. py:class:: AddScaleShift(scale_shift)
+
+   .. py:attribute:: scale_shift
+
+
+.. py:class:: JointStateNoise(noise_range, add_to_pred=False)
+
+   .. py:attribute:: range
+
+
+   .. py:attribute:: add_to_pred
+      :value: False
+
+
 
 .. py:class:: SimpleStateSampling(hist_steps, pred_steps)
 
@@ -36,6 +184,16 @@ Module Contents
 
 
 .. py:class:: ToTensor
+
+.. py:class:: ConvertDataType(convert_map)
+
+   .. py:attribute:: convert_map
+
+
+.. py:class:: ItemSelection(keys)
+
+   .. py:attribute:: keys
+
 
 .. py:class:: DualArmKinematics(urdf, left_arm_link_keys=None, right_arm_link_keys=None, left_arm_joint_id=None, right_arm_joint_id=None, left_finger_keys=None, right_finger_keys=None)
 
@@ -81,7 +239,7 @@ Module Contents
    .. py:property:: joint_relative_pos
 
 
-   .. py:method:: joint_state_to_robot_state(joint_state, embodiedment_mat=None)
+   .. py:method:: joint_state_to_robot_state(joint_state, embodiedment_mat=None, return_matrix=False)
 
 
 .. py:class:: GetProjectionMat(target_coordinate='ego')
@@ -90,4 +248,6 @@ Module Contents
       :value: 'ego'
 
 
+
+.. py:class:: UnsqueezeBatch
 

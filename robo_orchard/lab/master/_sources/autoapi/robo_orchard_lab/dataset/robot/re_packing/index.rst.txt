@@ -1,0 +1,43 @@
+re_packing
+==========
+
+.. py:module:: robo_orchard_lab.dataset.robot.re_packing
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.re_packing.repack_dataset
+
+
+Module Contents
+---------------
+
+.. py:function:: repack_dataset(source_dataset: robo_orchard_lab.dataset.robot.dataset.RODataset, target_path: str, frame_indices: Iterable[int], columns: str | list[str] | None = None, writer_batch_size: int = 1024, max_shard_size: str | int = '8GB', force_overwrite: bool = False)
+
+   Re-package a RoboOrchard dataset with selected frames for each episode.
+
+   :param source_dataset: The source dataset to re-package from.
+   :type source_dataset: RODataset
+   :param target_path: The path to save the re-packaged dataset.
+   :type target_path: str
+   :param frame_indices: An iterable of frame indices to include
+                         in the re-packaged dataset. Frames from the same episode should be
+                         grouped together!
+   :type frame_indices: Iterable[int]
+   :param writer_batch_size: The batch size for writing the arrow file.
+                             This may affect the performance of packaging or reading the
+                             dataset later. Default is 1024.
+   :type writer_batch_size: int
+   :param max_shard_size: The maximum size of each shard.
+                          If None, no sharding will be applied. This can be a string
+                          like '10GB' or an integer representing the size in bytes.
+                          Default is '8GB'.
+   :type max_shard_size: str | int | None
+   :param force_overwrite: Whether to overwrite the target path if it
+                           already exists. Default is False.
+   :type force_overwrite: bool
+
+

@@ -1,0 +1,161 @@
+random
+======
+
+.. py:module:: robo_orchard_lab.transforms.image.random
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.transforms.image.random.RandomAffineConfig
+   robo_orchard_lab.transforms.image.random.RandomApplyTransform2DConfig
+   robo_orchard_lab.transforms.image.random.RandomChooseTransform2DConfig
+   robo_orchard_lab.transforms.image.random.RandomImageTransform2DConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: RandomAffineConfig(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.image.transform2d.Transform2DGenMixin`
+
+
+   Base class for configuration classes.
+
+
+   .. py:attribute:: angle
+      :type:  float | tuple[float, float]
+      :value: 0.0
+
+
+      The range of rotation angle in degrees or a range of angles.
+
+      If a single float is provided, it will be used as (-angle, angle).
+      If a tuple is provided, it should be a range of angles (min, max).
+
+
+   .. py:attribute:: center
+      :type:  tuple[float, float] | None
+      :value: None
+
+
+      The center point of the rotation. If None, the center of the input
+      image will be used.
+
+
+   .. py:attribute:: scale
+      :type:  tuple[float, float]
+      :value: (1.0, 1.0)
+
+
+      The rangeo of scaling factor or a range of scaling factors.
+
+      The scaling factor will be sampled uniformly from the range
+      defined by the tuple.
+
+
+   .. py:attribute:: shear
+      :type:  float | tuple[float, float]
+      :value: 0.0
+
+
+      The rangeo of shear factor or a range of shear factors.
+
+      If a single float is provided, it will be used as (-shear, shear).
+      If a tuple is provided, both X and Y shear will be sampled uniformly
+      from the range defined by the tuple.
+
+
+   .. py:attribute:: translation
+      :type:  tuple[float, float]
+      :value: (0.0, 0.0)
+
+
+      The range of fraction for translation in the X and Y directions.
+
+      The translation will be sampled uniformly from the range defined by
+      the tuple, and the values will be multiplied by the input image width
+      and height respectively.
+
+      For example, a value of (a, b) means the translation in X direction
+      will be sampled from (-a * width, a * width), and the translation in
+      Y direction will be sampled from (-b * height, b * height).
+
+
+   .. py:method:: generate_affine_transform(input_hw: tuple[int, int]) -> robo_orchard_core.utils.math.transform.Transform2D_M
+
+      Generate the affine transformation matrix.
+
+
+
+.. py:class:: RandomApplyTransform2DConfig(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.image.transform2d.Transform2DGenMixin`, :py:obj:`Generic`\ [\ :py:obj:`robo_orchard_lab.transforms.image.transform2d.Transform2DGenMixinType_co`\ ]
+
+
+   Base class for configuration classes.
+
+
+   .. py:attribute:: prob
+      :type:  float
+      :value: None
+
+
+      The probability of applying the transformation.
+
+
+   .. py:attribute:: transform
+      :type:  robo_orchard_lab.transforms.image.transform2d.Transform2DGenMixinType_co
+
+
+   .. py:method:: generate_affine_transform(input_hw: tuple[int, int]) -> robo_orchard_core.utils.math.transform.Transform2D_M
+
+      Generate the affine transformation matrix.
+
+
+
+.. py:class:: RandomChooseTransform2DConfig(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.image.transform2d.Transform2DGenMixin`
+
+
+   Base class for configuration classes.
+
+
+   .. py:attribute:: transforms
+      :type:  Sequence[robo_orchard_lab.transforms.ConfigInstanceOf[robo_orchard_lab.transforms.image.transform2d.Transform2DGenMixin]]
+
+
+   .. py:attribute:: prob
+      :type:  Sequence[float] | None
+      :value: None
+
+
+
+   .. py:method:: generate_affine_transform(input_hw: tuple[int, int]) -> robo_orchard_core.utils.math.transform.Transform2D_M
+
+      Generate the affine transformation matrix.
+
+
+
+.. py:class:: RandomImageTransform2DConfig(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.image.transform2d.ImageTransform2DConfig`, :py:obj:`Generic`\ [\ :py:obj:`robo_orchard_lab.transforms.image.transform2d.Transform2DGenMixinType_co`\ ]
+
+
+   Base class for configuration classes.
+
+
+   .. py:attribute:: transform
+      :type:  robo_orchard_lab.transforms.image.transform2d.Transform2DGenMixinType_co
+
+
+   .. py:method:: generate_affine_transform(input_hw: tuple[int, int]) -> robo_orchard_core.utils.math.transform.Transform2D_M
+
+      Generate the affine transformation matrix.
+
+
+

@@ -33,6 +33,7 @@ Module Contents
 
 
    .. py:attribute:: processors
+      :type:  list[robo_orchard_lab.inference.processor.mixin.ProcessorMixin]
 
 
    .. py:method:: pre_process(data)
@@ -47,17 +48,23 @@ Module Contents
 
 
 
-   .. py:method:: post_process(batch, model_outputs)
+   .. py:method:: post_process(model_outputs, model_input)
 
-      Applies the `post_process` method of each processor in sequence.
+      Transforms model output into a user-friendly format.
 
-      The output of one processor becomes the input to the next. The order of
-      processors is the same as in `pre_process`.
+      This method can be overridden by subclasses to convert the raw tensor
+      outputs from the model into a more structured or interpretable format,
+      such as dictionaries with meaningful keys, text, or image objects.
 
-      :param batch: The transformed batch.
-      :param model_outputs: The initial raw output from the model.
+      By default, it performs an identity mapping, returning the model
+      outputs as is.
 
-      :returns: The model outputs after being transformed by all processors.
+      :param model_outputs: The raw output from the model's forward pass.
+      :param model_input: The transformed batch as model input. For some
+                          processors, this may be needed for context during
+                          post-processing.
+
+      :returns: The post-processed, user-friendly output.
 
 
 

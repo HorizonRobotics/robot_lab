@@ -12,6 +12,8 @@ Together with Horizon's computing platform, we wish to empower the future of rob
 News
 --------------------
 
+* [2025.09] 2 papers accepted to NeurIPS25
+
 * [2025.06] 1 paper accepted to IROS25
 
 * [2025.06] In `RoboTwin Dual-Arm Collaboration Challenge 2nd MEIS Workshop@CVPR2025 <https://robotwin-benchmark.github.io/cvpr-2025-challenge/#challenge-details>`__, we won **🥇first place** in **Real-world Track** and **🥈second place** in **Simulation Track**
@@ -61,6 +63,14 @@ RoboOrchard
 
   `Code <https://github.com/HorizonRobotics/robo_orchard_grasp_label>`__
 
+* **RoboOrchardDataRecorder**: A comprehensive and robust suite of tools designed for high-fidelity data acquisition in robotics, with a primary focus on the ROS 2 ecosystem.
+
+  `Code <https://github.com/HorizonRobotics/robo_orchard_data_recorder>`__
+
+* **RoboOrchardDeploy**: A set of tools for deploy, including calibration and model inference.
+
+  `Code <https://github.com/HorizonRobotics/robo_orchard_deploy_ros2>`__
+
 
 Publications
 --------------------
@@ -89,7 +99,7 @@ Publications
           :target: _static/publications/monodream.gif
 
      - **MonoDream: Monocular Vision-Language Navigation with Panoramic Dreaming**
-        
+
        :blue:`Shuo Wang`, Yongcai Wang, Wanting Li, :blue:`Yucheng Wang`, :blue:`Maiyue Chen`, :blue:`Kaihui Wang`, :blue:`Zhizhong Su`, Xudong Cai, Yeying Jin, Deying Li, Zhaoxin Fan
 
        Arxiv 2025
@@ -184,7 +194,7 @@ Publications
 
        :blue:`Ruqi Wu`, :blue:`Xinjie Wang`, :blue:`Liu Liu`, Chunle Guo, :blue:`Jiaxiong Qiu`, Chongyi Li, :blue:`Lichao Huang`, :blue:`Zhizhong Su`, Ming-Ming Cheng
 
-       Arxiv 2025
+       NeurIPS 2025
 
        `Webpage <https://rq-wu.github.io/projects/DIPO>`__ | `Paper <https://arxiv.org/abs/2505.20460>`__ | `Code <https://github.com/RQ-Wu/DIPO>`__
 
@@ -210,7 +220,7 @@ Publications
 
        :blue:`Shuo Wang`, Yongcai Wang, Wanting Li, Xudong Cai, :blue:`Yucheng Wang`, :blue:`Maiyue Chen`, :blue:`Kaihui Wang`, :blue:`Zhizhong Su`, Deying Li, Zhaoxin Fan
 
-       Arxiv 2025
+       NeurIPS 2025
 
        `Webpage <https://horizonrobotics.github.io/robot_lab/aux-think/index.html>`__ | `Paper <https://arxiv.org/abs/2505.11886>`__ | `Code <https://github.com/HorizonRobotics/robo_orchard_lab/tree/master/projects/aux_think>`__
 

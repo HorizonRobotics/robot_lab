@@ -1,0 +1,72 @@
+huggingface
+===========
+
+.. py:module:: robo_orchard_lab.models.tokenizer.huggingface
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.tokenizer.huggingface.HgTokenizer
+   robo_orchard_lab.models.tokenizer.huggingface.HgTokenizerConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: HgTokenizer(cfg: HgTokenizerConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.models.codec.Codec`
+
+
+   CodecMixin is an API for encoding and decoding data.
+
+   The codec concept is suitable for `Tokenizer`, `VAE`, and other models
+   that transform data into a different representation and back.
+
+
+
+   .. py:attribute:: cfg
+      :type:  HgTokenizerConfig
+
+
+   .. py:method:: encode(data: str | list[str]) -> torch.Tensor
+
+      Encode data into a list of token IDs.
+
+      :param data: The input text, pretokenized (list[str])
+                   strings to encode. It must represent a single sample.
+      :type data: str | list[str]
+
+      :returns: A tensor of token IDs.
+      :rtype: Tensor
+
+
+
+   .. py:method:: decode(data: torch.Tensor) -> str | list[str]
+
+      Decode a list of token IDs into a string.
+
+
+
+.. py:class:: HgTokenizerConfig
+
+   Bases: :py:obj:`robo_orchard_lab.models.codec.CodecConfig`\ [\ :py:obj:`HgTokenizer`\ ]
+
+
+   Configuration for the Huggingface tokenizer codec.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.models.codec.ClassType[HgTokenizer]
+
+
+   .. py:attribute:: tokenizer
+      :type:  transformers.PreTrainedTokenizerFast | transformers.PreTrainedTokenizer | str
+
+
+   .. py:method:: get_tokenizer() -> transformers.PreTrainedTokenizerFast | transformers.PreTrainedTokenizer
+
+

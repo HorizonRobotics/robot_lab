@@ -1,0 +1,75 @@
+decode
+======
+
+.. py:module:: robo_orchard_lab.transforms.image.decode
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.transforms.image.decode.ImageDecode
+   robo_orchard_lab.transforms.image.decode.ImageDecodeConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: ImageDecode(cfg: ImageDecodeConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransform`
+
+
+   A transform to decode BatchCameraDataEncoded to BatchCameraData.
+
+
+   .. py:attribute:: cfg
+      :type:  ImageDecodeConfig
+
+
+   .. py:attribute:: is_variadic
+      :type:  bool
+      :value: True
+
+
+
+   .. py:method:: transform(**kwargs) -> dict[str, robo_orchard_lab.dataset.datatypes.BatchCameraData]
+
+      Decode the image data from bytes to PIL images.
+
+
+
+.. py:class:: ImageDecodeConfig
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransformConfig`\ [\ :py:obj:`ImageDecode`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.transforms.base.ClassType[ImageDecode]
+
+
+   .. py:attribute:: backend
+      :type:  Literal['pil', 'cv2']
+      :value: 'pil'
+
+
+
+   .. py:attribute:: input_columns
+      :type:  Sequence[str]
+      :value: None
+
+
+
+   .. py:attribute:: invert_rgb
+      :type:  bool
+      :value: False
+
+
+      Whether to invert RGB to BGR.
+
+      For some datasets, the actual image data may be incorrectly stored as RGB
+      but should be treated as BGR. This flag allows to invert the channels
+      accordingly.
+
+

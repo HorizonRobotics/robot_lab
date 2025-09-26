@@ -17,6 +17,8 @@ Classes
 
 .. autoapisummary::
 
+   robo_orchard_lab.pipeline.hooks.mixin.ModelOutput
+   robo_orchard_lab.pipeline.hooks.mixin.ModelOutputHasLossKeys
    robo_orchard_lab.pipeline.hooks.mixin.PipelineHookArgs
    robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks
    robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig
@@ -24,6 +26,34 @@ Classes
 
 Module Contents
 ---------------
+
+.. py:class:: ModelOutput
+
+   Bases: :py:obj:`Protocol`
+
+
+   A protocol representing a model output that contains key-value pairs.
+
+
+   .. py:method:: keys() -> Iterable[Any]
+
+
+   .. py:method:: items() -> tuple[Any, Any]
+
+
+   .. py:method:: values() -> Iterable[Any]
+
+
+.. py:class:: ModelOutputHasLossKeys
+
+   Bases: :py:obj:`ModelOutput`, :py:obj:`Protocol`
+
+
+   A protocol representing a model output that contains key-value pairs.
+
+
+   .. py:method:: loss_keys() -> Iterable[str]
+
 
 .. py:class:: PipelineHookArgs
 
@@ -87,6 +117,12 @@ Module Contents
 
 
 
+   .. py:attribute:: model
+      :type:  Optional[torch.nn.Module]
+      :value: None
+
+
+
    .. py:attribute:: optimizer
       :type:  Optional[torch.optim.Optimizer]
       :value: None
@@ -106,7 +142,7 @@ Module Contents
 
 
    .. py:attribute:: model_outputs
-      :type:  Optional[Any]
+      :type:  Optional[ModelOutput]
       :value: None
 
 
@@ -115,6 +151,13 @@ Module Contents
       :type:  Optional[torch.Tensor]
       :value: None
 
+
+      The average loss across all processes, if applicable.
+
+      If the model output loss, the loss will be reduced (averaged)
+      across all processes after the forward pass. So the value is
+      different from the loss returned by the model, which is the
+      loss for the current process only for backward computation.
 
 
    .. py:method:: copy_with_updates(**kwargs)
@@ -140,7 +183,7 @@ Module Contents
    :canonical: Literal['on_loop', 'on_epoch', 'on_step', 'on_batch', 'on_model_forward', 'on_model_backward']
 
 
-.. py:class:: PipelineHooks(cfg: PipelineHooksConfig | None = None)
+.. py:class:: PipelineHooks
 
    Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`
 

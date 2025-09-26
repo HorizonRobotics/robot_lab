@@ -45,7 +45,7 @@ Module Contents
    .. py:attribute:: cfg
 
 
-   .. py:method:: pre_process(data)
+   .. py:method:: pre_process(data) -> Any
       :abstractmethod:
 
 
@@ -60,7 +60,7 @@ Module Contents
 
 
 
-   .. py:method:: post_process(batch, model_outputs)
+   .. py:method:: post_process(model_outputs, model_input: Any = None)
 
       Transforms model output into a user-friendly format.
 
@@ -71,8 +71,10 @@ Module Contents
       By default, it performs an identity mapping, returning the model
       outputs as is.
 
-      :param batch: The transformed batch.
       :param model_outputs: The raw output from the model's forward pass.
+      :param model_input: The transformed batch as model input. For some
+                          processors, this may be needed for context during
+                          post-processing.
 
       :returns: The post-processed, user-friendly output.
 

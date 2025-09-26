@@ -131,7 +131,7 @@ Module Contents
 
 
 
-   .. py:method:: packaging(episodes: Iterable[EpisodePackaging], dataset_path: str, dataset_info: datasets.DatasetInfo | None = None, writer_batch_size: int = 8, max_shard_size: str | int = '2GB', split: datasets.Split | None = None, force_overwrite: bool = False)
+   .. py:method:: packaging(episodes: Iterable[EpisodePackaging], dataset_path: str, dataset_info: datasets.DatasetInfo | None = None, writer_batch_size: int = 1024, max_shard_size: str | int = '8GB', split: datasets.Split | None = None, force_overwrite: bool = False)
 
       Package the dataset and save it to the specified path.
 
@@ -146,7 +146,7 @@ Module Contents
       :type dataset_info: hg_datasets.DatasetInfo | None
       :param writer_batch_size: The batch size for writing the arrow file.
                                 This may affect the performance of packaging or reading the
-                                dataset later. Default is 8.
+                                dataset later. Default is 1024.
       :type writer_batch_size: int
       :param max_shard_size: The maximum size of each shard.
                              If None, no sharding will be applied. This can be a string
@@ -175,6 +175,9 @@ Module Contents
 
       The total number of frames in the episode.
 
+      No need to set this field during packaging, it will be updated
+      automatically during packaging.
+
 
    .. py:attribute:: prev_episode_index
       :type:  int | None
@@ -190,6 +193,9 @@ Module Contents
 
 
       The index of the first dataset item in this episode.
+
+      No need to set this field during packaging, it will be updated
+      automatically during packaging.
 
 
 .. py:class:: RobotData

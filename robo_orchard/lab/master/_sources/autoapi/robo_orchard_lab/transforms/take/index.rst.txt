@@ -1,0 +1,72 @@
+take
+====
+
+.. py:module:: robo_orchard_lab.transforms.take
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.transforms.take.TakeKeys
+   robo_orchard_lab.transforms.take.TakeKeysConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: TakeKeys(cfg: TakeKeysConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransform`
+
+
+   A transform to take only the specified keys from the input dict.
+
+
+   .. py:attribute:: cfg
+      :type:  TakeKeysConfig
+
+
+   .. py:attribute:: is_variadic
+      :type:  bool
+      :value: True
+
+
+
+   .. py:method:: transform(**kwargs) -> dict
+
+      Transform the input columns into a new row dict to be updated.
+
+      All input columns will be passed as keyword arguments.
+
+
+
+.. py:class:: TakeKeysConfig
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransformConfig`\ [\ :py:obj:`TakeKeys`\ ]
+
+
+   Configuration class for TakeKeysTransform.
+
+   User should specify the keys to take from the input dict by setting
+   `input_columns`.
+
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.transforms.base.ClassType[TakeKeys]
+
+
+   .. py:attribute:: input_columns
+      :type:  Sequence[str]
+
+      The keys to take from the input dict.
+
+
+   .. py:attribute:: keep_input_columns
+      :type:  bool
+      :value: False
+
+
+

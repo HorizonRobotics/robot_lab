@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" /><link rel="next" title="row_sampler" href="../row_sampler/index.html" /><link rel="prev" title="engine" href="../engine/index.html" />
+<link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" /><link rel="next" title="re_packing" href="../re_packing/index.html" /><link rel="prev" title="engine" href="../engine/index.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
         <title>packaging - RoboOrchard Lab</title>
@@ -391,6 +391,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../datatypes/joint_state/index.html">joint_state</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../datatypes/tf_graph/index.html">tf_graph</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../embodiedscan/index.html">embodiedscan</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of embodiedscan</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -425,6 +426,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../engine/index.html">engine</a></li>
 <li class="toctree-l5 current current-page"><a class="current reference internal" href="#">packaging</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../row_sampler/index.html">row_sampler</a></li>
 </ul>
 </li>
@@ -435,6 +437,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../robotwin/transforms/index.html">transforms</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../sampler/index.html">sampler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../transforms/index.html">transforms</a></li>
 </ul>
 </li>
@@ -444,14 +447,17 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../envs/index.html">envs</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of envs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../envs/maniskill/index.html">maniskill</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../envs/robotwin/index.html">robotwin</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../envs/robotwin/index.html">robotwin</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of robotwin</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../envs/robotwin/env/index.html">env</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../envs/robotwin/obs/index.html">obs</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../inference/index.html">inference</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of inference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../inference/index.html">inference</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of inference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../inference/basic/index.html">basic</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../inference/mixin/index.html">mixin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../inference/multi_arm_manipulation/index.html">multi_arm_manipulation</a></li>
-<li class="toctree-l4 has-children"><a class="reference internal" href="../../../inference/processor/index.html">processor</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of processor</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../inference/processor/index.html">processor</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of processor</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../inference/processor/compose/index.html">compose</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../inference/processor/identity/index.html">identity</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../inference/processor/mixin/index.html">mixin</a></li>
@@ -459,16 +465,19 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../metrics/index.html">metrics</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../models/index.html">models</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/aux_think/index.html">aux_think</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of aux_think</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../metrics/index.html">metrics</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of metrics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../metrics/base/index.html">base</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../models/index.html">models</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/aux_think/index.html">aux_think</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of aux_think</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/aux_think/model/index.html">model</a></li>
 </ul>
 </li>
-<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/bip3d/index.html">bip3d</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of bip3d</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/bip3d/index.html">bip3d</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of bip3d</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/bip3d/bert/index.html">bert</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/bip3d/feature_enhancer/index.html">feature_enhancer</a></li>
-<li class="toctree-l5 has-children"><a class="reference internal" href="../../../models/bip3d/grounding_decoder/index.html">grounding_decoder</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of grounding_decoder</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../models/bip3d/grounding_decoder/index.html">grounding_decoder</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of grounding_decoder</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../../models/bip3d/grounding_decoder/bbox3d_decoder/index.html">bbox3d_decoder</a></li>
 <li class="toctree-l6"><a class="reference internal" href="../../../models/bip3d/grounding_decoder/deformable_aggregation/index.html">deformable_aggregation</a></li>
 <li class="toctree-l6"><a class="reference internal" href="../../../models/bip3d/grounding_decoder/instance_bank/index.html">instance_bank</a></li>
@@ -482,15 +491,20 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../models/bip3d/utils/index.html">utils</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="../../../models/codec/index.html">codec</a></li>
-<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/finegrasp/index.html">finegrasp</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l5 has-children"><a class="reference internal" href="../../../models/finegrasp/backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../models/checkpoints/index.html">checkpoints</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/codec/index.html">codec</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of codec</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/codec/base/index.html">base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/codec/normalize/index.html">normalize</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/finegrasp/index.html">finegrasp</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of finegrasp</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../models/finegrasp/backbone/index.html">backbone</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of backbone</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../../models/finegrasp/backbone/minkunet/index.html">minkunet</a></li>
 <li class="toctree-l6"><a class="reference internal" href="../../../models/finegrasp/backbone/spunet/index.html">spunet</a></li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/finegrasp/finegrasp/index.html">finegrasp</a></li>
-<li class="toctree-l5 has-children"><a class="reference internal" href="../../../models/finegrasp/head/index.html">head</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of head</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../models/finegrasp/head/index.html">head</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle navigation of head</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l6"><a class="reference internal" href="../../../models/finegrasp/head/head/index.html">head</a></li>
 </ul>
 </li>
@@ -498,43 +512,49 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l5"><a class="reference internal" href="../../../models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
-<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/layers/index.html">layers</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of layers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/layers/index.html">layers</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of layers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/layers/data_preprocessors/index.html">data_preprocessors</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/layers/transformer_layers/index.html">transformer_layers</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../models/mixin/index.html">mixin</a></li>
-<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/modules/index.html">modules</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/modules/index.html">modules</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><div class="visually-hidden">Toggle navigation of modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/modules/channel_mapper/index.html">channel_mapper</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/modules/resnet/index.html">resnet</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/modules/swin_transformer/index.html">swin_transformer</a></li>
 </ul>
 </li>
-<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/sem_modules/index.html">sem_modules</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle navigation of sem_modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/sem_modules/index.html">sem_modules</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" role="switch" type="checkbox"/><label for="toctree-checkbox-35"><div class="visually-hidden">Toggle navigation of sem_modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/sem_modules/action_decoder/index.html">action_decoder</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/sem_modules/layers/index.html">layers</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/sem_modules/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/sem_modules/robot_state_encoder/index.html">robot_state_encoder</a></li>
 </ul>
 </li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/tokenizer/index.html">tokenizer</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" role="switch" type="checkbox"/><label for="toctree-checkbox-36"><div class="visually-hidden">Toggle navigation of tokenizer</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/tokenizer/action_bbpe/index.html">action_bbpe</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/tokenizer/action_dct/index.html">action_dct</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/tokenizer/huggingface/index.html">huggingface</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../models/torch_model/index.html">torch_model</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4 has-children"><a class="reference internal" href="../../../ops/deformable_aggregation/index.html">deformable_aggregation</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><div class="visually-hidden">Toggle navigation of deformable_aggregation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../ops/index.html">ops</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of ops</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../ops/deformable_aggregation/index.html">deformable_aggregation</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of deformable_aggregation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../ops/deformable_aggregation/deformable_aggregation/index.html">deformable_aggregation</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../pipeline/index.html">pipeline</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" role="switch" type="checkbox"/><label for="toctree-checkbox-35"><div class="visually-hidden">Toggle navigation of pipeline</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4 has-children"><a class="reference internal" href="../../../pipeline/batch_processor/index.html">batch_processor</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" role="switch" type="checkbox"/><label for="toctree-checkbox-36"><div class="visually-hidden">Toggle navigation of batch_processor</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../pipeline/index.html">pipeline</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of pipeline</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../pipeline/batch_processor/index.html">batch_processor</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" role="switch" type="checkbox"/><label for="toctree-checkbox-40"><div class="visually-hidden">Toggle navigation of batch_processor</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../pipeline/batch_processor/mixin/index.html">mixin</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../pipeline/batch_processor/simple/index.html">simple</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../pipeline/hook_based_trainer/index.html">hook_based_trainer</a></li>
-<li class="toctree-l4 has-children"><a class="reference internal" href="../../../pipeline/hooks/index.html">hooks</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of hooks</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../pipeline/hooks/index.html">hooks</a><input class="toctree-checkbox" id="toctree-checkbox-41" name="toctree-checkbox-41" role="switch" type="checkbox"/><label for="toctree-checkbox-41"><div class="visually-hidden">Toggle navigation of hooks</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../pipeline/hooks/checkpoint/index.html">checkpoint</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../pipeline/hooks/grad_clip/index.html">grad_clip</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../pipeline/hooks/loss_tracker/index.html">loss_tracker</a></li>
@@ -549,12 +569,34 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../../pipeline/trainer/index.html">trainer</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../transforms/base/index.html">base</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../transforms/padding/index.html">padding</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../policy/index.html">policy</a><input class="toctree-checkbox" id="toctree-checkbox-42" name="toctree-checkbox-42" role="switch" type="checkbox"/><label for="toctree-checkbox-42"><div class="visually-hidden">Toggle navigation of policy</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../policy/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../policy/evaluator/index.html">evaluator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../policy/remote/index.html">remote</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../transforms/index.html">transforms</a><input class="toctree-checkbox" id="toctree-checkbox-43" name="toctree-checkbox-43" role="switch" type="checkbox"/><label for="toctree-checkbox-43"><div class="visually-hidden">Toggle navigation of transforms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../transforms/action/index.html">action</a><input class="toctree-checkbox" id="toctree-checkbox-44" name="toctree-checkbox-44" role="switch" type="checkbox"/><label for="toctree-checkbox-44"><div class="visually-hidden">Toggle navigation of action</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../transforms/action/joint_state/index.html">joint_state</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/base/index.html">base</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../transforms/image/index.html">image</a><input class="toctree-checkbox" id="toctree-checkbox-45" name="toctree-checkbox-45" role="switch" type="checkbox"/><label for="toctree-checkbox-45"><div class="visually-hidden">Toggle navigation of image</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../transforms/image/affine/index.html">affine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../transforms/image/color/index.html">color</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../transforms/image/decode/index.html">decode</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../transforms/image/formatter/index.html">formatter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../transforms/image/random/index.html">random</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../transforms/image/transform2d/index.html">transform2d</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/noise/index.html">noise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/normalize/index.html">normalize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/padding/index.html">padding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/take/index.html">take</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-46" name="toctree-checkbox-46" role="switch" type="checkbox"/><label for="toctree-checkbox-46"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/build/index.html">build</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/env/index.html">env</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/geometry/index.html">geometry</a></li>
@@ -565,6 +607,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/protobuf/index.html">protobuf</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/pydantic/index.html">pydantic</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/random/index.html">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../utils/state/index.html">state</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/torch/index.html">torch</a></li>
 </ul>
 </li>
@@ -653,7 +696,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.EpisodeMeta">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">EpisodeMeta</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#EpisodeMeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodeMeta" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">EpisodeMeta</span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodeMeta" title="Link to this definition">¶</a></dt>
 <dd><p>Metadata for an episode packaging in a RoboOrchard dataset.</p>
 <p>This is the data structure used during the packaging process to
 represent the episode information to be stored in the database.</p>
@@ -674,7 +717,7 @@ represent the episode information to be stored in the database.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.EpisodeMeta.get_transient_orm">
-<span class="sig-name descname"><span class="pre">get_transient_orm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DatasetIndexState</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">sqlalchemy.orm.Session</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">EpisodeMetaORM</span></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#EpisodeMeta.get_transient_orm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodeMeta.get_transient_orm" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_transient_orm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DatasetIndexState</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">sqlalchemy.orm.Session</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">EpisodeMetaORM</span></span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodeMeta.get_transient_orm" title="Link to this definition">¶</a></dt>
 <dd><p>Get the transient ORM instance of the episode metadata.</p>
 </dd></dl>
 
@@ -682,7 +725,7 @@ represent the episode information to be stored in the database.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.DataFrame">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">DataFrame</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#DataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DataFrame" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">DataFrame</span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DataFrame" title="Link to this definition">¶</a></dt>
 <dd><p>Data for a single frame in a RoboOrchard dataset.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.DataFrame.features">
@@ -710,10 +753,10 @@ represent the episode information to be stored in the database.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.EpisodePackaging">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">EpisodePackaging</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#EpisodePackaging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodePackaging" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">EpisodePackaging</span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodePackaging" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.EpisodePackaging.generate_episode_meta">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_episode_meta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.EpisodeMeta" title="robo_orchard_lab.dataset.robot.packaging.EpisodeMeta"><span class="pre">EpisodeMeta</span></a></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#EpisodePackaging.generate_episode_meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodePackaging.generate_episode_meta" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_episode_meta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.EpisodeMeta" title="robo_orchard_lab.dataset.robot.packaging.EpisodeMeta"><span class="pre">EpisodeMeta</span></a></span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodePackaging.generate_episode_meta" title="Link to this definition">¶</a></dt>
 <dd><p>Generate metadata for the episode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -727,7 +770,7 @@ represent the episode information to be stored in the database.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.EpisodePackaging.generate_frames">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_frames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.DataFrame" title="robo_orchard_lab.dataset.robot.packaging.DataFrame"><span class="pre">DataFrame</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#EpisodePackaging.generate_frames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodePackaging.generate_frames" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_frames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.DataFrame" title="robo_orchard_lab.dataset.robot.packaging.DataFrame"><span class="pre">DataFrame</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodePackaging.generate_frames" title="Link to this definition">¶</a></dt>
 <dd><p>Generate frame data for the episode.</p>
 </dd></dl>
 
@@ -735,7 +778,7 @@ represent the episode information to be stored in the database.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.DatasetPackaging">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">DatasetPackaging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datasets.Features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_driver</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'duckdb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#DatasetPackaging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">DatasetPackaging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datasets.Features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_driver</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'duckdb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging" title="Link to this definition">¶</a></dt>
 <dd><p>Class for packaging a RoboOrchard dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -758,7 +801,7 @@ than timestamp_max. Default is False.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.packaging">
-<span class="sig-name descname"><span class="pre">packaging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">episodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.EpisodePackaging" title="robo_orchard_lab.dataset.robot.packaging.EpisodePackaging"><span class="pre">EpisodePackaging</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datasets.DatasetInfo</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">writer_batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_shard_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'2GB'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datasets.Split</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#DatasetPackaging.packaging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.packaging" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">packaging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">episodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#robo_orchard_lab.dataset.robot.packaging.EpisodePackaging" title="robo_orchard_lab.dataset.robot.packaging.EpisodePackaging"><span class="pre">EpisodePackaging</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datasets.DatasetInfo</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">writer_batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_shard_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'8GB'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datasets.Split</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.DatasetPackaging.packaging" title="Link to this definition">¶</a></dt>
 <dd><p>Package the dataset and save it to the specified path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -771,7 +814,7 @@ the dataset, such as description, citation, and homepage.
 If None, use the default dataset info.</p></li>
 <li><p><strong>writer_batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The batch size for writing the arrow file.
 This may affect the performance of packaging or reading the
-dataset later. Default is 8.</p></li>
+dataset later. Default is 1024.</p></li>
 <li><p><strong>max_shard_size</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> | </em><em>None</em>) – The maximum size of each shard.
 If None, no sharding will be applied. This can be a string
 like ‘10GB’ or an integer representing the size in bytes.
@@ -790,12 +833,14 @@ already exists. Default is False.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.EpisodeData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">EpisodeData</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#EpisodeData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodeData" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">EpisodeData</span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodeData" title="Link to this definition">¶</a></dt>
 <dd><p>Data for an episode information which is used for packaging.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.EpisodeData.frame_num">
 <span class="sig-name descname"><span class="pre">frame_num</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodeData.frame_num" title="Link to this definition">¶</a></dt>
 <dd><p>The total number of frames in the episode.</p>
+<p>No need to set this field during packaging, it will be updated
+automatically during packaging.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -808,13 +853,15 @@ already exists. Default is False.</p></li>
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.EpisodeData.dataset_begin_index">
 <span class="sig-name descname"><span class="pre">dataset_begin_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.EpisodeData.dataset_begin_index" title="Link to this definition">¶</a></dt>
 <dd><p>The index of the first dataset item in this episode.</p>
+<p>No need to set this field during packaging, it will be updated
+automatically during packaging.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.RobotData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">RobotData</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#RobotData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.RobotData" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">RobotData</span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.RobotData" title="Link to this definition">¶</a></dt>
 <dd><p>Data for a robot information which is used for packaging.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.RobotData.name">
@@ -830,7 +877,7 @@ already exists. Default is False.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.RobotData.make_transient_orm">
-<span class="sig-name descname"><span class="pre">make_transient_orm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DatasetIndexState</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">sqlalchemy.orm.Session</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">robo_orchard_lab.dataset.robot.db_orm.Robot</span></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#RobotData.make_transient_orm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.RobotData.make_transient_orm" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">make_transient_orm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DatasetIndexState</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">sqlalchemy.orm.Session</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">robo_orchard_lab.dataset.robot.db_orm.Robot</span></span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.RobotData.make_transient_orm" title="Link to this definition">¶</a></dt>
 <dd><p>Create a transient ORM instance of the robot.</p>
 <p>If session is provided, it will check if the robot already exists
 in the database using its name and URDF content. If it exists, it
@@ -844,7 +891,7 @@ next index without checking the database.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.TaskData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">TaskData</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#TaskData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.TaskData" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">TaskData</span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.TaskData" title="Link to this definition">¶</a></dt>
 <dd><p>Data for a task information which is used for packaging.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.TaskData.name">
@@ -860,7 +907,7 @@ next index without checking the database.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.TaskData.make_transient_orm">
-<span class="sig-name descname"><span class="pre">make_transient_orm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DatasetIndexState</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">sqlalchemy.orm.Session</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">robo_orchard_lab.dataset.robot.db_orm.Task</span></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#TaskData.make_transient_orm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.TaskData.make_transient_orm" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">make_transient_orm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DatasetIndexState</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">sqlalchemy.orm.Session</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">robo_orchard_lab.dataset.robot.db_orm.Task</span></span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.TaskData.make_transient_orm" title="Link to this definition">¶</a></dt>
 <dd><p>Create a transient ORM instance of the task.</p>
 <p>If session is provided, it will check if the task already exists
 in the database using its name and description. If it exists, it
@@ -874,7 +921,7 @@ next index without checking the database.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.InstructionData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">InstructionData</span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#InstructionData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.InstructionData" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.packaging.</span></span><span class="sig-name descname"><span class="pre">InstructionData</span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.InstructionData" title="Link to this definition">¶</a></dt>
 <dd><p>Data for an instruction information which is used for packaging.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.InstructionData.name">
@@ -891,7 +938,7 @@ next index without checking the database.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.packaging.InstructionData.make_transient_orm">
-<span class="sig-name descname"><span class="pre">make_transient_orm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DatasetIndexState</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">sqlalchemy.orm.Session</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">robo_orchard_lab.dataset.robot.db_orm.Instruction</span></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/dataset/robot/packaging.html#InstructionData.make_transient_orm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.InstructionData.make_transient_orm" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">make_transient_orm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DatasetIndexState</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">sqlalchemy.orm.Session</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">robo_orchard_lab.dataset.robot.db_orm.Instruction</span></span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.packaging.InstructionData.make_transient_orm" title="Link to this definition">¶</a></dt>
 <dd><p>Create a transient ORM instance of the instruction.</p>
 <p>If session is provided, it will check if the instruction already exists
 in the database using its name and JSON content. If it exists, it
@@ -911,12 +958,12 @@ next index without checking the database.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../row_sampler/index.html">
+          <a class="next-page" href="../re_packing/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">row_sampler</div>
+                <div class="title">re_packing</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>

@@ -1,0 +1,311 @@
+joint_state
+===========
+
+.. py:module:: robo_orchard_lab.transforms.action.joint_state
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.transforms.action.joint_state.GaussianNoiseConfig
+   robo_orchard_lab.transforms.action.joint_state.UniformNoiseConfig
+   robo_orchard_lab.transforms.action.joint_state.AddNoiseToJointsState
+   robo_orchard_lab.transforms.action.joint_state.AddNoiseToJointsStateConfig
+   robo_orchard_lab.transforms.action.joint_state.UpdateVelocity
+   robo_orchard_lab.transforms.action.joint_state.UpdateVelocityConfig
+   robo_orchard_lab.transforms.action.joint_state.ToDeltaJointsState
+   robo_orchard_lab.transforms.action.joint_state.ToDeltaJointsStateConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: GaussianNoiseConfig(/, **data: Any)
+
+   Bases: :py:obj:`NoiseConfig`
+
+
+   Configuration for Gaussian noise transform.
+
+
+   .. py:attribute:: mean
+      :type:  robo_orchard_core.utils.config.TorchTensor
+
+      Mean of the Gaussian noise.
+
+
+   .. py:attribute:: std
+      :type:  robo_orchard_core.utils.config.TorchTensor
+
+      Standard deviation of the Gaussian noise.
+
+
+   .. py:method:: generate_noise(target_shape: Sequence[int] | None = None) -> torch.Tensor
+
+      Generate Gaussian noise with the specified shape.
+
+
+
+.. py:class:: UniformNoiseConfig(/, **data: Any)
+
+   Bases: :py:obj:`NoiseConfig`
+
+
+   Configuration for Uniform noise transform.
+
+
+   .. py:attribute:: low
+      :type:  robo_orchard_core.utils.config.TorchTensor
+
+      Lower bound of the uniform noise.
+
+
+   .. py:attribute:: high
+      :type:  robo_orchard_core.utils.config.TorchTensor
+
+      Upper bound of the uniform noise.
+
+
+   .. py:method:: generate_noise(target_shape: Sequence[int] | None = None) -> torch.Tensor
+
+      Generate Uniform noise with the specified shape.
+
+
+
+   .. py:method:: from_min_max_stats(min: torch.Tensor, max: torch.Tensor, scale: float, repeat: Sequence[int] | None = None) -> UniformNoiseConfig
+      :staticmethod:
+
+
+      Create a UniformNoiseConfig from min and max statistics.
+
+      The noise will be uniformly distributed in the range
+      [- scale * (max - min)/2, scale * (max - min)/2].
+      The scale factor is actually the percentage of the range
+      that the noise will cover.
+
+      :param min: Minimum values.
+      :type min: torch.Tensor
+      :param max: Maximum values.
+      :type max: torch.Tensor
+      :param scale: Scale factor to determine the range of the noise.
+      :type scale: float
+
+
+
+.. py:class:: AddNoiseToJointsState(cfg: AddNoiseToJointsStateConfig[robo_orchard_lab.transforms.noise.NoiseConfigT_co])
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransform`, :py:obj:`Generic`\ [\ :py:obj:`robo_orchard_lab.transforms.noise.NoiseConfigT_co`\ ]
+
+
+   A class that defines the interface for transforming a dict.
+
+   The dict is usually a row in a dataset, and the transform
+   will take the input columns, apply some transformation, and return
+   a new dict with the transformed values added to the original dict.
+
+   User should implement the `transform` method to define the specific
+   transformation logic.
+
+   If you use a dataclass or BaseModel as the return type of
+   the transform method, `output_columns` will be automatically
+   inferred from the fields of the dataclass or BaseModel. Otherwise,
+   you should implement the `output_columns` property to return the
+   expected output columns for the transform.
+
+
+   For Transform whose input and output columns are not known
+   at the time of configuration, the input and output columns
+   properties should not be used, and the `check_return_columns`
+   configuration should be set to False. This will prevent runtime
+   errors when the transform is called with a row dict.
+
+
+
+   .. py:attribute:: cfg
+      :type:  AddNoiseToJointsStateConfig[robo_orchard_lab.transforms.noise.NoiseConfigT_co]
+
+
+   .. py:method:: transform(**kwargs) -> dict
+
+      Transform the input columns into a new row dict to be updated.
+
+      All input columns will be passed as keyword arguments.
+
+
+
+   .. py:method:: add_noise(joints_state: robo_orchard_lab.dataset.datatypes.BatchJointsState) -> robo_orchard_lab.dataset.datatypes.BatchJointsState
+
+
+.. py:class:: AddNoiseToJointsStateConfig
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransformConfig`\ [\ :py:obj:`AddNoiseToJointsState`\ ], :py:obj:`Generic`\ [\ :py:obj:`robo_orchard_lab.transforms.noise.NoiseConfigT_co`\ ]
+
+
+   Abstract base class for generic types.
+
+   A generic type is typically declared by inheriting from
+   this class parameterized with one or more type variables.
+   For example, a generic mapping type might be defined as::
+
+     class Mapping(Generic[KT, VT]):
+         def __getitem__(self, key: KT) -> VT:
+             ...
+         # Etc.
+
+   This class can then be used as follows::
+
+     def lookup_name(mapping: Mapping[KT, VT], key: KT, default: VT) -> VT:
+         try:
+             return mapping[key]
+         except KeyError:
+             return default
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.transforms.base.ClassType[AddNoiseToJointsState]
+
+
+   .. py:attribute:: noise
+      :type:  robo_orchard_lab.transforms.noise.NoiseConfigT_co
+
+
+   .. py:attribute:: inplace
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: apply_to
+      :type:  Literal['position', 'velocity']
+      :value: 'position'
+
+
+
+.. py:class:: UpdateVelocity(cfg: UpdateVelocityConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransform`
+
+
+   A class that defines the interface for transforming a dict.
+
+   The dict is usually a row in a dataset, and the transform
+   will take the input columns, apply some transformation, and return
+   a new dict with the transformed values added to the original dict.
+
+   User should implement the `transform` method to define the specific
+   transformation logic.
+
+   If you use a dataclass or BaseModel as the return type of
+   the transform method, `output_columns` will be automatically
+   inferred from the fields of the dataclass or BaseModel. Otherwise,
+   you should implement the `output_columns` property to return the
+   expected output columns for the transform.
+
+
+   For Transform whose input and output columns are not known
+   at the time of configuration, the input and output columns
+   properties should not be used, and the `check_return_columns`
+   configuration should be set to False. This will prevent runtime
+   errors when the transform is called with a row dict.
+
+
+
+   .. py:attribute:: cfg
+      :type:  UpdateVelocityConfig
+
+
+   .. py:method:: transform(**kwargs) -> dict
+
+      Transform the input columns into a new row dict to be updated.
+
+      All input columns will be passed as keyword arguments.
+
+
+
+.. py:class:: UpdateVelocityConfig
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransformConfig`\ [\ :py:obj:`UpdateVelocity`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.transforms.base.ClassType[UpdateVelocity]
+
+
+   .. py:attribute:: input_columns
+      :type:  list[str]
+
+
+   .. py:attribute:: override_existing
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: inplace
+      :type:  bool
+      :value: True
+
+
+
+.. py:class:: ToDeltaJointsState(cfg: ToDeltaJointsStateConfig | None)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransform`
+
+
+   A class that defines the interface for transforming a dict.
+
+   The dict is usually a row in a dataset, and the transform
+   will take the input columns, apply some transformation, and return
+   a new dict with the transformed values added to the original dict.
+
+   User should implement the `transform` method to define the specific
+   transformation logic.
+
+   If you use a dataclass or BaseModel as the return type of
+   the transform method, `output_columns` will be automatically
+   inferred from the fields of the dataclass or BaseModel. Otherwise,
+   you should implement the `output_columns` property to return the
+   expected output columns for the transform.
+
+
+   For Transform whose input and output columns are not known
+   at the time of configuration, the input and output columns
+   properties should not be used, and the `check_return_columns`
+   configuration should be set to False. This will prevent runtime
+   errors when the transform is called with a row dict.
+
+
+
+   .. py:attribute:: cfg
+      :type:  ToDeltaJointsStateConfig
+
+
+   .. py:method:: transform(current: robo_orchard_lab.dataset.datatypes.BatchJointsState, future: robo_orchard_lab.dataset.datatypes.BatchJointsState) -> ToDeltaJointsStateReturn
+
+      Transform the input columns into a new row dict to be updated.
+
+      All input columns will be passed as keyword arguments.
+
+
+
+.. py:class:: ToDeltaJointsStateConfig
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransformConfig`\ [\ :py:obj:`ToDeltaJointsState`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.transforms.base.ClassType[ToDeltaJointsState]
+
+
+   .. py:attribute:: input_columns
+      :type:  dict[str, str]
+      :value: None
+
+
+      Mapping of input columns.
+
+      The values of mapping must be in ["current", "future"].
+
+

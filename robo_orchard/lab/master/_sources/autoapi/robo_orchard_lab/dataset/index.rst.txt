@@ -19,6 +19,7 @@ Submodules
    /autoapi/robo_orchard_lab/dataset/lmdb/index
    /autoapi/robo_orchard_lab/dataset/robot/index
    /autoapi/robo_orchard_lab/dataset/robotwin/index
+   /autoapi/robo_orchard_lab/dataset/sampler/index
    /autoapi/robo_orchard_lab/dataset/transforms/index
 
 

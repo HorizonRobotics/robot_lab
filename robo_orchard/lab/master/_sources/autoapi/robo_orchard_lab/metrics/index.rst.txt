@@ -6,4 +6,12 @@ metrics
 
 
 
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_lab/metrics/base/index
+
 

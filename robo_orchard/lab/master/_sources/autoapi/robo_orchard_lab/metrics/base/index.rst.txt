@@ -1,0 +1,76 @@
+base
+====
+
+.. py:module:: robo_orchard_lab.metrics.base
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.metrics.base.MetricProtocol
+   robo_orchard_lab.metrics.base.MetricDict
+   robo_orchard_lab.metrics.base.MetricConfig
+   robo_orchard_lab.metrics.base.MetricDictConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: MetricProtocol
+
+   Bases: :py:obj:`Protocol`
+
+
+   Protocol for metric functions used in policy evaluation.
+
+
+   .. py:method:: reset(**kwargs: Any)
+
+
+   .. py:method:: compute() -> Any
+
+
+   .. py:method:: update(*args: Any, **kwds: Any)
+
+
+.. py:class:: MetricDict
+
+   Bases: :py:obj:`dict`\ [\ :py:obj:`str`\ , :py:obj:`MetricProtocol`\ ]
+
+
+   A dictionary that holds metric functions.
+
+   This class extends the standard dictionary to ensure that all values
+   are callable metric functions that follow the MetricProtocol.
+
+
+   .. py:method:: update(*args: Any, **kwds: Any) -> None
+
+      D.update([E, ]**F) -> None.  Update D from dict/iterable E and F.
+      If E is present and has a .keys() method, then does:  for k in E: D[k] = E[k]
+      If E is present and lacks a .keys() method, then does:  for k, v in E: D[k] = v
+      In either case, this is followed by: for k in F:  D[k] = F[k]
+
+
+
+   .. py:method:: reset(**kwargs: Any) -> None
+
+
+   .. py:method:: compute() -> dict[str, Any]
+
+
+.. py:class:: MetricConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`T`\ ]
+
+
+.. py:class:: MetricDictConfig
+
+   Bases: :py:obj:`dict`
+
+
+   A dictionary that holds MetricConfig instances.
+
+

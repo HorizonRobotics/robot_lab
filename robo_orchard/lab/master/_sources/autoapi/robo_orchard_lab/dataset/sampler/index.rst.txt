@@ -1,0 +1,92 @@
+sampler
+=======
+
+.. py:module:: robo_orchard_lab.dataset.sampler
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.sampler.IndiceTableSampler
+   robo_orchard_lab.dataset.sampler.ShardedIndiceSampler
+
+
+Module Contents
+---------------
+
+.. py:class:: IndiceTableSampler(indices: datasets.arrow_dataset.Table | list[int] | str | torch.Tensor | numpy.ndarray, shuffle: bool = False, generator: torch.Generator | None = None)
+
+   Bases: :py:obj:`torch.utils.data.sampler.Sampler`\ [\ :py:obj:`int`\ ]
+
+
+   Sampler that samples elements from a given list of indices.
+
+   :param indices: The
+                   indices to sample from. It can be a pyarrow Table with one column
+                   of type uint64, a list of integers, a numpy array of integers,
+                   a torch tensor of integers, or a string representing the path to
+                   a pyarrow Table file.
+   :type indices: Table | list[int] | str | torch.Tensor | np.ndarray
+   :param shuffle: If True, then the indices will be shuffled
+                   before being returned. Default: False.
+   :type shuffle: bool, optional
+   :param generator: Generator used in sampling.
+                     Default: None.
+   :type generator: torch.Generator, optional
+
+
+   .. py:attribute:: generator
+      :value: None
+
+
+
+   .. py:attribute:: shuffle
+      :value: False
+
+
+
+.. py:class:: ShardedIndiceSampler(indices: datasets.arrow_dataset.Table | list[int] | str | torch.Tensor | numpy.ndarray | int, num_shards: int, shard_id: int, contiguous: bool = True, shuffle: bool = False, generator: torch.Generator | None = None)
+
+   Bases: :py:obj:`IndiceTableSampler`
+
+
+   Sampler that restricts data loading to a subset of the dataset.
+
+   It is especially useful in conjunction with
+   :class:`torch.nn.parallel.DistributedDataParallel`. In such case, each
+   process can pass a :class:`DistributedSampler` instance as a
+   :class:`~torch.utils.data.DataLoader` sampler, and load a subset of the
+   original dataset that is exclusive to it.
+
+   .. note::
+
+      * Dataset is assumed to be of constant size.
+      * If you are using `accelerate` for distributed training, you
+        should not use this sampler, as `accelerate` will automatically
+        handle the data sharding!
+
+   :param indices: The indices to sample from. It can be a pyarrow Table with one
+                   column of type uint64, a list of integers, a numpy array of
+                   integers, a torch tensor of integers, or a string representing
+                   the path to a pyarrow Table file. If an integer is provided,
+                   it is treated as the length of the dataset, and the indices
+                   will be generated as a range from 0 to length-1.
+   :type indices: Table | list[int] | str | torch.Tensor | np.ndarray | int
+   :param num_shards: Number of shards to divide the dataset into.
+   :type num_shards: int
+   :param shard_id: Index of the current shard.
+   :type shard_id: int
+   :param contiguous: If True, then the dataset will be split
+                      into contiguous chunks. If False, then the dataset will be split
+                      into non-contiguous chunks. Default: True.
+   :type contiguous: bool, optional
+   :param shuffle: If True, then the indices will be shuffled
+                   before being returned. Default: False.
+   :type shuffle: bool, optional
+   :param generator: Generator used in sampling.
+                     Default: None.
+   :type generator: torch.Generator, optional
+
+

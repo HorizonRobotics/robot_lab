@@ -1,0 +1,107 @@
+base
+====
+
+.. py:module:: robo_orchard_lab.policy.base
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.policy.base.InferencePipelinePolicy
+   robo_orchard_lab.policy.base.InferencePipelinePolicyCfg
+
+
+Module Contents
+---------------
+
+.. py:class:: InferencePipelinePolicy(cfg: InferencePipelinePolicyCfg, observation_space: gymnasium.Space[robo_orchard_core.policy.base.OBSType] | None = None, action_space: gymnasium.Space[robo_orchard_core.policy.base.ACTType] | None = None)
+
+   Bases: :py:obj:`robo_orchard_core.policy.base.PolicyMixin`\ [\ :py:obj:`robo_orchard_core.policy.base.OBSType`\ , :py:obj:`robo_orchard_core.policy.base.ACTType`\ ]
+
+
+   Policy interface.
+
+   A policy is a function or a model that maps observations from the
+   environment to actions. It can be deterministic or stochastic, and it is
+   typically used in reinforcement learning to decide what action to take
+   based on the current state of the environment.
+
+   For stochastic policies, the `act` method may return a callable that
+   generates an action when called, allowing for sampling from a distribution
+   over actions. For deterministic policies, it directly returns the action.
+
+
+   Template Args:
+       OBSType: The type of the observation space.
+       ACTType: The type of the action space.
+
+
+
+   .. py:attribute:: cfg
+      :type:  InferencePipelinePolicyCfg
+
+
+   .. py:attribute:: pipeline
+      :type:  robo_orchard_lab.inference.mixin.InferencePipelineMixin[robo_orchard_core.policy.base.OBSType, robo_orchard_core.policy.base.ACTType]
+
+
+   .. py:method:: from_infer_pipeline(pipeline: robo_orchard_lab.inference.mixin.InferencePipelineMixin, observation_space: gymnasium.Space[robo_orchard_core.policy.base.OBSType] | None = None, action_space: gymnasium.Space[robo_orchard_core.policy.base.ACTType] | None = None)
+      :classmethod:
+
+
+
+   .. py:method:: act(obs: robo_orchard_core.policy.base.OBSType) -> robo_orchard_core.policy.base.ACTType
+
+      Generate an action based on the observation.
+
+      :param obs: The observation from the environment.
+      :type obs: OBSType
+
+      :returns: The action to be taken in the environment.
+      :rtype: ACTType
+
+
+
+   .. py:method:: reset() -> None
+
+      Reset the policy to its initial state.
+
+      This method is called at the beginning of an episode or when the
+      environment is reset. It allows the policy to prepare for a new
+      sequence of observations and actions.
+
+
+
+.. py:class:: InferencePipelinePolicyCfg
+
+   Bases: :py:obj:`robo_orchard_core.policy.base.PolicyConfig`\ [\ :py:obj:`InferencePipelinePolicy`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType_co[InferencePipelinePolicy]
+
+
+   .. py:attribute:: pipeline
+      :type:  robo_orchard_core.utils.config.ConfigInstanceOf[robo_orchard_lab.inference.mixin.InferencePipelineMixinCfg]
+
+
+   .. py:method:: from_inference_pipeline(pipeline: robo_orchard_lab.inference.mixin.InferencePipelineMixinCfg) -> InferencePipelinePolicyCfg
+      :classmethod:
+
+
+      Create an from an existing InferencePipeline Config.
+
+      :param pipeline: An instance of pipeline
+                       config.
+      :type pipeline: InferencePipelineMixinCfg
+
+      :returns:
+
+                A configuration object for
+                    InferencePipelinePolicy.
+      :rtype: InferencePipelinePolicyCfg
+
+
+

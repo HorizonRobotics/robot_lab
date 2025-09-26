@@ -13,7 +13,6 @@ Classes
    robo_orchard_lab.dataset.datatypes.hg_features.base.TypedDictFeatureDecode
    robo_orchard_lab.dataset.datatypes.hg_features.base.RODataFeature
    robo_orchard_lab.dataset.datatypes.hg_features.base.RODictDataFeature
-   robo_orchard_lab.dataset.datatypes.hg_features.base.ToDataFeatureMixin
 
 
 Functions
@@ -47,7 +46,16 @@ Module Contents
    Bases: :py:obj:`FeatureDecodeMixin`
 
 
-   Mixin class for features that support decoding.
+   Helper class for decoding typed dictionary features.
+
+   This class uses `_dict` as the feature decoding schema to decode the
+   example value. User should extend this class and set the `_dict`
+   attribute to represent the schema.
+
+   Note that `_dict` will not be included in the serialized output, and
+   also not be used in the initialization of the class. You should
+   initialize `_dict` in `__post_init__` or in the class body.
+
 
 
    .. py:attribute:: decode
@@ -68,6 +76,10 @@ Module Contents
 
    User should implement the `pa_type` property and `encode_example` method
    to define the specific feature type and how to encode example values.
+
+   This class does not include `decode_example` method, as it is not
+   required for all features. If you need to decode the example values,
+   you can inherit from `FeatureDecodeMixin`.
 
 
 
@@ -95,11 +107,15 @@ Module Contents
 
    A feature that is composed of a dictionary of features.
 
-   This class provide a easy way to define a feature that is a dictionary
-   of features. It is useful for defining complex features that are
+   This class does not inherit from `dict` but use `dict` to define features.
+   It is useful for defining complex features that are
    composed of multiple fields. The user should define the `_dict` attribute
    as a dictionary mapping field names to features. The keys of the dictionary
    are the field names, and the values are the features.
+
+   This class does not include `decode_example` method, as it is not
+   required for all features. If you need to decode the example values,
+   you can inherit from `DictFeatureDecodeMixin`.
 
 
 
@@ -131,24 +147,6 @@ Module Contents
    .. py:method:: values()
 
       Return the values of the dictionary.
-
-
-
-.. py:class:: ToDataFeatureMixin
-
-   Mixin class for features that can be converted to a pyarrow DataType.
-
-
-   .. py:method:: dataset_feature() -> RODataFeature
-      :classmethod:
-
-      :abstractmethod:
-
-
-
-   .. py:method:: get(key: str, default: Any = None) -> Any
-
-      Get the value of the feature by key.
 
 
 
