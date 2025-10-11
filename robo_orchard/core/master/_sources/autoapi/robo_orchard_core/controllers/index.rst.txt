@@ -1,0 +1,25 @@
+controllers
+===========
+
+.. py:module:: robo_orchard_core.controllers
+
+.. autoapi-nested-parse::
+
+   Sub-package for different controllers.
+
+   Controllers are responsible for generating desired raw actions for the robots.
+
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_core/controllers/differential_ik/index
+   /autoapi/robo_orchard_core/controllers/ik/index
+
+

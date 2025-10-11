@@ -1,0 +1,28 @@
+devices
+=======
+
+.. py:module:: robo_orchard_core.devices
+
+.. autoapi-nested-parse::
+
+   The devices that can be used to interact with the environment.
+
+   Devices include sensors, effectors, I/O devices, and other devices that can be
+   used to interact with the environment.
+
+   It could be a physical device in the real world, or a virtual device in the
+   simulation world.
+
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_core/devices/cameras/index
+
+

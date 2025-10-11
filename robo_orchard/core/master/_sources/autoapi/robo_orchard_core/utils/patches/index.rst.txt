@@ -1,0 +1,41 @@
+patches
+=======
+
+.. py:module:: robo_orchard_core.utils.patches
+
+.. autoapi-nested-parse::
+
+   Helper functions for patching classes, methods, and functions.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.patches.patch_class_method
+
+
+Module Contents
+---------------
+
+.. py:function:: patch_class_method(cls, method_name: str, check_method_name_exists: bool = False)
+
+   A decorator to patch a class method.
+
+   The old implementation of the method is renamed to `__old_{method_name}`.
+
+   If the method is already patched, a warning is issued and the method is
+   not patched again.
+
+   :param cls: The class to patch.
+   :type cls: type
+   :param method_name: The method name to patch.
+   :type method_name: str
+   :param check_method_name_exists: Whether to check if the method
+                                    already exists in the class. If True, an error will be raised if
+                                    the method does not exist. Default: False.
+   :type check_method_name_exists: bool
+
+

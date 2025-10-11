@@ -1,0 +1,28 @@
+enum
+====
+
+.. py:module:: robo_orchard_core.datatypes.enum
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.datatypes.enum.StrEnum
+
+
+Module Contents
+---------------
+
+.. py:class:: StrEnum
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   A string-based Enum class.
+
+   This class allows for string values in the Enum, which can be useful
+   for serialization and human-readable representations.
+
+

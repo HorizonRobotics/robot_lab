@@ -1,0 +1,193 @@
+adaptor
+=======
+
+.. py:module:: robo_orchard_core.datatypes.adaptor
+
+.. autoapi-nested-parse::
+
+   Data type adaptors for converting objects of one type to another.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.datatypes.adaptor.TypeAdaptorImplConfigType_co
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.datatypes.adaptor.UnRegisteredAdaptorError
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.datatypes.adaptor.TypeAdaptorImpl
+   robo_orchard_core.datatypes.adaptor.TypeAdaptorImplConfig
+   robo_orchard_core.datatypes.adaptor.TypeAdaptorFactory
+   robo_orchard_core.datatypes.adaptor.TypeAdaptorFactoryConfig
+
+
+Module Contents
+---------------
+
+.. py:exception:: UnRegisteredAdaptorError
+
+   Bases: :py:obj:`Exception`
+
+
+   Common base class for all non-exit exceptions.
+
+
+.. py:class:: TypeAdaptorImpl
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`, :py:obj:`Generic`\ [\ :py:obj:`S`\ , :py:obj:`T`\ ]
+
+
+   A generic class that defines the interface for type adaptors.
+
+   Type adaptors are used to convert objects of one type to another.
+   For example, a type adaptor can convert a custom object to ROS message.
+
+   User should implement the __call__ method to define the conversion logic.
+
+   .. rubric:: Example
+
+   >>> class MyTypeAdaptor(TypeAdaptorImpl[Source, Target]):
+   ...     def __call__(self, s: Source) -> Target:
+   ...         # Conversion logic
+   ...         pass
+
+
+   .. py:attribute:: source_type
+      :type:  type[S]
+
+      The source type of the adaptor to take as input.
+
+
+   .. py:attribute:: target_type
+      :type:  type[T]
+
+      The target type of the adaptor as output.
+
+
+.. py:class:: TypeAdaptorImplConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`TypeAdaptorImpl`\ ], :py:obj:`Generic`\ [\ :py:obj:`S`\ , :py:obj:`T`\ ]
+
+
+   Config class for TypeAdaptorImpl.
+
+   Template Args:
+       S: The source type of the adaptor.
+       T: The target type of the adaptor.
+
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType_co[TypeAdaptorImpl]
+
+
+.. py:data:: TypeAdaptorImplConfigType_co
+
+.. py:class:: TypeAdaptorFactory(cfg: TypeAdaptorFactoryConfig | None = None)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`
+
+
+   TypeAdaptorFactory is a collection of TypeAdaptorImpl instances.
+
+   It provides type adaptors for different types of input objects and
+   converts them to the target type. If the type adaptor for the input object
+   is not found, it will raise an error when skip_unregistered is False,
+   otherwise it will return the input object.
+
+   .. rubric:: Example
+
+   .. code-block:: python
+
+       factory_cfg = TypeAdaptorFactoryConfig(
+           class_type=TypeAdaptorFactory,
+           adaptors=[
+               TypeAdaptorImplConfig(class_type=Int2StrAdaptor),
+               TypeAdaptorImplConfig(class_type=List2StrAdaptor),
+           ],
+       )
+
+       factory = TypeAdaptorFactory(factory_cfg)
+       assert factory(1) == "1"
+       assert factory([1, 2, 3]) == "[1, 2, 3]"
+
+   :param cfg: The config object for the factory.
+   :type cfg: TypeAdaptorFactoryConfig
+
+
+   .. py:method:: get_source_type_adaptor(source_type: type[S]) -> TypeAdaptorImpl[S, Any] | None
+
+      Get the type adaptor for the given source type.
+
+      :param source_type: The source type to get the adaptor for.
+      :type source_type: type
+
+      :returns: The type adaptor for the given source type.
+      :rtype: TypeAdaptorImpl | None
+
+
+
+   .. py:method:: unregister(source_type: type[S])
+
+      Unregister the type adaptor for the given source type.
+
+      :param source_type: The source type to unregister the adaptor for.
+      :type source_type: type
+
+
+
+   .. py:method:: register(adaptor: TypeAdaptorImpl)
+
+      Register a type adaptor.
+
+      :param adaptor: The type adaptor to register.
+      :type adaptor: TypeAdaptorImpl
+
+
+
+   .. py:property:: source_types
+      :type: set[type]
+
+
+      Get the set of source types that the factory can convert.
+
+
+.. py:class:: TypeAdaptorFactoryConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`TypeAdaptorFactory`\ ]
+
+
+   Config class for TypeAdaptorFactory.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType_co[TypeAdaptorFactory]
+
+
+   .. py:attribute:: adaptors
+      :type:  Sequence[TypeAdaptorImplConfigType_co]
+      :value: []
+
+
+
+   .. py:attribute:: skip_unregistered
+      :type:  bool
+      :value: False
+
+
+

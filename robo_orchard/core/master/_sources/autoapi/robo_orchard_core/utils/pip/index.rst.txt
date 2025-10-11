@@ -1,0 +1,28 @@
+pip
+===
+
+.. py:module:: robo_orchard_core.utils.pip
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.pip.get_package_version
+
+
+Module Contents
+---------------
+
+.. py:function:: get_package_version(package_name: str) -> str | None
+
+   Get the package version.
+
+   :param package_name: The package name.
+   :type package_name: str
+
+   :returns: The package version.
+   :rtype: str
+
+

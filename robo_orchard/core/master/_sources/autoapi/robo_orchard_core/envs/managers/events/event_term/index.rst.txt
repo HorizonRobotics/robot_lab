@@ -1,0 +1,123 @@
+event_term
+==========
+
+.. py:module:: robo_orchard_core.envs.managers.events.event_term
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.events.event_term.EventTermType_co
+   robo_orchard_core.envs.managers.events.event_term.EventCfgType_co
+   robo_orchard_core.envs.managers.events.event_term.EnvType_co
+   robo_orchard_core.envs.managers.events.event_term.EventMsgType
+   robo_orchard_core.envs.managers.events.event_term.EntityCfgType_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.events.event_term.EventMsg
+   robo_orchard_core.envs.managers.events.event_term.EventTermBase
+   robo_orchard_core.envs.managers.events.event_term.EventTermBaseCfg
+
+
+Module Contents
+---------------
+
+.. py:data:: EventTermType_co
+
+.. py:data:: EventCfgType_co
+
+.. py:data:: EnvType_co
+
+.. py:class:: EventMsg(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.dataclass.DataClass`
+
+
+   The base message for the event term to trigger the event.
+
+
+.. py:data:: EventMsgType
+
+.. py:class:: EventTermBase(cfg: EventCfgType_co, env: EnvType_co)
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.manager_term_base.ManagerTermBase`\ [\ :py:obj:`EnvType_co`\ , :py:obj:`EventCfgType_co`\ ], :py:obj:`Generic`\ [\ :py:obj:`EventMsgType`\ , :py:obj:`EnvType_co`\ , :py:obj:`EventCfgType_co`\ ]
+
+
+   The base class for all event terms.
+
+   A event term is a term that applies operations to the scene entities in the
+   environment or the environment itself. Different from action terms that
+   sent from agents to interact with the environment, event terms are usually
+   triggered by the environment itself, or operations that are not directly
+   controlled by agents.
+
+   For example, a event term can be a term that changes the color of the scene
+   entities when the environment reaches a certain state, or a term that
+   applies external forces to the scene entities.
+
+   Note that the event term can access the environment and the scene entities
+   in the environment, which means that any callble method of the environment
+   and the scene entities can be called in the event term.
+
+   Template Args:
+       EventMsgType: The type of the event message.
+       EnvType_co: The type of the environment.
+       EventCfgType: The configuration of the event term.
+
+   :param cfg: The configuration of the event term.
+   :param env: The environment.
+
+
+   .. py:attribute:: event_msg_type
+      :type:  type[EventMsgType]
+
+
+   .. py:method:: reset(env_ids: collections.abc.Sequence[int] | None = None) -> None
+      :abstractmethod:
+
+
+      Resets the action term.
+
+      :param env_ids: The environment ids. Defaults to None, in which case
+                      all environments are considered.
+
+
+
+.. py:data:: EntityCfgType_co
+
+.. py:class:: EventTermBaseCfg
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.manager_term_base.ManagerTermBaseCfg`\ [\ :py:obj:`EventTermType_co`\ ], :py:obj:`Generic`\ [\ :py:obj:`EventTermType_co`\ , :py:obj:`EntityCfgType_co`\ ]
+
+
+   The base configuration for all event terms.
+
+   Template Args:
+       EventTermType_co: The type of the event term.
+       EntityCfgType_co: The type of the scene entity configuration.
+
+
+
+   .. py:attribute:: trigger_topic
+      :type:  str
+
+      The topic to trigger the event term.
+
+
+   .. py:attribute:: asset_cfgs
+      :type:  list[EntityCfgType_co] | None
+      :value: None
+
+
+      The scene entitys that the event term is associated with.
+
+      If None, the event term is associated with all scene entitys.
+
+

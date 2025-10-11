@@ -1,0 +1,1921 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>robo_orchard_core.utils.math.math_utils - RoboOrchardCore</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/version_switcher.css?v=ddc636d2" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../index.html"><div class="brand">RoboOrchardCore</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../../../_static/logo/logo_light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../../_static/logo/logo_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">RoboOrchardCore</span>
+  
+</a>
+<meta name="current-version-id" content="master">
+
+<meta name="versions-json-url" content="https://horizonrobotics.github.io/robot_lab/robo_orchard/core/version.json">
+
+<style>
+  #version-selector-wrapper {
+    border: 1px solid var(--switcher-border-color, #e0e0e0);
+    background-color: var(--switcher-background-color, transparent);
+    visibility: hidden;
+    border-radius: 3px;
+    padding: 0;
+    margin: 8px 5px;
+    display: inline-block;
+    position: relative;
+  }
+
+  #version-selector {
+    color: var(--switcher-text-color, #333);
+    background-color: var(--switcher-background-color, transparent);
+
+    background-image: var(--switcher-arrow-icon);
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1em;
+
+    border: none;
+    padding: 6px 28px 6px 8px;
+    font-size: 0.9em;
+    display: block;
+    min-width: 140px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+    line-height: 1.4;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+</style>
+
+<div id="version-selector-wrapper">
+    <select id="version-selector">
+        </select>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const wrapper = document.getElementById('version-selector-wrapper');
+    const selector = document.getElementById('version-selector');
+    const metaCurrentVersionIdTag = document.querySelector('meta[name="current-version-id"]');
+    const actualCurrentVersionId = metaCurrentVersionIdTag ? metaCurrentVersionIdTag.content : null;
+    const metaVersionsJsonUrlTag = document.querySelector('meta[name="versions-json-url"]');
+    const versionsJsonUrl = metaVersionsJsonUrlTag ? metaVersionsJsonUrlTag.content : null;
+    const versionsCacheKey = 'sphinxVersionsJsonCache_vHybrid';
+
+    function populateSelector(versionsData) {
+        if (!selector || !wrapper) return;
+        selector.innerHTML = '';
+
+        if (Array.isArray(versionsData) && versionsData.length > 0) {
+            versionsData.forEach(version => {
+                if (version && version.url && version.name && version.id) {
+                    const option = document.createElement('option');
+                    option.value = version.url;
+                    option.textContent = version.name;
+                    if (actualCurrentVersionId && version.id === actualCurrentVersionId) {
+                        option.selected = true;
+                    }
+                    selector.appendChild(option);
+                }
+            });
+        } else {
+            const fallbackOption = document.createElement('option');
+            fallbackOption.textContent = "No versions available";
+            fallbackOption.disabled = true;
+            selector.appendChild(fallbackOption);
+            console.warn("versions.json was empty, not loaded, or invalid.");
+        }
+        wrapper.style.visibility = 'visible';
+    }
+
+    if (!versionsJsonUrl) {
+        console.error("Cannot fetch versions: versions.json URL is missing.");
+        populateSelector(null);
+        return;
+    }
+
+    const cachedVersions = sessionStorage.getItem(versionsCacheKey);
+    if (cachedVersions) {
+        try {
+            const versions = JSON.parse(cachedVersions);
+            populateSelector(versions);
+        } catch (e) {
+            sessionStorage.removeItem(versionsCacheKey);
+            fetchAndPopulate();
+        }
+    } else {
+        fetchAndPopulate();
+    }
+
+    function fetchAndPopulate() {
+        fetch(versionsJsonUrl)
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error fetching versions.json! Status: ${response.status}`);
+                return response.json();
+            })
+            .then(versions => {
+                sessionStorage.setItem(versionsCacheKey, JSON.stringify(versions));
+                populateSelector(versions);
+            })
+            .catch(error => {
+                console.error('Failed to load or parse versions.json:', error);
+                populateSelector(null);
+            });
+    }
+
+    if (selector) {
+        selector.addEventListener('change', function() {
+            if (this.value) window.location.href = this.value;
+        });
+    }
+});
+</script><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../build/gallery/get_started/installation/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../build/gallery/tutorials/system_overview/index.html">System Overview</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of System Overview</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../build/gallery/tutorials/system_overview/nonb-01_config_design.html">Best Practices for Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../build/gallery/tutorials/system_overview/nonb-02_env_and_managers.html">Environment and Managers</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../build/gallery/tutorials/datatypes/index.html">Data Types</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Data Types</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../build/gallery/tutorials/datatypes/nonb-01_geometry.html">Tutorial 1: Geometry Basics with BatchTransform3D and BatchPose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../build/gallery/tutorials/datatypes/nonb-02_tf_graph.html">Tutorial 2: Managing Coordinate Systems with TF Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../build/gallery/tutorials/datatypes/nonb-03_robot.html">Tutorial 3: Representing Robot Joints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../build/gallery/tutorials/datatypes/nonb-04_camera.html">Tutorial 4: A Deep Dive into Camera Data</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/index.html">robo_orchard_core</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of robo_orchard_core</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/controllers/index.html">controllers</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of controllers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/controllers/differential_ik/index.html">differential_ik</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/controllers/ik/index.html">ik</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/datatypes/index.html">datatypes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of datatypes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/datatypes/adaptor/index.html">adaptor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/datatypes/camera_data/index.html">camera_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/datatypes/dataclass/index.html">dataclass</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/datatypes/enum/index.html">enum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/datatypes/geometry/index.html">geometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/datatypes/joint_state/index.html">joint_state</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/datatypes/tf_graph/index.html">tf_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/datatypes/timestamps/index.html">timestamps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/datatypes/uuid/index.html">uuid</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/devices/index.html">devices</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of devices</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/devices/cameras/index.html">cameras</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of cameras</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/devices/cameras/camera/index.html">camera</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/index.html">envs</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of envs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/env_base/index.html">env_base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/manager_based_env/index.html">manager_based_env</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/managers/index.html">managers</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of managers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/managers/actions/index.html">actions</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of actions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/managers/actions/action_manager/index.html">action_manager</a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/managers/actions/action_term/index.html">action_term</a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/managers/events/index.html">events</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of events</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/managers/events/event_manager/index.html">event_manager</a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/managers/events/event_term/index.html">event_term</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/managers/manager_base/index.html">manager_base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/managers/manager_term_base/index.html">manager_term_base</a></li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/managers/observations/index.html">observations</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of observations</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/managers/observations/observation_manager/index.html">observation_manager</a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/managers/observations/observation_term/index.html">observation_term</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/managers/scene_entity_cfg/index.html">scene_entity_cfg</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/remote/index.html">remote</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/rollout/index.html">rollout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/envs/task/index.html">task</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/kinematics/index.html">kinematics</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of kinematics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/kinematics/chain/index.html">chain</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/policy/index.html">policy</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of policy</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/policy/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/policy/random/index.html">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/policy/remote/index.html">remote</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/cli/index.html">cli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/config/index.html">config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/dict/index.html">dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/distributed/index.html">distributed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/experimental/index.html">experimental</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/hook/index.html">hook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/image/index.html">image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/logging/index.html">logging</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/math/index.html">math</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of math</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/math/coord_convention/index.html">coord_convention</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html">math_utils</a></li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/math/transform/index.html">transform</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of transform</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/math/transform/se3/index.html">se3</a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/math/transform/so3/index.html">so3</a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/math/transform/transform2d/index.html">transform2d</a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html">transform3d</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/misc/index.html">misc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/patches/index.html">patches</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/pip/index.html">pip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/ray/index.html">ray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/registry/index.html">registry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/string/index.html">string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/task_executor/index.html">task_executor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/timer/index.html">timer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/utils/torch_utils/index.html">torch_utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/version/index.html">version</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/viz/index.html">viz</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/viz/cam/index.html">cam</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/viz/jupyter/index.html">jupyter</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of jupyter</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/viz/jupyter/base_viz/index.html">base_viz</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/viz/jupyter/ipy_cam/index.html">ipy_cam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_core/viz/jupyter/virtual_display/index.html">virtual_display</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for robo_orchard_core.utils.math.math_utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Project RoboOrchard</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2024-2025 Horizon Robotics. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#       http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or</span>
+<span class="c1"># implied. See the License for the specific language governing</span>
+<span class="c1"># permissions and limitations under the License.</span>
+<span class="c1">#</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Portions of this file are derived from Isaac Lab (https://github.com/isaac-sim/IsaacLab).</span>
+<span class="c1"># The original Isaac Lab code is licensed under the BSD-3-Clause license.</span>
+<span class="c1">#</span>
+<span class="c1"># Original Isaac Lab Copyright Notice:</span>
+<span class="c1"># Copyright (c) 2022-2025, The Isaac Lab Project Developers.</span>
+<span class="c1"># All rights reserved.</span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
+<span class="c1">#</span>
+<span class="c1"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c1"># modification, are permitted provided that the following conditions are met:</span>
+<span class="c1">#</span>
+<span class="c1"># 1. Redistributions of source code must retain the above copyright notice,</span>
+<span class="c1">#    this list of conditions and the following disclaimer.</span>
+<span class="c1">#</span>
+<span class="c1"># 2. Redistributions in binary form must reproduce the above copyright notice,</span>
+<span class="c1">#    this list of conditions and the following disclaimer in the documentation</span>
+<span class="c1">#    and/or other materials provided with the distribution.</span>
+<span class="c1">#</span>
+<span class="c1"># 3. Neither the name of the copyright holder nor the names of its contributors</span>
+<span class="c1">#    may be used to endorse or promote products derived from this software</span>
+<span class="c1">#    without specific prior written permission.</span>
+<span class="c1">#</span>
+<span class="c1"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;</span>
+<span class="c1"># AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</span>
+<span class="c1"># IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE</span>
+<span class="c1"># ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE</span>
+<span class="c1"># LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</span>
+<span class="c1"># CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</span>
+<span class="c1"># SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS</span>
+<span class="c1"># INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN</span>
+<span class="c1"># CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)</span>
+<span class="c1"># ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span class="c1"># POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c1">#</span>
+<span class="c1"># You can find the original Isaac Lab source code at:</span>
+<span class="c1"># https://github.com/isaac-sim/IsaacLab</span>
+<span class="c1">#</span>
+<span class="c1"># Modifications to the derived code, if any, are Copyright (c) 2025</span>
+<span class="c1"># Horizon Robotics and are licensed under the Apache License, Version 2.0.</span>
+<span class="c1"># The combined work in this file is distributed under the Apache License,</span>
+<span class="c1"># Version 2.0, subject to the conditions of the BSD-3-Clause license for the</span>
+<span class="c1"># portions derived from Isaac Lab.</span>
+<span class="c1">#</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Portions of this file are derived from Pytorch3D</span>
+<span class="c1"># (https://github.com/facebookresearch/pytorch3d).</span>
+<span class="c1"># The original PyTorch3D code is licensed under the BSD-3 license.</span>
+<span class="c1">#</span>
+<span class="c1"># Original PyTorch3D Copyright Notice:</span>
+<span class="c1">#</span>
+<span class="c1"># BSD License</span>
+<span class="c1">#</span>
+<span class="c1"># For PyTorch3D software</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) Meta Platforms, Inc. and affiliates. All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c1"># modification, are permitted provided that the following conditions</span>
+<span class="c1"># are met:</span>
+<span class="c1">#</span>
+<span class="c1">#  * Redistributions of source code must retain the above copyright notice,</span>
+<span class="c1">#    this list of conditions and the following disclaimer.</span>
+<span class="c1">#</span>
+<span class="c1">#  * Redistributions in binary form must reproduce the above copyright</span>
+<span class="c1">#    notice, this list of conditions and the following disclaimer in the</span>
+<span class="c1">#    documentation and/or other materials provided with the distribution.</span>
+<span class="c1">#</span>
+<span class="c1">#  * Neither the name Meta nor the names of its contributors may be used to</span>
+<span class="c1">#    endorse or promote products derived from this software without specific</span>
+<span class="c1">#   prior written permission.</span>
+<span class="c1">#</span>
+<span class="c1"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;</span>
+<span class="c1"># AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</span>
+<span class="c1"># IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE</span>
+<span class="c1"># ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE</span>
+<span class="c1"># LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</span>
+<span class="c1"># CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</span>
+<span class="c1"># SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS</span>
+<span class="c1"># INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN</span>
+<span class="c1"># CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)</span>
+<span class="c1"># ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span class="c1"># POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c1">#</span>
+<span class="c1"># You can find the original PyTorch3D source code at:</span>
+<span class="c1"># https://github.com/facebookresearch/pytorch3d</span>
+<span class="c1">#</span>
+<span class="c1"># Modifications to the derived code, if any, are Copyright (c) 2025</span>
+<span class="c1"># Horizon Robotics and are licensed under the Apache License, Version 2.0.</span>
+<span class="c1"># The combined work in this file is distributed under the Apache License,</span>
+<span class="c1"># Version 2.0, subject to the conditions of the BSD-3 license for the portions</span>
+<span class="c1"># derived from PyTorch3D.</span>
+
+<span class="sd">&quot;&quot;&quot;Math utilities for transformations and conversions.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+
+<span class="kn">from</span> <span class="nn">robo_orchard_core.utils.math.coord_convention</span> <span class="kn">import</span> <span class="n">CoordConventionType</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_core.utils.torch_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Device</span><span class="p">,</span>
+    <span class="n">convert_to_tensors_and_broadcast</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="torch_jit_compile">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.torch_jit_compile">[docs]</a>
+<span class="k">def</span> <span class="nf">torch_jit_compile</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decorator to compile a function with torch.jit.script.</span>
+
+<span class="sd">    This decorator will keep the function signature and docstring intact.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)(</span><span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="n">f</span><span class="p">))</span></div>
+
+
+
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">_safe_det_3x3</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fast determinant calculation for a batch of 3x3 matrices.</span>
+
+<span class="sd">    Note, result of this function might not be the same as `torch.det()`.</span>
+<span class="sd">    The differences might be in the last significant digit.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        t: Tensor of shape (N, 3, 3).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor of shape (N) with determinants.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">det</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+        <span class="o">+</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">det</span>
+
+
+<div class="viewcode-block" id="check_valid_rotation_matrix">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.check_valid_rotation_matrix">[docs]</a>
+<span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">check_valid_rotation_matrix</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Determine if R is a valid rotation matrix by checking it satisfies the following conditions.</span>
+
+<span class="sd">    ``RR^T = I and det(R) = 1``</span>
+
+
+<span class="sd">    This is a copy of the function from PyTorch3D.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        R: an (N, 3, 3) matrix</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool</span>
+
+<span class="sd">    Emits a warning if R is an invalid rotation matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">eye</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">R</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">R</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">eye</span> <span class="o">=</span> <span class="n">eye</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">orthogonal</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="n">eye</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span>
+    <span class="n">det_R</span> <span class="o">=</span> <span class="n">_safe_det_3x3</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    <span class="n">no_distortion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">det_R</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">det_R</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">orthogonal</span> <span class="ow">and</span> <span class="n">no_distortion</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;R is not a valid rotation matrix&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+
+<div class="viewcode-block" id="normalize">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.normalize">[docs]</a>
+<span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-9</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize a tensor along a given dimension.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x: The tensor to normalize, of shape (N, dims).</span>
+<span class="sd">        dim: The dimension along which to normalize. Defaults to -1.</span>
+<span class="sd">        eps: A small value to avoid division by zero. Defaults to 1e-8.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The normalized tensor.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="n">eps</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="quaternion_standardize">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.quaternion_standardize">[docs]</a>
+<span class="k">def</span> <span class="nf">quaternion_standardize</span><span class="p">(</span><span class="n">quaternions</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a unit quaternion to a standard form.</span>
+
+<span class="sd">    The standard form is the one in which the real part is non negative.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Quaternion representations have a singularity since ``q`` and ``-q``</span>
+<span class="sd">        represent the same rotation. This function ensures the real part of</span>
+<span class="sd">        the quaternion is non-negative.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        quaternions: The quaternion orientation in (w, x, y, z).</span>
+<span class="sd">            Shape is (..., 4).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Standardized quaternions as tensor of shape (..., 4).</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py#L373C1-L385C77</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">quaternions</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">quaternions</span><span class="p">,</span> <span class="n">quaternions</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="quaternion_raw_multiply">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.quaternion_raw_multiply">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">quaternion_raw_multiply</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">batch_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Multiply two quaternions.</span>
+
+<span class="sd">    Usual torch rules for broadcasting apply. If the input tensors are in</span>
+<span class="sd">    batch mode, the first dimension is the batch size.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: Quaternions as tensor of shape (..., 4) or (B, ..., 4), real part first.</span>
+<span class="sd">        b: Quaternions as tensor of shape (..., 4) or (B, ..., 4), real part first.</span>
+<span class="sd">        batch_mode: If True, the input tensors are in batch mode, which means the</span>
+<span class="sd">            first dimension is the batch size. Defaults to False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The product of a and b, a tensor of quaternions shape (..., 4) or or (B, ..., 4).</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">if</span> <span class="n">batch_mode</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input tensors must have the same batch size.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">dim</span><span class="p">():</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">b</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">a</span><span class="o">.</span><span class="n">dim</span><span class="p">():</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+
+    <span class="n">aw</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">az</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">bw</span><span class="p">,</span> <span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">bz</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ow</span> <span class="o">=</span> <span class="n">aw</span> <span class="o">*</span> <span class="n">bw</span> <span class="o">-</span> <span class="n">ax</span> <span class="o">*</span> <span class="n">bx</span> <span class="o">-</span> <span class="n">ay</span> <span class="o">*</span> <span class="n">by</span> <span class="o">-</span> <span class="n">az</span> <span class="o">*</span> <span class="n">bz</span>
+    <span class="n">ox</span> <span class="o">=</span> <span class="n">aw</span> <span class="o">*</span> <span class="n">bx</span> <span class="o">+</span> <span class="n">ax</span> <span class="o">*</span> <span class="n">bw</span> <span class="o">+</span> <span class="n">ay</span> <span class="o">*</span> <span class="n">bz</span> <span class="o">-</span> <span class="n">az</span> <span class="o">*</span> <span class="n">by</span>
+    <span class="n">oy</span> <span class="o">=</span> <span class="n">aw</span> <span class="o">*</span> <span class="n">by</span> <span class="o">-</span> <span class="n">ax</span> <span class="o">*</span> <span class="n">bz</span> <span class="o">+</span> <span class="n">ay</span> <span class="o">*</span> <span class="n">bw</span> <span class="o">+</span> <span class="n">az</span> <span class="o">*</span> <span class="n">bx</span>
+    <span class="n">oz</span> <span class="o">=</span> <span class="n">aw</span> <span class="o">*</span> <span class="n">bz</span> <span class="o">+</span> <span class="n">ax</span> <span class="o">*</span> <span class="n">by</span> <span class="o">-</span> <span class="n">ay</span> <span class="o">*</span> <span class="n">bx</span> <span class="o">+</span> <span class="n">az</span> <span class="o">*</span> <span class="n">bw</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">ow</span><span class="p">,</span> <span class="n">ox</span><span class="p">,</span> <span class="n">oy</span><span class="p">,</span> <span class="n">oz</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ret</span></div>
+
+
+
+<div class="viewcode-block" id="quaternion_multiply">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.quaternion_multiply">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">quaternion_multiply</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">batch_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Multiply two quaternions.</span>
+
+<span class="sd">    Multiply two quaternions representing rotations, returning the quaternion</span>
+<span class="sd">    representing their composition, i.e. the versor with nonnegative real part.</span>
+<span class="sd">    Usual torch rules for broadcasting apply.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: Quaternions as tensor of shape (..., 4) or (B, ..., 4), real part first.</span>
+<span class="sd">        b: Quaternions as tensor of shape (..., 4) or (B, ..., 4), real part first.</span>
+<span class="sd">        batch_mode: If True, the input tensors are in batch mode, which means the</span>
+<span class="sd">            first dimension is the batch size. Defaults to False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The product of a and b, a tensor of quaternions shape (..., 4) or or (B, ..., 4).</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="n">ab</span> <span class="o">=</span> <span class="n">quaternion_raw_multiply</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">batch_mode</span><span class="o">=</span><span class="n">batch_mode</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">quaternion_standardize</span><span class="p">(</span><span class="n">ab</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="quaternion_invert">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.quaternion_invert">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">quaternion_invert</span><span class="p">(</span><span class="n">quaternion</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the inverse of a quaternion.</span>
+
+<span class="sd">    Given a quaternion representing rotation, get the quaternion representing</span>
+<span class="sd">    its inverse.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        quaternion: Quaternions as tensor of shape (..., 4), with real part</span>
+<span class="sd">            first, which must be versors (unit quaternions).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The inverse, a tensor of quaternions of shape (..., 4).</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">scaling</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">quaternion</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">quaternion</span> <span class="o">*</span> <span class="n">scaling</span></div>
+
+
+
+<div class="viewcode-block" id="quaternion_apply_point">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.quaternion_apply_point">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">quaternion_apply_point</span><span class="p">(</span>
+    <span class="n">quaternion</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">point</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">batch_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Rotates a point or vector relative to a fixed coordinate frame.</span>
+
+<span class="sd">    This function applies :math:`p&#39; = q \times p \times q^{-1}`</span>
+<span class="sd">    where p is the point and q is the quaternion.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        quaternion: Tensor of quaternions, real part first, of shape (..., 4)</span>
+<span class="sd">            or (B, ..., 4).</span>
+<span class="sd">        point: Tensor of 3D points of shape (..., 3) or (B, ..., 3).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor of rotated points or vectors of shape (..., 3) or (B, ..., 3).</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">real_parts</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="p">,))</span>
+    <span class="n">point_as_quaternion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">real_parts</span><span class="p">,</span> <span class="n">point</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">quaternion_raw_multiply</span><span class="p">(</span>
+        <span class="n">quaternion_raw_multiply</span><span class="p">(</span>
+            <span class="n">quaternion</span><span class="p">,</span> <span class="n">point_as_quaternion</span><span class="p">,</span> <span class="n">batch_mode</span><span class="o">=</span><span class="n">batch_mode</span>
+        <span class="p">),</span>
+        <span class="n">quaternion_invert</span><span class="p">(</span><span class="n">quaternion</span><span class="p">),</span>
+        <span class="n">batch_mode</span><span class="o">=</span><span class="n">batch_mode</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span></div>
+
+
+
+<div class="viewcode-block" id="quaternion_apply_frame">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.quaternion_apply_frame">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">quaternion_apply_frame</span><span class="p">(</span>
+    <span class="n">quaternion</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">point</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">batch_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Rotates the coordinate frame while keeping the vector/point fixed.</span>
+
+<span class="sd">    This function applies :math:`p&#39; = q^{-1} \times p \times q`</span>
+<span class="sd">    where p is the point and q is the quaternion.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        quaternion: Tensor of quaternions, real part first, of shape (..., 4)</span>
+<span class="sd">            or (B, ..., 4).</span>
+<span class="sd">        point: Tensor of 3D points of shape (..., 3) or (B, ..., 3).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor of rotated points or vectors of shape (..., 3) or (B, ..., 3).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">quaternion_apply_point</span><span class="p">(</span>
+        <span class="n">quaternion_invert</span><span class="p">(</span><span class="n">quaternion</span><span class="p">),</span> <span class="n">point</span><span class="p">,</span> <span class="n">batch_mode</span><span class="o">=</span><span class="n">batch_mode</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="quaternion_left_division">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.quaternion_left_division">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">quaternion_left_division</span><span class="p">(</span>
+    <span class="n">qa</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">qb</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the difference between two quaternions.</span>
+
+<span class="sd">    It performs the operation :math:`q = q_a^{-1} \times q_b`, which means</span>
+<span class="sd">    :math:`q_a \times q = q_b`. The result is an identity quaternion if</span>
+<span class="sd">    the two quaternions are the same. This operator is also known as the</span>
+<span class="sd">    left division of q_b by q_a.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        qa (torch.Tensor): The first quaternion, unit quaternions.</span>
+<span class="sd">        qb (torch.Tensor): The second quaternion, unit quaternions.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        torch.Tensor: The relative difference from q_a to q_b.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">quaternion_multiply</span><span class="p">(</span><span class="n">quaternion_invert</span><span class="p">(</span><span class="n">qa</span><span class="p">),</span> <span class="n">qb</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="quaternion_right_division">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.quaternion_right_division">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">quaternion_right_division</span><span class="p">(</span>
+    <span class="n">qa</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">qb</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the difference between two quaternions.</span>
+
+<span class="sd">    It performs the operation :math:`q = q_a \times q_b^{-1}`, which means</span>
+<span class="sd">    :math:`q \times q_b = q_a`. The result is an identity quaternion if</span>
+<span class="sd">    the two quaternions are the same. This operator is also known as the</span>
+<span class="sd">    right division of q_a by q_b.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        qa (torch.Tensor): The first quaternion, unit quaternions.</span>
+<span class="sd">        qb (torch.Tensor): The second quaternion, unit quaternions.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        torch.Tensor: The relative difference from q_a to q_b.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">quaternion_multiply</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span> <span class="n">quaternion_invert</span><span class="p">(</span><span class="n">qb</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="quaternion_to_axis_angle">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.quaternion_to_axis_angle">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">quaternion_to_axis_angle</span><span class="p">(</span>
+    <span class="n">quaternions</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert rotations given as quaternions to axis/angle.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        quaternions: quaternions with real part first, as tensor of</span>
+<span class="sd">            shape (..., 4).</span>
+<span class="sd">        eps: The tolerance for Taylor approximation. Defaults to 1.0e-6.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Rotations given as a vector in axis angle form, as a tensor</span>
+<span class="sd">            of shape (..., 3), where the magnitude is the angle</span>
+<span class="sd">            turned anticlockwise in radians around the vector&#39;s</span>
+<span class="sd">            direction.</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">norms</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">quaternions</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">half_angles</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">norms</span><span class="p">,</span> <span class="n">quaternions</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">angles</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">half_angles</span>
+
+    <span class="n">small_angles</span> <span class="o">=</span> <span class="n">angles</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">eps</span>
+    <span class="n">sin_half_angles_over_angles</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
+    <span class="n">sin_half_angles_over_angles</span><span class="p">[</span><span class="o">~</span><span class="n">small_angles</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">half_angles</span><span class="p">[</span><span class="o">~</span><span class="n">small_angles</span><span class="p">])</span> <span class="o">/</span> <span class="n">angles</span><span class="p">[</span><span class="o">~</span><span class="n">small_angles</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="c1"># Apply Taylor approximation for small angles</span>
+    <span class="c1"># for x small, sin(x/2) is about x/2 - (x/2)^3/6</span>
+    <span class="c1"># so sin(x/2)/x is about 1/2 - (x*x)/48</span>
+    <span class="n">sin_half_angles_over_angles</span><span class="p">[</span><span class="n">small_angles</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mf">0.5</span> <span class="o">-</span> <span class="p">(</span><span class="n">angles</span><span class="p">[</span><span class="n">small_angles</span><span class="p">]</span> <span class="o">*</span> <span class="n">angles</span><span class="p">[</span><span class="n">small_angles</span><span class="p">])</span> <span class="o">/</span> <span class="mi">48</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">quaternions</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">/</span> <span class="n">sin_half_angles_over_angles</span></div>
+
+
+
+<div class="viewcode-block" id="quaternion_to_matrix">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.quaternion_to_matrix">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">quaternion_to_matrix</span><span class="p">(</span><span class="n">quaternions</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert rotations given as quaternions to rotation matrices.</span>
+
+<span class="sd">    The rotation matrix is expected of the form:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        R = [[Rxx, Rxy, Rxz], [Ryx, Ryy, Ryz], [Rzx, Rzy, Rzz]]</span>
+
+<span class="sd">    You can construct SE(3) matrices by concatenating the rotation</span>
+<span class="sd">    matrix with the translation vector like:</span>
+
+<span class="sd">    .. code-block:: text</span>
+
+<span class="sd">            [R, T]</span>
+<span class="sd">            [0, 1],</span>
+<span class="sd">        or</span>
+<span class="sd">            [inv(R), 0]</span>
+<span class="sd">            [T,      1]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        quaternions: quaternions in (w, x, y, z),</span>
+<span class="sd">            as tensor of shape (..., 4).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Rotation matrices as tensor of shape (..., 3, 3).</span>
+
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="n">quaternions</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># pyre-fixme[58]: `/` is not supported for operand types</span>
+    <span class="c1"># `float` and `Tensor`.</span>
+    <span class="n">two_s</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">quaternions</span> <span class="o">*</span> <span class="n">quaternions</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">o</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="mi">1</span> <span class="o">-</span> <span class="n">two_s</span> <span class="o">*</span> <span class="p">(</span><span class="n">j</span> <span class="o">*</span> <span class="n">j</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="n">k</span><span class="p">),</span>
+            <span class="n">two_s</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="o">-</span> <span class="n">k</span> <span class="o">*</span> <span class="n">r</span><span class="p">),</span>
+            <span class="n">two_s</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">k</span> <span class="o">+</span> <span class="n">j</span> <span class="o">*</span> <span class="n">r</span><span class="p">),</span>
+            <span class="n">two_s</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="n">r</span><span class="p">),</span>
+            <span class="mi">1</span> <span class="o">-</span> <span class="n">two_s</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="n">k</span><span class="p">),</span>
+            <span class="n">two_s</span> <span class="o">*</span> <span class="p">(</span><span class="n">j</span> <span class="o">*</span> <span class="n">k</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="n">r</span><span class="p">),</span>
+            <span class="n">two_s</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">k</span> <span class="o">-</span> <span class="n">j</span> <span class="o">*</span> <span class="n">r</span><span class="p">),</span>
+            <span class="n">two_s</span> <span class="o">*</span> <span class="p">(</span><span class="n">j</span> <span class="o">*</span> <span class="n">k</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">r</span><span class="p">),</span>
+            <span class="mi">1</span> <span class="o">-</span> <span class="n">two_s</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">*</span> <span class="n">j</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">o</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">quaternions</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_sqrt_positive_part</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;torch.sqrt(torch.max(0, x)) but with a zero subgradient where x is 0.</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py#L93C1-L104C15</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">positive_mask</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_grad_enabled</span><span class="p">():</span>
+        <span class="n">ret</span><span class="p">[</span><span class="n">positive_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">positive_mask</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">positive_mask</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">ret</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ret</span>
+
+
+<span class="k">def</span> <span class="nf">_axis_angle_rotation</span><span class="p">(</span><span class="n">axis</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the rotation matrices for one of the rotations.</span>
+
+<span class="sd">    The rotation matrices for one of the rotations about an axis</span>
+<span class="sd">    of which Euler angles describe, for each value of the angle given.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        axis: Axis label &quot;X&quot; or &quot;Y or &quot;Z&quot;, for  intrinsic rotations.</span>
+<span class="sd">        angle: any shape tensor of Euler angles in radians</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Rotation matrices as tensor of shape (..., 3, 3).</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py#L169</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cos</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+    <span class="n">sin</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+    <span class="n">one</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+    <span class="n">zero</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s2">&quot;X&quot;</span><span class="p">:</span>
+        <span class="n">R_flat</span> <span class="o">=</span> <span class="p">(</span><span class="n">one</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="o">-</span><span class="n">sin</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s2">&quot;Y&quot;</span><span class="p">:</span>
+        <span class="n">R_flat</span> <span class="o">=</span> <span class="p">(</span><span class="n">cos</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="o">-</span><span class="n">sin</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">cos</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s2">&quot;Z&quot;</span><span class="p">:</span>
+        <span class="n">R_flat</span> <span class="o">=</span> <span class="p">(</span><span class="n">cos</span><span class="p">,</span> <span class="o">-</span><span class="n">sin</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;letter must be either X, Y or Z.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">R_flat</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">angle</span><span class="o">.</span><span class="n">shape</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="axis_angle_to_matrix">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.axis_angle_to_matrix">[docs]</a>
+<span class="k">def</span> <span class="nf">axis_angle_to_matrix</span><span class="p">(</span><span class="n">axis_angle</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert rotations given as axis/angle to rotation matrices.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        axis_angle: Rotations given as a vector in axis angle form,</span>
+<span class="sd">            as a tensor of shape (..., 3), where the magnitude is</span>
+<span class="sd">            the angle turned anticlockwise in radians around the</span>
+<span class="sd">            vector&#39;s direction.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Rotation matrices as tensor of shape (..., 3, 3). Each matrix is</span>
+<span class="sd">        expected of the form:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            M = [</span>
+<span class="sd">                [Rxx, Rxy, Rxz],</span>
+<span class="sd">                [Ryx, Ryy, Ryz],</span>
+<span class="sd">                [Rzx, Rzy, Rzz],</span>
+<span class="sd">            ]</span>
+
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">quaternion_to_matrix</span><span class="p">(</span><span class="n">axis_angle_to_quaternion</span><span class="p">(</span><span class="n">axis_angle</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="matrix_to_quaternion">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.matrix_to_quaternion">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">matrix_to_quaternion</span><span class="p">(</span>
+    <span class="n">matrix</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">normalize_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert rotations given as rotation matrices to quaternions.</span>
+
+<span class="sd">    This function is copied from PyTorch3D to avoid dependency:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py#L107</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        matrix: Rotation matrices as tensor of shape (..., 3, 3).</span>
+<span class="sd">        normalize_output: If True, the output quaternions will be normalized</span>
+<span class="sd">            to unit quaternions. Defaults to False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        quaternions in (w, x, y, z), as tensor of shape (..., 4).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span> <span class="ow">or</span> <span class="n">matrix</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid rotation matrix shape </span><span class="si">{</span><span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+    <span class="n">batch_dim</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">m00</span><span class="p">,</span> <span class="n">m01</span><span class="p">,</span> <span class="n">m02</span><span class="p">,</span> <span class="n">m10</span><span class="p">,</span> <span class="n">m11</span><span class="p">,</span> <span class="n">m12</span><span class="p">,</span> <span class="n">m20</span><span class="p">,</span> <span class="n">m21</span><span class="p">,</span> <span class="n">m22</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span>
+        <span class="n">matrix</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">batch_dim</span> <span class="o">+</span> <span class="p">(</span><span class="mi">9</span><span class="p">,)),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span>
+    <span class="p">)</span>
+
+    <span class="n">q_abs</span> <span class="o">=</span> <span class="n">_sqrt_positive_part</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="mf">1.0</span> <span class="o">+</span> <span class="n">m00</span> <span class="o">+</span> <span class="n">m11</span> <span class="o">+</span> <span class="n">m22</span><span class="p">,</span>
+                <span class="mf">1.0</span> <span class="o">+</span> <span class="n">m00</span> <span class="o">-</span> <span class="n">m11</span> <span class="o">-</span> <span class="n">m22</span><span class="p">,</span>
+                <span class="mf">1.0</span> <span class="o">-</span> <span class="n">m00</span> <span class="o">+</span> <span class="n">m11</span> <span class="o">-</span> <span class="n">m22</span><span class="p">,</span>
+                <span class="mf">1.0</span> <span class="o">-</span> <span class="n">m00</span> <span class="o">-</span> <span class="n">m11</span> <span class="o">+</span> <span class="n">m22</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># we produce the desired quaternion multiplied by each of r, i, j, k</span>
+    <span class="n">quat_by_rijk</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">q_abs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">m21</span> <span class="o">-</span> <span class="n">m12</span><span class="p">,</span> <span class="n">m02</span> <span class="o">-</span> <span class="n">m20</span><span class="p">,</span> <span class="n">m10</span> <span class="o">-</span> <span class="n">m01</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span>
+            <span class="p">),</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">m21</span> <span class="o">-</span> <span class="n">m12</span><span class="p">,</span> <span class="n">q_abs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">m10</span> <span class="o">+</span> <span class="n">m01</span><span class="p">,</span> <span class="n">m02</span> <span class="o">+</span> <span class="n">m20</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span>
+            <span class="p">),</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">m02</span> <span class="o">-</span> <span class="n">m20</span><span class="p">,</span> <span class="n">m10</span> <span class="o">+</span> <span class="n">m01</span><span class="p">,</span> <span class="n">q_abs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">m12</span> <span class="o">+</span> <span class="n">m21</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span>
+            <span class="p">),</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">m10</span> <span class="o">-</span> <span class="n">m01</span><span class="p">,</span> <span class="n">m20</span> <span class="o">+</span> <span class="n">m02</span><span class="p">,</span> <span class="n">m21</span> <span class="o">+</span> <span class="n">m12</span><span class="p">,</span> <span class="n">q_abs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span>
+            <span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">dim</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># We floor here at 0.1 but the exact level is not important;</span>
+    <span class="c1"># if q_abs is small, the candidate won&#39;t be picked.</span>
+    <span class="n">flr</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">q_abs</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">q_abs</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">quat_candidates</span> <span class="o">=</span> <span class="n">quat_by_rijk</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">q_abs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">flr</span><span class="p">))</span>
+
+    <span class="c1"># if not for numerical problems, quat_candidates[i] should be</span>
+    <span class="c1"># same (up to a sign), forall i; we pick the best-conditioned one</span>
+    <span class="c1"># (with the largest denominator)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">quat_candidates</span><span class="p">[</span>
+        <span class="n">F</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">q_abs</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">,</span> <span class="p">:</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">batch_dim</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span><span class="p">,))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">normalize_output</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">quaternion_standardize</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">quaternion_standardize</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">out</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="matrix_to_axis_angle">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.matrix_to_axis_angle">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">matrix_to_axis_angle</span><span class="p">(</span><span class="n">matrix</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert rotations given as rotation matrices to axis/angle.</span>
+
+<span class="sd">    The rotation matrix is expected of the form:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        R = [[Rxx, Rxy, Rxz], [Ryx, Ryy, Ryz], [Rzx, Rzy, Rzz]]</span>
+
+<span class="sd">    You can construct SE(3) matrices by concatenating the rotation</span>
+<span class="sd">    matrix with the translation vector like:</span>
+
+<span class="sd">    .. code-block:: text</span>
+
+<span class="sd">            [R, T]</span>
+<span class="sd">            [0, 1],</span>
+<span class="sd">        or</span>
+<span class="sd">            [inv(R), 0]</span>
+<span class="sd">            [T,      1]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        matrix: Rotation matrices as tensor of shape (..., 3, 3).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Rotations given as a vector in axis angle form, as a tensor</span>
+<span class="sd">            of shape (..., 3), where the magnitude is the angle</span>
+<span class="sd">            turned anticlockwise in radians around the vector&#39;s</span>
+<span class="sd">            direction.</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">quaternion_to_axis_angle</span><span class="p">(</span><span class="n">matrix_to_quaternion</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="make_axis_angle">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.make_axis_angle">[docs]</a>
+<span class="k">def</span> <span class="nf">make_axis_angle</span><span class="p">(</span>
+    <span class="n">axis</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create rotations given as axis/angle.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        axis: The axis of rotation as a tensor of shape (..., 3).</span>
+<span class="sd">        angle: The angle of rotation in radians as a tensor of shape (...,).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Rotations given as a vector in axis angle form, as a tensor</span>
+<span class="sd">            of shape (..., 3), where the magnitude is the angle</span>
+<span class="sd">            turned anticlockwise in radians around the vector&#39;s</span>
+<span class="sd">            direction.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">normalize</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span> <span class="o">*</span> <span class="n">angle</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">normalize</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span> <span class="o">*</span> <span class="n">angle</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
+
+
+
+<div class="viewcode-block" id="get_axis_and_angle_from_axis_angle">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.get_axis_and_angle_from_axis_angle">[docs]</a>
+<span class="k">def</span> <span class="nf">get_axis_and_angle_from_axis_angle</span><span class="p">(</span>
+    <span class="n">axis_angle</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the axis and angle from axis/angle representation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        axis_angle: The axis/angle representation of the rotation as a</span>
+<span class="sd">            tensor of shape (..., 3).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple containing the axis and angle as tensors of shape (..., 3)</span>
+<span class="sd">            and (...,).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">axis</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">axis_angle</span><span class="p">)</span>
+    <span class="n">angle</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">axis_angle</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">axis</span><span class="p">,</span> <span class="n">angle</span></div>
+
+
+
+<div class="viewcode-block" id="axis_angle_to_quaternion">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.axis_angle_to_quaternion">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">axis_angle_to_quaternion</span><span class="p">(</span>
+    <span class="n">axis_angle</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert rotations given as axis/angle to quaternions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        axis_angle: Rotations given as a vector in axis angle form,</span>
+<span class="sd">            as a tensor of shape (..., 3), where the magnitude is</span>
+<span class="sd">            the angle turned anticlockwise in radians around the</span>
+<span class="sd">            vector&#39;s direction.</span>
+<span class="sd">        eps: The tolerance for Taylor approximation. Defaults to 1.0e-6.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        quaternions with real part first, as tensor of shape (..., 4).</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">angles</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">axis_angle</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">half_angles</span> <span class="o">=</span> <span class="n">angles</span> <span class="o">*</span> <span class="mf">0.5</span>
+
+    <span class="n">small_angles</span> <span class="o">=</span> <span class="n">angles</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">eps</span>
+    <span class="n">sin_half_angles_over_angles</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
+    <span class="n">sin_half_angles_over_angles</span><span class="p">[</span><span class="o">~</span><span class="n">small_angles</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">half_angles</span><span class="p">[</span><span class="o">~</span><span class="n">small_angles</span><span class="p">])</span> <span class="o">/</span> <span class="n">angles</span><span class="p">[</span><span class="o">~</span><span class="n">small_angles</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="c1"># Apply Taylor approximation for small angles</span>
+    <span class="c1"># for x small, sin(x/2) is about x/2 - (x/2)^3/6</span>
+    <span class="c1"># so sin(x/2)/x is about 1/2 - (x*x)/48</span>
+    <span class="n">sin_half_angles_over_angles</span><span class="p">[</span><span class="n">small_angles</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mf">0.5</span> <span class="o">-</span> <span class="p">(</span><span class="n">angles</span><span class="p">[</span><span class="n">small_angles</span><span class="p">]</span> <span class="o">*</span> <span class="n">angles</span><span class="p">[</span><span class="n">small_angles</span><span class="p">])</span> <span class="o">/</span> <span class="mi">48</span>
+    <span class="p">)</span>
+    <span class="n">quaternions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">half_angles</span><span class="p">),</span> <span class="n">axis_angle</span> <span class="o">*</span> <span class="n">sin_half_angles_over_angles</span><span class="p">],</span>
+        <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">quaternions</span></div>
+
+
+
+<div class="viewcode-block" id="euler_angles_to_matrix">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.euler_angles_to_matrix">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">euler_angles_to_matrix</span><span class="p">(</span>
+    <span class="n">euler_angles</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">convention</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert rotations given as Euler angles in radians to rotation matrices.</span>
+
+<span class="sd">    The rotation matrix is expected of the form:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        R = [</span>
+<span class="sd">            [Rxx, Rxy, Rxz],</span>
+<span class="sd">            [Ryx, Ryy, Ryz],</span>
+<span class="sd">            [Rzx, Rzy, Rzz],</span>
+<span class="sd">        ]</span>
+
+<span class="sd">    You can construct SE(3) matrices by concatenating the rotation</span>
+<span class="sd">    matrix with the translation vector like:</span>
+
+<span class="sd">    .. code-block:: text</span>
+
+<span class="sd">        R =[[R, T],</span>
+<span class="sd">            [0, 1]]</span>
+
+<span class="sd">        or</span>
+
+<span class="sd">        R =[[inv(R), 0],</span>
+<span class="sd">            [T,      1]]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        euler_angles: Euler angles in radians as tensor of shape (..., 3).</span>
+<span class="sd">        convention: Convention string of three uppercase letters from</span>
+<span class="sd">            {&quot;X&quot;, &quot;Y&quot;, and &quot;Z&quot;}, for intrinsic rotations.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Rotation matrices as tensor of shape (..., 3, 3).</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py#L199</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">euler_angles</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">euler_angles</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid input euler angles.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">convention</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Convention must have 3 letters.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">convention</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="n">convention</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">convention</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid convention </span><span class="si">{</span><span class="n">convention</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="n">convention</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">letter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;Z&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid letter </span><span class="si">{</span><span class="n">letter</span><span class="si">}</span><span class="s2"> in convention string.&quot;</span><span class="p">)</span>
+    <span class="n">matrices</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_axis_angle_rotation</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="n">convention</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="n">euler_angles</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+    <span class="c1"># return functools.reduce(torch.matmul, matrices)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">matrices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">matrices</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">matrices</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="convert_orientation_convention">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.convert_orientation_convention">[docs]</a>
+<span class="k">def</span> <span class="nf">convert_orientation_convention</span><span class="p">(</span>
+    <span class="n">orientation</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">origin</span><span class="p">:</span> <span class="n">CoordConventionType</span> <span class="o">=</span> <span class="s2">&quot;opengl&quot;</span><span class="p">,</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">CoordConventionType</span> <span class="o">=</span> <span class="s2">&quot;cam&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert orientation from one convention to another.</span>
+
+<span class="sd">    The orientation conventions are defined as follows:</span>
+
+<span class="sd">    - ``&quot;opengl&quot;`` - forward axis: ``-Z`` - up axis: ``+Y`` - Applied</span>
+<span class="sd">      in the OpenGL (Usd.Camera) convention. OpenGL uses a right-handed</span>
+<span class="sd">      coordinate system.</span>
+
+<span class="sd">    - ``&quot;cam&quot;``    - forward axis: ``+Z`` - up axis: ``-Y`` - Applied</span>
+<span class="sd">      in the cam convention. It is a right-handed coordinate system.</span>
+
+<span class="sd">    - ``&quot;world&quot;``  - forward axis: ``+X`` - up axis: ``+Z`` - Applied</span>
+<span class="sd">      in the World Frame convention.</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        orientation: The orientation as a quaternion in (w, x, y, z).</span>
+<span class="sd">            Shape is (..., 4).</span>
+<span class="sd">        origin: The origin convention. One of &quot;opengl&quot;, &quot;cam&quot;, &quot;world&quot;.</span>
+<span class="sd">            Defaults to &quot;opengl&quot;.</span>
+<span class="sd">        target: The target convention. One of &quot;opengl&quot;, &quot;cam&quot;, &quot;world&quot;.</span>
+<span class="sd">            Defaults to &quot;cam&quot;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The orientation in the target convention as a quaternion</span>
+<span class="sd">            in (w, x, y, z). Shape is (..., 4).</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/isaac-sim/IsaacLab/blob/main/source/isaaclab/isaaclab/utils/math.py</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">origin</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">orientation</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+    <span class="c1"># unify all conventions to opengl</span>
+    <span class="k">if</span> <span class="n">origin</span> <span class="o">==</span> <span class="s2">&quot;cam&quot;</span><span class="p">:</span>
+        <span class="n">rot_mat</span> <span class="o">=</span> <span class="n">quaternion_to_matrix</span><span class="p">(</span><span class="n">orientation</span><span class="p">)</span>
+        <span class="n">rot_mat</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">rot_mat</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">rot_mat</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">rot_mat</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">quat_gl</span> <span class="o">=</span> <span class="n">matrix_to_quaternion</span><span class="p">(</span><span class="n">rot_mat</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">origin</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+        <span class="n">rot_mat</span> <span class="o">=</span> <span class="n">quaternion_to_matrix</span><span class="p">(</span><span class="n">orientation</span><span class="p">)</span>
+        <span class="n">rot_mat</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">rot_mat</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">rot_mat</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">rot_mat</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">rot_mat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span>
+            <span class="n">rot_mat</span><span class="p">,</span>
+            <span class="n">euler_angles_to_matrix</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">orientation</span><span class="o">.</span><span class="n">device</span>
+                <span class="p">),</span>
+                <span class="s2">&quot;XYZ&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">quat_gl</span> <span class="o">=</span> <span class="n">matrix_to_quaternion</span><span class="p">(</span><span class="n">rot_mat</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">quat_gl</span> <span class="o">=</span> <span class="n">orientation</span>
+        <span class="k">if</span> <span class="n">target</span> <span class="o">!=</span> <span class="s2">&quot;opengl&quot;</span><span class="p">:</span>
+            <span class="n">rot_mat</span> <span class="o">=</span> <span class="n">quaternion_to_matrix</span><span class="p">(</span><span class="n">orientation</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">quat_gl</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+    <span class="c1"># convert from opengl to target</span>
+    <span class="k">if</span> <span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;opengl&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">quat_gl</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;cam&quot;</span><span class="p">:</span>
+        <span class="n">rot_mat</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">rot_mat</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">rot_mat</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">rot_mat</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">matrix_to_quaternion</span><span class="p">(</span><span class="n">rot_mat</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+        <span class="n">rot_mat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span>
+            <span class="n">rot_mat</span><span class="p">,</span>
+            <span class="n">euler_angles_to_matrix</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">orientation</span><span class="o">.</span><span class="n">device</span>
+                <span class="p">),</span>
+                <span class="s2">&quot;XYZ&quot;</span><span class="p">,</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">matrix_to_quaternion</span><span class="p">(</span><span class="n">rot_mat</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported conversion from </span><span class="si">{</span><span class="n">origin</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span></div>
+
+
+
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">_rotation_matrix_from_view_impl</span><span class="p">(</span>
+    <span class="n">camera_position</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">at</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">up</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">view_convention</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;opengl&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">camera_position</span><span class="p">,</span> <span class="n">at</span><span class="p">,</span> <span class="n">up</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;camera_position&quot;</span><span class="p">,</span> <span class="s2">&quot;at&quot;</span><span class="p">,</span> <span class="s2">&quot;up&quot;</span><span class="p">],</span>
+        <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Expected arg </span><span class="si">%s</span><span class="s2"> to have shape (N, 3); got </span><span class="si">%r</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+    <span class="n">backward_axis</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">camera_position</span> <span class="o">-</span> <span class="n">at</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+    <span class="n">right_axis</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">up</span><span class="p">,</span> <span class="n">backward_axis</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+    <span class="n">up_axis</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">backward_axis</span><span class="p">,</span> <span class="n">right_axis</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-5</span>
+    <span class="p">)</span>
+    <span class="n">is_close</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">right_axis</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">atol</span><span class="o">=</span><span class="mf">5e-3</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span>
+        <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">is_close</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="n">replacement</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">up_axis</span><span class="p">,</span> <span class="n">backward_axis</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-5</span>
+        <span class="p">)</span>
+        <span class="n">right_axis</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_close</span><span class="p">,</span> <span class="n">replacement</span><span class="p">,</span> <span class="n">right_axis</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">view_convention</span> <span class="o">==</span> <span class="s2">&quot;opengl&quot;</span><span class="p">:</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">right_axis</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="n">up_axis</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="n">backward_axis</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span>
+            <span class="p">),</span>
+            <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">view_convention</span> <span class="o">==</span> <span class="s2">&quot;cam&quot;</span><span class="p">:</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">right_axis</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="o">-</span><span class="n">up_axis</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="o">-</span><span class="n">backward_axis</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span>
+            <span class="p">),</span>
+            <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">view_convention</span> <span class="o">==</span> <span class="s2">&quot;world&quot;</span><span class="p">:</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="o">-</span><span class="n">backward_axis</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="o">-</span><span class="n">right_axis</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="n">up_axis</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:],</span>
+            <span class="p">),</span>
+            <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported view_convention </span><span class="si">{</span><span class="n">view_convention</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">R</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="rotation_matrix_from_view">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.rotation_matrix_from_view">[docs]</a>
+<span class="k">def</span> <span class="nf">rotation_matrix_from_view</span><span class="p">(</span>
+    <span class="n">camera_position</span><span class="p">,</span>
+    <span class="n">at</span><span class="o">=</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),),</span>
+    <span class="n">up</span><span class="o">=</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),),</span>
+    <span class="n">device</span><span class="p">:</span> <span class="n">Device</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span>
+    <span class="n">view_convention</span><span class="p">:</span> <span class="n">CoordConventionType</span> <span class="o">=</span> <span class="s2">&quot;opengl&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a rotation matrix from a camera position and view direction.</span>
+
+<span class="sd">    This function takes a vector &#39;camera_position&#39; which specifies the location</span>
+<span class="sd">    of the camera in local coordinates and two vectors `at` and `up` which</span>
+<span class="sd">    indicate the position of the object and the up directions of the local</span>
+<span class="sd">    coordinate system respectively.</span>
+
+<span class="sd">    The output is a rotation matrix representing the rotation matix of view</span>
+<span class="sd">    coordinates (such as openGL convension, -Z forward, +Y up, +X right) to</span>
+<span class="sd">    world coordinates.</span>
+
+<span class="sd">    Warning:</span>
+<span class="sd">        When the camera are facing down or up along the world Up axis, the</span>
+<span class="sd">        right axis is not well defined.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        camera_position: position of the camera in local coordinates.</span>
+<span class="sd">        at: position of the object in local coordinates</span>
+<span class="sd">        up: vector specifying the up direction in the world coordinate frame.</span>
+<span class="sd">            default is +Z axis.</span>
+<span class="sd">        view_convention: The convention of the view. One of &quot;opengl&quot;, &quot;cam&quot;,</span>
+<span class="sd">            &quot;world&quot;. Defaults to &quot;opengl&quot;.</span>
+
+<span class="sd">    The inputs camera_position, at and up can each be a</span>
+<span class="sd">        - 3 element tuple/list</span>
+<span class="sd">        - torch tensor of shape (1, 3)</span>
+<span class="sd">        - torch tensor of shape (N, 3)</span>
+
+<span class="sd">    The vectors are broadcast against each other so they all have shape (N, 3).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        R: (N, 3, 3) batched rotation matrices</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/renderer/cameras.py#L1637</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Format input and broadcast</span>
+    <span class="n">broadcasted_args</span> <span class="o">=</span> <span class="n">convert_to_tensors_and_broadcast</span><span class="p">(</span>
+        <span class="n">camera_position</span><span class="p">,</span> <span class="n">at</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span>
+    <span class="p">)</span>
+    <span class="n">camera_position</span><span class="p">,</span> <span class="n">at</span><span class="p">,</span> <span class="n">up</span> <span class="o">=</span> <span class="n">broadcasted_args</span>
+
+    <span class="k">return</span> <span class="n">_rotation_matrix_from_view_impl</span><span class="p">(</span>
+        <span class="n">camera_position</span><span class="p">,</span> <span class="n">at</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">view_convention</span><span class="o">=</span><span class="n">view_convention</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="skew_symmetric_matrix">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.skew_symmetric_matrix">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">skew_symmetric_matrix</span><span class="p">(</span><span class="n">vec</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes the skew-symmetric matrix of a vector.</span>
+
+<span class="sd">    This is also known as the Hat operator of 3D vectors.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        vec: The input vector. Shape is (3,) or (N, 3).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The skew-symmetric matrix. Shape is (1, 3, 3) or (N, 3, 3).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If input tensor is not of shape (..., 3).</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/isaac-sim/IsaacLab/blob/main/source/isaaclab/isaaclab/utils/math.py</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># check input is correct</span>
+    <span class="k">if</span> <span class="n">vec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Expected input vector shape mismatch: </span><span class="si">{</span><span class="n">vec</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> != (..., 3).&quot;</span>
+        <span class="p">)</span>
+    <span class="c1"># unsqueeze the last dimension</span>
+    <span class="k">if</span> <span class="n">vec</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">vec</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># create a skew-symmetric matrix</span>
+    <span class="n">skew_sym_mat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+        <span class="n">vec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">vec</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">vec</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="p">)</span>
+    <span class="n">skew_sym_mat</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">vec</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># -z</span>
+    <span class="n">skew_sym_mat</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">vec</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># y</span>
+    <span class="n">skew_sym_mat</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">vec</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># z</span>
+    <span class="n">skew_sym_mat</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">vec</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># -x</span>
+    <span class="n">skew_sym_mat</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">vec</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># -y</span>
+    <span class="n">skew_sym_mat</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">vec</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># x</span>
+
+    <span class="k">return</span> <span class="n">skew_sym_mat</span></div>
+
+
+
+<div class="viewcode-block" id="frame_transform_combine">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.frame_transform_combine">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">frame_transform_combine</span><span class="p">(</span>
+    <span class="n">t01</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">q01</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">t12</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">q12</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Combine two frame transformations of coordinates.</span>
+
+<span class="sd">    Frame transform rotates the coordinate frame while keeping the vector</span>
+<span class="sd">    or point fixed.</span>
+
+<span class="sd">    It performs the following transformation operation:</span>
+<span class="sd">    :math:`T_{02} = T_{01} \times T_{12}`, where :math:`T_{AB}` is the</span>
+<span class="sd">    homogeneous transformation matrix from frame A to B.</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        t01: The translation of frame 1 w.r.t. frame 0, of shape (..., 3).</span>
+<span class="sd">        q01: The rotation of frame 1 w.r.t. frame 0, of shape (..., 4).</span>
+<span class="sd">        t12: The translation 2 w.r.t. frame 1.</span>
+<span class="sd">            Defaults to None, in which case it is set to zeros.</span>
+<span class="sd">        q12: The rotation 2 w.r.t. frame 1.</span>
+<span class="sd">            Defaults to None, in which case it is set to zeros.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[torch.Tensor, torch.Tensor]: The combined translation and</span>
+<span class="sd">            rotation of frame 2 w.r.t. frame 0. The translation is of</span>
+<span class="sd">            shape (..., 3) and the rotation is of shape (..., 4). The return</span>
+<span class="sd">            order is (t02, q02).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">t12</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">t12</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">t01</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">t01</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">q12</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">q12</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+            <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">q01</span><span class="o">.</span><span class="n">device</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">t12</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span><span class="p">,))</span>
+
+    <span class="n">q02</span> <span class="o">=</span> <span class="n">quaternion_multiply</span><span class="p">(</span><span class="n">q01</span><span class="p">,</span> <span class="n">q12</span><span class="p">)</span>
+    <span class="n">t02</span> <span class="o">=</span> <span class="n">t01</span> <span class="o">+</span> <span class="n">quaternion_apply_point</span><span class="p">(</span><span class="n">q01</span><span class="p">,</span> <span class="n">t12</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t02</span><span class="p">,</span> <span class="n">q02</span></div>
+
+
+
+<div class="viewcode-block" id="frame_transform_subtract">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.frame_transform_subtract">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">frame_transform_subtract</span><span class="p">(</span>
+    <span class="n">t01</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">q01</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">t02</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">q02</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Subtract two frame transformations of coordinates.</span>
+
+<span class="sd">    It performs the following transformation operation:</span>
+<span class="sd">    :math:`T_{12} = T_{01}^{-1} \times T_{02}`, where :math:`T_{AB}` is the</span>
+<span class="sd">    homogeneous transformation matrix of frame B w.r.t. A.</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        t01: The translation of frame 1 w.r.t. frame 0, of shape (..., 3).</span>
+<span class="sd">        q01: The rotation of frame 1 w.r.t. frame 0, of shape (..., 4).</span>
+<span class="sd">        t02: The translation frame 2 w.r.t. frame 0.</span>
+<span class="sd">            Defaults to None, in which case it is set to identity.</span>
+<span class="sd">        q02: The rotation frame 2 w.r.t. frame 0.</span>
+<span class="sd">            Defaults to None, in which case it is set to identity.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[torch.Tensor, torch.Tensor]: The combined translation and rotation</span>
+<span class="sd">            of frame 2 w.r.t. frame 1. The translation is of shape (..., 3) and the</span>
+<span class="sd">            rotation is of shape (..., 4). The return order is (t12, q12).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">if</span> <span class="n">t02</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">t02</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">t01</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">t01</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">q02</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">q02</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+            <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">q01</span><span class="o">.</span><span class="n">device</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">t01</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span><span class="p">,))</span>
+
+    <span class="c1"># same to quaternion_left_division(q01, q02)</span>
+    <span class="n">q01_inv</span> <span class="o">=</span> <span class="n">quaternion_invert</span><span class="p">(</span><span class="n">q01</span><span class="p">)</span>
+    <span class="n">q12</span> <span class="o">=</span> <span class="n">quaternion_multiply</span><span class="p">(</span><span class="n">q01_inv</span><span class="p">,</span> <span class="n">q02</span><span class="p">)</span>
+    <span class="n">t12</span> <span class="o">=</span> <span class="n">quaternion_apply_point</span><span class="p">(</span><span class="n">q01_inv</span><span class="p">,</span> <span class="n">t02</span> <span class="o">-</span> <span class="n">t01</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">t12</span><span class="p">,</span> <span class="n">q12</span></div>
+
+
+
+<div class="viewcode-block" id="pose_diff">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.pose_diff">[docs]</a>
+<span class="nd">@torch_jit_compile</span>
+<span class="k">def</span> <span class="nf">pose_diff</span><span class="p">(</span>
+    <span class="n">ta</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">qa</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">tb</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">qb</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the difference between two poses in the same frame.</span>
+
+<span class="sd">    It performs the following transformation operation:</span>
+<span class="sd">    :math:`t_{diff} = t_a - t_b`, and :math:`q_{diff} = q_a \times q_b^{-1}`,</span>
+<span class="sd">    so that :math:`q_{diff} \times q_b = q_a`, and :math:`t_{diff} + t_b = t_a`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ta: The translation of the second pose, of shape (..., 3).</span>
+<span class="sd">        qa: The rotation of the second pose, of shape (..., 4).</span>
+<span class="sd">        tb: The translation of the first pose, of shape (..., 3).</span>
+<span class="sd">        qb: The rotation of the first pose, of shape (..., 4).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The difference in translation and rotation between the two poses.</span>
+<span class="sd">        The translation is of shape (..., 3) and the rotation is of</span>
+<span class="sd">        shape (..., 4).</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+
+    <span class="n">t_diff</span> <span class="o">=</span> <span class="n">ta</span> <span class="o">-</span> <span class="n">tb</span>
+    <span class="n">q_diff</span> <span class="o">=</span> <span class="n">quaternion_right_division</span><span class="p">(</span><span class="n">qa</span><span class="p">,</span> <span class="n">qb</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t_diff</span><span class="p">,</span> <span class="n">q_diff</span></div>
+
+
+
+<span class="n">DEFAULT_ACOS_BOUND</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="mf">1e-4</span>
+
+
+<div class="viewcode-block" id="acos_linear_extrapolation">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html#robo_orchard_core.utils.math.math_utils.acos_linear_extrapolation">[docs]</a>
+<span class="k">def</span> <span class="nf">acos_linear_extrapolation</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">bounds</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">DEFAULT_ACOS_BOUND</span><span class="p">,</span> <span class="n">DEFAULT_ACOS_BOUND</span><span class="p">),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;`arccos(x)` with stable backpropagation.</span>
+
+<span class="sd">    Implements `arccos(x)` which is linearly extrapolated outside `x`&#39;s</span>
+<span class="sd">    original domain of `(-1, 1)`. This allows for stable backpropagation</span>
+<span class="sd">    in case `x` is not guaranteed to be strictly within `(-1, 1)`.</span>
+
+<span class="sd">    More specifically::</span>
+
+<span class="sd">        bounds=(lower_bound, upper_bound)</span>
+<span class="sd">        if lower_bound &lt;= x &lt;= upper_bound:</span>
+<span class="sd">            acos_linear_extrapolation(x) = acos(x)</span>
+<span class="sd">        elif x &lt;= lower_bound: # 1st order Taylor approximation</span>
+<span class="sd">            acos_linear_extrapolation(x)</span>
+<span class="sd">                = acos(lower_bound) + dacos/dx(lower_bound) * (x - lower_bound)</span>
+<span class="sd">        else:  # x &gt;= upper_bound</span>
+<span class="sd">            acos_linear_extrapolation(x)</span>
+<span class="sd">                = acos(upper_bound) + dacos/dx(upper_bound) * (x - upper_bound)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x: Input `Tensor`.</span>
+<span class="sd">        bounds: A float 2-tuple defining the region for the</span>
+<span class="sd">            linear extrapolation of `acos`.</span>
+<span class="sd">            The first/second element of `bound`</span>
+<span class="sd">            describes the lower/upper bound that defines the lower/upper</span>
+<span class="sd">            extrapolation region, i.e. the region where</span>
+<span class="sd">            `x &lt;= bound[0]`/`bound[1] &lt;= x`.</span>
+<span class="sd">            Note that all elements of `bound` have to be within (-1, 1).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        acos_linear_extrapolation: `Tensor` containing the extrapolated</span>
+<span class="sd">            `arccos(x)`.</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/math.py</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_acos_linear_approximation</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">x0</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the 1st order Taylor expansion of `arccos(x)` around `x0`.&quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span> <span class="o">*</span> <span class="n">_dacos_dx</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_dacos_dx</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the derivative of `arccos(x)` w.r.t. `x`.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+
+    <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">bounds</span>
+
+    <span class="k">if</span> <span class="n">lower_bound</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;lower bound has to be smaller or equal to upper bound.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">lower_bound</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="ow">or</span> <span class="n">upper_bound</span> <span class="o">&gt;=</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Both lower bound and upper bound have to be within (-1, 1).&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># init an empty tensor and define the domain sets</span>
+    <span class="n">acos_extrap</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x_upper</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">upper_bound</span>
+    <span class="n">x_lower</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">lower_bound</span>
+    <span class="n">x_mid</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">x_upper</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">x_lower</span><span class="p">)</span>
+
+    <span class="c1"># acos calculation for upper_bound &lt; x &lt; lower_bound</span>
+    <span class="n">acos_extrap</span><span class="p">[</span><span class="n">x_mid</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">x_mid</span><span class="p">])</span>
+    <span class="c1"># the linear extrapolation for x &gt;= upper_bound</span>
+    <span class="n">acos_extrap</span><span class="p">[</span><span class="n">x_upper</span><span class="p">]</span> <span class="o">=</span> <span class="n">_acos_linear_approximation</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">x_upper</span><span class="p">],</span> <span class="n">upper_bound</span><span class="p">)</span>
+    <span class="c1"># the linear extrapolation for x &lt;= lower_bound</span>
+    <span class="n">acos_extrap</span><span class="p">[</span><span class="n">x_lower</span><span class="p">]</span> <span class="o">=</span> <span class="n">_acos_linear_approximation</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">x_lower</span><span class="p">],</span> <span class="n">lower_bound</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">acos_extrap</span></div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024-2025, Horizon Robotics Developers
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/HorizonRobotics/robo_orchard_core" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../../_static/documentation_options.js?v=f129cdf0"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../_static/google_analytics.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

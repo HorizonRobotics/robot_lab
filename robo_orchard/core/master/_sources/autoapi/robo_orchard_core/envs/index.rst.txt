@@ -1,0 +1,32 @@
+envs
+====
+
+.. py:module:: robo_orchard_core.envs
+
+.. autoapi-nested-parse::
+
+   The interface between the agent and the simulation/world.
+
+   For example, the environment provides the agent with the current observations
+   and executes the actions provided by the agent. The environment can also
+   provide additional information such as the current reward, done flag, and
+   information about the current episode if it is an RL task environment.
+
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_core/envs/env_base/index
+   /autoapi/robo_orchard_core/envs/manager_based_env/index
+   /autoapi/robo_orchard_core/envs/managers/index
+   /autoapi/robo_orchard_core/envs/remote/index
+   /autoapi/robo_orchard_core/envs/rollout/index
+   /autoapi/robo_orchard_core/envs/task/index
+
+

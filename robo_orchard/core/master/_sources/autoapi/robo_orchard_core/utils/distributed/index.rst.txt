@@ -1,0 +1,105 @@
+distributed
+===========
+
+.. py:module:: robo_orchard_core.utils.distributed
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.distributed.DistInfo
+   robo_orchard_core.utils.distributed.DataLoaderWorkerInfo
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.distributed.rank_zero_only
+   robo_orchard_core.utils.distributed.is_dist_initialized
+   robo_orchard_core.utils.distributed.get_dist_info
+   robo_orchard_core.utils.distributed.get_dataloader_worker_info
+
+
+Module Contents
+---------------
+
+.. py:function:: rank_zero_only(fn)
+
+   Ensures a function is executed only on rank 0 in a distributed setting.
+
+   :param fn: The function to wrap.
+   :type fn: Callable
+
+   :returns: The wrapped function.
+   :rtype: Callable
+
+
+.. py:class:: DistInfo
+
+   Represents distributed information.
+
+
+   .. py:attribute:: world_size
+      :type:  int
+
+      The total number of processes in the distributed group.
+
+
+   .. py:attribute:: rank
+      :type:  int
+
+      The rank of the current process.
+
+
+.. py:function:: is_dist_initialized()
+
+   Checks if PyTorch distributed mode is initialized.
+
+   :returns: True if distributed mode is initialized, otherwise False.
+   :rtype: bool
+
+
+.. py:function:: get_dist_info(process_group: Optional[torch.distributed.ProcessGroup] = None) -> DistInfo
+
+   Gets distributed information such as world size and rank.
+
+   :param process_group: The process group to
+                         query. Defaults to the global process group.
+   :type process_group: Optional[dist.ProcessGroup]
+
+   :returns: Distributed information containing world size and rank.
+   :rtype: DistInfo
+
+
+.. py:class:: DataLoaderWorkerInfo
+
+   Represents worker information in a DataLoader.
+
+
+   .. py:attribute:: world_size
+      :type:  int
+
+      The total number of workers in the DataLoader.
+
+
+   .. py:attribute:: rank
+      :type:  int
+
+      The index of the current worker.
+
+
+.. py:function:: get_dataloader_worker_info() -> DataLoaderWorkerInfo
+
+   Gets information about the current DataLoader worker.
+
+   :returns:
+
+             Information about the DataLoader worker,
+                 including world size and rank.
+   :rtype: DataLoaderWorkerInfo
+
+

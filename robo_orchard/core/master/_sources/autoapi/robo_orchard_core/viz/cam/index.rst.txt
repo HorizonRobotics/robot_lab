@@ -1,0 +1,104 @@
+cam
+===
+
+.. py:module:: robo_orchard_core.viz.cam
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.viz.cam.CameraMixin
+   robo_orchard_core.viz.cam.CameraMoveMixin
+
+
+Module Contents
+---------------
+
+.. py:class:: CameraMixin
+
+   The camera mixin class.
+
+   The camera mixin class provides the basic interface for camera
+   visualization. It is used to render the camera view and get the
+   camera pose in the world frame.
+
+
+
+   .. py:method:: get_pose_view_world() -> robo_orchard_core.datatypes.geometry.BatchPose6D
+      :abstractmethod:
+
+
+      Get the camera pose in the world frame.
+
+
+
+   .. py:property:: captured_image
+      :type: torch.Tensor
+
+      :abstractmethod:
+
+
+      Get the captured image.
+
+
+.. py:class:: CameraMoveMixin(local_coord_axis: robo_orchard_core.utils.math.coord_convention.CoordAxis)
+
+   The camera move mixin class.
+
+   The camera move mixin class provides the basic interface for camera
+   movement.
+
+   :param local_coord_axis: The local coordinate axis of the camera.
+   :type local_coord_axis: CoordAxis
+
+
+   .. py:method:: move_forward(amount: float, move_scale: float)
+
+      Move the camera in the local forward direction.
+
+      The distance of the move is proportional to the scale of the move:
+
+      .. code-block:: python
+
+          distance = math.exp(math.log(move_scale) + amount) - move_scale
+
+
+      :param amount: The amount to move forward.
+      :type amount: float
+      :param move_scale: The scale of the move.
+      :type move_scale: float
+
+
+
+   .. py:method:: move_translation(amount_down: float, amount_right: float, move_scale: float)
+
+      Move the camera in the local up and right directions.
+
+      The distance of the move is proportional to the scale of the move:
+
+      .. code-block:: python
+
+              distance = move_scale * amount
+
+      :param amount_down: The amount to move down.
+      :type amount_down: float
+      :param amount_right: The amount to move right.
+      :type amount_right: float
+      :param move_scale: The scale of the move.
+      :type move_scale: float
+
+
+
+   .. py:method:: first_person_view_rot(pitch_down: float, yaw_right: float)
+
+      Rotate the camera in the local pitch and yaw directions.
+
+      :param pitch_down: The radians to pitch down.
+      :type pitch_down: float
+      :param yaw_right: The radians to yaw right.
+      :type yaw_right: float
+
+
+

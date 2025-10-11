@@ -49,7 +49,7 @@ RoboOrchard
 
 * **RoboOrchardCore**: The core package of the project RoboOrchard, which provides the basic infrastructure for the framework, such as configuration management, data structure, environment abstraction, etc.
 
-  `Code <https://github.com/HorizonRobotics/robo_orchard_core>`__ | `Pypi <https://pypi.org/project/robo-orchard-core>`__
+  `Code <https://github.com/HorizonRobotics/robo_orchard_core>`__ | `Docs <https://horizonrobotics.github.io/robot_lab/robo_orchard/core/master/index.html>`__ | `Pypi <https://pypi.org/project/robo-orchard-core>`__
 
 * **RoboOrchardSchemas**: A library of data models for the RoboOrchard project.
 

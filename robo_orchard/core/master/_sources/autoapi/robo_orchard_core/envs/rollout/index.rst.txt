@@ -1,0 +1,142 @@
+rollout
+=======
+
+.. py:module:: robo_orchard_core.envs.rollout
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.rollout.StepReturnType
+   robo_orchard_core.envs.rollout.ActionType
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.rollout.EnvRolloutReturn
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.rollout.rollout
+
+
+Module Contents
+---------------
+
+.. py:data:: StepReturnType
+
+.. py:data:: ActionType
+
+.. py:class:: EnvRolloutReturn
+
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`ActionType`\ , :py:obj:`StepReturnType`\ ]
+
+
+   The return type of the `rollout` function in the environment.
+
+   This class is used to store the results of rolling out the environment
+   for a number of steps.
+
+   Template Args:
+       ActionType: The type of the actions taken in the environment.
+       StepReturnType: The type of the results returned by each step of the environment.
+
+
+   .. py:attribute:: init_obs
+      :type:  Any
+
+      The initial observations to start the rollout from.
+
+
+   .. py:attribute:: actions
+      :type:  list[ActionType]
+
+      The actions taken in each step of the rollout.
+
+
+   .. py:attribute:: step_results
+      :type:  list[StepReturnType]
+
+      The results of each step in the rollout.
+
+
+   .. py:attribute:: rollout_actual_steps
+      :type:  int
+
+      The actual number of steps taken in the rollout.
+
+
+   .. py:attribute:: terminal_condition_triggered
+      :type:  bool | None
+      :value: None
+
+
+      Whether the terminal condition was triggered during the rollout.
+
+      This flag indicates if the rollout was terminated due to the
+      terminal condition being met.
+
+      If no terminal condition was provided, this will be None.
+
+
+   .. py:attribute:: env_step_callback
+      :type:  Callable[[ActionType, StepReturnType], None] | None
+      :value: None
+
+
+      A callback function that takes in the current action and the
+      result of the step.
+
+      We return the callback function to retrieve any stateful information
+      stored in the callback function/object.
+
+
+.. py:function:: rollout(env: robo_orchard_core.envs.env_base.EnvBase | gymnasium.Env, max_steps: int, init_obs: Any, policy: robo_orchard_core.policy.PolicyMixin | None = None, env_step_callback: Callable[[Any, Any], None] | None = None, terminal_condition: Callable[[Any], bool] | None = None, keep_last_results: int = -1) -> EnvRolloutReturn
+
+   Roll out the environment for a number of steps.
+
+   This function is used to run the environment for a number of steps
+   and return the results of each step.
+
+   :param env: The environment to roll out.
+   :type env: EnvBase | gym.Env
+   :param max_steps: The maximum number of steps to roll out the
+                     environment.
+   :type max_steps: int
+   :param init_obs: The initial observations to start the rollout
+                    from.
+   :type init_obs: Any
+   :param policy: The policy to use for
+                  taking actions in the environment. If None, random actions
+                  will be taken. Defaults to None.
+   :type policy: PolicyMixin | None, optional
+   :param env_step_callback: A callback function that takes in the current action and the
+                             result of the step. This can be used to log information or
+                             perform other operations after each step. Defaults to None.
+   :type env_step_callback: Callable[[Any, Any], None] | None, optional
+   :param terminal_condition: A function that takes in the result of a step and returns
+                              whether to terminate the rollout. If None, the rollout will
+                              continue until max_steps is reached. Defaults to None.
+   :type terminal_condition: Callable[[Any], bool] | None, optional
+   :param keep_last_results: If > 0, only keep the last
+                             `keep_last_results` results. This is useful for long rollouts
+                             where only the last few results are needed. Defaults to -1,
+   :type keep_last_results: int, optional
+
+   :returns:
+
+             An instance of `EnvRolloutReturn` containing
+                 the actions taken and the results from each step of the
+                 environment.
+   :rtype: EnvRolloutReturn
+
+

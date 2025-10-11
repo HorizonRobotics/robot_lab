@@ -1,0 +1,124 @@
+task_executor
+=============
+
+.. py:module:: robo_orchard_core.utils.task_executor
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.task_executor.DataNotReadyError
+   robo_orchard_core.utils.task_executor.TaskQueueFulledError
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.task_executor.OrderedTaskExecutor
+
+
+Module Contents
+---------------
+
+.. py:exception:: DataNotReadyError
+
+   Bases: :py:obj:`Exception`
+
+
+   Exception raised when data is not yet prepared to be retrieved.
+
+
+.. py:exception:: TaskQueueFulledError
+
+   Bases: :py:obj:`Exception`
+
+
+   Exception when the task queue has reached its maximum capacity.
+
+
+.. py:class:: OrderedTaskExecutor(fn: Callable, num_workers: int = 0, executor_type: Literal['thread', 'process'] = 'process', mp_context: str = 'spawn', max_queue_size: int = 0, queue_full_action: Literal['raise', 'drop_last', 'drop_first'] = 'raise')
+
+   Executor for managing and processing tasks in an ordered fashion.
+
+   This class supports both synchronous and asynchronous task
+   execution with optional multiprocessing.
+
+   In multi-processing mode, each subprocess will initialize an instance of fn during startup,
+   ensuring that the instance is not recreated for every function call.
+
+
+   .. py:method:: put(*args, **kwargs)
+
+      Submit a task for execution.
+
+      :param args: Positional arguments to pass to the task function.
+      :param kwargs: Keyword arguments to pass to the task function.
+
+      :raises TaskQueueFulledError: If the task queue has reached its maximum
+      :raises size.:
+
+
+
+   .. py:method:: get(block: bool = False, timeout: float | None = None) -> Any
+
+      Retrieve the result of the next completed task.
+
+      This method retrieves the result of the next task in the queue.
+      If the task result is not immediately available, the behavior
+      depends on the `block` parameter:
+      - If `block` is False, it raises a `DataNotReadyError` if the result
+      is not yet ready.
+      - If `block` is True, it waits for the result to become available,
+      up to the specified `timeout`.
+
+      :param block: Whether to block until the task is completed.
+                    Defaults to False.
+      :type block: bool
+      :param timeout: Maximum time to wait for the task result
+                      in seconds. If `block` is False, this parameter is ignored.
+                      If None, it waits indefinitely. Defaults to None.
+      :type timeout: float | None
+
+      :returns: The result of the completed task.
+      :rtype: Any
+
+      :raises DataNotReadyError: - If the task result is not yet available and `block` is False.
+          
+          - If the task does not complete within the specified `timeout`
+            when `block` is True.
+      :raises KeyError: If the internal task buffer does not contain the expected
+          result. This is an unexpected state and might indicate an
+          internal bug.
+      :raises TimeoutError: Raised internally by `Future.result()` when waiting
+          for task completion times out.
+
+
+
+   .. py:property:: send_idx
+
+      Get the index of the next task to be sent for execution.
+
+      :returns: The index of the next task to be sent.
+      :rtype: int
+
+
+   .. py:property:: rcvd_idx
+
+      Get the index of the next result to be retrieved.
+
+      :returns: The index of the next result to be retrieved.
+      :rtype: int
+
+
+   .. py:property:: buf_size
+
+      Get the current size of the task buffer.
+
+      :returns: The number of tasks currently in the buffer.
+      :rtype: int
+
+

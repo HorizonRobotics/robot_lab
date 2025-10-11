@@ -1,0 +1,335 @@
+chain
+=====
+
+.. py:module:: robo_orchard_core.kinematics.chain
+
+.. autoapi-nested-parse::
+
+   Kinematic chains.
+
+   A kinematic chain is a structure that represents a robot's
+   kinematics. It consists of links and joints.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.kinematics.chain.Frame
+   robo_orchard_core.kinematics.chain.KinematicChain
+   robo_orchard_core.kinematics.chain.KinematicSerialChain
+
+
+Module Contents
+---------------
+
+.. py:class:: Frame(name=None, link=None, joint=None, children=None)
+
+   Bases: :py:obj:`pytorch_kinematics.frame.Frame`
+
+
+   A frame in a kinematic chain.
+
+   A Frame is defined as follows:
+
+   .. code-block:: text
+
+                       ||--------Frame0--------||
+                                               ||----------Frame0 Children-----||
+                                               ||----------Frame1--------------||
+       [Parent_link0]                          joint1 ->  [link1]
+                   \                        /
+                       joint0  -->  [link0]
+                                                                                            joint2 ->  [link2]
+                                               ||----------Frame2--------------||
+
+   The frame name is usually the same as the link name. For root frame (the frame
+   that has no parent), it is attached to a virtual fixed joint with empty name
+   and offset.
+
+
+   .. py:property:: joint_type
+      :type: Literal['fixed', 'revolute', 'prismatic']
+
+
+
+   .. py:method:: from_frame(frame: pytorch_kinematics.frame.Frame) -> Frame
+      :classmethod:
+
+
+      Create a Frame from a pytorch_kinematics Frame.
+
+
+
+   .. py:method:: get_transform(joint_positions: torch.Tensor | robo_orchard_core.datatypes.joint_state.BatchJointsState) -> robo_orchard_core.utils.math.transform.transform3d.Transform3D_M
+
+      Get the transform of this frame w.r.t. the parent frame.
+
+      :param joint_positions: The joint
+                              positions tensor. The tensor should be of shape (N,)
+                              where N is the batch size. If a BatchJointsState is
+                              provided, the joint positions for this frame will be
+                              extracted based on the joint name if available, otherwise
+                              the first joint position will be used.
+      :type joint_positions: torch.Tensor|BatchJointsState
+
+
+
+   .. py:method:: get_frame_transform(joint_positions: torch.Tensor | robo_orchard_core.datatypes.joint_state.BatchJointsState, parent_link_name: str, timestamps: list[int] | None = None) -> robo_orchard_core.datatypes.geometry.BatchFrameTransform
+
+      Get the transform of this frame w.r.t. the parent link frame.
+
+      :param joint_positions: The joint
+                              positions tensor. The tensor should be of shape (N,)
+                              where N is the batch size. If a BatchJointsState is
+                              provided, the joint positions for this frame will be
+                              extracted based on the joint name if available, otherwise
+                              the first joint position will be used.
+      :type joint_positions: torch.Tensor|BatchJointsState
+      :param parent_link_name: The name of the parent link frame.
+      :type parent_link_name: str
+
+      :returns:
+
+                The transform of this frame w.r.t. the
+                    parent link frame.
+      :rtype: BatchFrameTransform
+
+
+
+.. py:class:: KinematicChain(chain: pytorch_kinematics.Chain)
+
+   A chain of links and joints that represent a kinematic chain.
+
+
+   .. py:method:: get_chain_rep_doc() -> str
+
+      Get the chain representation docstring.
+
+
+
+   .. py:method:: from_content(data: str, format: Literal['urdf', 'sdf', 'mjcf'], device: str = 'cpu', dtype: torch.dtype = torch.float32) -> KinematicChain
+      :staticmethod:
+
+
+      Create a kinematic chain from the content of a file.
+
+      :param data: The content of the file.
+      :type data: str
+      :param format: The format of the file.
+      :type format: Literal["urdf", "sdf", "mjcf"]
+      :param device: The device to use. Defaults to "cpu".
+      :type device: str, optional
+
+
+
+   .. py:method:: from_file(path: str, format: Literal['urdf', 'sdf', 'mjcf'], device: str = 'cpu', dtype: torch.dtype = torch.float32)
+      :staticmethod:
+
+
+      Create a kinematic chain from a file.
+
+      :param path: The path to the file.
+      :type path: str
+      :param format: The format of the file.
+      :type format: Literal["urdf", "sdf", "mjcf"]
+      :param device: The device to use. Defaults to "cpu".
+      :type device: str, optional
+
+
+
+   .. py:method:: find_link(name: str) -> pytorch_kinematics.Link | None
+
+      Find a link in the chain by name.
+
+      If the link is not found, None is returned.
+
+
+
+   .. py:method:: find_joint(name: str) -> pytorch_kinematics.Joint | None
+
+      Find a joint in the chain by name.
+
+      If the joint is not found, None is returned.
+
+
+
+   .. py:property:: device
+      :type: torch.device
+
+
+
+   .. py:property:: dtype
+      :type: torch.dtype
+
+
+
+   .. py:property:: joint_parameter_names
+      :type: list[str]
+
+
+      The names of the joint parameters in the chain.
+
+      Fixed joints are excluded from this list.
+
+
+   .. py:property:: dof
+      :type: int
+
+
+      The number of degrees of freedom in the chain.
+
+
+   .. py:property:: frame_names
+      :type: list[str]
+
+
+      The names of the frames in the chain.
+
+
+   .. py:method:: find_frame(name: str) -> Frame | None
+
+      Find a frame in the chain by name.
+
+      A Frame is defined as follows:
+
+      .. code-block:: text
+
+                          ||--------Frame0--------||
+                                                  ||----------Frame0 Children-----||
+                                                  ||----------Frame1--------------||
+          [Parent_link0]                          joint1 ->  [link1]
+                      \                        /
+                          joint0  -->  [link0]
+                                               \
+                                                  joint2 ->  [link2]
+                                                  ||----------Frame2--------------||
+
+      The frame name is usually the same as the link name. For root frame (the frame
+      that has no parent), it is attached to a virtual fixed joint with empty name
+      and offset.
+
+
+
+   .. py:method:: forward_kinematics_tf(joint_positions: torch.Tensor | robo_orchard_core.datatypes.joint_state.BatchJointsState, frame_names: list[str] | None = None, timestamps: list[int] | None = None) -> dict[str, robo_orchard_core.datatypes.geometry.BatchFrameTransform]
+
+      Compute forward kinematics and return as BatchFrameTransform.
+
+
+
+   .. py:method:: forward_kinematics(joint_positions: torch.Tensor, frame_names: list[str] | None = None) -> dict[str, robo_orchard_core.utils.math.transform.transform3d.Transform3D_M]
+
+      Compute forward kinematics for the chain.
+
+      The forward kinematics is computed as the pose of each frame in
+      the chain w.r.t. the root frame.
+
+      :param joint_positions: The joint positions tensor.
+                              The tensor should be of shape (N, DOF) where N is the batch
+                              size and DOF is the number of degrees of freedom in the chain.
+                              The joint_positions tensor should follow the same order as the
+                              chain's joint order of `self.joint_parameter_names`.
+      :type joint_positions: torch.Tensor
+      :param frame_names: A list of frame name to compute transforms for.
+                          If None, all frames are computed.
+
+      :returns:
+
+                A dictionary containing the forward
+                    kinematics of the chain. The keys of the dictionary are the
+                    names of the frames in the chain and the values are the
+                    corresponding pose matrices.
+      :rtype: dict[str, Transform3D_M]
+
+
+
+   .. py:method:: parent_map() -> dict[str, str]
+
+      A map from frame name to its parent frame name.
+
+
+
+.. py:class:: KinematicSerialChain(chain: KinematicChain, end_frame_name: str, root_frame_name: str = '')
+
+   Bases: :py:obj:`KinematicChain`
+
+
+   A serial chain of links and joints that represent a kinematic chain.
+
+   A serial chain is a special type of kinematic chain that has no branching.
+
+
+   .. py:method:: from_content(data: str, format: Literal['urdf', 'sdf', 'mjcf'], end_frame_name: str, root_frame_name: str = '', device: str = 'cpu') -> KinematicSerialChain
+      :staticmethod:
+
+
+      Create a kinematic chain from the content of a file.
+
+      :param data: The content of the file.
+      :type data: str
+      :param format: The format of the file.
+      :type format: Literal["urdf", "sdf", "mjcf"]
+      :param device: The device to use. Defaults to "cpu".
+      :type device: str, optional
+
+
+
+   .. py:method:: from_file(path: str, format: Literal['urdf', 'sdf', 'mjcf'], end_frame_name: str, root_frame_name: str = '', device: str = 'cpu') -> KinematicSerialChain
+      :staticmethod:
+
+
+      Create a kinematic chain from a file.
+
+      :param path: The path to the file.
+      :type path: str
+      :param format: The format of the file.
+      :type format: Literal["urdf", "sdf", "mjcf"]
+      :param device: The device to use. Defaults to "cpu".
+      :type device: str, optional
+
+
+
+   .. py:method:: forward_kinematics(joint_positions: torch.Tensor) -> dict[str, robo_orchard_core.utils.math.transform.transform3d.Transform3D_M]
+
+      Compute forward kinematics for the chain.
+
+      The forward kinematics is computed as the pose of each frame in
+      the chain w.r.t. the root frame.
+
+      :param joint_positions: The joint positions tensor.
+                              The tensor should be of shape (N, DOF) where N is the batch
+                              size and DOF is the number of degrees of freedom in the chain.
+                              The joint_positions tensor should follow the same order as the
+                              chain's joint order of `self.joint_parameter_names`.
+      :type joint_positions: torch.Tensor
+      :param frame_names: A list of frame name to compute transforms for.
+                          If None, all frames are computed.
+
+      :returns:
+
+                A dictionary containing the forward
+                    kinematics of the chain. The keys of the dictionary are the
+                    names of the frames in the chain and the values are the
+                    corresponding pose matrices.
+      :rtype: dict[str, Transform3D_M]
+
+
+
+   .. py:method:: jacobian(joint_positions: torch.Tensor) -> torch.Tensor
+
+      Compute the geometric Jacobian of the chain.
+
+      :param joint_positions: The joint positions tensor.
+                              The tensor should be of shape (N, DOF) where N is the batch
+                              size and DOF is the number of degrees of freedom in the chain.
+                              The joint_positions tensor should follow the same order as the
+                              chain's joint order of `self.joint_parameter_names`.
+      :type joint_positions: torch.Tensor
+
+      :returns: The geometric Jacobian tensor of shape (N, 6, DOF).
+      :rtype: torch.Tensor
+
+
+

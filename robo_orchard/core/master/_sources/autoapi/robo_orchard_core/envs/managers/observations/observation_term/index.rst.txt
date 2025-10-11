@@ -1,0 +1,107 @@
+observation_term
+================
+
+.. py:module:: robo_orchard_core.envs.managers.observations.observation_term
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.observations.observation_term.ObsTermType_co
+   robo_orchard_core.envs.managers.observations.observation_term.ObsCfgType_co
+   robo_orchard_core.envs.managers.observations.observation_term.EntityCfgType_co
+   robo_orchard_core.envs.managers.observations.observation_term.ReturnType
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.observations.observation_term.ObservationTermBase
+   robo_orchard_core.envs.managers.observations.observation_term.ObservationTermCfg
+
+
+Module Contents
+---------------
+
+.. py:data:: ObsTermType_co
+
+.. py:data:: ObsCfgType_co
+
+.. py:data:: EntityCfgType_co
+
+.. py:data:: ReturnType
+
+.. py:class:: ObservationTermBase(cfg: ObsCfgType_co, env: robo_orchard_core.envs.managers.manager_base.EnvType_co)
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.manager_term_base.ManagerTermBase`\ [\ :py:obj:`robo_orchard_core.envs.managers.manager_base.EnvType_co`\ , :py:obj:`ObsCfgType_co`\ ], :py:obj:`Generic`\ [\ :py:obj:`robo_orchard_core.envs.managers.manager_base.EnvType_co`\ , :py:obj:`ObsCfgType_co`\ , :py:obj:`ReturnType`\ ]
+
+
+   The base class for all observation terms.
+
+   An observation term is a class that generates the observation
+   from the environment.
+
+   Template Args:
+       EnvType_co: The type of the environment.
+       ObsCfgType: The configuration of the observation term.
+       ReturnType: The type of the return value of the observation term.
+
+   :param cfg: The configuration of the observation term.
+   :type cfg: ObservationTermCfg
+   :param env: The environment.
+   :type env: EnvBase
+
+
+   .. py:method:: reset(env_ids: collections.abc.Sequence[int] | None = None) -> None
+      :abstractmethod:
+
+
+      Resets the observation term.
+
+      :param env_ids: The environment ids. Defaults to None, in which case
+                      all environments are considered.
+
+
+
+   .. py:property:: observation_space
+      :type: gymnasium.Space[ReturnType]
+
+      :abstractmethod:
+
+
+      The observation space of the observation term.
+
+      :returns:
+
+                The observation space of the observation
+                    term.
+      :rtype: gym.Space[ReturnType]
+
+
+.. py:class:: ObservationTermCfg
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.manager_term_base.ManagerTermBaseCfg`\ [\ :py:obj:`ObsTermType_co`\ ], :py:obj:`Generic`\ [\ :py:obj:`ObsTermType_co`\ , :py:obj:`EntityCfgType_co`\ ]
+
+
+   The base configuration for all observation terms.
+
+   Any observation term configuration should inherit from this class.
+
+
+   Template Args:
+       ObsTermType_co: The type of the observation term.
+       EntityCfgType_co: The type of the entity configuration.
+
+
+
+
+   .. py:attribute:: asset_cfg
+      :type:  EntityCfgType_co
+
+      The scene entity configuration for the asset.
+
+

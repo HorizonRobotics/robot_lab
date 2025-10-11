@@ -1,0 +1,146 @@
+registry
+========
+
+.. py:module:: robo_orchard_core.utils.registry
+
+.. autoapi-nested-parse::
+
+   The registry module for registering and calling objects.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.registry.Registry
+
+
+Module Contents
+---------------
+
+.. py:class:: Registry(name, case_sensitive=True)
+
+   Bases: :py:obj:`object`
+
+
+   The registry that provides name -> object mapping.
+
+   Registry can be widely used in Factory Design Pattern. It is a global
+   dictionary that stores the mapping from object names to objects. It allows
+   to register objects by name, and then create objects by name.
+
+   But abuse of registry is not recommended. It makes the code hard to
+   understand. It is recommended to use registry only when necessary.
+
+   .. code-block:: python
+
+       BACKBONE_REGISTRY = Registry("BACKBONE")
+
+   To register an object:
+
+   .. code-block:: python
+
+       @BACKBONE_REGISTRY.register
+       class MyBackbone: ...
+
+   Or:
+
+   .. code-block:: python
+
+       BACKBONE_REGISTRY.register(MyBackbone)
+
+   To register an object with alias :
+
+   .. code-block:: python
+
+       @BACKBONE_REGISTRY.register
+       @BACKBONE_REGISTRY.alias("custom")
+       class MyBackbone: ...
+
+   Or:
+
+   .. code-block:: python
+
+       BACKBONE_REGISTRY.register(MyBackbone, "custom")
+
+   To get an object:
+
+   .. code-block:: python
+
+       backbone = BACKBONE_REGISTRY.get("MyBackbone")
+
+
+   :param name: The name of the registry.
+   :type name: str
+   :param case_sensitive: Whether the name is case sensitive.
+                          Defaults to True.
+   :type case_sensitive: bool, optional
+
+
+   .. py:method:: pop(name: str, default: Any = None) -> Any
+
+      Remove the object with name and return it.
+
+      :param name: The name of the object.
+      :type name: str
+      :param default: The default value if the object is not found.
+                      Default is None.
+
+
+
+   .. py:method:: keys()
+
+      Get the names of the registered objects.
+
+
+
+   .. py:method:: values()
+
+      Get the registered objects.
+
+
+
+   .. py:method:: register(obj: Any = None, *, name: str | None = None) -> Any
+
+      Regist an object.
+
+      Register the given object under the the name `obj.__name__`
+      or given name.
+
+      :param obj: The object to register. If None, it will be used
+                  as a decorator.
+      :type obj: Any
+      :param name: The name of the object. Defaults to None.
+      :type name: str, optional
+
+
+
+   .. py:method:: alias(name) -> Callable
+
+      Get registrator function that allow aliases.
+
+      :param name: The name of the object.
+      :type name: str
+
+      :returns: The registrator function.
+      :rtype: Callable
+
+
+
+   .. py:method:: get(name: str, raise_not_exist: bool = True)
+
+      Get the object with name.
+
+      :param name: The name of the object.
+      :type name: str
+      :param raise_not_exist: Whether to raise an error if the
+                              object is not found. Defaults to True.
+      :type raise_not_exist: bool, optional
+
+      :returns: The object.
+      :rtype: Any
+
+
+

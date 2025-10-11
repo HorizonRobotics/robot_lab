@@ -1,0 +1,405 @@
+hook
+====
+
+.. py:module:: robo_orchard_core.utils.hook
+
+.. autoapi-nested-parse::
+
+   The hook utilities for registering and calling hooks.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.hook.T
+   robo_orchard_core.utils.hook.CallableType
+   robo_orchard_core.utils.hook.NO_SOURCE_FILE
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.hook.FunctionInfo
+   robo_orchard_core.utils.hook.RemoveableHandle
+   robo_orchard_core.utils.hook.HookHandler
+   robo_orchard_core.utils.hook.HookContext
+   robo_orchard_core.utils.hook.HookContextFromCallable
+   robo_orchard_core.utils.hook.HookContextChannel
+
+
+Module Contents
+---------------
+
+.. py:data:: T
+
+.. py:data:: CallableType
+
+.. py:data:: NO_SOURCE_FILE
+
+.. py:class:: FunctionInfo
+
+   A data class for storing function information.
+
+
+   .. py:attribute:: func
+      :type:  Callable
+
+      The callable function.
+
+
+   .. py:attribute:: owner
+      :type:  Any
+
+      The owner of the function.
+
+      If the function is a method, this is the instance of the class.
+      If the function is a static method or class method, this is the class.
+      If the function is a standalone function, this is None.
+
+
+   .. py:attribute:: source_file
+      :type:  str | None
+
+      The source file of the function.
+
+
+   .. py:attribute:: source_lineno
+      :type:  int
+
+      The source line number of the function.
+
+
+   .. py:attribute:: source_code
+      :type:  str
+
+      The source code of the function.
+
+
+   .. py:attribute:: signature
+      :type:  inspect.Signature
+
+      The signature of the function.
+
+
+   .. py:property:: source_file_lineno
+      :type: str
+
+
+      Get the source file and line number of the function.
+
+      :returns: The source file and line number of the function.
+      :rtype: str
+
+
+   .. py:method:: from_callable(func: Callable) -> FunctionInfo
+      :staticmethod:
+
+
+      Create a FunctionInfo object from a callable.
+
+      :param func: The callable function.
+      :type func: Callable
+
+      :returns: The FunctionInfo object.
+      :rtype: FunctionInfo
+
+
+
+.. py:class:: RemoveableHandle(hook: CallableType)
+
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`CallableType`\ ]
+
+
+   A handle that can be removed.
+
+   :param hooks: The hook to call.
+                 Be careful that the hook may cause circular reference.
+   :type hooks: Callable
+
+
+   .. py:attribute:: hook
+      :type:  CallableType | None
+
+
+   .. py:method:: remove()
+
+      Remove the handle.
+
+
+
+.. py:class:: HookHandler(name: str)
+
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`CallableType`\ ]
+
+
+   The hook handler.
+
+   :param name: The name of the hook.
+   :type name: str
+
+
+   .. py:attribute:: name
+
+
+   .. py:method:: register(handler: CallableType) -> RemoveableHandle[Callable[[], None]]
+
+      Register a handler.
+
+      :param handler: The handler to register.
+      :type handler: Callable
+
+      :returns: The removeable handle.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: register_once(handler: CallableType) -> RemoveableHandle[Callable[[], None]]
+
+      Register a handler that will be called only once.
+
+      :param handler: The handler to register.
+      :type handler: Callable
+
+      :returns: The removeable handle.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: unregister_all()
+
+      Unregister all handlers.
+
+
+
+.. py:class:: HookContext(name: str | None = None)
+
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`T`\ ]
+
+
+   Context manager for executing hooks with a specific set of arguments.
+
+   This class is used to manage the lifecycle of hooks, ensuring that
+   the appropriate hook methods are called at the right times. It also
+   provides a way to pass arguments to the hooks in a structured manner.
+
+
+   .. py:attribute:: name
+      :value: None
+
+
+
+   .. py:property:: before_info
+      :type: FunctionInfo | None
+
+
+      Get the function information of the before method.
+
+      If the before method is not defined, return None.
+
+
+   .. py:property:: after_info
+      :type: FunctionInfo | None
+
+
+      Get the function information of the after method.
+
+      If the after method is not defined, return None.
+
+
+   .. py:method:: before(arg: T)
+      :abstractmethod:
+
+
+      Prepare the context for executing hooks.
+
+      This method should set up the context for executing hooks and
+      return the arguments referenced by the hooks.
+
+      The returned arguments will be used in the `after` method to clean up
+      the context.
+
+      :param arg: The arguments to be passed to the hooks.
+      :type arg: T
+
+
+
+   .. py:method:: after(arg: T)
+      :abstractmethod:
+
+
+      Clean up the context after executing hooks.
+
+      This method should clean up any resources or state used during
+      the execution of hooks.
+
+      :param arg: The arguments to be passed to the hooks.
+      :type arg: T
+
+
+
+   .. py:method:: begin(arg: T) -> Generator[T, Any, None]
+
+      Context manager for executing hooks with given arguments.
+
+      This method sets up the context for executing hooks and yields
+      the arguments to be passed to the hooks. After the hooks are executed,
+      the context is cleaned up.
+
+
+
+   .. py:method:: from_callable(name: str | None = None, before: Callable[[T], None] | None = None, after: Callable[[T], None] | None = None) -> HookContext[T]
+      :staticmethod:
+
+
+      Create a hook context from a callable.
+
+      :param name: The name of the hook context. If not provided,
+                   it will be set to an empty string.
+      :type name: str | None
+      :param before: The callable to be used as the
+                     `before` method.
+      :type before: Callable[[T], None]
+      :param after: The callable to be used as the
+                    `after` method.
+      :type after: Callable[[T], None]
+
+      :returns: The hook context created from the callable.
+      :rtype: HookContext[T]
+
+
+
+.. py:class:: HookContextFromCallable(name: str | None = None, before: Callable[[T], None] | None = None, after: Callable[[T], None] | None = None)
+
+   Bases: :py:obj:`HookContext`\ [\ :py:obj:`T`\ ]
+
+
+   A hook context that is created from a callable.
+
+   This class is used to create a hook context from a callable that
+   takes a single argument and returns a value. The callable is called
+   in the `before` method and the returned value is passed to the
+   `after` method.
+
+   :param name: The name of the hook context. If not provided,
+                it will be set to an empty string, which indicates
+                that the hook context is anonymous.
+                Defaults to None.
+   :type name: str | None
+   :param before: The callable to be used as the
+                  `before` method. If not provided, it will be set to None.
+                  Defaults to None.
+   :type before: Callable[[T], None] | None
+   :param after: The callable to be used as the
+                 `after` method. If not provided, it will be set to None.
+                 Defaults to None.
+   :type after: Callable[[T], None] | None
+
+
+   .. py:property:: before_info
+      :type: FunctionInfo | None
+
+
+      Get the function information of the before method.
+
+      If the before method is not defined, return None.
+
+
+   .. py:property:: after_info
+      :type: FunctionInfo | None
+
+
+      Get the function information of the after method.
+
+      If the after method is not defined, return None.
+
+
+   .. py:method:: before(arg: T)
+
+      Prepare the context for executing hooks.
+
+      This method should set up the context for executing hooks and
+      return the arguments referenced by the hooks.
+
+      The returned arguments will be used in the `after` method to clean up
+      the context.
+
+      :param arg: The arguments to be passed to the hooks.
+      :type arg: T
+
+
+
+   .. py:method:: after(arg: T)
+
+      Clean up the context after executing hooks.
+
+      This method should clean up any resources or state used during
+      the execution of hooks.
+
+      :param arg: The arguments to be passed to the hooks.
+      :type arg: T
+
+
+
+.. py:class:: HookContextChannel(name: str)
+
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`T`\ ]
+
+
+   A channel for managing hook context.
+
+   The hook contexts are registered and executed in a specific order
+   when the `begin` method is called. This class provides a way to
+   register and unregister hook context handlers.
+
+
+
+   .. py:attribute:: name
+
+
+   .. py:method:: register(hook: HookContext[T]) -> RemoveableHandle[Callable[[], None]]
+
+      Register a hook context handler.
+
+      :param hook: The hook context handler to register.
+      :type hook: HookContext[T]
+
+      :returns: A handle to remove the registered hook.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: register_hook_channel(channel: HookContextChannel[T]) -> RemoveableHandle[Callable[[], None]]
+
+      Register a hook context channel.
+
+      :param channel: The hook context channel
+                      to register.
+      :type channel: HookContextChannel[T]
+
+      :returns: A handle to remove the registered hook.
+      :rtype: RemoveableHandle
+
+
+
+   .. py:method:: unregister_all()
+
+      Unregister all hook context handlers.
+
+
+
+   .. py:method:: begin(arg: T)
+
+      Context manager for executing hooks with given arguments.
+
+      This method sets up the context for executing hooks and yields
+      the arguments to be passed to the hooks. After the hooks are executed,
+      the context is cleaned up.
+
+
+
+

@@ -1,0 +1,279 @@
+camera
+======
+
+.. py:module:: robo_orchard_core.devices.cameras.camera
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.devices.cameras.camera.CameraBaseCfgType_co
+   robo_orchard_core.devices.cameras.camera.CameraBaseType_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.devices.cameras.camera.CameraBase
+   robo_orchard_core.devices.cameras.camera.BatchCameraBase
+   robo_orchard_core.devices.cameras.camera.CameraBaseCfg
+
+
+Module Contents
+---------------
+
+.. py:data:: CameraBaseCfgType_co
+
+.. py:class:: CameraBase(cfg: CameraBaseCfgType_co)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`, :py:obj:`typing_extensions.Generic`\ [\ :py:obj:`CameraBaseCfgType_co`\ ]
+
+
+   The base class of a single camera.
+
+
+   .. py:attribute:: cfg
+
+
+   .. py:attribute:: after_capture_hook_handler
+      :type:  robo_orchard_core.utils.hook.HookHandler[Callable[[CameraBase[CameraBaseCfgType_co]], None]]
+
+
+   .. py:property:: image_shape
+      :type: tuple[int, int]
+
+      :abstractmethod:
+
+
+      Get the shape(height, width) of the image.
+
+      :returns: A tuple containing (height, width) of the camera.
+      :rtype: tuple[int, int]
+
+
+   .. py:property:: intrinsic_matrix
+      :type: torch.Tensor
+
+      :abstractmethod:
+
+
+      Get the intrinsic matrix of the camera.
+
+      :returns: The intrinsic matrix of the camera.
+      :rtype: torch.Tensor
+
+
+   .. py:property:: pose_global
+      :type: robo_orchard_core.datatypes.geometry.BatchFrameTransform
+
+      :abstractmethod:
+
+
+      Get the pose of the camera in the global frame.
+
+      Global frame usually refers to the world frame, or the frame that is
+      shared by all sensors and objects in the scene.
+
+      :returns: The pose of the camera in the global frame.
+      :rtype: FrameTransform
+
+
+   .. py:property:: sensor_data
+      :type: torch.Tensor
+
+      :abstractmethod:
+
+
+      Get the camera data of the camera.
+
+      Shape is (H, W, C) for raw data, where C is the number of channels,
+      H is the height of the image, and W is the width of the image.
+
+      For compressed data, the shape is (N, ) where N is the number of bytes.
+
+      :returns: The camera data.
+      :rtype: torch.Tensor
+
+
+   .. py:property:: distortion
+      :type: robo_orchard_core.datatypes.camera_data.Distortion | None
+
+
+      Get the distortion model of the camera.
+
+      User should inherit this method to return the distortion model
+      if it is applied to the camera.
+
+      :returns: The distortion model of the camera.
+                If no distortion model is applied, returns None.
+      :rtype: Distortion | None
+
+
+   .. py:property:: tf_parent
+      :type: robo_orchard_core.datatypes.geometry.BatchFrameTransform | None
+
+
+      Get the parent frame transform of the camera.
+
+      User should inherit this method to return the parent frame transform
+      if it is applied to the camera.
+
+      :returns:
+
+                The parent frame transform of
+                    the camera. If no parent frame transform is applied,
+                    returns None.
+      :rtype: BatchFrameTransform | None
+
+
+   .. py:method:: get_camera_data(tf_global: bool = True) -> robo_orchard_core.datatypes.camera_data.BatchCameraData
+
+      Get the camera data of the camera.
+
+      :param tf_global: If True, the pose will be transformed
+                        to the global frame. If False, the pose will be in the parent
+                        frame. Defaults to True.
+      :type tf_global: bool, optional
+
+      :returns: The camera data.
+      :rtype: CameraData
+
+
+
+.. py:class:: BatchCameraBase(cfg: CameraBaseCfgType_co, *args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`, :py:obj:`typing_extensions.Generic`\ [\ :py:obj:`CameraBaseCfgType_co`\ ]
+
+
+   The base class of a batch of cameras.
+
+   A batch of cameras is a collection of cameras that share the image shape
+   and distortion model. The intrinsic matrices and poses of the cameras
+   can be different.
+
+
+   .. py:attribute:: cfg
+
+
+   .. py:attribute:: after_capture_hook_handler
+      :type:  robo_orchard_core.utils.hook.HookHandler[Callable[[BatchCameraBase[CameraBaseCfgType_co]], None]]
+
+
+   .. py:property:: image_shape
+      :type: tuple[int, int]
+
+      :abstractmethod:
+
+
+      Get the shape(height, width) of the image.
+
+      :returns: A tuple containing (height, width) of the camera.
+      :rtype: tuple[int, int]
+
+
+   .. py:property:: intrinsic_matrices
+      :type: torch.Tensor
+
+      :abstractmethod:
+
+
+      Get the intrinsic matrix of the camera.
+
+      :returns: The intrinsic matrix of the camera.
+      :rtype: CameraData
+
+
+   .. py:property:: pose_global
+      :type: robo_orchard_core.datatypes.geometry.BatchFrameTransform
+
+      :abstractmethod:
+
+
+      Get the pose of the camera in the global frame.
+
+      Global frame usually refers to the world frame, or the frame that is
+      shared by all sensors and objects in the scene.
+
+      :returns: The pose of the camera in the global frame.
+      :rtype: BatchFrameTransform
+
+
+   .. py:property:: sensor_data
+      :type: torch.Tensor
+
+      :abstractmethod:
+
+
+      Get the camera data of the camera.
+
+      Shape is (N, H, W, C) for raw data, where B is the batch size,
+      C is the number of channels, H is the height of the image,
+      and W is the width of the image.
+
+      :returns: The camera data.
+      :rtype: torch.Tensor
+
+
+   .. py:property:: distortion
+      :type: robo_orchard_core.datatypes.camera_data.Distortion | None
+
+
+      Get the distortion model of the camera.
+
+      User should inherit this method to return the distortion model
+      if it is applied to the camera.
+
+      :returns: The distortion model of the camera.
+                If no distortion model is applied, returns None.
+      :rtype: Distortion | None
+
+
+   .. py:property:: tf_parent
+      :type: robo_orchard_core.datatypes.geometry.BatchFrameTransform | None
+
+
+      Get the parent frame transform of the camera.
+
+      User should inherit this method to return the parent frame transform
+      if it is applied to the camera.
+
+      :returns:
+
+                The parent frame transform of
+                    the camera. If no parent frame transform is applied,
+                    returns None.
+      :rtype: BatchFrameTransform | None
+
+
+   .. py:method:: get_camera_data(tf_global: bool = True) -> robo_orchard_core.datatypes.camera_data.BatchCameraData
+
+      Get the camera data of the camera.
+
+      :param tf_global: If True, the pose will be transformed
+                        to the global frame. If False, the pose will be in the parent
+                        frame. Defaults to True.
+      :type tf_global: bool, optional
+
+      :returns: The camera data.
+      :rtype: CameraData
+
+
+
+.. py:data:: CameraBaseType_co
+
+.. py:class:: CameraBaseCfg
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`CameraBaseType_co`\ ]
+
+
+   The base configuration for all cameras.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType_co[CameraBaseType_co]
+
+

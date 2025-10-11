@@ -1,0 +1,116 @@
+image
+=====
+
+.. py:module:: robo_orchard_core.utils.image
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.image.ImageChannelLayout
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.image.guess_channel_layout
+   robo_orchard_core.utils.image.get_image_shape
+   robo_orchard_core.utils.image.affine_mat2non_align_corners
+   robo_orchard_core.utils.image.convert_grid_sample_theta
+   robo_orchard_core.utils.image.wrapAffine
+
+
+Module Contents
+---------------
+
+.. py:class:: ImageChannelLayout
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Enum for channel layout in camera data.
+
+
+   .. py:attribute:: HWC
+      :value: 'HWC'
+
+
+      Height, Width, Channel format.
+
+
+   .. py:attribute:: CHW
+      :value: 'CHW'
+
+
+      Channel, Height, Width format.
+
+
+.. py:function:: guess_channel_layout(data: robo_orchard_core.utils.config.TorchTensor) -> ImageChannelLayout
+
+   Guess the channel dimension of the camera data.
+
+
+.. py:function:: get_image_shape(data: robo_orchard_core.utils.config.TorchTensor, channel_layout: ImageChannelLayout | None = None) -> tuple[int, int]
+
+   Get the image shape(h,w) from the camera data.
+
+
+.. py:function:: affine_mat2non_align_corners(mat: robo_orchard_core.utils.config.TorchTensor, src_hw: tuple[int, int], dst_hw: tuple[int, int]) -> robo_orchard_core.utils.config.TorchTensor
+
+   Convert affine matrix to non-align-corners affine matrix.
+
+
+.. py:function:: convert_grid_sample_theta(mat: robo_orchard_core.utils.config.TorchTensor, src_hw: tuple[int, int], dst_hw: tuple[int, int], to_theta: bool, align_corners: bool = False) -> robo_orchard_core.utils.config.TorchTensor
+
+   Convert a affine matrix to theta for grid_sample, or inverse.
+
+   :param mat: The affine matrix, or grid sample theta.
+   :type mat: TorchTensor
+   :param src_hw: The source height and width.
+   :type src_hw: tuple[int, int]
+   :param dst_hw: The destination height and width.
+   :type dst_hw: tuple[int, int]
+   :param to_theta: If True, convert mat to theta. If False,
+                    convert theta to mat.
+   :type to_theta: bool
+   :param align_corners: If True, align corners of the image.
+                         Defaults to False.
+   :type align_corners: bool, optional
+
+   :returns: The converted theta or affine matrix.
+   :rtype: TorchTensor
+
+
+.. py:function:: wrapAffine(src: robo_orchard_core.utils.config.TorchTensor, M: robo_orchard_core.utils.config.TorchTensor, target_hw: tuple[int, int], interpolation: Literal['bilinear', 'nearest', 'bicubic'] = 'bilinear', padding_mode: Literal['zeros', 'border', 'reflection'] = 'zeros', align_corners: bool = False) -> robo_orchard_core.utils.config.TorchTensor
+
+   Wrap the affine transformation to the image.
+
+   This function is similar to cv2.warpAffine, but uses PyTorch's grid_sample
+   for the transformation.
+
+
+   :param src: The source image tensor of shape (H, W, C) or
+               (B, H, W, C), where B is the batch size, H is the height,
+               W is the width, and C is the number of channels.
+   :type src: TorchTensor
+   :param M: The affine transformation matrix of shape (2, 3) or
+             (3, 3). If it is (2, 3), it will be converted to (3, 3) by adding
+             a row [0, 0, 1].
+   :type M: TorchTensor
+   :param target_hw: The desired output size (height, width).
+   :type target_hw: tuple[int, int]
+   :param interpolation: The interpolation method to use.
+                         Defaults to "bilinear".
+   :type interpolation: str, optional
+   :param padding_mode: The padding mode to use.
+                        Defaults to "zeros".
+   :type padding_mode: str, optional
+   :param align_corners: If True, align corners of the image.
+                         Defaults to False.
+   :type align_corners: bool, optional
+
+

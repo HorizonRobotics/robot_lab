@@ -1,0 +1,144 @@
+base
+====
+
+.. py:module:: robo_orchard_core.policy.base
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.policy.base.ClassType
+   robo_orchard_core.policy.base.PolicyConfigType_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.policy.base.PolicyMixin
+   robo_orchard_core.policy.base.PolicyConfig
+
+
+Module Contents
+---------------
+
+.. py:data:: ClassType
+
+.. py:class:: PolicyMixin(cfg: PolicyConfig[PolicyMixin], observation_space: gymnasium.Space[OBSType] | None = None, action_space: gymnasium.Space[ACTType] | None = None)
+
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`OBSType`\ , :py:obj:`ACTType`\ ]
+
+
+   Policy interface.
+
+   A policy is a function or a model that maps observations from the
+   environment to actions. It can be deterministic or stochastic, and it is
+   typically used in reinforcement learning to decide what action to take
+   based on the current state of the environment.
+
+   For stochastic policies, the `act` method may return a callable that
+   generates an action when called, allowing for sampling from a distribution
+   over actions. For deterministic policies, it directly returns the action.
+
+   Template Args:
+       OBSType: The type of the observation space.
+       ACTType: The type of the action space.
+
+
+
+   .. py:attribute:: observation_space
+      :type:  gymnasium.Space[OBSType] | None
+
+      The observation space of the policy.
+
+      Can be None if not applicable.
+
+
+   .. py:attribute:: action_space
+      :type:  gymnasium.Space[ACTType] | None
+
+      The action space of the policy.
+
+      Can be None if not applicable.
+
+
+   .. py:attribute:: cfg
+
+
+   .. py:method:: reset(*args, **kwargs) -> None
+      :abstractmethod:
+
+
+      Reset the policy to its initial state.
+
+      This method is called at the beginning of an episode or when the
+      environment is reset. It allows the policy to prepare for a new
+      sequence of observations and actions.
+
+
+
+   .. py:method:: act(obs: OBSType) -> ACTType
+      :abstractmethod:
+
+
+      Return an action based on the given observation.
+
+      :param obs: The observation from the environment.
+
+      :returns: An action or a callable that returns an action.
+
+
+
+.. py:class:: PolicyConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`PolicyType`\ ]
+
+
+   The configuration for a policy.
+
+   This is a generic configuration class that can be used to create
+   instances of policies. It specifies the type of the policy class to be
+   created.
+
+
+   Template Args:
+       PolicyType: The type of the policy class to be created. It must be a
+           subclass of :class:`PolicyMixin`. This allows for type checking and
+           ensures that the created policy adheres to the expected interface.
+
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType[PolicyType]
+
+      The type of the policy class to be created.
+
+
+   .. py:method:: as_remote(remote_class_config: robo_orchard_core.policy.remote.RayRemoteClassConfig | None = None, ray_init_config: dict[str, Any] | None = None, check_init_timeout: int = 60) -> robo_orchard_core.policy.remote.RemotePolicyConfig[typing_extensions.Self]
+
+      Convert this PolicyConfig to a RemotePolicyConfig.
+
+      This method wraps the current policy configuration into a
+      RemotePolicyConfig, which can be used to create a remote policy
+      instance that runs in a separate process or machine using Ray.
+
+      :param remote_class_config: Configuration for the remote class. If None, defaults to
+                                  RayRemoteClassConfig(). Defaults to None.
+      :type remote_class_config: RayRemoteClassConfig | None, optional
+      :param ray_init_config: Configuration
+                              for initializing Ray. If None, use default. Defaults to None.
+      :type ray_init_config: dict[str, Any] | None, optional
+      :param check_init_timeout: Timeout in seconds for checking
+                                 if the remote actor is initialized. Defaults to 60.
+      :type check_init_timeout: int, optional
+
+      :returns: The converted remote policy configuration.
+      :rtype: RemotePolicyConfig
+
+
+
+.. py:data:: PolicyConfigType_co
+

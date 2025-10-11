@@ -1,0 +1,300 @@
+env_base
+========
+
+.. py:module:: robo_orchard_core.envs.env_base
+
+.. autoapi-nested-parse::
+
+   Basic interface for environments.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.env_base.ObsType
+   robo_orchard_core.envs.env_base.RewardsType
+   robo_orchard_core.envs.env_base.EnvStepReturnType
+   robo_orchard_core.envs.env_base.EnvType
+   robo_orchard_core.envs.env_base.EnvType_co
+   robo_orchard_core.envs.env_base.EnvBaseCfgType_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.env_base.EnvStepReturn
+   robo_orchard_core.envs.env_base.EnvBase
+   robo_orchard_core.envs.env_base.EnvBaseCfg
+
+
+Module Contents
+---------------
+
+.. py:data:: ObsType
+
+.. py:data:: RewardsType
+
+.. py:class:: EnvStepReturn
+
+   Bases: :py:obj:`typing_extensions.Generic`\ [\ :py:obj:`ObsType`\ , :py:obj:`RewardsType`\ ]
+
+
+   The return type of the `step` function in the environment.
+
+   This class extends gymnasium's Env step return type to be a dataclass
+   with generic types for observations and rewards.
+
+
+   Template Args:
+       ObsType: The type of the observations returned by the environment.
+       RewardsType: The type of the rewards returned by the environment.
+
+
+
+   .. py:attribute:: observations
+      :type:  ObsType
+
+      The observations returned by the environment after taking a step.
+
+
+   .. py:attribute:: rewards
+      :type:  RewardsType | None
+
+      The rewards returned by the environment after taking a step.
+
+
+   .. py:attribute:: terminated
+      :type:  bool | torch.Tensor | None
+
+      Whether the environment has reached a terminal state.
+
+      Usually the environment is considered to be in a terminal state
+      when the agent has reached the goal or failed to reach the goal.
+
+      User should call `reset` function to reset the environment
+      after the environment has reached a terminal state.
+
+
+   .. py:attribute:: truncated
+      :type:  bool | torch.Tensor | None
+
+      Whether the truncation condition has been met, for example, a time
+      limit, or the agent has gone out of bounds.
+
+      This field can be used to end the episode early without considering
+      the `terminated` state. Different from `terminated`, `truncated` is
+      usually a passive condition that triggers when the evironment has
+      to stop without considering anything.
+
+
+   .. py:attribute:: info
+      :type:  dict[str, Any] | None
+
+      Auxiliary information returned by the environment.
+
+
+.. py:data:: EnvStepReturnType
+
+.. py:class:: EnvBase
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`, :py:obj:`typing_extensions.Generic`\ [\ :py:obj:`ObsType`\ , :py:obj:`RewardsType`\ ]
+
+
+   Base class for all environments.
+
+   The environment is a class that comprise of all components and
+   functions required to interact with.
+
+   Specifically, the environment provides a `step` function, which
+   takes in an action and returns the information about observations,
+   rewards, and other information.
+
+
+   This class is a simplified version of the gymnasium environment
+   interface, which is used to define the environment for reinforcement
+   learning tasks. We simplify the interface to provide a more generic
+   and interface for environments.
+
+
+   Template Args:
+       EnvStepReturnType: The type of the return value of the `step` function.
+
+
+
+   .. py:method:: step(*args, **kwargs) -> EnvStepReturn[ObsType, RewardsType]
+      :abstractmethod:
+
+
+      Interface of takeing a step in the environment.
+
+      Usually, this function takes in an action and returns the
+      observations, rewards, and other information.
+
+      User should implement this function in the subclass.
+
+
+
+
+   .. py:method:: reset(seed: int | None = None, env_ids: typing_extensions.Sequence[int] | None = None, **kwargs) -> tuple[ObsType, dict[str, Any]]
+      :abstractmethod:
+
+
+      Reset the environment.
+
+
+
+   .. py:method:: close()
+      :abstractmethod:
+
+
+      Close the environment.
+
+
+
+   .. py:property:: num_envs
+      :type: int
+
+      :abstractmethod:
+
+
+      The number of instances of the environment that are running.
+
+      For example, if the environment is a single instance, then this
+      should return 1. This is the case for most classical environments.
+
+      In the case of reforcement learning, usually a vectorized environment
+      is used to run multiple instances of the environment in parallel to
+      speed up the training process. In this case, this function should
+      return the number of instances of the environment that are running.
+
+      The number of instances of the environment is used in other parts of
+      the code to manage the environment.
+
+
+   .. py:property:: action_space
+      :type: gymnasium.Space
+
+      :abstractmethod:
+
+
+      The action space of the environment.
+
+      This is used to determine the type of actions that can be taken in
+      the environment. The action space is usually defined in the
+      environment configuration.
+
+      :returns: The action space of the environment.
+      :rtype: gym.Space
+
+
+   .. py:property:: observation_space
+      :type: gymnasium.Space
+
+      :abstractmethod:
+
+
+      The observation space of the environment.
+
+      This is used to determine the type of observations that can be
+      received from the environment. The observation space is usually
+      defined in the environment configuration.
+
+      :returns: The observation space of the environment.
+      :rtype: gym.Space
+
+
+   .. py:property:: unwrapped_env
+      :type: Any
+
+
+      Return the unwrapped environment.
+
+      In some cases, the current environment is a wrapper around
+      another environment. This property returns the unwrapped
+      environment instance.
+
+      :returns: The unwrapped environment instance.
+      :rtype: EnvType
+
+
+   .. py:method:: rollout(max_steps: int, init_obs: Any, policy: robo_orchard_core.policy.PolicyMixin | None = None, env_step_callback: Callable[[Any, Any], None] | None = None, terminal_condition: Callable[[Any], bool] | None = None, keep_last_results: int = -1) -> robo_orchard_core.envs.rollout.EnvRolloutReturn[Any, EnvStepReturn[ObsType, RewardsType]]
+
+      Roll out the environment for a number of steps.
+
+      This function is used to run the environment for a number of steps
+      and return the results of each step.
+
+      :param max_steps: The maximum number of steps to roll out the
+                        environment.
+      :type max_steps: int
+      :param init_obs: The initial observations to start the rollout
+                       from.
+      :type init_obs: Any
+      :param policy: The policy to use for
+                     taking actions in the environment. If None, random actions
+                     will be taken. Defaults to None.
+      :type policy: PolicyMixin | None, optional
+      :param env_step_callback: A callback function that takes in the current action and the
+                                result of the step. This can be used to log information or
+                                perform other operations after each step. Defaults to None.
+      :type env_step_callback: Callable[[Any, Any], None] | None, optional
+      :param terminal_condition: A function that takes in the result of a step and returns
+                                 whether to terminate the rollout. If None, the rollout will
+                                 continue until max_steps is reached. Defaults to None.
+      :type terminal_condition: Callable[[Any], bool] | None, optional
+      :param keep_last_results: If > 0, only keep the last
+                                `keep_last_results` results. This is useful for long rollouts
+                                where only the last few results are needed. Defaults to -1,
+      :type keep_last_results: int, optional
+
+      :returns:
+
+                An instance of `EnvRolloutReturn` containing
+                    the actions taken and the results from each step of the
+                    environment.
+      :rtype: EnvRolloutReturn
+
+
+
+.. py:data:: EnvType
+
+.. py:data:: EnvType_co
+
+.. py:class:: EnvBaseCfg
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`EnvType_co`\ ]
+
+
+   The configuration for the environment.
+
+   Template Args:
+       EnvType_co: The type of the environment class.
+
+
+   .. py:method:: as_remote(remote_class_config: robo_orchard_core.utils.ray.RayRemoteClassConfig | None = None, ray_init_config: dict[str, Any] | None = None, check_init_timeout: int = 60) -> robo_orchard_core.envs.remote.RemoteEnvCfg[typing_extensions.Self]
+
+      Convert this EnvBaseCfg to a RemoteEnvCfg.
+
+      :param remote_class_config: The Ray
+                                  remote class configuration. If None, a default configuration
+                                  will be used. Default is None.
+      :type remote_class_config: RayRemoteClassConfig | None
+      :param ray_init_config: The configuration for
+                              initializing Ray. If None, use default. Default is None.
+      :type ray_init_config: dict[str, Any] | None
+      :param check_init_timeout: Timeout in seconds for checking if the
+                                 remote actor is initialized. Default is 60.
+      :type check_init_timeout: int
+
+      :returns: The converted RemoteEnvCfg.
+      :rtype: RemoteEnvCfg
+
+
+
+.. py:data:: EnvBaseCfgType_co
+

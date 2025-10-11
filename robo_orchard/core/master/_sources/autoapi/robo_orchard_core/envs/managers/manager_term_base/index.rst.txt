@@ -1,0 +1,167 @@
+manager_term_base
+=================
+
+.. py:module:: robo_orchard_core.envs.managers.manager_term_base
+
+.. autoapi-nested-parse::
+
+   Base class for all manager terms.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.manager_term_base.TermConfigType_co
+   robo_orchard_core.envs.managers.manager_term_base.ManagerTermType_co
+   robo_orchard_core.envs.managers.manager_term_base.TransformCfgType_co
+   robo_orchard_core.envs.managers.manager_term_base.TermTransformBaseType_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.manager_term_base.ManagerTermBase
+   robo_orchard_core.envs.managers.manager_term_base.ManagerTermBaseCfg
+   robo_orchard_core.envs.managers.manager_term_base.ManagerTermGroupCfg
+   robo_orchard_core.envs.managers.manager_term_base.TermTransformBase
+   robo_orchard_core.envs.managers.manager_term_base.TermTransformCfg
+
+
+Module Contents
+---------------
+
+.. py:data:: TermConfigType_co
+
+.. py:data:: ManagerTermType_co
+
+.. py:class:: ManagerTermBase(cfg: TermConfigType_co, env: robo_orchard_core.envs.env_base.EnvType_co)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`, :py:obj:`Generic`\ [\ :py:obj:`robo_orchard_core.envs.env_base.EnvType_co`\ , :py:obj:`TermConfigType_co`\ ]
+
+
+   Base class for all manager terms.
+
+   Similar to `ManagerTermBase` in Isaac Lab, this class is the base class for
+   all manager terms. A Manager term is the basic block to interact with the
+   environment. Each manager term is responsible for managing a specific
+   aspect of the environment, such as observations, rewards, etc.
+
+   Users can define their own manager terms by inheriting from this class
+   and implementing the missing methods.
+
+   Different from the Isaac Lab, the manager term is independent of simulation
+   engines. It use `pydantic` style configuration to define the configuration
+   of the manager term to make everything structured and easy for
+   serialization/deserialization and validation with json format.
+
+   :param cfg: The configuration of the manager term.
+   :type cfg: ManagerTermBaseCfg
+   :param env: The environment.
+   :type env: EnvBase
+
+
+   .. py:attribute:: cfg
+      :type:  TermConfigType_co
+
+
+   .. py:method:: reset(env_ids: collections.abc.Sequence[int] | None = None) -> None
+      :abstractmethod:
+
+
+      Resets the manager term.
+
+      :param env_ids: The environment ids. Defaults to None, in which case
+                      all environments are considered.
+
+
+
+.. py:class:: ManagerTermBaseCfg
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`ManagerTermType_co`\ ]
+
+
+   Configuration class for the manager term.
+
+   Template Args:
+       ManagerTermType_co: The type of the manager term.
+
+
+.. py:class:: ManagerTermGroupCfg(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.Config`, :py:obj:`Generic`\ [\ :py:obj:`TermConfigType_co`\ ]
+
+
+   The configuration for the observation group.
+
+   Template Args:
+       TermConfigType_co: The type of the term configuration.
+
+   :param terms: The configuration for the
+                 observation terms.
+   :type terms: dict[str, ConfigType_co]
+
+
+   .. py:attribute:: terms
+      :type:  Mapping[str, TermConfigType_co]
+
+      The configuration for the observation terms.
+
+
+   .. py:method:: create_terms(env: Any)
+
+      Creates the observation terms.
+
+
+
+.. py:data:: TransformCfgType_co
+
+.. py:class:: TermTransformBase(cfg: TransformCfgType_co)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`, :py:obj:`Generic`\ [\ :py:obj:`TransformCfgType_co`\ ]
+
+
+   Base class for defining term transforms.
+
+   Term transforms are used to modify the results from the manager terms.
+   All transforms should inherit from this class and implement missing
+   methods.
+
+   In torch, there is a similar concept in Dataset and DataLoader classes.
+   Each transform is a callable that takes the data and returns the modified
+   data. The transforms can be chained together.
+
+   Transform of terms are widely used to preprocess the results before feeding
+   them to next stage.  For example, the results of an observation term can be
+   normalized using a transform.
+
+
+
+   .. py:attribute:: cfg
+
+
+   .. py:method:: reset(env_ids: collections.abc.Sequence[int] | None = None)
+      :abstractmethod:
+
+
+      Resets the Modifier.
+
+      :param env_ids: The environment ids. Defaults to None, in which case
+                      all environments are considered.
+
+
+
+.. py:data:: TermTransformBaseType_co
+
+.. py:class:: TermTransformCfg
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`TermTransformBaseType_co`\ ]
+
+
+   Configuration class for the term transform.
+
+

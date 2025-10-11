@@ -1,0 +1,23 @@
+actions
+=======
+
+.. py:module:: robo_orchard_core.envs.managers.actions
+
+.. autoapi-nested-parse::
+
+   The managers of the actions that the agents can take in the environment.
+
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_core/envs/managers/actions/action_manager/index
+   /autoapi/robo_orchard_core/envs/managers/actions/action_term/index
+
+

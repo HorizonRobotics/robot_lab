@@ -1,0 +1,58 @@
+task
+====
+
+.. py:module:: robo_orchard_core.envs.task
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.task.TaskInfo
+
+
+Module Contents
+---------------
+
+.. py:class:: TaskInfo
+
+   The information of a task.
+
+   This class is used to store the information of a task, including its
+   description, goal condition, and instructions.
+
+
+
+   .. py:attribute:: description
+      :type:  str
+
+      A description of the task.
+
+      This property should return a string that describes the task,
+      including its objectives, constraints, and any other relevant
+      information.
+
+
+   .. py:attribute:: goal_condition
+      :type:  str
+
+      The goal condition of the task.
+
+      This property should return a string that describes the goal
+      condition of the task, which is the desired outcome or state that
+      the task aims to achieve.
+
+
+   .. py:attribute:: instructions
+      :type:  str | None
+
+      Instructions for the task.
+
+      This property should return a string that provides instructions
+      on how to perform the task, including any specific steps or
+      guidelines that need to be followed.
+
+      This property provides more specific instructions if needed.
+
+

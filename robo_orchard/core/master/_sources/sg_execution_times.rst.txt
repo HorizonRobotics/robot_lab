@@ -1,0 +1,52 @@
+
+:orphan:
+
+.. _sphx_glr_sg_execution_times:
+
+
+Computation times
+=================
+**00:03.046** total execution time for 6 files **from all galleries**:
+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_build_gallery_tutorials_system_overview_nonb-01_config_design.py` (``gallery/tutorials/system_overview/nonb-01_config_design.py``)
+     - 00:01.674
+     - 0.0
+   * - :ref:`sphx_glr_build_gallery_tutorials_datatypes_nonb-04_camera.py` (``gallery/tutorials/datatypes/nonb-04_camera.py``)
+     - 00:00.724
+     - 0.0
+   * - :ref:`sphx_glr_build_gallery_tutorials_datatypes_nonb-03_robot.py` (``gallery/tutorials/datatypes/nonb-03_robot.py``)
+     - 00:00.253
+     - 0.0
+   * - :ref:`sphx_glr_build_gallery_tutorials_datatypes_nonb-01_geometry.py` (``gallery/tutorials/datatypes/nonb-01_geometry.py``)
+     - 00:00.224
+     - 0.0
+   * - :ref:`sphx_glr_build_gallery_tutorials_datatypes_nonb-02_tf_graph.py` (``gallery/tutorials/datatypes/nonb-02_tf_graph.py``)
+     - 00:00.170
+     - 0.0
+   * - :ref:`sphx_glr_build_gallery_tutorials_system_overview_nonb-02_env_and_managers.py` (``gallery/tutorials/system_overview/nonb-02_env_and_managers.py``)
+     - 00:00.000
+     - 0.0
