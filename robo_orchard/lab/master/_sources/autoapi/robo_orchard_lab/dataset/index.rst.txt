@@ -16,6 +16,7 @@ Submodules
    /autoapi/robo_orchard_lab/dataset/datatypes/index
    /autoapi/robo_orchard_lab/dataset/embodiedscan/index
    /autoapi/robo_orchard_lab/dataset/graspnet1b/index
+   /autoapi/robo_orchard_lab/dataset/horizon_manipulation/index
    /autoapi/robo_orchard_lab/dataset/lmdb/index
    /autoapi/robo_orchard_lab/dataset/robot/index
    /autoapi/robo_orchard_lab/dataset/robotwin/index

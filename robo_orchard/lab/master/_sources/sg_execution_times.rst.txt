@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**01:10.562** total execution time for 4 files **from all galleries**:
+**01:10.318** total execution time for 10 files **from all galleries**:
 
 .. container::
 
@@ -32,15 +32,33 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_build_trainer_tutorial_nonb-02_built_in_hooks.py` (``trainer_tutorial/nonb-02_built_in_hooks.py``)
-     - 00:26.197
+   * - :ref:`sphx_glr_build_tutorials_trainer_tutorial_nonb-02_built_in_hooks.py` (``tutorials/trainer_tutorial/nonb-02_built_in_hooks.py``)
+     - 00:23.428
      - 0.0
-   * - :ref:`sphx_glr_build_trainer_tutorial_nonb-01_basic_run.py` (``trainer_tutorial/nonb-01_basic_run.py``)
-     - 00:23.626
+   * - :ref:`sphx_glr_build_tutorials_trainer_tutorial_nonb-01_basic_run.py` (``tutorials/trainer_tutorial/nonb-01_basic_run.py``)
+     - 00:22.968
      - 0.0
-   * - :ref:`sphx_glr_build_trainer_tutorial_nonb-03_custom_hook.py` (``trainer_tutorial/nonb-03_custom_hook.py``)
-     - 00:20.111
+   * - :ref:`sphx_glr_build_tutorials_trainer_tutorial_nonb-03_custom_hook.py` (``tutorials/trainer_tutorial/nonb-03_custom_hook.py``)
+     - 00:19.880
      - 0.0
-   * - :ref:`sphx_glr_build_model_api_tutorial_nonb-01_basic.py` (``model_api_tutorial/nonb-01_basic.py``)
-     - 00:00.628
+   * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-03_dataset_access.py` (``tutorials/dataset_tutorial/nonb-03_dataset_access.py``)
+     - 00:01.524
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-04_dataset_training.py` (``tutorials/dataset_tutorial/nonb-04_dataset_training.py``)
+     - 00:00.965
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_model_api_tutorial_nonb-01_basic.py` (``tutorials/model_api_tutorial/nonb-01_basic.py``)
+     - 00:00.770
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-06_dataset_convention.py` (``tutorials/dataset_tutorial/nonb-06_dataset_convention.py``)
+     - 00:00.460
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-05_dataset_create.py` (``tutorials/dataset_tutorial/nonb-05_dataset_create.py``)
+     - 00:00.321
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-01_dataset_introduce.py` (``tutorials/dataset_tutorial/nonb-01_dataset_introduce.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-02_dataset_overview.py` (``tutorials/dataset_tutorial/nonb-02_dataset_overview.py``)
+     - 00:00.000
      - 0.0

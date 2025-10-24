@@ -1,0 +1,416 @@
+utils
+=====
+
+.. py:module:: robo_orchard_lab.dataset.horizon_manipulation.packer.utils
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.horizon_manipulation.packer.utils.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.horizon_manipulation.packer.utils.ParseConfig
+   robo_orchard_lab.dataset.horizon_manipulation.packer.utils.McapParseConfig
+   robo_orchard_lab.dataset.horizon_manipulation.packer.utils.PackConfig
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.horizon_manipulation.packer.utils.scale_images_and_update_intrinsics
+   robo_orchard_lab.dataset.horizon_manipulation.packer.utils.filter_static_frames
+   robo_orchard_lab.dataset.horizon_manipulation.packer.utils.time_sync
+   robo_orchard_lab.dataset.horizon_manipulation.packer.utils.parse_mcap
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: ParseConfig(/, **data: Any)
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+
+   Usage docs: https://docs.pydantic.dev/2.10/concepts/models/
+
+   A base class for creating Pydantic models.
+
+   .. attribute:: __class_vars__
+
+      The names of the class variables defined on the model.
+
+   .. attribute:: __private_attributes__
+
+      Metadata about the private attributes of the model.
+
+   .. attribute:: __signature__
+
+      The synthesized `__init__` [`Signature`][inspect.Signature] of the model.
+
+   .. attribute:: __pydantic_complete__
+
+      Whether model building is completed, or if there are still undefined fields.
+
+   .. attribute:: __pydantic_core_schema__
+
+      The core schema of the model.
+
+   .. attribute:: __pydantic_custom_init__
+
+      Whether the model has a custom `__init__` function.
+
+   .. attribute:: __pydantic_decorators__
+
+      Metadata containing the decorators defined on the model.
+      This replaces `Model.__validators__` and `Model.__root_validators__` from Pydantic V1.
+
+   .. attribute:: __pydantic_generic_metadata__
+
+      Metadata for generic models; contains data used for a similar purpose to
+      __args__, __origin__, __parameters__ in typing-module generics. May eventually be replaced by these.
+
+   .. attribute:: __pydantic_parent_namespace__
+
+      Parent namespace of the model, used for automatic rebuilding of models.
+
+   .. attribute:: __pydantic_post_init__
+
+      The name of the post-init method for the model, if defined.
+
+   .. attribute:: __pydantic_root_model__
+
+      Whether the model is a [`RootModel`][pydantic.root_model.RootModel].
+
+   .. attribute:: __pydantic_serializer__
+
+      The `pydantic-core` `SchemaSerializer` used to dump instances of the model.
+
+   .. attribute:: __pydantic_validator__
+
+      The `pydantic-core` `SchemaValidator` used to validate instances of the model.
+
+   .. attribute:: __pydantic_fields__
+
+      A dictionary of field names and their corresponding [`FieldInfo`][pydantic.fields.FieldInfo] objects.
+
+   .. attribute:: __pydantic_computed_fields__
+
+      A dictionary of computed field names and their corresponding [`ComputedFieldInfo`][pydantic.fields.ComputedFieldInfo] objects.
+
+   .. attribute:: __pydantic_extra__
+
+      A dictionary containing extra values, if [`extra`][pydantic.config.ConfigDict.extra]
+      is set to `'allow'`.
+
+   .. attribute:: __pydantic_fields_set__
+
+      The names of fields explicitly set during instantiation.
+
+   .. attribute:: __pydantic_private__
+
+      Values of private attributes set on the model instance.
+
+
+.. py:class:: McapParseConfig(/, **data: Any)
+
+   Bases: :py:obj:`ParseConfig`
+
+
+   Usage docs: https://docs.pydantic.dev/2.10/concepts/models/
+
+   A base class for creating Pydantic models.
+
+   .. attribute:: __class_vars__
+
+      The names of the class variables defined on the model.
+
+   .. attribute:: __private_attributes__
+
+      Metadata about the private attributes of the model.
+
+   .. attribute:: __signature__
+
+      The synthesized `__init__` [`Signature`][inspect.Signature] of the model.
+
+   .. attribute:: __pydantic_complete__
+
+      Whether model building is completed, or if there are still undefined fields.
+
+   .. attribute:: __pydantic_core_schema__
+
+      The core schema of the model.
+
+   .. attribute:: __pydantic_custom_init__
+
+      Whether the model has a custom `__init__` function.
+
+   .. attribute:: __pydantic_decorators__
+
+      Metadata containing the decorators defined on the model.
+      This replaces `Model.__validators__` and `Model.__root_validators__` from Pydantic V1.
+
+   .. attribute:: __pydantic_generic_metadata__
+
+      Metadata for generic models; contains data used for a similar purpose to
+      __args__, __origin__, __parameters__ in typing-module generics. May eventually be replaced by these.
+
+   .. attribute:: __pydantic_parent_namespace__
+
+      Parent namespace of the model, used for automatic rebuilding of models.
+
+   .. attribute:: __pydantic_post_init__
+
+      The name of the post-init method for the model, if defined.
+
+   .. attribute:: __pydantic_root_model__
+
+      Whether the model is a [`RootModel`][pydantic.root_model.RootModel].
+
+   .. attribute:: __pydantic_serializer__
+
+      The `pydantic-core` `SchemaSerializer` used to dump instances of the model.
+
+   .. attribute:: __pydantic_validator__
+
+      The `pydantic-core` `SchemaValidator` used to validate instances of the model.
+
+   .. attribute:: __pydantic_fields__
+
+      A dictionary of field names and their corresponding [`FieldInfo`][pydantic.fields.FieldInfo] objects.
+
+   .. attribute:: __pydantic_computed_fields__
+
+      A dictionary of computed field names and their corresponding [`ComputedFieldInfo`][pydantic.fields.ComputedFieldInfo] objects.
+
+   .. attribute:: __pydantic_extra__
+
+      A dictionary containing extra values, if [`extra`][pydantic.config.ConfigDict.extra]
+      is set to `'allow'`.
+
+   .. attribute:: __pydantic_fields_set__
+
+      The names of fields explicitly set during instantiation.
+
+   .. attribute:: __pydantic_private__
+
+      Values of private attributes set on the model instance.
+
+
+   .. py:attribute:: CAMERAS
+      :type:  List[str]
+      :value: None
+
+
+
+   .. py:attribute:: SLAVE_LEFT_JOINT
+      :type:  str
+      :value: '/observation/robot_state/left/joint'
+
+
+
+   .. py:attribute:: SLAVE_RIGHT_JOINT
+      :type:  str
+      :value: '/observation/robot_state/right/joint'
+
+
+
+   .. py:attribute:: MASTER_LEFT_JOINT
+      :type:  str
+      :value: '/observation/robot_state/left_master/joint'
+
+
+
+   .. py:attribute:: MASTER_RIGHT_JOINT
+      :type:  str
+      :value: '/observation/robot_state/right_master/joint'
+
+
+
+   .. py:attribute:: TF_STATIC
+      :type:  str
+      :value: None
+
+
+
+   .. py:attribute:: COLOR_IMAGE_TOPICS
+      :type:  List[str]
+      :value: None
+
+
+
+   .. py:attribute:: DEPTH_IMAGE_TOPICS
+      :type:  List[str]
+      :value: None
+
+
+
+   .. py:attribute:: COLOR_INFO_TOPICS
+      :type:  List[str]
+      :value: None
+
+
+
+   .. py:attribute:: DEPTH_INFO_TOPICS
+      :type:  List[str]
+      :value: None
+
+
+
+.. py:class:: PackConfig(/, **data: Any)
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+
+   Usage docs: https://docs.pydantic.dev/2.10/concepts/models/
+
+   A base class for creating Pydantic models.
+
+   .. attribute:: __class_vars__
+
+      The names of the class variables defined on the model.
+
+   .. attribute:: __private_attributes__
+
+      Metadata about the private attributes of the model.
+
+   .. attribute:: __signature__
+
+      The synthesized `__init__` [`Signature`][inspect.Signature] of the model.
+
+   .. attribute:: __pydantic_complete__
+
+      Whether model building is completed, or if there are still undefined fields.
+
+   .. attribute:: __pydantic_core_schema__
+
+      The core schema of the model.
+
+   .. attribute:: __pydantic_custom_init__
+
+      Whether the model has a custom `__init__` function.
+
+   .. attribute:: __pydantic_decorators__
+
+      Metadata containing the decorators defined on the model.
+      This replaces `Model.__validators__` and `Model.__root_validators__` from Pydantic V1.
+
+   .. attribute:: __pydantic_generic_metadata__
+
+      Metadata for generic models; contains data used for a similar purpose to
+      __args__, __origin__, __parameters__ in typing-module generics. May eventually be replaced by these.
+
+   .. attribute:: __pydantic_parent_namespace__
+
+      Parent namespace of the model, used for automatic rebuilding of models.
+
+   .. attribute:: __pydantic_post_init__
+
+      The name of the post-init method for the model, if defined.
+
+   .. attribute:: __pydantic_root_model__
+
+      Whether the model is a [`RootModel`][pydantic.root_model.RootModel].
+
+   .. attribute:: __pydantic_serializer__
+
+      The `pydantic-core` `SchemaSerializer` used to dump instances of the model.
+
+   .. attribute:: __pydantic_validator__
+
+      The `pydantic-core` `SchemaValidator` used to validate instances of the model.
+
+   .. attribute:: __pydantic_fields__
+
+      A dictionary of field names and their corresponding [`FieldInfo`][pydantic.fields.FieldInfo] objects.
+
+   .. attribute:: __pydantic_computed_fields__
+
+      A dictionary of computed field names and their corresponding [`ComputedFieldInfo`][pydantic.fields.ComputedFieldInfo] objects.
+
+   .. attribute:: __pydantic_extra__
+
+      A dictionary containing extra values, if [`extra`][pydantic.config.ConfigDict.extra]
+      is set to `'allow'`.
+
+   .. attribute:: __pydantic_fields_set__
+
+      The names of fields explicitly set during instantiation.
+
+   .. attribute:: __pydantic_private__
+
+      Values of private attributes set on the model instance.
+
+
+   .. py:attribute:: SYNC_CAMERA
+      :type:  str
+      :value: None
+
+
+
+   .. py:attribute:: IMAGE_SCALE
+      :type:  float
+      :value: None
+
+
+
+   .. py:attribute:: STATIC_THRESHOLD
+      :type:  float
+      :value: None
+
+
+
+   .. py:attribute:: HEAD_TIME_TO_FILTER
+      :type:  float | None
+      :value: None
+
+
+
+   .. py:attribute:: TAIL_TIME_TO_FILTER
+      :type:  float | None
+      :value: None
+
+
+
+   .. py:attribute:: PARSE_CONFIG
+      :type:  ParseConfig
+      :value: None
+
+
+
+.. py:function:: scale_images_and_update_intrinsics(image_data: List[Dict[str, robo_orchard_lab.dataset.datatypes.BatchCameraDataEncoded]], image_scale_ratio: float)
+
+.. py:function:: filter_static_frames(data: List[Dict[str, robo_orchard_lab.dataset.datatypes.BatchCameraDataEncoded | robo_orchard_lab.dataset.datatypes.BatchJointsState]], joint_positions: torch.Tensor, base_time: List[int], static_threshold: float, head_time_to_filter: float | None, tail_time_to_filter: float | None)
+
+.. py:function:: time_sync(data: list[Dict[str, robo_orchard_lab.dataset.datatypes.BatchCameraDataEncoded | robo_orchard_lab.dataset.datatypes.BatchJointsState]], base_time: list[int])
+
+   Synchronizes all data streams to a base timeline.
+
+   :param data: A tuple containing dictionaries of image and joint data.
+   :type data: Tuple[Dict[str, BatchCameraDataEncoded | BatchJointsState]]
+   :param base_time: The base timestamps to which the source data, in
+                     nanoseconds(1e-9 seconds).
+   :type base_time: list[int]
+
+
+.. py:function:: parse_mcap(parse_config: McapParseConfig, mcap_path: str)
+
+   Loads, synchronizes, and filters all data from the MCAP file.
+
+   This is the core data processing method. It performs the following
+   steps:
+   1.  Finds and opens the MCAP file for the episode.
+   2.  Reads all relevant ROS messages (images, joints, TF, etc.).
+
+
