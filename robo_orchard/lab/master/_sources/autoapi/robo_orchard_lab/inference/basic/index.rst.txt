@@ -61,6 +61,10 @@ Module Contents
    device transfer function.
 
 
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType_co[InferencePipelineType_co]
+
+
    .. py:attribute:: processor
       :type:  robo_orchard_core.utils.config.ConfigInstanceOf[robo_orchard_lab.inference.processor.ProcessorMixinCfg] | None
       :value: None

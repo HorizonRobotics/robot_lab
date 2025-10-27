@@ -348,14 +348,12 @@ This is the "MCAP -> Dataset" workflow, it is the same packaging pattern we lear
 
 
     --- Starting MCAP Ingestion Process ---
-    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:489: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/convention/dummy_dataset' already exists. It will be overwritten.
-      warnings.warn(
     Generating train split: 0 examples [00:00, ? examples/s]
       [.workspace/convention/dummy_dataset_episode0.mcap] Generating episode metadata...
       [.workspace/convention/dummy_dataset_episode0.mcap] Starting frame generation stream...
 
       [.workspace/convention/dummy_dataset_episode0.mcap] Finished generating frames.
-    Generating train split: 5 examples [00:00, 43.82 examples/s]    Generating train split: 5 examples [00:00, 41.73 examples/s]
+    Generating train split: 5 examples [00:00, 40.63 examples/s]    Generating train split: 5 examples [00:00, 37.10 examples/s]
     --- Ingestion Complete! ---
 
 
@@ -380,7 +378,7 @@ this feature.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.460 seconds)
+   **Total running time of the script:** (0 minutes 0.602 seconds)
 
 
 .. _sphx_glr_download_build_tutorials_dataset_tutorial_nonb-06_dataset_convention.py:

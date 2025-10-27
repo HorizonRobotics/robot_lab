@@ -19,6 +19,7 @@ Functions
 
    robo_orchard_lab.utils.path.is_empty_directory
    robo_orchard_lab.utils.path.in_cwd
+   robo_orchard_lab.utils.path.abspath
 
 
 Module Contents
@@ -63,5 +64,10 @@ Module Contents
    Back in: /path/to/current
    >>> os.getcwd() == original_dir
    True
+
+
+.. py:function:: abspath(path: str) -> str
+
+   Get absolute path.
 
 

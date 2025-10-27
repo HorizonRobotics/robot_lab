@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**01:10.318** total execution time for 10 files **from all galleries**:
+**02:47.097** total execution time for 14 files **from all galleries**:
 
 .. container::
 
@@ -33,32 +33,44 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_build_tutorials_trainer_tutorial_nonb-02_built_in_hooks.py` (``tutorials/trainer_tutorial/nonb-02_built_in_hooks.py``)
-     - 00:23.428
+     - 01:05.001
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_trainer_tutorial_nonb-01_basic_run.py` (``tutorials/trainer_tutorial/nonb-01_basic_run.py``)
-     - 00:22.968
+     - 00:49.628
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_trainer_tutorial_nonb-03_custom_hook.py` (``tutorials/trainer_tutorial/nonb-03_custom_hook.py``)
-     - 00:19.880
+     - 00:45.913
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-03_dataset_access.py` (``tutorials/dataset_tutorial/nonb-03_dataset_access.py``)
-     - 00:01.524
+     - 00:02.403
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-01_model_api.py` (``tutorials/model_zoo_tutorial/nonb-01_model_api.py``)
+     - 00:01.139
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-02_inference_api.py` (``tutorials/model_zoo_tutorial/nonb-02_inference_api.py``)
+     - 00:01.054
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-04_dataset_training.py` (``tutorials/dataset_tutorial/nonb-04_dataset_training.py``)
-     - 00:00.965
-     - 0.0
-   * - :ref:`sphx_glr_build_tutorials_model_api_tutorial_nonb-01_basic.py` (``tutorials/model_api_tutorial/nonb-01_basic.py``)
-     - 00:00.770
+     - 00:00.956
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-06_dataset_convention.py` (``tutorials/dataset_tutorial/nonb-06_dataset_convention.py``)
-     - 00:00.460
+     - 00:00.602
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-05_dataset_create.py` (``tutorials/dataset_tutorial/nonb-05_dataset_create.py``)
-     - 00:00.321
+     - 00:00.396
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-01_dataset_introduce.py` (``tutorials/dataset_tutorial/nonb-01_dataset_introduce.py``)
-     - 00:00.000
+     - 00:00.003
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-02_dataset_overview.py` (``tutorials/dataset_tutorial/nonb-02_dataset_overview.py``)
+     - 00:00.001
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-03_perception_models.py` (``tutorials/model_zoo_tutorial/nonb-03_perception_models.py``)
+     - 00:00.001
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-05_locomotion_models.py` (``tutorials/model_zoo_tutorial/nonb-05_locomotion_models.py``)
+     - 00:00.001
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-04_manipulation_models.py` (``tutorials/model_zoo_tutorial/nonb-04_manipulation_models.py``)
      - 00:00.000
      - 0.0

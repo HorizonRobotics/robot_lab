@@ -355,19 +355,17 @@ orchestrator to do the work.
     --- Starting Packaging Process ---
     Initialized packager for ep_001
     Initialized packager for ep_002
-    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:489: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/dummy_dataset' already exists. It will be overwritten.
-      warnings.warn(
     Generating train split: 0 examples [00:00, ? examples/s]
       [ep_001] Generating episode metadata...
       [ep_001] Starting frame generation...
-    Generating train split: 1 examples [00:00,  6.61 examples/s]
+    Generating train split: 1 examples [00:00,  5.55 examples/s]
       [ep_001] Finished generating 5 frames.
 
       [ep_002] Generating episode metadata...
       [ep_002] Starting frame generation...
 
       [ep_002] Finished generating 3 frames.
-    Generating train split: 8 examples [00:00, 35.16 examples/s]
+    Generating train split: 8 examples [00:00, 30.52 examples/s]
     --- Packaging Complete! ---
 
 
@@ -391,7 +389,7 @@ using :py:class:`~robo_orchard_lab.dataset.robot.dataset.RODataset` to prove it 
     for root, _, files in os.walk(OUTPUT_DATASET_PATH):
         level = root.replace(OUTPUT_DATASET_PATH, "").count(os.sep)
         indent = " " * 4 * (level)
-        print(f"{indent}{OUTPUT_DATASET_PATH}/")
+        print(f"{indent}{OUTPUT_DATASET_PATH}")
         sub_indent = " " * 4 * (level + 1)
         for f in files:
             print(f"{sub_indent}{f}")
@@ -405,7 +403,7 @@ using :py:class:`~robo_orchard_lab.dataset.robot.dataset.RODataset` to prove it 
  .. code-block:: none
 
     --- Verifying directory tree at .workspace/dummy_dataset/ ---
-    .workspace/dummy_dataset//
+    .workspace/dummy_dataset/
         dataset_info.json
         meta_db.duckdb
         data-00000-of-00001.arrow
@@ -476,7 +474,7 @@ Now, let's load it just like any other `RODataset`
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.321 seconds)
+   **Total running time of the script:** (0 minutes 0.396 seconds)
 
 
 .. _sphx_glr_download_build_tutorials_dataset_tutorial_nonb-05_dataset_create.py:
