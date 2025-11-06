@@ -32,7 +32,7 @@ Module Contents
 
 
    .. py:attribute:: urdf_content
-      :type:  sqlalchemy.orm.Mapped[str]
+      :type:  sqlalchemy.orm.Mapped[str | None]
 
 
    .. py:attribute:: md5

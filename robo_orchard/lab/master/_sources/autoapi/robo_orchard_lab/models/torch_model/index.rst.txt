@@ -53,6 +53,16 @@ Module Contents
    .. py:attribute:: cfg
 
 
+   .. py:property:: device
+      :type: torch.device
+
+
+
+   .. py:property:: dtype
+      :type: torch.dtype
+
+
+
    .. py:property:: accelerate_model_id
       :type: int
 

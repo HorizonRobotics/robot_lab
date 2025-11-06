@@ -124,7 +124,7 @@ Module Contents
 
 
    .. py:attribute:: optimizer
-      :type:  Optional[torch.optim.Optimizer]
+      :type:  Optional[accelerate.optimizer.AcceleratedOptimizer]
       :value: None
 
 

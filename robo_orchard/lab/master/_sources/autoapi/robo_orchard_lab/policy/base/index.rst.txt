@@ -47,7 +47,7 @@ Module Contents
       :type:  robo_orchard_lab.inference.mixin.InferencePipelineMixin[robo_orchard_core.policy.base.OBSType, robo_orchard_core.policy.base.ACTType]
 
 
-   .. py:method:: from_infer_pipeline(pipeline: robo_orchard_lab.inference.mixin.InferencePipelineMixin, observation_space: gymnasium.Space[robo_orchard_core.policy.base.OBSType] | None = None, action_space: gymnasium.Space[robo_orchard_core.policy.base.ACTType] | None = None)
+   .. py:method:: from_shared(pipeline: robo_orchard_lab.inference.mixin.InferencePipelineMixin, observation_space: gymnasium.Space[robo_orchard_core.policy.base.OBSType] | None = None, action_space: gymnasium.Space[robo_orchard_core.policy.base.ACTType] | None = None)
       :classmethod:
 
 

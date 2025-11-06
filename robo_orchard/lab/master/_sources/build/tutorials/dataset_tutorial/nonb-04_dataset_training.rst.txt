@@ -358,7 +358,7 @@ of states/actions. We need a transform to stack them into a tensor.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.956 seconds)
+   **Total running time of the script:** (0 minutes 0.853 seconds)
 
 
 .. _sphx_glr_download_build_tutorials_dataset_tutorial_nonb-04_dataset_training.py:

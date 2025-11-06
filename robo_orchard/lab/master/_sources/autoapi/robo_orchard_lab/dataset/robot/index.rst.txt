@@ -44,6 +44,7 @@ Submodules
    :maxdepth: 1
 
    /autoapi/robo_orchard_lab/dataset/robot/columns/index
+   /autoapi/robo_orchard_lab/dataset/robot/conversion/index
    /autoapi/robo_orchard_lab/dataset/robot/dataset/index
    /autoapi/robo_orchard_lab/dataset/robot/db_orm/index
    /autoapi/robo_orchard_lab/dataset/robot/engine/index

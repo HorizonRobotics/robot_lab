@@ -107,10 +107,10 @@ dataset format—from loading data for training to packaging your own raw data f
 
 .. only:: html
 
-  .. image:: /build/tutorials/dataset_tutorial/images/thumb/sphx_glr_nonb-06_dataset_convention_thumb.png
+  .. image:: /build/tutorials/dataset_tutorial/images/thumb/sphx_glr_nonb-06_dataset_conversion_thumb.png
     :alt:
 
-  :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-06_dataset_convention.py`
+  :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-06_dataset_conversion.py`
 
 .. raw:: html
 
@@ -133,7 +133,7 @@ dataset format—from loading data for training to packaging your own raw data f
    /build/tutorials/dataset_tutorial/nonb-03_dataset_access
    /build/tutorials/dataset_tutorial/nonb-04_dataset_training
    /build/tutorials/dataset_tutorial/nonb-05_dataset_create
-   /build/tutorials/dataset_tutorial/nonb-06_dataset_convention
+   /build/tutorials/dataset_tutorial/nonb-06_dataset_conversion
 
 
 

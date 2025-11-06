@@ -210,7 +210,7 @@ Module Contents
 
 
    .. py:attribute:: urdf_content
-      :type:  str
+      :type:  str | None
 
       The URDF content of the robot.
 

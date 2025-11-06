@@ -179,6 +179,12 @@ Module Contents
       This method is similar to the `select` method in Hugging Face
       Datasets.
 
+      .. warning::
+
+         The returned new RODataset will only contain the selected frames,
+         and the episode-level metadata does not change. Therefore, the
+         episode-level metadata may not correspond to the selected frames!
+
       :param indices: The indices of the frames to select.
                       This can be a list of integers or a slice object.
       :type indices: Iterable
@@ -217,10 +223,14 @@ Module Contents
 
       Convert the metadata index in `data` to actual metadata objects.
 
+      The `data` can be either a row sample containing multiple columns
+      (dict), or a slice of a single column (list).
+
       :param data: The data to convert. If `data` is a dict
                    with index-based metadata, it will be converted to actual
-                   metadata objects. If `data` is a list, it will be converted
-                   to a list of metadata objects.
+                   metadata objects. If `data` is a list, it is supposed to be
+                   a slice of a single column with index-based metadata, and
+                   it will be converted to actual metadata objects.
       :type data: dict | list
       :param column_name: The name of the
                           column to convert. If `data` is a list, this argument must be
@@ -306,6 +316,11 @@ Module Contents
                            metadata to actual metadata objects when accessing the dataset.
                            Defaults to True.
    :type meta_index2meta: bool, optional
+
+
+   .. py:property:: row_sampler
+      :type: robo_orchard_lab.dataset.robot.row_sampler.MultiRowSampler
+
 
 
    .. py:method:: from_dataset(dataset: RODataset, row_sampler: robo_orchard_lab.dataset.robot.row_sampler.MultiRowSamplerConfig) -> ROMultiRowDataset

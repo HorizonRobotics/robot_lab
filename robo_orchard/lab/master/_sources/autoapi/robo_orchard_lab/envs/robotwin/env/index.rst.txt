@@ -130,7 +130,7 @@ Module Contents
 
       If the environment has not been reset before, or the seed is
       different from the previous one, the environment will be re-created
-      and check the seed.
+      and check the seed, and the seed will be updated in the config.
 
       .. warning::
 

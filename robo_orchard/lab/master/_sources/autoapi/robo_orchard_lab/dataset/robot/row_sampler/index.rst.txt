@@ -13,6 +13,8 @@ Classes
    robo_orchard_lab.dataset.robot.row_sampler.MultiRowSamplerConfig
    robo_orchard_lab.dataset.robot.row_sampler.DeltaTimestampSampler
    robo_orchard_lab.dataset.robot.row_sampler.DeltaTimestampSamplerConfig
+   robo_orchard_lab.dataset.robot.row_sampler.ColumnIndexOffsetSampler
+   robo_orchard_lab.dataset.robot.row_sampler.ColumnIndexOffsetSamplerConfig
 
 
 Module Contents
@@ -44,7 +46,7 @@ Module Contents
 
 
    .. py:property:: column_rows_keys
-      :type: dict[str, list]
+      :type: dict[str, Any]
 
       :abstractmethod:
 
@@ -52,9 +54,10 @@ Module Contents
       Get the keys of the rows that are sampled.
 
       This property is expected to return a dictionary where keys are
-      column names and values are lists of row keys. It is useful
-      for understanding which columns are sampled and what are the
-      corresponding row keys.
+      column names and values are the corresponding configuration or
+      parameters used for sampling rows from that column.
+      It is useful for understanding which columns are sampled and what
+      are the sampling strategies or parameters associated with each column.
 
 
 .. py:class:: MultiRowSamplerConfig
@@ -74,14 +77,17 @@ Module Contents
    Bases: :py:obj:`MultiRowSampler`
 
 
-   Class for sampling multiple rows of specific columns from a dataset.
+   Sampler that samples rows based on delta timestamps.
+
+   This sampler selects rows from the dataset episode based on specified
+   delta timestamps for each column and a tolerance value.
 
 
    .. py:attribute:: cfg
 
 
    .. py:property:: column_rows_keys
-      :type: dict[str, list]
+      :type: dict[str, list[float]]
 
 
       Get the keys of the rows that are sampled.
@@ -116,7 +122,7 @@ Module Contents
 
 
    .. py:attribute:: class_type
-      :type:  Type[DeltaTimestampSampler]
+      :type:  robo_orchard_core.utils.config.ClassType[DeltaTimestampSampler]
 
 
    .. py:attribute:: column_delta_ts
@@ -138,5 +144,93 @@ Module Contents
       selected. This is useful for ensuring that the sampled rows are close
       to the desired delta timestamps, allowing for some flexibility in
       matching due to potential variations in the data.
+
+
+.. py:class:: ColumnIndexOffsetSampler(cfg: ColumnIndexOffsetSamplerConfig)
+
+   Bases: :py:obj:`MultiRowSampler`
+
+
+   Sampler that samples rows based on column index offsets.
+
+   This sampler selects rows from the dataset based on specified
+   index offsets for each column in the same episode.
+
+   .. rubric:: Example
+
+   For example, if the current index is 10, and the column_offsets
+   is {"camera": [-1, 0, 1]}, then the sampler will return the indices
+   [9, 10, 11] for the "camera" column, provided that these indices
+   belong to the same episode as index 10. If any of these indices
+   do not belong to the same episode, None will be returned for that
+   position.
+
+
+   .. py:attribute:: cfg
+      :type:  ColumnIndexOffsetSamplerConfig
+
+
+   .. py:property:: column_rows_keys
+      :type: dict[str, list[int]]
+
+
+      Get the keys of the rows that are sampled.
+
+
+   .. py:method:: sample_row_idx(index_dataset: datasets.Dataset | CachedIndexDataset, index: int) -> dict[str, list[int | None]]
+
+      Sample a list of row indices from the index dataset.
+
+      :param index_dataset: The dataset from which to sample rows.
+      :type index_dataset: HFDataset
+      :param index: The index or indices to sample.
+      :type index: int
+
+      :returns: A dictionary where keys are column
+                names and values are lists of row indices.
+      :rtype: dict[str, list[int | None]]
+
+
+
+   .. py:method:: sample_row_idx_by_offsets(index_dataset: datasets.Dataset, index: int, column_offsets: dict[str, list[int]]) -> dict[str, list[int | None]]
+      :staticmethod:
+
+
+      Sample row indices based on column index offsets.
+
+      :param index_dataset: The dataset from which to sample rows.
+      :type index_dataset: HFDataset
+      :param index: The index to sample from.
+      :type index: int
+      :param column_offsets: A dictionary where keys are
+                             column names and values are lists of index offsets.
+      :type column_offsets: dict[str, list[int]]
+
+      :returns:
+
+                A dictionary where keys are column
+                    names and values are lists of row indices.
+      :rtype: dict[str, list[int | None]]
+
+
+
+.. py:class:: ColumnIndexOffsetSamplerConfig
+
+   Bases: :py:obj:`MultiRowSamplerConfig`\ [\ :py:obj:`ColumnIndexOffsetSampler`\ ]
+
+
+   Configuration class for ColumnIndexOffsetSampler.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType[ColumnIndexOffsetSampler]
+
+
+   .. py:attribute:: column_offsets
+      :type:  dict[str, list[int]]
+
+      A dictionary where keys are column names and values are lists of
+      index offsets. This is used to sample rows based on index offsets
+      for each column.
 
 
