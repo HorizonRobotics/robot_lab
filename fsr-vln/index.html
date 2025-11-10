@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="FSR-VLN: Fast and Slow Reasoning for Vision-Language Navigation with Hierarchical Multi-modal Scene Graph">
+  <meta name="keywords" content="Robotic, 3D Object Generation, 3D Scene Generation, 3D World Generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FSR-VLN: Fast and Slow Reasoning for Vision-Language Navigation with Hierarchical Multi-modal Scene Graph</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL'); -->
+  <!-- </script> -->
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #f9fafe, #eaf3ff);
+      color: #222;
+    }
+
+    .container-custom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .hero {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .hero img {
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1a1a1a;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #4a4a4a;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    .authors,
+    .affiliations {
+      font-size: 0.95rem;
+      color: #555;
+      margin-top: 1rem;
+    }
+
+    .author-block {
+      margin: 0 0.5em;
+      display: inline-block;
+    }
+
+    .main-section {
+      margin-top: -120px;
+    }
+
+    .btn-group {
+      margin-top: 1.2rem;
+    }
+
+    .btn-group a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8em;
+      margin: 0.5rem;
+      border: none;
+      background: linear-gradient(90deg, #5d8eff, #8fa7ff);
+      color: white;
+      border-radius: 999px;
+      padding: 0.6em 1.2em;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+      font-size: 0.8em;
+      margin-right: 9px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    .huggingface-icon {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      background-image: url('https://huggingface.co/front/assets/huggingface_logo-noborder.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      vertical-align: middle;
+      margin-right: 0.4em;
+    }
+
+
+    .main-section {
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    .main-section img {
+      max-width: 80%;
+      height: auto;
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .main-section p {
+      color: #444;
+      font-size: 1.1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .model-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const swiper = new Swiper('.swiper1', {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: false,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const swiper = new Swiper('.swiper2', {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    });
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+</head>
+
+<body>
+
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+
+            <div
+              style="display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 100%; margin-top: -80px;">
+              <img src="./static/images/logo.jpg" alt="Logo" style="height: 3cm; margin-bottom: 2rem;" />
+              <h1 class="title is-1 publication-title" style="margin: 0; font-size: 1.8rem;margin-bottom: 1rem;">
+                <!-- <span style="display: block; font-weight: bold; font-size: 1.2em;">EmbodiedGen</span> -->
+                <span style="display: block; font-size: 0.95em; margin-top: -1.2em;">
+                  FSR-VLN: Fast and Slow Reasoning for Vision-Language Navigation with Hierarchical Multi-modal Scene Graph
+                </span>
+              </h1>
+            </div>
+
+
+            <div class="is-size-5 publication-authors" style="margin-bottom: 1rem;">
+              <span class="author-block">
+                Xiaolin Zhou</a><sup>1*</sup>,</span>
+              <span class="author-block">
+                Tingyang Xiao</a><sup>1*</sup>,</span>
+              <span class="author-block">
+                Liu Liu<sup>1</sup>,</span>
+              <span class="author-block">
+                Yucheng Wang<sup>1</sup>,</span>
+              <span class="author-block">
+                Maiyue Chen<sup>1</sup>,</span></p>
+              <span class="author-block">
+                Xinrui Meng<sup>2</sup>,</span>
+              <span class="author-block">
+                Xinjie Wang<sup>1</sup>,</span>
+              <span class="author-block">
+                Wei Sui<sup>2</sup>,</span>
+              <span class="author-block">
+                Zhizhong Su<sup>1</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors" style="margin-bottom: 1rem;">
+              <span class="author-block"><sup>1</sup>Horizon Robotics,</span>
+              <span class="author-block"><sup>2</sup>D-Robotics,</span>
+
+            </div>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>*</sup>Equal contribution</span>
+            </div>
+            <div class="btn-group">
+              <a href="https://arxiv.org/pdf/2509.13733" target="_blank" rel="noopener">
+                <i class="ai ai-arxiv"></i>arXiv
+              </a>
+              <a href="https://www.youtube.com/watch?v=_-DW7OD18bM" target="_blank" rel="noopener">
+                <i class="fab fa-youtube"></i>Video
+              </a>
+              <a href="https://github.com/HorizonRobotics/HoBotBrain" target="_blank" rel="noopener">
+                <i class="fab fa-github"></i>Code
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="main-section">
+    <div class="container-custom">
+      <h2 class="title is-3"> Introduction Video</Video> </h2>
+      <video poster="" id="1" autoplay controls muted loop playsinline style="width:80%; max-width:80%; height:auto;">
+        <source src="./static/videos/fsr-vln.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <section class="main-section" style="margin-top: -150px;">
+    <div class="container-custom">
+      <!-- Abstract. -->
+    <!-- abstract -->
+    <h2 class="title is-3"> Abstract </h2>
+    <p style="text-align: justify; margin-top: -0.4em;">
+      Visual-Language Navigation (VLN) is a fundamental challenge in robotic systems, with broad applications for the deployment of embodied agents in real-world environments. Despite recent advances, existing approaches are limited in long-range spatial reasoning, often exhibiting low success rates and high inference latency, particularly in long-range navigation tasks.
+      To address these limitations, we propose <strong><em>FSR-VLN</em></strong>, a vision-language navigation system that combines a <strong><em>Hierarchical Multi-modal Scene Graph (HMSG)</em></strong> with <strong><em>Fast-to-Slow Navigation Reasoning (FSR)</em></strong>. The HMSG provides a multi-modal map representation supporting progressive retrieval, from coarse room-level localization to fine-grained goal view and object identification. Building on HMSG, FSR first performs fast matching to efficiently select candidate rooms, views, and objects, then applies VLM-driven refinement for final goal selection. 
+      We evaluated FSR-VLN across four comprehensive indoor datasets collected by humanoid robots, utilizing 87 instructions that encompass a diverse range of object categories. FSR-VLN achieves <strong><em>state-of-the-art (SOTA)</em></strong> performance in all datasets, measured by the retrieval success rate (RSR), while reducing the response time by <strong><em>82%</em></strong> compared to VLM-based methods on tour videos by activating slow reasoning only when fast intuition fails.
+      Furthermore, we integrate FSR-VLN with speech interaction, planning, and control modules on a Unitree-G1 humanoid robot, enabling <strong><em>natural language interaction and real-time navigation</em></strong>.    </p>
+    </div>
+  </section>
+
+  <section class="main-section" style="margin-top: -150px;">
+    <div class="container-custom">
+      <h2 class="title is-3">Methods Overview</h2>
+      <img style="margin-top: -0.4em;width:100%;height:auto" src="./static/images/SystemOverviewPipeline.jpg" alt="Framework Overview" />
+      <div style="text-align: justify; margin-top: -20px;">
+        <p>
+          <strong><em>FSR-VLN</em></strong>  system integrates HMSG with FSR to achieve view/object-level real-world long-range navigation. Specifically, RGBD and pose data are first utilized to construct HMSG, which provides a hierarchical and multimodal feature-based representation of the environment. During online interaction, the user’s text or voice input is converted into instructions via voice activity detection and speech recognition, and the LLM infers the target object. Based on the HMSG, fast-matching and slow VLM reasoning jointly identify the optimal goal view/object. 
+          The identified goals are subsequently used by the global path planning.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+<section class="main-section" style="margin-top: -150px;">
+  <div class="container-custom">
+    <div class=" has-text-centered">
+      <h2 class="title is-3">Results</h2>
+
+      <h2 class="title is-3" style="text-align: center; font-size: 130%; margin-bottom: 10px;">Real-world Natural Language Interaction and Real-time Navigation</h2>
+      <div class="container-custom">
+
+        <video poster="" id="1" autoplay controls muted loop playsinline style="width:80%; max-width:80%; height:auto;">
+          <source src="./static/videos/demo1-1.mp4" type="video/mp4">
+        </video>
+        <video poster="" id="1" autoplay controls muted loop playsinline style="width:80%; max-width:80%; height:auto;">
+          <source src="./static/videos/demo2-1.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <h2 class="title is-3" style="text-align: center; font-size: 130%; margin-bottom: 10px;">Long-horizon Object Navigation</h2>
+      <div class="container-custom">
+        <video poster="" id="1" autoplay controls muted loop playsinline style="width:80%; max-width:80%; height:auto;">
+          <source src="./static/videos/long-horizon-nav-demo.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <h2 class="title is-3" style="text-align: center; font-size: 130%; margin-bottom: 10px;">Dynamic Real-time Obstacle Avoidance</h2>
+      <div class="container-custom">
+        <video poster="" id="1" autoplay controls muted loop playsinline style="width:80%; max-width:80%; height:auto;">
+          <source src="./static/videos/obstacle-avoid-demo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <h2 class="title is-3" style="text-align: center; font-size: 130%; margin-bottom: 10px;">Natural Language Understanding and Interaction</h2>
+      <div class="container-custom">
+        <video poster="" id="1" autoplay controls muted loop playsinline style="width:80%; max-width:80%; height:auto;">
+          <source src="./static/videos/interaction-demo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <h2 class="title is-3" style="text-align: center; font-size: 130%; margin-bottom: 10px;"> Qualitative Analysis</h2>
+      <img  style="margin-top: 0px;width:80%;height:auto" src="./static/images/RetrivalVis.jpg" alt="Visualization" />
+      <div style="text-align: justify; margin-bottom: 2.5em; margin-top: -1.2em;">  
+        <p>
+        The goal view and object retrieval results of FSR-VLN for different instructions
+        in Room4. FSR-VLN successfully retrieves the goal view and object across four instruction types in long-range indoor
+        environments        
+        </p>
+      </div>
+
+      <h2 class="title is-3" style="text-align: center; font-size: 130%; margin-bottom: 10px;"> Quantitative Comparison on G1 and HM3DSEM Datasets.</h2>
+      <img  style="margin-top: 0px;" src="./static/images/Table1.png" alt="Quantative_table1" />
+      <div style="text-align: justify; margin-bottom: 2.5em; margin-top: -1.2em;">  
+        <p>
+          FSR-VLN achieves the highest SR of
+          92% (80/87), substantially outperforming baselines: Mobili-
+          tyVLA: 34.5% (30/87), OK-Robot: 60.9% (53/87), HOVSG:
+          51.7% (45/87). This corresponds to relative improvements
+          of 167%, 51%, and 77%, respectively, demonstrating the
+          effectiveness of our approach        
+        </p>
+      </div>
+      <img  style="margin-top: 0px;width:50%;height:auto;" src="./static/images/Table2.png" alt="Quantative_table2" />
+      <div style="text-align: justify; margin-bottom: 2.5em; margin-top: -1.2em;">  
+        <p>
+          In the HM3D-SEM dataset, as osmAG-LLM, we select
+          HOV-SG and osmAG-LLM as our baseline because they
+          share fundamental design principles with our approach.
+          The Top-1 retrieval success rate
+          of osmAG-LLM is significantly lower than that of HOVSG.
+          The main reason is that osmAG-LLM loses the hierarchically
+          rich visual open-vocabulary feature representation present
+          in HOVSG and instead relies solely on textual recognition
+          results. Although the osmAG-LLM semantic map is also
+          hierarchical, it only preserves XML-level textual information
+          without retaining visual CLIP features. In contrast, our
+          method not only preserves CLIP-based visual embeddings
+          but also further interacts with the original image information
+          through VLM, leading to a notable improvement in retrieval
+          success.       
+        </p>
+      </div>
+      <h2 class="title is-3" style="text-align: center; font-size: 130%; margin-bottom: 10px;"> Ablations Analysis.</h2>
+      <img  style="margin-top: 0px;width:50%;height:auto" src="./static/images/Ablations.png" alt="Quantative_table1" />
+      <div style="text-align: justify; margin-bottom: 2.5em; margin-top: -1.2em;">  
+        <p>
+        Without <strong><em>Navigation Reasoning
+        (NR) and Spatial Target (ST)</em></strong> instructions guide long-
+        range navigation is guided by restricting object search to the
+        target room, reducing global matching errors, and improving
+        RSR. In long-range environments, this room-level guidance
+        is particularly critical; when combined with the hierarchical
+        scene graph, the search is further confined to the designated
+        room, enhancing navigation success. With NR, extended
+        VLM reasoning allows FSR to verify the correctness of
+        fast matching, and VLM-based selection refinement further
+        increases RSR, demonstrating the effectiveness of the ap-
+        proach.      
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@misc{zhou2025fsrvlnfastslowreasoning,
+      title={FSR-VLN: Fast and Slow Reasoning for Vision-Language Navigation with Hierarchical Multi-modal Scene Graph}, 
+      author={Xiaolin Zhou and Tingyang Xiao and Liu Liu and Yucheng Wang and Maiyue Chen and Xinrui Meng and Xinjie Wang and Wei Feng and Wei Sui and Zhizhong Su},
+      year={2025},
+      eprint={2509.13733},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2509.13733}, 
+}</code></pre>
+    </div>
+  </section>
+
+
+  <footer class="footer" style="max-height: 280px;">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="https://arxiv.org/pdf/2509.13733">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/HorizonRobotics/HoBotBrain" class="external-link" disabled>
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
