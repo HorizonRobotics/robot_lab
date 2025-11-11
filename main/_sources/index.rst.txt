@@ -12,6 +12,10 @@ Together with Horizon's computing platform, we wish to empower the future of rob
 News
 --------------------
 
+* [2025.11] 3 papers accepted to AAAI26
+
+* [2025.11] HoloMotion V1.0 released!
+
 * [2025.09] 2 papers accepted to NeurIPS25
 
 * [2025.06] 1 paper accepted to IROS25
@@ -37,7 +41,7 @@ RoboOrchard
 
    * - .. image:: _static/projects/robo_orchard/logo.png
           :class: publication-thumbnail
-          :alt: RoboOrchardLab Logo
+          :alt: RoboOrchard Logo
           :target: _static/projects/robo_orchard/logo.png
 
      - **RoboOrchard** is a collection of tools and frameworks designed to streamline the entire process of robotics research and development,
@@ -79,6 +83,18 @@ Publications
    :widths: 20 80
    :class: publication-table
 
+   * - .. image:: _static/publications/fsr-vln.gif
+          :class: publication-thumbnail
+          :alt: fsr-vln Logo
+          :target: _static/publications/fsr-vln.gif
+
+     - **FSR-VLN: Fast and Slow Reasoning for Vision-Language Navigation with Hierarchical Multi-modal Scene Graph**
+
+       :blue:`Xiaolin Zhou`, :blue:`Tingyang Xiao`, :blue:`Liu Liu`, :blue:`Yucheng Wang`, :blue:`Maiyue Che`, :blue:`Xinrui Meng`, :blue:`Xinjie Wang`, :blue:`Wei Sui`, :blue:`Zhizhong Su`
+
+       Arxiv 2025
+
+       `Webpage <https://horizonrobotics.github.io/robot_lab/fsr-vln/>`__ | `Paper <https://arxiv.org/pdf/2509.13733>`__ | `Code <https://github.com/HorizonRobotics/HoBotBrain>`__
 
    * - .. image:: _static/publications/HRDT.gif
           :class: publication-thumbnail
@@ -89,7 +105,7 @@ Publications
 
        :blue:`Hongzhe Bi`, Lingxuan Wu, :blue:`Tianwei Lin`, Hengkai Tan, :blue:`Zhizhong Su`, Hang Su, Jun Zhu
 
-       Arxiv 2025
+       AAAI 2026
 
        `Webpage <https://embodiedfoundation.github.io/hrdt>`__ | `Paper <https://arxiv.org/abs/2507.23523>`__ | `Code <https://github.com/HongzheBi/H_RDT>`__
 
@@ -102,7 +118,7 @@ Publications
 
        :blue:`Shuo Wang`, Yongcai Wang, Wanting Li, :blue:`Yucheng Wang`, :blue:`Maiyue Chen`, :blue:`Kaihui Wang`, :blue:`Zhizhong Su`, Xudong Cai, Yeying Jin, Deying Li, Zhaoxin Fan
 
-       Arxiv 2025
+       AAAI 2026
 
        `Webpage <https://horizonrobotics.github.io/robot_lab/monodream/>`__ | `Paper <https://arxiv.org/abs/2508.02549>`__
 
@@ -128,7 +144,7 @@ Publications
 
        :blue:`Wenhao Hu`, Zesheng Li, Haonan Zhou, :blue:`Liu Liu`, Xuexiang Wen, :blue:`Zhizhong Su`, Xi Li, Gaoang Wang
 
-       Arxiv 2025
+       AAAI 2026 Oral
 
        `Webpage <https://whhu7.github.io/IGFuse/>`__ | `Paper <https://arxiv.org/pdf/2508.13153>`__ | `Code <https://github.com/whhu7/IGFuse-code>`__
 
