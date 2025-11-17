@@ -440,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -524,6 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -771,7 +773,8 @@ for model weights.</p>
 if a model is an instance of <cite>ModelMixin</cite>, saves its configuration
 to a JSON file in the <cite>output_dir</cite>.</p>
 <p>The configuration is saved as <cite>model_{id}.config.json</cite> where <cite>{id}</cite>
-corresponds to the model’s <cite>accelerate_model_id</cite>.</p>
+corresponds to the model’s <cite>accelerate_model_id</cite>. If there is only one
+model, it is saved as <cite>model.config.json</cite>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This hook only saves the configuration. The model weights (<cite>state_dict</cite>)
@@ -923,7 +926,7 @@ not modify the model’s architecture or configuration.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The path to the directory containing the model’s
-configuration file and state dictionary file.</p></li>
+configuration file and pretrained weights file.</p></li>
 <li><p><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>|</em><em>None</em><em>, </em><em>optional</em>) – The device (e.g., “cpu”, “cuda:0”)
 onto which the model’s state dictionary should be loaded.
 Passed to <cite>load_file</cite> for loading the safetensors file.
@@ -937,7 +940,7 @@ in <cite>state_dict</cite> match the keys returned by this module’s
 <cite>state_dict()</cite> function. Passed to <cite>model.load_state_dict()</cite>.
 Defaults to True.</p></li>
 <li><p><strong>model_prefix</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The prefix for the configuration
-and state dictionary files. For example, if “model”, files
+and weights files. For example, if prefix is “model”, files
 will be sought as “model.config.json” and “model.safetensors”.
 Defaults to “model”.</p></li>
 <li><p><strong>load_impl</strong> (<em>Literal</em><em>[</em><em>&quot;native&quot;</em><em>, </em><em>&quot;accelerate&quot;</em><em>]</em><em>, </em><em>optional</em>) – <p>The

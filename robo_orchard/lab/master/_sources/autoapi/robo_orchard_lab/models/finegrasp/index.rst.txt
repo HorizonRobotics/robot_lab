@@ -16,6 +16,7 @@ Submodules
    /autoapi/robo_orchard_lab/models/finegrasp/finegrasp/index
    /autoapi/robo_orchard_lab/models/finegrasp/head/index
    /autoapi/robo_orchard_lab/models/finegrasp/losses/index
+   /autoapi/robo_orchard_lab/models/finegrasp/processor/index
    /autoapi/robo_orchard_lab/models/finegrasp/utils/index
 
 

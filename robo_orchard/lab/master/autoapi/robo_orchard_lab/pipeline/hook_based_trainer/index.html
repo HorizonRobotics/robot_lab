@@ -440,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -524,6 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -760,9 +762,9 @@ used when <cite>clip_mode</cite> is “norm”.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.pipeline.hook_based_trainer.ValidationHookConfig.eval_callback">
-<span class="sig-name descname"><span class="pre">eval_callback</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#robo_orchard_lab.pipeline.hook_based_trainer.ValidationHookConfig.eval_callback" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">eval_callback</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><span class="pre">torch.nn.Module</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#robo_orchard_lab.pipeline.hook_based_trainer.ValidationHookConfig.eval_callback" title="Link to this definition">¶</a></dt>
 <dd><p>A callback function to be called for evaluation. This function should
-not take no argument and should not return any values. A common use case
+take model as input and should not return any values. A common use case
 is to pass a closure that performs the evaluation.</p>
 </dd></dl>
 
@@ -854,7 +856,7 @@ for various stages of the training loop.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The trainer will register the following default hooks in order
-at beginning:</p>
+at beginning if applicable:</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt><cite>GradientClippingHook</cite>: This hook is responsible for clipping</dt><dd><p>the gradients to prevent exploding gradients. It will be
@@ -863,7 +865,8 @@ registered if the <cite>grad_clip</cite> argument is provided.</p>
 </dl>
 </li>
 <li><dl class="simple">
-<dt><cite>OptimizerHook</cite>: This hook is responsible for performing the</dt><dd><p>optimization step and updating the learning rate scheduler.</p>
+<dt><cite>OptimizerHook</cite>: This hook is responsible for performing the</dt><dd><p>optimization step and updating the learning rate scheduler.
+This hook will always be registered!</p>
 </dd>
 </dl>
 </li>

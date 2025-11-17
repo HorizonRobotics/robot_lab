@@ -439,6 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -523,6 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -683,10 +685,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypeVar</span>
 
 <span class="kn">from</span> <span class="nn">accelerate</span> <span class="kn">import</span> <span class="n">Accelerator</span>
 
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.models.torch_model</span> <span class="kn">import</span> <span class="n">TorchModelMixin</span>
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.pipeline.hooks.mixin</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ClassType</span><span class="p">,</span>
     <span class="n">HookContext</span><span class="p">,</span>
@@ -805,8 +809,17 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="n">save_location</span> <span class="o">=</span> <span class="n">accelerator</span><span class="o">.</span><span class="n">save_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_root</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">save_model</span> <span class="ow">and</span> <span class="n">accelerator</span><span class="o">.</span><span class="n">is_main_process</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">accelerator</span><span class="o">.</span><span class="n">_models</span><span class="p">):</span>
-                <span class="n">model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_location</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;model_</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="n">accelerator</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">save_directory</span><span class="o">=</span><span class="n">model_path</span><span class="p">)</span>
+                <span class="n">model_prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;model_</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">accelerator</span><span class="o">.</span><span class="n">_models</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">model_prefix</span> <span class="o">=</span> <span class="s2">&quot;model&quot;</span>
+                <span class="n">save_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_location</span><span class="p">,</span> <span class="n">model_prefix</span><span class="p">)</span>
+                <span class="n">accelerator</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">save_directory</span><span class="p">)</span>
+                <span class="n">model_config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">save_location</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_prefix</span><span class="si">}</span><span class="s2">.config.json&quot;</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">model_config_path</span><span class="p">):</span>
+                    <span class="c1"># copy config to save_directory</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">model_config_path</span><span class="p">,</span> <span class="n">save_directory</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">save_location</span>
 
@@ -911,6 +924,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;on_loop&quot;</span><span class="p">,</span>
             <span class="n">hook</span><span class="o">=</span><span class="n">HookContext</span><span class="o">.</span><span class="n">from_callable</span><span class="p">(</span><span class="n">after</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_loop_end</span><span class="p">),</span>
         <span class="p">)</span>
+        <span class="c1"># use to avoid duplicate saving at epoch end or loop end</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_saved_last_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 
     <span class="k">def</span> <span class="nf">_save_model</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">PipelineHookArgs</span><span class="p">,</span> <span class="n">step_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">epoch_id</span><span class="p">:</span> <span class="nb">int</span>
@@ -927,11 +942,24 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;model is None. Cannot save model.&quot;</span><span class="p">)</span>
-        <span class="n">save_root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">get_save_root</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">accelerator</span><span class="p">)</span>
-        <span class="n">save_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_root</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;epoch_</span><span class="si">{</span><span class="n">epoch_id</span><span class="si">}</span><span class="s2">_step_</span><span class="si">{</span><span class="n">step_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">_models</span><span class="p">):</span>
-            <span class="n">model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_root</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;model_</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">args</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">save_directory</span><span class="o">=</span><span class="n">model_path</span><span class="p">)</span>
+        <span class="n">accelerator</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">accelerator</span>
+        <span class="n">save_root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">get_save_root</span><span class="p">(</span><span class="n">accelerator</span><span class="p">)</span>
+        <span class="n">save_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">save_root</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;model_epoch_</span><span class="si">{</span><span class="n">epoch_id</span><span class="si">}</span><span class="s2">_step_</span><span class="si">{</span><span class="n">step_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">accelerator</span><span class="o">.</span><span class="n">is_main_process</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">save_root</span>
+        <span class="c1"># only save on main process</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">accelerator</span><span class="o">.</span><span class="n">_models</span><span class="p">):</span>
+            <span class="n">save_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_root</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">accelerator</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">save_directory</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">TorchModelMixin</span><span class="p">):</span>
+                <span class="n">model_config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">save_directory</span><span class="p">,</span> <span class="s2">&quot;model.config.json&quot;</span>
+                <span class="p">)</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">model_config_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+
         <span class="k">return</span> <span class="n">save_root</span>
 
     <span class="k">def</span> <span class="nf">_on_step_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">PipelineHookArgs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -939,6 +967,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">save_step_freq</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="ow">and</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">save_step_freq</span> <span class="o">==</span> <span class="mi">0</span>
         <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_saved_last_step</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span>
             <span class="n">args</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">wait_for_everyone</span><span class="p">()</span>
             <span class="n">save_location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_save_model</span><span class="p">(</span>
                 <span class="n">args</span><span class="p">,</span> <span class="n">step_id</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">step_id</span><span class="p">,</span> <span class="n">epoch_id</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span>
@@ -955,8 +984,11 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">save_epoch_freq</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="ow">and</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">save_epoch_freq</span> <span class="o">==</span> <span class="mi">0</span>
         <span class="p">):</span>
-            <span class="n">args</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">wait_for_everyone</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_saved_last_step</span> <span class="o">==</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span><span class="p">:</span>
+                <span class="k">return</span>
 
+            <span class="bp">self</span><span class="o">.</span><span class="n">_saved_last_step</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">wait_for_everyone</span><span class="p">()</span>
             <span class="n">save_location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_save_model</span><span class="p">(</span>
                 <span class="n">args</span><span class="p">,</span> <span class="n">step_id</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">step_id</span><span class="p">,</span> <span class="n">epoch_id</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span>
             <span class="p">)</span>
@@ -981,9 +1013,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">        Logs:</span>
 <span class="sd">            A message indicating the checkpoint location.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">save_when_loop_end</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">save_when_loop_end</span> <span class="ow">is</span> <span class="kc">False</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_saved_last_step</span> <span class="o">==</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span>
+        <span class="p">):</span>
             <span class="k">return</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_saved_last_step</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">global_step_id</span>
         <span class="n">args</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">wait_for_everyone</span><span class="p">()</span>
         <span class="n">save_location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_save_model</span><span class="p">(</span>
             <span class="n">args</span><span class="p">,</span> <span class="n">step_id</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">step_id</span><span class="p">,</span> <span class="n">epoch_id</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">epoch_id</span>

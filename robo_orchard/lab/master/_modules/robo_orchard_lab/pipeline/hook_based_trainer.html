@@ -439,6 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -523,6 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -856,7 +858,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <span class="sd">    Note:</span>
 <span class="sd">        The trainer will register the following default hooks in order</span>
-<span class="sd">        at beginning:</span>
+<span class="sd">        at beginning if applicable:</span>
 
 <span class="sd">        - `GradientClippingHook`: This hook is responsible for clipping</span>
 <span class="sd">            the gradients to prevent exploding gradients. It will be</span>
@@ -864,6 +866,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <span class="sd">        - `OptimizerHook`: This hook is responsible for performing the</span>
 <span class="sd">            optimization step and updating the learning rate scheduler.</span>
+<span class="sd">            This hook will always be registered!</span>
 
 <span class="sd">        - `ValidationHook`: This hook is responsible for performing</span>
 <span class="sd">            validation during training. It will call the evaluation</span>

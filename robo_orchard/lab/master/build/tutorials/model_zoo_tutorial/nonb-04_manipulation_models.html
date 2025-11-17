@@ -440,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -524,6 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -689,11 +691,40 @@ State-of-the-Art (SOTA) manipulation models provided by the
 <p><a class="reference external" href="https://horizonrobotics.github.io/robot_lab/finegrasp/index.html">Click here to visit the homepage.</a></p>
 <section id="loading-pretrained-model">
 <h3>Loading Pretrained Model<a class="headerlink" href="#loading-pretrained-model" title="Link to this heading">¶</a></h3>
-<p>TBD</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.models</span> <span class="kn">import</span> <span class="n">ModelMixin</span>
+
+<span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="n">ModelMixin</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;hf://model/HorizonRobotics/FineGrasp/finegrasp_pipeline&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="inference-pipeline">
 <h3>Inference Pipeline<a class="headerlink" href="#inference-pipeline" title="Link to this heading">¶</a></h3>
-<p>TBD.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">robo_orchard_lab.models.finegrasp.processor</span> <span class="kn">import</span> <span class="n">GraspInput</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.inference</span> <span class="kn">import</span> <span class="n">InferencePipelineMixin</span>
+
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">InferencePipelineMixin</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;hf://model/HorizonRobotics/FineGrasp/finegrasp_pipeline&quot;</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+<span class="c1"># Grasp workspace limits, [xmin, xmax, ymin, ymax, zmin, zmax].</span>
+<span class="n">grasp_workspace</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]</span>
+
+<span class="c1"># depth_image is in mm, depth_scale=1000.0.</span>
+<span class="n">depth_scale</span> <span class="o">=</span> <span class="mf">1000.0</span>
+
+<span class="n">input_data</span> <span class="o">=</span> <span class="n">GraspInput</span><span class="p">(</span>
+    <span class="n">rgb_image</span><span class="o">=</span><span class="s2">&quot;hf://HorizonRobotics/FineGrasp/data_example/0000_rgb.png&quot;</span><span class="p">,</span>
+    <span class="n">depth_image</span><span class="o">=</span><span class="s2">&quot;hf://HorizonRobotics/FineGrasp/data_example/0000_depth.png&quot;</span><span class="p">,</span>
+    <span class="n">depth_scale</span><span class="o">=</span><span class="n">depth_scale</span><span class="p">,</span>
+    <span class="n">intrinsic_matrix</span><span class="o">=</span><span class="s2">&quot;hf://HorizonRobotics/FineGrasp/data_example/0000.mat&quot;</span><span class="p">,</span>
+    <span class="n">grasp_workspace</span><span class="o">=</span><span class="n">grasp_workspace</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best grasp pose: </span><span class="si">{</span><span class="n">output</span><span class="o">.</span><span class="n">grasp_poses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="sem-enhancing-spatial-understanding-for-robust-robot-manipulation">

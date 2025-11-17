@@ -440,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -524,6 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -954,19 +956,19 @@ the accelerator and a batch_processor. The hooks list allows for powerful custom
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Rank[0/1] 11/06/2025 15:07:12 INFO robo_orchard_lab.pipeline.hook_based_trainer:352
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Rank[0/1] 11/17/2025 12:12:53 INFO robo_orchard_lab.pipeline.hook_based_trainer:353
 ==================================================BEGIN TRAINING==================================================
-Rank[0/1] 11/06/2025 15:07:12 INFO robo_orchard_lab.pipeline.hook_based_trainer:356 Start training loop from epoch 0 and step 0
-Rank[0/1] 11/06/2025 15:07:19 INFO robo_orchard_lab.pipeline.hooks.stats:401 Epoch[0] completed. Epoch Time: 6.28 sec.  Average Training Speed: 163.09 samples/sec across all devices.  Average Epoch Time: 6.28 sec.   Average Step Time: 0.78 sec.    Estimated Remaining Time: 0:00:25.      Learning Rate Group 0: 1.00000e-01.
-Rank[0/1] 11/06/2025 15:07:24 INFO robo_orchard_lab.pipeline.hooks.stats:401 Epoch[1] completed. Epoch Time: 5.19 sec.  Average Training Speed: 197.27 samples/sec across all devices.  Average Epoch Time: 2.60 sec.   Average Step Time: 0.65 sec.    Estimated Remaining Time: 0:00:17.      Learning Rate Group 0: 1.00000e-01.
-Rank[0/1] 11/06/2025 15:07:30 INFO robo_orchard_lab.pipeline.hooks.stats:401 Epoch[2] completed. Epoch Time: 5.80 sec.  Average Training Speed: 176.54 samples/sec across all devices.  Average Epoch Time: 2.90 sec.   Average Step Time: 0.73 sec.    Estimated Remaining Time: 0:00:11.      Learning Rate Group 0: 1.00000e-01.
-Rank[0/1] 11/06/2025 15:07:36 INFO robo_orchard_lab.pipeline.hooks.stats:401 Epoch[3] completed. Epoch Time: 6.13 sec.  Average Training Speed: 167.06 samples/sec across all devices.  Average Epoch Time: 3.06 sec.   Average Step Time: 0.77 sec.    Estimated Remaining Time: 0:00:05.      Learning Rate Group 0: 1.00000e-02.
-Rank[0/1] 11/06/2025 15:07:41 INFO robo_orchard_lab.pipeline.hooks.stats:401 Epoch[4] completed. Epoch Time: 5.66 sec.  Average Training Speed: 180.91 samples/sec across all devices.  Average Epoch Time: 2.83 sec.   Average Step Time: 0.71 sec.    Estimated Remaining Time: 0:00:00.      Learning Rate Group 0: 1.00000e-02.
-Rank[0/1] 11/06/2025 15:07:41 INFO robo_orchard_lab.pipeline.hook_based_trainer:436
+Rank[0/1] 11/17/2025 12:12:53 INFO robo_orchard_lab.pipeline.hook_based_trainer:357 Start training loop from epoch 0 and step 0
+Rank[0/1] 11/17/2025 12:12:59 INFO robo_orchard_lab.pipeline.hooks.stats:401 Epoch[0] completed. Epoch Time: 6.03 sec.  Average Training Speed: 169.89 samples/sec across all devices.  Average Epoch Time: 6.03 sec.   Average Step Time: 0.75 sec.    Estimated Remaining Time: 0:00:24.      Learning Rate Group 0: 1.00000e-01.
+Rank[0/1] 11/17/2025 12:13:04 INFO robo_orchard_lab.pipeline.hooks.stats:401 Epoch[1] completed. Epoch Time: 5.08 sec.  Average Training Speed: 201.76 samples/sec across all devices.  Average Epoch Time: 2.54 sec.   Average Step Time: 0.63 sec.    Estimated Remaining Time: 0:00:16.      Learning Rate Group 0: 1.00000e-01.
+Rank[0/1] 11/17/2025 12:13:09 INFO robo_orchard_lab.pipeline.hooks.stats:401 Epoch[2] completed. Epoch Time: 4.96 sec.  Average Training Speed: 206.46 samples/sec across all devices.  Average Epoch Time: 2.48 sec.   Average Step Time: 0.62 sec.    Estimated Remaining Time: 0:00:10.      Learning Rate Group 0: 1.00000e-01.
+Rank[0/1] 11/17/2025 12:13:14 INFO robo_orchard_lab.pipeline.hooks.stats:401 Epoch[3] completed. Epoch Time: 5.14 sec.  Average Training Speed: 199.18 samples/sec across all devices.  Average Epoch Time: 2.57 sec.   Average Step Time: 0.64 sec.    Estimated Remaining Time: 0:00:05.      Learning Rate Group 0: 1.00000e-02.
+Rank[0/1] 11/17/2025 12:13:19 INFO robo_orchard_lab.pipeline.hooks.stats:401 Epoch[4] completed. Epoch Time: 4.98 sec.  Average Training Speed: 205.52 samples/sec across all devices.  Average Epoch Time: 2.49 sec.   Average Step Time: 0.62 sec.    Estimated Remaining Time: 0:00:00.      Learning Rate Group 0: 1.00000e-02.
+Rank[0/1] 11/17/2025 12:13:19 INFO robo_orchard_lab.pipeline.hook_based_trainer:437
 ==================================================FINISH TRAINING==================================================
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 30.379 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 27.149 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-build-tutorials-trainer-tutorial-nonb-01-basic-run-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../../_downloads/c47de3af9762b036d8eb3dde4531af92/nonb-01_basic_run.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">nonb-01_basic_run.ipynb</span></code></a></p>

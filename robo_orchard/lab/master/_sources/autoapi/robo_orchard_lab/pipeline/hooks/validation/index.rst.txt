@@ -27,28 +27,27 @@ Module Contents
    either at the end of each step or at the end of each epoch.
 
 
-   :param eval_callback: A callback function to be called
-                         for evaluation. This function should not take no argument and
-                         should not return any values. A common use case is to pass a
-                         closure that performs the evaluation.
-   :type eval_callback: Callable[[], None]
-   :param step_eval_freq: The frequency of evaluation in terms of
-                          steps. If specified, the evaluation will be performed every
-                          `step_eval_freq` steps.
-   :type step_eval_freq: int | None
-   :param epoch_eval_freq: The frequency of evaluation in terms of
-                           epochs. If specified, the evaluation will be performed every
-                           `epoch_eval_freq` epochs.
-   :type epoch_eval_freq: int | None
+   :param cfg: The configuration for the ValidationHook.
+               Please refer to ValidationHookConfig for details.
+   :type cfg: ValidationHookConfig
 
 
-   .. py:attribute:: eval_callback
+   .. py:attribute:: cfg
 
 
    .. py:attribute:: step_eval_freq
 
 
    .. py:attribute:: epoch_eval_freq
+
+
+   .. py:method:: evaluate(hook_args: robo_orchard_lab.pipeline.hooks.mixin.PipelineHookArgs) -> None
+
+      Performs evaluation by calling the evaluation callback.
+
+      :param hook_args: The current training progress state.
+      :type hook_args: PipelineHookArgs
+
 
 
    .. py:method:: need_eval(hook_args: robo_orchard_lab.pipeline.hooks.mixin.PipelineHookArgs) -> bool
@@ -81,10 +80,10 @@ Module Contents
 
 
    .. py:attribute:: eval_callback
-      :type:  Callable[[], None]
+      :type:  Callable[[torch.nn.Module], None]
 
       A callback function to be called for evaluation. This function should
-      not take no argument and should not return any values. A common use case
+      take model as input and should not return any values. A common use case
       is to pass a closure that performs the evaluation.
 
 

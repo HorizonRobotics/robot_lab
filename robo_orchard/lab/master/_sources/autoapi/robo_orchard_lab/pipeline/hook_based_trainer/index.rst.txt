@@ -85,10 +85,10 @@ Module Contents
 
 
    .. py:attribute:: eval_callback
-      :type:  Callable[[], None]
+      :type:  Callable[[torch.nn.Module], None]
 
       A callback function to be called for evaluation. This function should
-      not take no argument and should not return any values. A common use case
+      take model as input and should not return any values. A common use case
       is to pass a closure that performs the evaluation.
 
 
@@ -187,7 +187,7 @@ Module Contents
    .. note::
 
       The trainer will register the following default hooks in order
-      at beginning:
+      at beginning if applicable:
       
       - `GradientClippingHook`: This hook is responsible for clipping
           the gradients to prevent exploding gradients. It will be
@@ -195,6 +195,7 @@ Module Contents
       
       - `OptimizerHook`: This hook is responsible for performing the
           optimization step and updating the learning rate scheduler.
+          This hook will always be registered!
       
       - `ValidationHook`: This hook is responsible for performing
           validation during training. It will call the evaluation

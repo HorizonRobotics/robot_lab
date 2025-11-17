@@ -440,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -524,6 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -704,7 +706,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.pipeline.hooks.metric.MetricEntry.metric">
-<span class="sig-name descname"><span class="pre">metric</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torchmetrics.Metric</span></em><a class="headerlink" href="#robo_orchard_lab.pipeline.hooks.metric.MetricEntry.metric" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">metric</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../metrics/base/index.html#robo_orchard_lab.metrics.base.MetricProtocol" title="robo_orchard_lab.metrics.base.MetricProtocol"><span class="pre">robo_orchard_lab.metrics.base.MetricProtocol</span></a></em><a class="headerlink" href="#robo_orchard_lab.pipeline.hooks.metric.MetricEntry.metric" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -773,7 +775,7 @@ of metric values.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robo_orchard_lab.pipeline.hooks.metric.MetricTracker.update_metric">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_outputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/pipeline/hooks/metric.html#MetricTracker.update_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.pipeline.hooks.metric.MetricTracker.update_metric" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_outputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../mixin/index.html#robo_orchard_lab.pipeline.hooks.mixin.ModelOutput" title="robo_orchard_lab.pipeline.hooks.mixin.ModelOutput"><span class="pre">robo_orchard_lab.pipeline.hooks.mixin.ModelOutput</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/pipeline/hooks/metric.html#MetricTracker.update_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.pipeline.hooks.metric.MetricTracker.update_metric" title="Link to this definition">¶</a></dt>
 <dd><p>Updates the metrics using the current batch data and model outputs.</p>
 <p>This method must be implemented in subclasses to define how the metrics
 in <cite>self.metrics</cite> are updated during training or evaluation.
@@ -785,10 +787,10 @@ on each metric.</p>
 <li><p><strong>batch</strong> (<em>Any</em>) – The current batch of data from the dataset. It is
 expected to contain all necessary inputs (e.g., features,
 labels) required for metric computation.</p></li>
-<li><p><strong>model_outputs</strong> (<em>Any</em>) – The outputs produced by the model for the
-given batch. This could include predictions, probabilities,
-logits, or other outputs, depending on the model architecture
-and task.</p></li>
+<li><p><strong>model_outputs</strong> (<a class="reference internal" href="../mixin/index.html#robo_orchard_lab.pipeline.hooks.mixin.ModelOutput" title="robo_orchard_lab.pipeline.hooks.mixin.ModelOutput"><em>ModelOutput</em></a>) – The outputs produced by the model
+for the given batch. This could include predictions,
+probabilities, logits, or other outputs, depending on the
+model architecture and task.</p></li>
 </ul>
 </dd>
 </dl>

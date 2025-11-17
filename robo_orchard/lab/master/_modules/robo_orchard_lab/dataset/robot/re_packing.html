@@ -439,6 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -523,6 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -763,26 +765,34 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="n">Instruction</span><span class="p">,</span> <span class="n">index_rows</span><span class="p">[</span><span class="s2">&quot;instruction_index&quot;</span><span class="p">]</span>
         <span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_index_list</span><span class="p">):</span>
-            <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">frame_dataset</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
-            <span class="n">instruction_index</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;instruction_index&quot;</span><span class="p">]</span>
-            <span class="n">orm_instruction</span> <span class="o">=</span> <span class="n">all_instruction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">orm_instruction</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Instruction not found for frame index </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2"> &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;with instruction_index </span><span class="si">{</span><span class="n">instruction_index</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="p">)</span>
-            <span class="n">features</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keep_columns</span><span class="p">}</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span>
-                <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
-                <span class="n">instruction</span><span class="o">=</span><span class="n">InstructionData</span><span class="p">(</span>
-                    <span class="n">name</span><span class="o">=</span><span class="n">orm_instruction</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                    <span class="n">json_content</span><span class="o">=</span><span class="n">orm_instruction</span><span class="o">.</span><span class="n">json_content</span><span class="p">,</span>
-                <span class="p">),</span>
-                <span class="n">timestamp_ns_min</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;timestamp_min&quot;</span><span class="p">],</span>
-                <span class="n">timestamp_ns_max</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;timestamp_max&quot;</span><span class="p">],</span>
+        <span class="c1"># split self.frame_index_list into batches</span>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">128</span>
+        <span class="k">for</span> <span class="n">batch_start</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_index_list</span><span class="p">),</span> <span class="n">batch_size</span><span class="p">):</span>
+            <span class="n">batch_end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+                <span class="n">batch_start</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_index_list</span><span class="p">)</span>
             <span class="p">)</span>
-            <span class="k">yield</span> <span class="n">frame</span>
+            <span class="n">batch_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_index_list</span><span class="p">[</span><span class="n">batch_start</span><span class="p">:</span><span class="n">batch_end</span><span class="p">]</span>
+            <span class="n">batch_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">frame_dataset</span><span class="o">.</span><span class="n">__getitems__</span><span class="p">(</span><span class="n">batch_indices</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batch_indices</span><span class="p">):</span>
+                <span class="n">row</span> <span class="o">=</span> <span class="n">batch_row</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">instruction_index</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;instruction_index&quot;</span><span class="p">]</span>
+                <span class="n">orm_instruction</span> <span class="o">=</span> <span class="n">all_instruction</span><span class="p">[</span><span class="n">batch_start</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">orm_instruction</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Instruction not found for frame index </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2"> &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;with instruction_index </span><span class="si">{</span><span class="n">instruction_index</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+                <span class="n">features</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keep_columns</span><span class="p">}</span>
+                <span class="n">frame</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span>
+                    <span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
+                    <span class="n">instruction</span><span class="o">=</span><span class="n">InstructionData</span><span class="p">(</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">orm_instruction</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                        <span class="n">json_content</span><span class="o">=</span><span class="n">orm_instruction</span><span class="o">.</span><span class="n">json_content</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">timestamp_ns_min</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;timestamp_min&quot;</span><span class="p">],</span>
+                    <span class="n">timestamp_ns_max</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;timestamp_max&quot;</span><span class="p">],</span>
+                <span class="p">)</span>
+                <span class="k">yield</span> <span class="n">frame</span>
 
 
 <span class="k">class</span> <span class="nc">RePackingDatasetHelper</span><span class="p">:</span>
@@ -806,24 +816,37 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="n">current_episode_index</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">current_episode_frames</span> <span class="o">=</span> <span class="p">[]</span>
 
+        <span class="k">def</span> <span class="nf">process_batch</span><span class="p">(</span><span class="n">batch_frame_indices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+            <span class="k">nonlocal</span> <span class="n">current_episode_index</span><span class="p">,</span> <span class="n">current_episode_frames</span>
+            <span class="n">batch_rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">index_dataset</span><span class="o">.</span><span class="n">__getitems__</span><span class="p">(</span>
+                <span class="n">batch_frame_indices</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">frame_index</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batch_frame_indices</span><span class="p">):</span>
+                <span class="n">row</span> <span class="o">=</span> <span class="n">batch_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">episode_index</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;episode_index&quot;</span><span class="p">]</span>
+                <span class="c1"># only for first frame, assign current_episode_index</span>
+                <span class="k">if</span> <span class="n">current_episode_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">current_episode_index</span> <span class="o">=</span> <span class="n">episode_index</span>
+
+                <span class="k">if</span> <span class="n">episode_index</span> <span class="o">!=</span> <span class="n">current_episode_index</span><span class="p">:</span>
+                    <span class="c1"># yield the previous episode</span>
+                    <span class="k">yield</span> <span class="n">RePackingEpisodeHelper</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">current_episode_frames</span>
+                    <span class="p">)</span>
+                    <span class="n">current_episode_index</span> <span class="o">=</span> <span class="n">episode_index</span>
+                    <span class="n">current_episode_frames</span> <span class="o">=</span> <span class="p">[</span><span class="n">frame_index</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">current_episode_frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame_index</span><span class="p">)</span>
+
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1024</span>
+        <span class="n">batch_frame_indices</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">frame_index</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_indices</span><span class="p">:</span>
-            <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">frame_dataset</span><span class="p">[</span><span class="n">frame_index</span><span class="p">]</span>
-            <span class="n">episode_index</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;episode_index&quot;</span><span class="p">]</span>
-
-            <span class="c1"># only for first frame, assign current_episode_index</span>
-            <span class="k">if</span> <span class="n">current_episode_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">current_episode_index</span> <span class="o">=</span> <span class="n">episode_index</span>
-
-            <span class="k">if</span> <span class="n">episode_index</span> <span class="o">!=</span> <span class="n">current_episode_index</span><span class="p">:</span>
-                <span class="c1"># yield the previous episode</span>
-                <span class="k">yield</span> <span class="n">RePackingEpisodeHelper</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">current_episode_frames</span>
-                <span class="p">)</span>
-                <span class="n">current_episode_index</span> <span class="o">=</span> <span class="n">episode_index</span>
-                <span class="n">current_episode_frames</span> <span class="o">=</span> <span class="p">[</span><span class="n">frame_index</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">current_episode_frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame_index</span><span class="p">)</span>
-
+            <span class="n">batch_frame_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame_index</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_frame_indices</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">batch_size</span><span class="p">:</span>
+                <span class="k">yield from</span> <span class="n">process_batch</span><span class="p">(</span><span class="n">batch_frame_indices</span><span class="p">)</span>
+                <span class="n">batch_frame_indices</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">batch_frame_indices</span><span class="p">:</span>
+            <span class="k">yield from</span> <span class="n">process_batch</span><span class="p">(</span><span class="n">batch_frame_indices</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">current_episode_frames</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">RePackingEpisodeHelper</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">current_episode_frames</span><span class="p">)</span>
 

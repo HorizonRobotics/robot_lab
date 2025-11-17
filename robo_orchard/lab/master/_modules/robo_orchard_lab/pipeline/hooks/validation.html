@@ -439,6 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -523,6 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -683,12 +685,15 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 
+<span class="kn">import</span> <span class="nn">torch</span>
+
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.pipeline.hooks.mixin</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">HookContext</span><span class="p">,</span>
     <span class="n">PipelineHookArgs</span><span class="p">,</span>
     <span class="n">PipelineHooks</span><span class="p">,</span>
     <span class="n">PipelineHooksConfig</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.utils.torch</span> <span class="kn">import</span> <span class="n">switch_model_mode</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ValidationHook&quot;</span><span class="p">,</span> <span class="s2">&quot;ValidationHookConfig&quot;</span><span class="p">]</span>
 
@@ -703,16 +708,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <span class="sd">    Args:</span>
-<span class="sd">        eval_callback (Callable[[], None]): A callback function to be called</span>
-<span class="sd">            for evaluation. This function should not take no argument and</span>
-<span class="sd">            should not return any values. A common use case is to pass a</span>
-<span class="sd">            closure that performs the evaluation.</span>
-<span class="sd">        step_eval_freq (int | None): The frequency of evaluation in terms of</span>
-<span class="sd">            steps. If specified, the evaluation will be performed every</span>
-<span class="sd">            `step_eval_freq` steps.</span>
-<span class="sd">        epoch_eval_freq (int | None): The frequency of evaluation in terms of</span>
-<span class="sd">            epochs. If specified, the evaluation will be performed every</span>
-<span class="sd">            `epoch_eval_freq` epochs.</span>
+<span class="sd">        cfg (ValidationHookConfig): The configuration for the ValidationHook.</span>
+<span class="sd">            Please refer to ValidationHookConfig for details.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -721,7 +718,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="n">cfg</span><span class="p">:</span> <span class="n">ValidationHookConfig</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eval_callback</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">eval_callback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">cfg</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">step_eval_freq</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">step_eval_freq</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">epoch_eval_freq</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">epoch_eval_freq</span>
 
@@ -753,7 +750,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">            hook_args (PipelineHookArgs): The current training progress state.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">need_eval</span><span class="p">(</span><span class="n">hook_args</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">eval_callback</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">hook_args</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_on_epoch_end</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -768,7 +765,21 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">            hook_args (PipelineHookArgs): The current training progress state.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">need_eval</span><span class="p">(</span><span class="n">hook_args</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">eval_callback</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">hook_args</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ValidationHook.evaluate">
+<a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/pipeline/hooks/validation/index.html#robo_orchard_lab.pipeline.hook_based_trainer.ValidationHook.evaluate">[docs]</a>
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hook_args</span><span class="p">:</span> <span class="n">PipelineHookArgs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Performs evaluation by calling the evaluation callback.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            hook_args (PipelineHookArgs): The current training progress state.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">hook_args</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Model is not set in the hook arguments.&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">switch_model_mode</span><span class="p">(</span><span class="n">hook_args</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">target_mode</span><span class="o">=</span><span class="s2">&quot;eval&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">eval_callback</span><span class="p">(</span><span class="n">hook_args</span><span class="o">.</span><span class="n">model</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="ValidationHook.need_eval">
 <a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/pipeline/hooks/validation/index.html#robo_orchard_lab.pipeline.hook_based_trainer.ValidationHook.need_eval">[docs]</a>
@@ -812,9 +823,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <span class="n">class_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">ValidationHook</span><span class="p">]</span> <span class="o">=</span> <span class="n">ValidationHook</span>
 
-    <span class="n">eval_callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">eval_callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A callback function to be called for evaluation. This function should</span>
-<span class="sd">    not take no argument and should not return any values. A common use case</span>
+<span class="sd">    take model as input and should not return any values. A common use case</span>
 <span class="sd">    is to pass a closure that performs the evaluation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">step_eval_freq</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>

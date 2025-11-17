@@ -440,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../row_sampler/index.html">row_sampler</a></li>
@@ -524,6 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -702,6 +704,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.db_orm.episode.Episode.dataset_begin_index">
 <span class="sig-name descname"><span class="pre">dataset_begin_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sqlalchemy.orm.Mapped</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.db_orm.episode.Episode.dataset_begin_index" title="Link to this definition">¶</a></dt>
 <dd><p>The index of the first dataset item in this episode.</p>
+<p>Can be -1 if not available. User should fix it after all
+processings are done.</p>
 </dd></dl>
 
 <dl class="py attribute">

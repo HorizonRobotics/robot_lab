@@ -439,6 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -523,6 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -703,7 +705,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
-<span class="kn">from</span> <span class="nn">robo_orchard_lab.utils.huggingface</span> <span class="kn">import</span> <span class="n">download_repo</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.utils.huggingface</span> <span class="kn">import</span> <span class="n">download_hf_resource</span>
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.utils.path</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">DirectoryNotEmptyError</span><span class="p">,</span>
     <span class="n">abspath</span><span class="p">,</span>
@@ -861,7 +863,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">        to a JSON file in the `output_dir`.</span>
 
 <span class="sd">        The configuration is saved as `model_{id}.config.json` where `{id}`</span>
-<span class="sd">        corresponds to the model&#39;s `accelerate_model_id`.</span>
+<span class="sd">        corresponds to the model&#39;s `accelerate_model_id`. If there is only one</span>
+<span class="sd">        model, it is saved as `model.config.json`.</span>
 
 <span class="sd">        Note:</span>
 <span class="sd">            This hook only saves the configuration. The model weights (`state_dict`)</span>
@@ -876,7 +879,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
 
         <span class="n">model_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accelerate_model_id</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;model_</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s2">.config.json&quot;</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">models</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;model.config.json&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;model_</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s2">.config.json&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving model config to </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span></div>
@@ -959,6 +966,15 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">accelerator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># save model will be:</span>
+            <span class="c1">#   directory/model.safetensors</span>
+            <span class="c1">#   or directory/model-00001-of-00005.safetensors ...</span>
+            <span class="k">if</span> <span class="n">model_prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">model_prefix</span> <span class="o">!=</span> <span class="s2">&quot;model&quot;</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s2">&quot;model_prefix is ignored when saving with accelerator. &quot;</span>
+                    <span class="s2">&quot;When using accelerator, the model prefix is &quot;</span>
+                    <span class="s2">&quot;always &#39;model&#39;.&quot;</span>
+                <span class="p">)</span>
             <span class="n">accelerator</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save_directory</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">assert</span> <span class="n">model_prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -1061,7 +1077,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
 
         <span class="k">if</span> <span class="n">directory</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;hf://&quot;</span><span class="p">):</span>
-            <span class="n">directory</span> <span class="o">=</span> <span class="n">download_repo</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">repo_type</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">directory</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;hf://model/&quot;</span><span class="p">):</span>
+                <span class="n">directory</span> <span class="o">=</span> <span class="s2">&quot;hf://model/&quot;</span> <span class="o">+</span> <span class="n">directory</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span>
+            <span class="n">directory</span> <span class="o">=</span> <span class="n">download_hf_resource</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 
         <span class="n">directory</span> <span class="o">=</span> <span class="n">abspath</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 
@@ -1107,7 +1125,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <span class="sd">        Args:</span>
 <span class="sd">            directory (str): The path to the directory containing the model&#39;s</span>
-<span class="sd">                configuration file and state dictionary file.</span>
+<span class="sd">                configuration file and pretrained weights file.</span>
 <span class="sd">            device (str|None, optional): The device (e.g., &quot;cpu&quot;, &quot;cuda:0&quot;)</span>
 <span class="sd">                onto which the model&#39;s state dictionary should be loaded.</span>
 <span class="sd">                Passed to `load_file` for loading the safetensors file.</span>
@@ -1122,7 +1140,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">                `state_dict()` function. Passed to `model.load_state_dict()`.</span>
 <span class="sd">                Defaults to True.</span>
 <span class="sd">            model_prefix (str, optional): The prefix for the configuration</span>
-<span class="sd">                and state dictionary files. For example, if &quot;model&quot;, files</span>
+<span class="sd">                and weights files. For example, if prefix is &quot;model&quot;, files</span>
 <span class="sd">                will be sought as &quot;model.config.json&quot; and &quot;model.safetensors&quot;.</span>
 <span class="sd">                Defaults to &quot;model&quot;.</span>
 <span class="sd">            load_impl (Literal[&quot;native&quot;, &quot;accelerate&quot;], optional): The</span>

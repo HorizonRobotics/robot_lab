@@ -440,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../row_sampler/index.html">row_sampler</a></li>
@@ -524,6 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -681,6 +683,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.robot.db_orm.md5.T" title="robo_orchard_lab.dataset.robot.db_orm.md5.T"><code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code></a></p></td>
 <td><p></p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5_ORM_TYPE" title="robo_orchard_lab.dataset.robot.db_orm.md5.MD5_ORM_TYPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MD5_ORM_TYPE</span></code></a></p></td>
+<td><p></p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -692,6 +697,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin" title="robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MD5FieldMixin</span></code></a></p></td>
 <td><p>Abstract base class for generic types.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache" title="robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MD5ObjCache</span></code></a></p></td>
+<td><p>A cache for ORM objects based on their MD5 hash and columns.</p></td>
 </tr>
 </tbody>
 </table>
@@ -745,6 +753,39 @@ For example, a generic mapping type might be defined as:</p>
 <p>This method use the MD5 hash to filter results, and then checks
 if all provided keyword arguments match the attributes of the
 instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin.md5_content_fields">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">md5_content_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../../../../_modules/robo_orchard_lab/dataset/robot/db_orm/md5.html#MD5FieldMixin.md5_content_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin.md5_content_fields" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Abstractmethod<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.db_orm.md5.MD5_ORM_TYPE">
+<span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.db_orm.md5.</span></span><span class="sig-name descname"><span class="pre">MD5_ORM_TYPE</span></span><a class="headerlink" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5_ORM_TYPE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.dataset.robot.db_orm.md5.</span></span><span class="sig-name descname"><span class="pre">MD5ObjCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">check_column_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../../_modules/robo_orchard_lab/dataset/robot/db_orm/md5.html#MD5ObjCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Generic</span></code>[<a class="reference internal" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5_ORM_TYPE" title="robo_orchard_lab.dataset.robot.db_orm.md5.MD5_ORM_TYPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MD5_ORM_TYPE</span></code></a>]</p>
+<p>A cache for ORM objects based on their MD5 hash and columns.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">MD5_ORM_TYPE</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../../_modules/robo_orchard_lab/dataset/robot/db_orm/md5.html#MD5ObjCache.extend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache.extend" title="Link to this definition">¶</a></dt>
+<dd><p>Extend the cache with a list of ORM objects.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache.find">
+<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MD5_ORM_TYPE</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">MD5_ORM_TYPE</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../../_modules/robo_orchard_lab/dataset/robot/db_orm/md5.html#MD5ObjCache.find"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache.find" title="Link to this definition">¶</a></dt>
+<dd><p>Find an ORM object in the cache that matches the given object.</p>
 </dd></dl>
 
 </dd></dl>
@@ -823,6 +864,13 @@ instance.</p>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin.md5"><code class="docutils literal notranslate"><span class="pre">MD5FieldMixin.md5</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin.update_md5"><code class="docutils literal notranslate"><span class="pre">MD5FieldMixin.update_md5()</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin.query_by_content_with_md5"><code class="docutils literal notranslate"><span class="pre">MD5FieldMixin.query_by_content_with_md5()</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin.md5_content_fields"><code class="docutils literal notranslate"><span class="pre">MD5FieldMixin.md5_content_fields()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5_ORM_TYPE"><code class="docutils literal notranslate"><span class="pre">MD5_ORM_TYPE</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache"><code class="docutils literal notranslate"><span class="pre">MD5ObjCache</span></code></a><ul>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache.extend"><code class="docutils literal notranslate"><span class="pre">MD5ObjCache.extend()</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache.find"><code class="docutils literal notranslate"><span class="pre">MD5ObjCache.find()</span></code></a></li>
 </ul>
 </li>
 </ul>

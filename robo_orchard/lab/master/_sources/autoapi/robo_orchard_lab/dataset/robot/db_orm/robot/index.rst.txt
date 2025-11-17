@@ -39,6 +39,11 @@ Module Contents
       :type:  sqlalchemy.orm.Mapped[bytes]
 
 
+   .. py:method:: md5_content_fields() -> list[str]
+      :classmethod:
+
+
+
    .. py:method:: update_md5() -> bytes
 
       Generate a unique MD5 hash for the robot URDF content.

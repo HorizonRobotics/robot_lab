@@ -358,14 +358,14 @@ This is the "MCAP -> Dataset" workflow, it is the same packaging pattern we lear
 
 
     --- Starting MCAP Ingestion Process ---
-    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:489: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/mcap/dataset' already exists. It will be overwritten.
+    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:481: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/mcap/dataset' already exists. It will be overwritten.
       warnings.warn(
     Generating train split: 0 examples [00:00, ? examples/s]
       [.workspace/conversion/mcap/dummy_dataset_episode0.mcap] Generating episode metadata...
       [.workspace/conversion/mcap/dummy_dataset_episode0.mcap] Starting frame generation stream...
-
+    Generating train split: 1 examples [00:00,  9.66 examples/s]
       [.workspace/conversion/mcap/dummy_dataset_episode0.mcap] Finished generating frames.
-    Generating train split: 5 examples [00:00, 44.67 examples/s]    Generating train split: 5 examples [00:00, 42.77 examples/s]
+    Generating train split: 5 examples [00:00, 36.69 examples/s]
     --- Ingestion Complete! ---
 
 
@@ -524,9 +524,9 @@ Create the list of packagers
 
  .. code-block:: none
 
-    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:489: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/lerobot/default_ts/dataset' already exists. It will be overwritten.
+    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:481: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/lerobot/default_ts/dataset' already exists. It will be overwritten.
       warnings.warn(
-    Generating train split: 0 examples [00:00, ? examples/s]    Generating train split: 1 examples [00:10, 10.03s/ examples]    Generating train split: 2 examples [00:18,  9.19s/ examples]    Generating train split: 3 examples [00:27,  8.86s/ examples]    Generating train split: 4 examples [00:34,  8.47s/ examples]    Generating train split: 4 examples [00:35,  8.84s/ examples]
+    Generating train split: 0 examples [00:00, ? examples/s]    Generating train split: 1 examples [00:10, 10.19s/ examples]    Generating train split: 2 examples [00:20, 10.31s/ examples]    Generating train split: 3 examples [00:30, 10.01s/ examples]    Generating train split: 4 examples [00:38,  9.47s/ examples]    Generating train split: 4 examples [00:39,  9.77s/ examples]
 
 
 
@@ -677,9 +677,9 @@ image tensors into our custom :py:class:`~robo_orchard_core.datatypes.camera.Bat
 
  .. code-block:: none
 
-    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:489: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/lerobot/custom/dataset' already exists. It will be overwritten.
+    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:481: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/lerobot/custom/dataset' already exists. It will be overwritten.
       warnings.warn(
-    Generating train split: 0 examples [00:00, ? examples/s]    Generating train split: 1 examples [00:06,  6.52s/ examples]    Generating train split: 2 examples [00:12,  6.47s/ examples]    Generating train split: 3 examples [00:18,  6.19s/ examples]    Generating train split: 4 examples [00:24,  6.15s/ examples]    Generating train split: 4 examples [00:25,  6.38s/ examples]
+    Generating train split: 0 examples [00:00, ? examples/s]    Generating train split: 1 examples [00:06,  6.97s/ examples]    Generating train split: 2 examples [00:14,  7.35s/ examples]    Generating train split: 3 examples [00:21,  7.01s/ examples]    Generating train split: 4 examples [00:28,  7.06s/ examples]    Generating train split: 4 examples [00:29,  7.30s/ examples]
 
 
 
@@ -715,7 +715,7 @@ image tensors into our custom :py:class:`~robo_orchard_core.datatypes.camera.Bat
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 2.479 seconds)
+   **Total running time of the script:** (1 minutes 11.439 seconds)
 
 
 .. _sphx_glr_download_build_tutorials_dataset_tutorial_nonb-06_dataset_conversion.py:

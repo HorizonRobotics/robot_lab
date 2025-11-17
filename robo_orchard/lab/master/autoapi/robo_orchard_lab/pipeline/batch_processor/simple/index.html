@@ -440,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -524,6 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -752,7 +754,7 @@ or a sequence of callables for transforming the batch.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robo_orchard_lab.pipeline.batch_processor.simple.SimpleBatchProcessor.forward">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.5)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/pipeline/batch_processor/simple.html#SimpleBatchProcessor.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.pipeline.batch_processor.simple.SimpleBatchProcessor.forward" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../hooks/mixin/index.html#robo_orchard_lab.pipeline.hooks.mixin.ModelOutput" title="robo_orchard_lab.pipeline.hooks.mixin.ModelOutput"><span class="pre">robo_orchard_lab.pipeline.hooks.mixin.ModelOutput</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../../hooks/mixin/index.html#robo_orchard_lab.pipeline.hooks.mixin.ModelOutputHasLossKeys" title="robo_orchard_lab.pipeline.hooks.mixin.ModelOutputHasLossKeys"><span class="pre">robo_orchard_lab.pipeline.hooks.mixin.ModelOutputHasLossKeys</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.5)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../../../_modules/robo_orchard_lab/pipeline/batch_processor/simple.html#SimpleBatchProcessor.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.pipeline.batch_processor.simple.SimpleBatchProcessor.forward" title="Link to this definition">¶</a></dt>
 <dd><p>Defines the forward pass logic for the model.</p>
 <p>This method handles the execution of the forward pass, processing
 the input batch and computing the outputs of the model. It also
@@ -770,8 +772,9 @@ or other structure, depending on the data pipeline’s format.</p></li>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p>The first element is the model’s outputs. It can be any type
-that the model produces, such as a tensor, a list of tensors,
-or a dictionary.</p></li>
+that the model produces, usually dict or a custom ModelOutput
+class that has <cite>loss_keys</cite> method if it contains multiple
+losses.</p></li>
 <li><p>The second element is an optional loss tensor. This
 is used during training when backward computation is required.
 If loss is not applicable (e.g., during inference), this value
@@ -780,7 +783,7 @@ can be <cite>None</cite>.</p></li>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple[Any, Optional[<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.5)">torch.Tensor</a>]]</p>
+<dd class="field-odd"><p>Tuple[<a class="reference internal" href="../../hooks/mixin/index.html#robo_orchard_lab.pipeline.hooks.mixin.ModelOutput" title="robo_orchard_lab.pipeline.hooks.mixin.ModelOutput">ModelOutput</a> | <a class="reference internal" href="../../hooks/mixin/index.html#robo_orchard_lab.pipeline.hooks.mixin.ModelOutputHasLossKeys" title="robo_orchard_lab.pipeline.hooks.mixin.ModelOutputHasLossKeys">ModelOutputHasLossKeys</a>, Optional[<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.5)">torch.Tensor</a>]]</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -834,8 +837,9 @@ or other structure, depending on the data pipeline’s format.</p></li>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p>The first element is the model’s outputs. It can be any type
-that the model produces, such as a tensor, a list of tensors,
-or a dictionary.</p></li>
+that the model produces, usually dict or a custom ModelOutput
+class that has <cite>loss_keys</cite> method if it contains multiple
+losses.</p></li>
 <li><p>The second element is an optional loss tensor. This
 is used during training when backward computation is required.
 If loss is not applicable (e.g., during inference), this value
@@ -844,7 +848,7 @@ can be <cite>None</cite>.</p></li>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple[Any, Optional[<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.5)">torch.Tensor</a>]]</p>
+<dd class="field-odd"><p>Tuple[<a class="reference internal" href="../../hooks/mixin/index.html#robo_orchard_lab.pipeline.hooks.mixin.ModelOutput" title="robo_orchard_lab.pipeline.hooks.mixin.ModelOutput">ModelOutput</a> | <a class="reference internal" href="../../hooks/mixin/index.html#robo_orchard_lab.pipeline.hooks.mixin.ModelOutputHasLossKeys" title="robo_orchard_lab.pipeline.hooks.mixin.ModelOutputHasLossKeys">ModelOutputHasLossKeys</a>, Optional[<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.5)">torch.Tensor</a>]]</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>

@@ -10,6 +10,7 @@ Attributes
 .. autoapisummary::
 
    robo_orchard_lab.dataset.robot.db_orm.md5.T
+   robo_orchard_lab.dataset.robot.db_orm.md5.MD5_ORM_TYPE
 
 
 Classes
@@ -18,6 +19,7 @@ Classes
 .. autoapisummary::
 
    robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin
+   robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache
 
 
 Module Contents
@@ -74,6 +76,35 @@ Module Contents
       if all provided keyword arguments match the attributes of the
       instance.
 
+
+
+
+   .. py:method:: md5_content_fields() -> list[str]
+      :classmethod:
+
+      :abstractmethod:
+
+
+
+.. py:data:: MD5_ORM_TYPE
+
+.. py:class:: MD5ObjCache(check_column_names: list[str])
+
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`MD5_ORM_TYPE`\ ]
+
+
+   A cache for ORM objects based on their MD5 hash and columns.
+
+
+   .. py:method:: extend(objs: Iterable[MD5_ORM_TYPE]) -> None
+
+      Extend the cache with a list of ORM objects.
+
+
+
+   .. py:method:: find(obj: MD5_ORM_TYPE) -> MD5_ORM_TYPE | None
+
+      Find an ORM object in the cache that matches the given object.
 
 
 

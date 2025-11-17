@@ -439,6 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -523,6 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -691,7 +693,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypeVar</span>
 
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.models.mixin</span> <span class="kn">import</span> <span class="n">TorchModelMixin</span><span class="p">,</span> <span class="n">TorchModuleCfg</span>
-<span class="kn">from</span> <span class="nn">robo_orchard_lab.utils.huggingface</span> <span class="kn">import</span> <span class="n">download_repo</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.utils.huggingface</span> <span class="kn">import</span> <span class="n">download_hf_resource</span>
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.utils.path</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">DirectoryNotEmptyError</span><span class="p">,</span>
     <span class="n">abspath</span><span class="p">,</span>
@@ -931,7 +933,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">            in the configuration.</span>
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
         <span class="k">if</span> <span class="n">directory</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;hf://&quot;</span><span class="p">):</span>
-            <span class="n">directory</span> <span class="o">=</span> <span class="n">download_repo</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">repo_type</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">directory</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;hf://model/&quot;</span><span class="p">):</span>
+                <span class="n">directory</span> <span class="o">=</span> <span class="s2">&quot;hf://model/&quot;</span> <span class="o">+</span> <span class="n">directory</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span>
+            <span class="n">directory</span> <span class="o">=</span> <span class="n">download_hf_resource</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 
         <span class="n">directory</span> <span class="o">=</span> <span class="n">abspath</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 

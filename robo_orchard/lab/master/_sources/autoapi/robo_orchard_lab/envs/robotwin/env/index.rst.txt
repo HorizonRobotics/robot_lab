@@ -302,11 +302,17 @@ Module Contents
           - other keys in the original observation will be kept.
 
 
-   .. py:property:: task_config_path
-      :type: str
+   .. py:attribute:: task_config_path
+      :type:  str | None
+      :value: None
 
 
       Path to the task configuration file.
+
+      If not provided, the path will be set to
+      `<RoboTwin_PATH>/task_config/_config_template.yml` for RoboTwin2.0.
+
+      Note that we only support RoboTwin2.0 for now.
 
 
    .. py:property:: embodiment_config_path

@@ -440,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -524,6 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -696,8 +698,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.utils.huggingface.accelerator_load_state" title="robo_orchard_lab.utils.huggingface.accelerator_load_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">accelerator_load_state</span></code></a>(→ None)</p></td>
 <td><p>Load the state of the accelerator from a checkpoint.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.utils.huggingface.download_repo" title="robo_orchard_lab.utils.huggingface.download_repo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_repo</span></code></a>(→ str)</p></td>
-<td><p>Downloads a repository from the Hugging Face Hub.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.utils.huggingface.download_hf_resource" title="robo_orchard_lab.utils.huggingface.download_hf_resource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_hf_resource</span></code></a>(→ str)</p></td>
+<td><p>Downloads a resource (repo, dir, or file) from the Hugging Face Hub using a custom HF URI scheme.</p></td>
 </tr>
 </tbody>
 </table>
@@ -822,33 +824,30 @@ Accelerator.load_state should inherit from this class.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="robo_orchard_lab.utils.huggingface.download_repo">
-<span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.utils.huggingface.</span></span><span class="sig-name descname"><span class="pre">download_repo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">repo_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'model'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'dataset'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'space'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/utils/huggingface.html#download_repo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.utils.huggingface.download_repo" title="Link to this definition">¶</a></dt>
-<dd><p>Downloads a repository from the Hugging Face Hub.</p>
-<p>The URL format supports specifying a repository, an optional token,
-and an optional revision, mimicking pip’s git URL syntax.</p>
-<p>URL Format: hf://&lt;token&gt;&#64;&lt;repo_id&gt;&#64;&lt;revision&gt;</p>
+<dt class="sig sig-object py" id="robo_orchard_lab.utils.huggingface.download_hf_resource">
+<span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.utils.huggingface.</span></span><span class="sig-name descname"><span class="pre">download_hf_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/utils/huggingface.html#download_hf_resource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.utils.huggingface.download_hf_resource" title="Link to this definition">¶</a></dt>
+<dd><p>Downloads a resource (repo, dir, or file) from the Hugging Face Hub using a custom HF URI scheme.</p>
+<p>The URI scheme is defined as:
+hf://&lt;repo_type&gt;/&lt;repo_id&gt;[&lt;/path&gt;][&#64;&lt;revision&gt;]?token=&lt;token&gt;</p>
 <ul class="simple">
-<li><p>token (optional): A Hugging Face Hub token.</p></li>
-<li><p>repo_id: The repository ID (e.g., ‘meta-llama/Llama-2-7b-chat-hf’).</p></li>
-<li><p>revision (optional): A git revision (branch, tag, or commit hash),
-preceded by an ‘&#64;’.</p></li>
+<li><p>repo_type: ‘model’, ‘dataset’, or ‘space’.</p></li>
+<li><p>repo_id: The repository ID (e.g., ‘gpt2’ or ‘meta-llama/Llama-2-7b-chat-hf’).</p></li>
+<li><p>/&lt;path&gt;: (Optional) Download a single file or a specific subdirectory.</p></li>
+<li><p>&#64;&lt;revision&gt;: (Optional) A git revision.</p></li>
+<li><p>?token=&lt;token&gt;: (Optional) A Hugging Face Hub token.</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The URL of the repository in the specified format.</p></li>
-<li><p><strong>repo_type</strong> (<em>Literal</em><em>[</em><em>&quot;model&quot;</em><em>, </em><em>&quot;dataset&quot;</em><em>, </em><em>&quot;space&quot;</em><em>]</em>) – The type of the repository (‘model’, ‘dataset’, ‘space’).</p></li>
-</ul>
+<dd class="field-odd"><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The HF URI string.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The local directory path where the repository is downloaded.</p>
+<dd class="field-even"><p>The local directory path (for repo/dir) or file path.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#ValueError" title="(in Python v3.10)"><strong>ValueError</strong></a> – If the URL format is invalid.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#ValueError" title="(in Python v3.10)"><strong>ValueError</strong></a> – If the URL format is invalid or missing required components.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -929,7 +928,7 @@ preceded by an ‘&#64;’.</p></li>
 <li><a class="reference internal" href="#robo_orchard_lab.utils.huggingface.AcceleratorState.load_state_dict"><code class="docutils literal notranslate"><span class="pre">AcceleratorState.load_state_dict()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#robo_orchard_lab.utils.huggingface.download_repo"><code class="docutils literal notranslate"><span class="pre">download_repo()</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.utils.huggingface.download_hf_resource"><code class="docutils literal notranslate"><span class="pre">download_hf_resource()</span></code></a></li>
 </ul>
 </li>
 </ul>

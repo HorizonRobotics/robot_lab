@@ -77,6 +77,19 @@ Module Contents
       objects when accessing the dataset.
 
 
+   .. py:method:: from_dataset(frame_dataset: datasets.Dataset, meta_db_engine: sqlalchemy.Engine, meta_index2meta: bool = False) -> RODataset
+      :staticmethod:
+
+
+      Create a RODataset from a frame dataset and meta db engine.
+
+      This method does not perform any checks on the input frame_dataset
+      and meta_db_engine. It is the caller's responsibility to ensure
+      that the frame_dataset contains the necessary index columns and
+      that the meta_db_engine is connected to a valid meta database.
+
+
+
    .. py:property:: features
       :type: datasets.Features
 
@@ -146,7 +159,7 @@ Module Contents
 
 
 
-   .. py:method:: save_to_disk(dataset_path: str, max_shard_size: str | int = '2000MB', num_shards: int | None = None, num_proc: int | None = None, storage_options: dict | None = None)
+   .. py:method:: save_to_disk(dataset_path: str, max_shard_size: str | int = '2000MB', num_shards: int | None = None, num_proc: int | None = None, storage_options: dict | None = None, batch_size: int | None = None)
 
       Saves a dataset to filesystem.
 
@@ -169,6 +182,10 @@ Module Contents
                               to be passed on to the file-system backend, if any. Defaults
                               to None.
       :type storage_options: dict | None, optional
+      :param batch_size: The batch size to use when
+                         saving the dataset. If None, the default batch size from
+                         Hugging Face Datasets will be used. Defaults to None.
+      :type batch_size: int | None, optional
 
 
 

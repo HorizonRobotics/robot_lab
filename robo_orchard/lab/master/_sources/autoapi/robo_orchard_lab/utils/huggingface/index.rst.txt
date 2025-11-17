@@ -19,7 +19,7 @@ Functions
 
    robo_orchard_lab.utils.huggingface.get_accelerate_project_last_checkpoint_id
    robo_orchard_lab.utils.huggingface.accelerator_load_state
-   robo_orchard_lab.utils.huggingface.download_repo
+   robo_orchard_lab.utils.huggingface.download_hf_resource
 
 
 Module Contents
@@ -127,30 +127,25 @@ Module Contents
 
 
 
-.. py:function:: download_repo(url: str, repo_type: Literal['model', 'dataset', 'space']) -> str
+.. py:function:: download_hf_resource(url: str) -> str
 
-   Downloads a repository from the Hugging Face Hub.
+   Downloads a resource (repo, dir, or file) from the Hugging Face Hub using a custom HF URI scheme.
 
-   The URL format supports specifying a repository, an optional token,
-   and an optional revision, mimicking pip's git URL syntax.
+   The URI scheme is defined as:
+   hf://<repo_type>/<repo_id>[</path>][@<revision>]?token=<token>
 
-   URL Format: hf://<token>@<repo_id>@<revision>
+   - repo_type: 'model', 'dataset', or 'space'.
+   - repo_id: The repository ID (e.g., 'gpt2' or 'meta-llama/Llama-2-7b-chat-hf').
+   - /<path>: (Optional) Download a single file or a specific subdirectory.
+   - @<revision>: (Optional) A git revision.
+   - ?token=<token>: (Optional) A Hugging Face Hub token.
 
-   - token (optional): A Hugging Face Hub token.
-
-   - repo_id: The repository ID (e.g., 'meta-llama/Llama-2-7b-chat-hf').
-
-   - revision (optional): A git revision (branch, tag, or commit hash),
-     preceded by an '@'.
-
-   :param url: The URL of the repository in the specified format.
+   :param url: The HF URI string.
    :type url: str
-   :param repo_type: The type of the repository ('model', 'dataset', 'space').
-   :type repo_type: Literal["model", "dataset", "space"]
 
-   :returns: The local directory path where the repository is downloaded.
+   :returns: The local directory path (for repo/dir) or file path.
    :rtype: str
 
-   :raises ValueError: If the URL format is invalid.
+   :raises ValueError: If the URL format is invalid or missing required components.
 
 

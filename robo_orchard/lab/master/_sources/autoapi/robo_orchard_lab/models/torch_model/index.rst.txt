@@ -94,7 +94,8 @@ Module Contents
       to a JSON file in the `output_dir`.
 
       The configuration is saved as `model_{id}.config.json` where `{id}`
-      corresponds to the model's `accelerate_model_id`.
+      corresponds to the model's `accelerate_model_id`. If there is only one
+      model, it is saved as `model.config.json`.
 
       .. note::
 
@@ -233,7 +234,7 @@ Module Contents
       not modify the model's architecture or configuration.
 
       :param directory: The path to the directory containing the model's
-                        configuration file and state dictionary file.
+                        configuration file and pretrained weights file.
       :type directory: str
       :param device: The device (e.g., "cpu", "cuda:0")
                      onto which the model's state dictionary should be loaded.
@@ -251,7 +252,7 @@ Module Contents
                      Defaults to True.
       :type strict: bool, optional
       :param model_prefix: The prefix for the configuration
-                           and state dictionary files. For example, if "model", files
+                           and weights files. For example, if prefix is "model", files
                            will be sought as "model.config.json" and "model.safetensors".
                            Defaults to "model".
       :type model_prefix: str, optional

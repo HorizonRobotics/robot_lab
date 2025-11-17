@@ -440,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../row_sampler/index.html">row_sampler</a></li>
@@ -524,6 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -708,17 +710,39 @@ document.addEventListener('DOMContentLoaded', function() {
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.index">
 <span class="sig-name descname"><span class="pre">index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.index" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The global index of the frame in the dataset.</p>
+<p>Usually corresponds to the row number in the dataset.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.episode_index">
 <span class="sig-name descname"><span class="pre">episode_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.episode_index" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The index of the episode the frame belongs to.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.frame_index">
 <span class="sig-name descname"><span class="pre">frame_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.frame_index" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The index of the frame within the episode.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.task_index">
+<span class="sig-name descname"><span class="pre">task_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.task_index" title="Link to this definition">¶</a></dt>
+<dd><p>The index of the task associated with the frame, if any.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.robot_index">
+<span class="sig-name descname"><span class="pre">robot_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.robot_index" title="Link to this definition">¶</a></dt>
+<dd><p>The index of the robot associated with the frame, if any.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.instruction_index">
+<span class="sig-name descname"><span class="pre">instruction_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.instruction_index" title="Link to this definition">¶</a></dt>
+<dd><p>The index of the instruction associated with the frame, if any.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.timestamp_min">
@@ -728,21 +752,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.timestamp_max">
 <span class="sig-name descname"><span class="pre">timestamp_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.timestamp_max" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.task_index">
-<span class="sig-name descname"><span class="pre">task_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.task_index" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.robot_index">
-<span class="sig-name descname"><span class="pre">robot_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.robot_index" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.instruction_index">
-<span class="sig-name descname"><span class="pre">instruction_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.10/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></em><a class="headerlink" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.instruction_index" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -830,11 +839,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.index"><code class="docutils literal notranslate"><span class="pre">PreservedIndexColumns.index</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.episode_index"><code class="docutils literal notranslate"><span class="pre">PreservedIndexColumns.episode_index</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.frame_index"><code class="docutils literal notranslate"><span class="pre">PreservedIndexColumns.frame_index</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.timestamp_min"><code class="docutils literal notranslate"><span class="pre">PreservedIndexColumns.timestamp_min</span></code></a></li>
-<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.timestamp_max"><code class="docutils literal notranslate"><span class="pre">PreservedIndexColumns.timestamp_max</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.task_index"><code class="docutils literal notranslate"><span class="pre">PreservedIndexColumns.task_index</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.robot_index"><code class="docutils literal notranslate"><span class="pre">PreservedIndexColumns.robot_index</span></code></a></li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.instruction_index"><code class="docutils literal notranslate"><span class="pre">PreservedIndexColumns.instruction_index</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.timestamp_min"><code class="docutils literal notranslate"><span class="pre">PreservedIndexColumns.timestamp_min</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.timestamp_max"><code class="docutils literal notranslate"><span class="pre">PreservedIndexColumns.timestamp_max</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumnsKeys"><code class="docutils literal notranslate"><span class="pre">PreservedIndexColumnsKeys</span></code></a></li>

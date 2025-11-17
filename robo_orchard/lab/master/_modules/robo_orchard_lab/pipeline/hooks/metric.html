@@ -439,6 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -523,6 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../autoapi/robo_orchard_lab/models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -693,10 +695,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">robo_orchard_core.utils.config</span> <span class="kn">import</span> <span class="n">ClassType</span>
-<span class="kn">from</span> <span class="nn">torchmetrics</span> <span class="kn">import</span> <span class="n">Metric</span>
 
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.metrics.base</span> <span class="kn">import</span> <span class="n">MetricProtocol</span>
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.pipeline.hooks.mixin</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">HookContext</span><span class="p">,</span>
+    <span class="n">ModelOutput</span><span class="p">,</span>
     <span class="n">PipelineHookArgs</span><span class="p">,</span>
     <span class="n">PipelineHooks</span><span class="p">,</span>
     <span class="n">PipelineHooksConfig</span><span class="p">,</span>
@@ -715,7 +718,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A class representing an entry for tracking a metric.&quot;&quot;&quot;</span>
 
     <span class="n">names</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span>  <span class="c1"># type: ignore</span>
-    <span class="n">metric</span><span class="p">:</span> <span class="n">Metric</span>
+    <span class="n">metric</span><span class="p">:</span> <span class="n">MetricProtocol</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the names attribute as a sequence.&quot;&quot;&quot;</span>
@@ -803,7 +806,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="viewcode-block" id="MetricTracker.update_metric">
 <a class="viewcode-back" href="../../../../autoapi/robo_orchard_lab/pipeline/hooks/metric/index.html#robo_orchard_lab.pipeline.hooks.metric.MetricTracker.update_metric">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">update_metric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">model_outputs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">update_metric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">model_outputs</span><span class="p">:</span> <span class="n">ModelOutput</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Updates the metrics using the current batch data and model outputs.</span>
 
 <span class="sd">        This method must be implemented in subclasses to define how the metrics</span>
@@ -815,10 +818,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">            batch (Any): The current batch of data from the dataset. It is</span>
 <span class="sd">                expected to contain all necessary inputs (e.g., features,</span>
 <span class="sd">                labels) required for metric computation.</span>
-<span class="sd">            model_outputs (Any): The outputs produced by the model for the</span>
-<span class="sd">                given batch. This could include predictions, probabilities,</span>
-<span class="sd">                logits, or other outputs, depending on the model architecture</span>
-<span class="sd">                and task.</span>
+<span class="sd">            model_outputs (ModelOutput): The outputs produced by the model</span>
+<span class="sd">                for the given batch. This could include predictions,</span>
+<span class="sd">                probabilities, logits, or other outputs, depending on the</span>
+<span class="sd">                model architecture and task.</span>
 
 <span class="sd">        Example:</span>
 <span class="sd">            A typical implementation in a subclass might look like this:</span>
@@ -863,7 +866,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">            device information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">metric_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">:</span>
-            <span class="n">metric_i</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">metric_i</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">):</span>
+                <span class="n">metric_i</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
 
     <span class="k">def</span> <span class="nf">_on_batch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">PipelineHookArgs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Callback when batch ends.</span>
@@ -874,6 +878,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">            args (PipelineHookArgs): Arguments containing the batch data and</span>
 <span class="sd">            model outputs.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">model_outputs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Model outputs are required to update metrics.&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update_metric</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">batch</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">model_outputs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_on_step_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">PipelineHookArgs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

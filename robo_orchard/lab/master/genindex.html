@@ -438,6 +438,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="autoapi/robo_orchard_lab/dataset/robot/engine/index.html">engine</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/robo_orchard_lab/dataset/robot/merge/index.html">merge</a></li>
 <li class="toctree-l5"><a class="reference internal" href="autoapi/robo_orchard_lab/dataset/robot/packaging/index.html">packaging</a></li>
 <li class="toctree-l5"><a class="reference internal" href="autoapi/robo_orchard_lab/dataset/robot/re_packing/index.html">re_packing</a></li>
 <li class="toctree-l5"><a class="reference internal" href="autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html">row_sampler</a></li>
@@ -522,6 +523,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="autoapi/robo_orchard_lab/models/finegrasp/losses/index.html">losses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html">processor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="autoapi/robo_orchard_lab/models/finegrasp/utils/index.html">utils</a></li>
 </ul>
 </li>
@@ -1255,6 +1257,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
           <li><a href="autoapi/robo_orchard_lab/models/finegrasp/finegrasp/index.html#robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp.cfg">(robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp attribute)</a>
 </li>
+          <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.FineGraspProcessor.cfg">(robo_orchard_lab.models.finegrasp.processor.FineGraspProcessor attribute)</a>
+</li>
           <li><a href="autoapi/robo_orchard_lab/models/sem_modules/processor/index.html#robo_orchard_lab.models.sem_modules.processor.SEMProcessor.cfg">(robo_orchard_lab.models.sem_modules.processor.SEMProcessor attribute)</a>
 </li>
           <li><a href="autoapi/robo_orchard_lab/models/tokenizer/action_bbpe/index.html#robo_orchard_lab.models.tokenizer.action_bbpe.DCTAction2Text.cfg">(robo_orchard_lab.models.tokenizer.action_bbpe.DCTAction2Text attribute)</a>
@@ -1270,6 +1274,8 @@ document.addEventListener('DOMContentLoaded', function() {
           <li><a href="autoapi/robo_orchard_lab/pipeline/hooks/checkpoint/index.html#robo_orchard_lab.pipeline.hooks.checkpoint.SaveModel.cfg">(robo_orchard_lab.pipeline.hooks.checkpoint.SaveModel attribute)</a>
 </li>
           <li><a href="autoapi/robo_orchard_lab/pipeline/hooks/loss_tracker/index.html#robo_orchard_lab.pipeline.hooks.loss_tracker.LossTracker.cfg">(robo_orchard_lab.pipeline.hooks.loss_tracker.LossTracker attribute)</a>
+</li>
+          <li><a href="autoapi/robo_orchard_lab/pipeline/hooks/validation/index.html#robo_orchard_lab.pipeline.hooks.validation.ValidationHook.cfg">(robo_orchard_lab.pipeline.hooks.validation.ValidationHook attribute)</a>
 </li>
           <li><a href="autoapi/robo_orchard_lab/policy/base/index.html#robo_orchard_lab.policy.base.InferencePipelinePolicy.cfg">(robo_orchard_lab.policy.base.InferencePipelinePolicy attribute)</a>
 </li>
@@ -1384,6 +1390,8 @@ document.addEventListener('DOMContentLoaded', function() {
           <li><a href="autoapi/robo_orchard_lab/models/codec/normalize/index.html#robo_orchard_lab.models.codec.normalize.NormalizeCodecConfig.class_type">(robo_orchard_lab.models.codec.normalize.NormalizeCodecConfig attribute)</a>
 </li>
           <li><a href="autoapi/robo_orchard_lab/models/finegrasp/finegrasp/index.html#robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig.class_type">(robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig attribute)</a>
+</li>
+          <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg.class_type">(robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg attribute)</a>
 </li>
           <li><a href="autoapi/robo_orchard_lab/models/sem_modules/processor/index.html#robo_orchard_lab.models.sem_modules.processor.SEMProcessorCfg.class_type">(robo_orchard_lab.models.sem_modules.processor.SEMProcessorCfg attribute)</a>
 </li>
@@ -1531,7 +1539,11 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="autoapi/robo_orchard_lab/dataset/graspnet1b/ecograsp1b_dataset/index.html#robo_orchard_lab.dataset.graspnet1b.ecograsp1b_dataset.EconomicGraspNet1BDataset.collision_labels">collision_labels (robo_orchard_lab.dataset.graspnet1b.ecograsp1b_dataset.EconomicGraspNet1BDataset attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/graspnet1b/metrics/index.html#robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetMetric.collision_thresh">collision_thresh (robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetMetric attribute)</a>
+
+        <ul>
+          <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg.collision_thresh">(robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg attribute)</a>
 </li>
+        </ul></li>
         <li><a href="autoapi/robo_orchard_lab/dataset/horizon_manipulation/packer/utils/index.html#robo_orchard_lab.dataset.horizon_manipulation.packer.utils.McapParseConfig.COLOR_IMAGE_TOPICS">COLOR_IMAGE_TOPICS (robo_orchard_lab.dataset.horizon_manipulation.packer.utils.McapParseConfig attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/horizon_manipulation/packer/utils/index.html#robo_orchard_lab.dataset.horizon_manipulation.packer.utils.McapParseConfig.COLOR_INFO_TOPICS">COLOR_INFO_TOPICS (robo_orchard_lab.dataset.horizon_manipulation.packer.utils.McapParseConfig attribute)</a>
@@ -1687,6 +1699,8 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="autoapi/robo_orchard_lab/models/bip3d/grounding_decoder/target/index.html#robo_orchard_lab.models.bip3d.grounding_decoder.target.Grounding3DTarget.cost_weight_wd">cost_weight_wd (robo_orchard_lab.models.bip3d.grounding_decoder.target.Grounding3DTarget attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robot/engine/index.html#robo_orchard_lab.dataset.robot.engine.create_engine">create_engine() (in module robo_orchard_lab.dataset.robot.engine)</a>
+</li>
+        <li><a href="autoapi/robo_orchard_lab/dataset/robot/merge/index.html#robo_orchard_lab.dataset.robot.merge.create_merged_dataset">create_merged_dataset() (in module robo_orchard_lab.dataset.robot.merge)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/models/bip3d/grounding_decoder/utils/index.html#robo_orchard_lab.models.bip3d.grounding_decoder.utils.create_positive_map_label_to_token">create_positive_map_label_to_token() (in module robo_orchard_lab.models.bip3d.grounding_decoder.utils)</a>
 </li>
@@ -1866,15 +1880,17 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
         <li><a href="autoapi/robo_orchard_lab/models/bip3d/grounding_decoder/deformable_aggregation/index.html#robo_orchard_lab.models.bip3d.grounding_decoder.deformable_aggregation.DeformableFeatureAggregation">DeformableFeatureAggregation (class in robo_orchard_lab.models.bip3d.grounding_decoder.deformable_aggregation)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="autoapi/robo_orchard_lab/utils/build/index.html#robo_orchard_lab.utils.build.DelayInitDictType">DelayInitDictType (in module robo_orchard_lab.utils.build)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html#robo_orchard_lab.dataset.robot.row_sampler.DeltaTimestampSampler">DeltaTimestampSampler (class in robo_orchard_lab.dataset.robot.row_sampler)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robot/row_sampler/index.html#robo_orchard_lab.dataset.robot.row_sampler.DeltaTimestampSamplerConfig">DeltaTimestampSamplerConfig (class in robo_orchard_lab.dataset.robot.row_sampler)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robotwin/close_loop_eval/index.html#robo_orchard_lab.dataset.robotwin.close_loop_eval.deploy_data_process">deploy_data_process() (in module robo_orchard_lab.dataset.robotwin.close_loop_eval)</a>
+</li>
+        <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.GraspInput.depth_image">depth_image (robo_orchard_lab.models.finegrasp.processor.GraspInput attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/horizon_manipulation/packer/utils/index.html#robo_orchard_lab.dataset.horizon_manipulation.packer.utils.McapParseConfig.DEPTH_IMAGE_TOPICS">DEPTH_IMAGE_TOPICS (robo_orchard_lab.dataset.horizon_manipulation.packer.utils.McapParseConfig attribute)</a>
 </li>
@@ -1885,7 +1901,11 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="autoapi/robo_orchard_lab/models/bip3d/spatial_enhancer/index.html#robo_orchard_lab.models.bip3d.spatial_enhancer.DepthFusionSpatialEnhancer.depth_prob_loss">depth_prob_loss() (robo_orchard_lab.models.bip3d.spatial_enhancer.DepthFusionSpatialEnhancer method)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robotwin/transforms/index.html#robo_orchard_lab.dataset.robotwin.transforms.ArrowDataParse.depth_scale">depth_scale (robo_orchard_lab.dataset.robotwin.transforms.ArrowDataParse attribute)</a>
+
+        <ul>
+          <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.GraspInput.depth_scale">(robo_orchard_lab.models.finegrasp.processor.GraspInput attribute)</a>
 </li>
+        </ul></li>
         <li><a href="autoapi/robo_orchard_lab/utils/geometry/index.html#robo_orchard_lab.utils.geometry.depth_to_range_image">depth_to_range_image() (in module robo_orchard_lab.utils.geometry)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robotwin/robotwin_lmdb_dataset/index.html#robo_orchard_lab.dataset.robotwin.robotwin_lmdb_dataset.RoboTwinLmdbDataset.depth_visualize">depth_visualize() (robo_orchard_lab.dataset.robotwin.robotwin_lmdb_dataset.RoboTwinLmdbDataset static method)</a>
@@ -1954,7 +1974,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
         <li><a href="autoapi/robo_orchard_lab/models/finegrasp/backbone/spunet/index.html#robo_orchard_lab.models.finegrasp.backbone.spunet.SpUNetBase.down">down (robo_orchard_lab.models.finegrasp.backbone.spunet.SpUNetBase attribute)</a>
 </li>
-        <li><a href="autoapi/robo_orchard_lab/utils/huggingface/index.html#robo_orchard_lab.utils.huggingface.download_repo">download_repo() (in module robo_orchard_lab.utils.huggingface)</a>
+        <li><a href="autoapi/robo_orchard_lab/utils/huggingface/index.html#robo_orchard_lab.utils.huggingface.download_hf_resource">download_hf_resource() (in module robo_orchard_lab.utils.huggingface)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/models/modules/resnet/index.html#robo_orchard_lab.models.modules.resnet.BasicBlock.downsample">downsample (robo_orchard_lab.models.modules.resnet.BasicBlock attribute)</a>
 
@@ -2205,8 +2225,6 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="autoapi/robo_orchard_lab/pipeline/hook_based_trainer/index.html#robo_orchard_lab.pipeline.hook_based_trainer.ValidationHookConfig.eval_callback">eval_callback (robo_orchard_lab.pipeline.hook_based_trainer.ValidationHookConfig attribute)</a>
 
         <ul>
-          <li><a href="autoapi/robo_orchard_lab/pipeline/hooks/validation/index.html#robo_orchard_lab.pipeline.hooks.validation.ValidationHook.eval_callback">(robo_orchard_lab.pipeline.hooks.validation.ValidationHook attribute)</a>
-</li>
           <li><a href="autoapi/robo_orchard_lab/pipeline/hooks/validation/index.html#robo_orchard_lab.pipeline.hooks.validation.ValidationHookConfig.eval_callback">(robo_orchard_lab.pipeline.hooks.validation.ValidationHookConfig attribute)</a>
 </li>
         </ul></li>
@@ -2221,6 +2239,8 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="autoapi/robo_orchard_lab/dataset/graspnet1b/metrics/index.html#robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetMetric.eval_save_dir">eval_save_dir (robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetMetric attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/graspnet1b/metrics/index.html#robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetEvalScale.eval_scene">eval_scene() (robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetEvalScale method)</a>
+</li>
+        <li><a href="autoapi/robo_orchard_lab/pipeline/hooks/validation/index.html#robo_orchard_lab.pipeline.hooks.validation.ValidationHook.evaluate">evaluate() (robo_orchard_lab.pipeline.hooks.validation.ValidationHook method)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/policy/evaluator/index.html#robo_orchard_lab.policy.evaluator.PolicyEvaluator.evaluate_episode">evaluate_episode() (robo_orchard_lab.policy.evaluator.PolicyEvaluator method)</a>
 
@@ -2238,6 +2258,8 @@ document.addEventListener('DOMContentLoaded', function() {
           <li><a href="autoapi/robo_orchard_lab/models/modules/resnet/index.html#robo_orchard_lab.models.modules.resnet.Bottleneck.expansion">(robo_orchard_lab.models.modules.resnet.Bottleneck attribute)</a>
 </li>
         </ul></li>
+        <li><a href="autoapi/robo_orchard_lab/dataset/robot/db_orm/md5/index.html#robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache.extend">extend() (robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache method)</a>
+</li>
         <li><a href="autoapi/robo_orchard_lab/models/modules/channel_mapper/index.html#robo_orchard_lab.models.modules.channel_mapper.ChannelMapper.extra_convs">extra_convs (robo_orchard_lab.models.modules.channel_mapper.ChannelMapper attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/models/bip3d/structure/index.html#robo_orchard_lab.models.bip3d.structure.BIP3D.extract_feat">extract_feat() (robo_orchard_lab.models.bip3d.structure.BIP3D method)</a>
@@ -2296,9 +2318,15 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
         <li><a href="autoapi/robo_orchard_lab/models/finegrasp/backbone/spunet/index.html#robo_orchard_lab.models.finegrasp.backbone.spunet.SpUNetBase.final">final (robo_orchard_lab.models.finegrasp.backbone.spunet.SpUNetBase attribute)</a>
 </li>
+        <li><a href="autoapi/robo_orchard_lab/dataset/robot/db_orm/md5/index.html#robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache.find">find() (robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache method)</a>
+</li>
         <li><a href="autoapi/robo_orchard_lab/models/finegrasp/finegrasp/index.html#robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp">FineGrasp (class in robo_orchard_lab.models.finegrasp.finegrasp)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/models/finegrasp/finegrasp/index.html#robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig">FineGraspConfig (class in robo_orchard_lab.models.finegrasp.finegrasp)</a>
+</li>
+        <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.FineGraspProcessor">FineGraspProcessor (class in robo_orchard_lab.models.finegrasp.processor)</a>
+</li>
+        <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg">FineGraspProcessorCfg (class in robo_orchard_lab.models.finegrasp.processor)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/models/finegrasp/utils/index.html#robo_orchard_lab.models.finegrasp.utils.ModelFreeCollisionDetector.finger_length">finger_length (robo_orchard_lab.models.finegrasp.utils.ModelFreeCollisionDetector attribute)</a>
 </li>
@@ -2500,8 +2528,12 @@ document.addEventListener('DOMContentLoaded', function() {
           <li><a href="autoapi/robo_orchard_lab/transforms/base/index.html#robo_orchard_lab.transforms.base.DictTransform.from_config">(robo_orchard_lab.transforms.base.DictTransform class method)</a>
 </li>
         </ul></li>
-        <li><a href="autoapi/robo_orchard_lab/dataset/robot/dataset/index.html#robo_orchard_lab.dataset.robot.dataset.ROMultiRowDataset.from_dataset">from_dataset() (robo_orchard_lab.dataset.robot.dataset.ROMultiRowDataset static method)</a>
+        <li><a href="autoapi/robo_orchard_lab/dataset/robot/dataset/index.html#robo_orchard_lab.dataset.robot.dataset.RODataset.from_dataset">from_dataset() (robo_orchard_lab.dataset.robot.dataset.RODataset static method)</a>
+
+        <ul>
+          <li><a href="autoapi/robo_orchard_lab/dataset/robot/dataset/index.html#robo_orchard_lab.dataset.robot.dataset.ROMultiRowDataset.from_dataset">(robo_orchard_lab.dataset.robot.dataset.ROMultiRowDataset static method)</a>
 </li>
+        </ul></li>
         <li><a href="autoapi/robo_orchard_lab/pipeline/hooks/mixin/index.html#robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks.from_hooks">from_hooks() (robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks class method)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/policy/base/index.html#robo_orchard_lab.policy.base.InferencePipelinePolicyCfg.from_inference_pipeline">from_inference_pipeline() (robo_orchard_lab.policy.base.InferencePipelinePolicyCfg class method)</a>
@@ -2662,14 +2694,14 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robotwin/transforms/index.html#robo_orchard_lab.dataset.robotwin.transforms.ArrowDataParse.get_extrinsic">get_extrinsic() (robo_orchard_lab.dataset.robotwin.transforms.ArrowDataParse method)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="autoapi/robo_orchard_lab/dataset/robot/conversion/lerobot_dataset/index.html#robo_orchard_lab.dataset.robot.conversion.lerobot_dataset.get_hg_features">get_hg_features() (in module robo_orchard_lab.dataset.robot.conversion.lerobot_dataset)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robotwin/transforms/index.html#robo_orchard_lab.dataset.robotwin.transforms.ArrowDataParse.get_images">get_images() (robo_orchard_lab.dataset.robotwin.transforms.ArrowDataParse method)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robotwin/transforms/index.html#robo_orchard_lab.dataset.robotwin.transforms.ArrowDataParse.get_instruction">get_instruction() (robo_orchard_lab.dataset.robotwin.transforms.ArrowDataParse method)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="autoapi/robo_orchard_lab/dataset/robotwin/transforms/index.html#robo_orchard_lab.dataset.robotwin.transforms.ArrowDataParse.get_intrinsic">get_intrinsic() (robo_orchard_lab.dataset.robotwin.transforms.ArrowDataParse method)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/envs/robotwin/obs/index.html#robo_orchard_lab.envs.robotwin.obs.get_joints">get_joints() (in module robo_orchard_lab.envs.robotwin.obs)</a>
@@ -2681,6 +2713,8 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="autoapi/robo_orchard_lab/dataset/robotwin/transforms/index.html#robo_orchard_lab.dataset.robotwin.transforms.ArrowDataParse.get_master_joints">get_master_joints() (robo_orchard_lab.dataset.robotwin.transforms.ArrowDataParse method)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robot/dataset/index.html#robo_orchard_lab.dataset.robot.dataset.RODataset.get_meta">get_meta() (robo_orchard_lab.dataset.robot.dataset.RODataset method)</a>
+</li>
+        <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.FineGraspProcessor.get_normal">get_normal() (robo_orchard_lab.models.finegrasp.processor.FineGraspProcessor method)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/envs/robotwin/obs/index.html#robo_orchard_lab.envs.robotwin.obs.get_observation_cams">get_observation_cams() (in module robo_orchard_lab.envs.robotwin.obs)</a>
 </li>
@@ -2731,10 +2765,18 @@ document.addEventListener('DOMContentLoaded', function() {
         <ul>
           <li><a href="autoapi/robo_orchard_lab/models/finegrasp/finegrasp/index.html#robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig.grasp_max_width">(robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig attribute)</a>
 </li>
+          <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg.grasp_max_width">(robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg attribute)</a>
+</li>
         </ul></li>
+        <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.GraspOutput.grasp_poses">grasp_poses (robo_orchard_lab.models.finegrasp.processor.GraspOutput attribute)</a>
+</li>
+        <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.GraspInput.grasp_workspace">grasp_workspace (robo_orchard_lab.models.finegrasp.processor.GraspInput attribute)</a>
+</li>
         <li><a href="autoapi/robo_orchard_lab/models/finegrasp/finegrasp/index.html#robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp.graspable">graspable (robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/models/finegrasp/head/head/index.html#robo_orchard_lab.models.finegrasp.head.head.GraspableNet">GraspableNet (class in robo_orchard_lab.models.finegrasp.head.head)</a>
+</li>
+        <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.GraspInput">GraspInput (class in robo_orchard_lab.models.finegrasp.processor)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/models/finegrasp/finegrasp/index.html#robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp.graspness_threshold">graspness_threshold (robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp attribute)</a>
 
@@ -2749,6 +2791,8 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="autoapi/robo_orchard_lab/dataset/graspnet1b/metrics/index.html#robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetEvalScale">GraspNetEvalScale (class in robo_orchard_lab.dataset.graspnet1b.metrics)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/graspnet1b/metrics/index.html#robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetMetric">GraspNetMetric (class in robo_orchard_lab.dataset.graspnet1b.metrics)</a>
+</li>
+        <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.GraspOutput">GraspOutput (class in robo_orchard_lab.models.finegrasp.processor)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/models/layers/data_preprocessors/index.html#robo_orchard_lab.models.layers.data_preprocessors.GridMask">GridMask (class in robo_orchard_lab.models.layers.data_preprocessors)</a>
 </li>
@@ -3071,6 +3115,8 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="autoapi/robo_orchard_lab/transforms/image/transform2d/index.html#robo_orchard_lab.transforms.image.transform2d.ImageTransform2DConfig.inter_mode">inter_mode (robo_orchard_lab.transforms.image.transform2d.ImageTransform2DConfig attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/lmdb/base_lmdb_dataset/index.html#robo_orchard_lab.dataset.lmdb.base_lmdb_dataset.BaseLmdbManipulationDataset.interval">interval (robo_orchard_lab.dataset.lmdb.base_lmdb_dataset.BaseLmdbManipulationDataset attribute)</a>
+</li>
+        <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.GraspInput.intrinsic_matrix">intrinsic_matrix (robo_orchard_lab.models.finegrasp.processor.GraspInput attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/models/sem_modules/layers/index.html#robo_orchard_lab.models.sem_modules.layers.RotaryEmbedding.inv_freq">inv_freq (robo_orchard_lab.models.sem_modules.layers.RotaryEmbedding attribute)</a>
 </li>
@@ -3520,6 +3566,8 @@ document.addEventListener('DOMContentLoaded', function() {
         </ul></li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robot/conversion/lerobot_dataset/index.html#robo_orchard_lab.dataset.robot.conversion.lerobot_dataset.LerobotDatasetEpisodePackaging.max_frames">max_frames (robo_orchard_lab.dataset.robot.conversion.lerobot_dataset.LerobotDatasetEpisodePackaging attribute)</a>
 </li>
+        <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg.max_gripper_width">max_gripper_width (robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg attribute)</a>
+</li>
         <li><a href="autoapi/robo_orchard_lab/envs/robotwin/env/index.html#robo_orchard_lab.envs.robotwin.env.RoboTwinEnvCfg.max_instruction_num">max_instruction_num (robo_orchard_lab.envs.robotwin.env.RoboTwinEnvCfg attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/pipeline/hook_based_trainer/index.html#robo_orchard_lab.pipeline.hook_based_trainer.GradientClippingHookConfig.max_norm">max_norm (robo_orchard_lab.pipeline.hook_based_trainer.GradientClippingHookConfig attribute)</a>
@@ -3570,7 +3618,21 @@ document.addEventListener('DOMContentLoaded', function() {
           <li><a href="autoapi/robo_orchard_lab/dataset/robot/db_orm/task/index.html#robo_orchard_lab.dataset.robot.db_orm.task.Task.md5">(robo_orchard_lab.dataset.robot.db_orm.task.Task attribute)</a>
 </li>
         </ul></li>
+        <li><a href="autoapi/robo_orchard_lab/dataset/robot/db_orm/instruction/index.html#robo_orchard_lab.dataset.robot.db_orm.instruction.Instruction.md5_content_fields">md5_content_fields() (robo_orchard_lab.dataset.robot.db_orm.instruction.Instruction class method)</a>
+
+        <ul>
+          <li><a href="autoapi/robo_orchard_lab/dataset/robot/db_orm/md5/index.html#robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin.md5_content_fields">(robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin class method)</a>
+</li>
+          <li><a href="autoapi/robo_orchard_lab/dataset/robot/db_orm/robot/index.html#robo_orchard_lab.dataset.robot.db_orm.robot.Robot.md5_content_fields">(robo_orchard_lab.dataset.robot.db_orm.robot.Robot class method)</a>
+</li>
+          <li><a href="autoapi/robo_orchard_lab/dataset/robot/db_orm/task/index.html#robo_orchard_lab.dataset.robot.db_orm.task.Task.md5_content_fields">(robo_orchard_lab.dataset.robot.db_orm.task.Task class method)</a>
+</li>
+        </ul></li>
+        <li><a href="autoapi/robo_orchard_lab/dataset/robot/db_orm/md5/index.html#robo_orchard_lab.dataset.robot.db_orm.md5.MD5_ORM_TYPE">MD5_ORM_TYPE (in module robo_orchard_lab.dataset.robot.db_orm.md5)</a>
+</li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robot/db_orm/md5/index.html#robo_orchard_lab.dataset.robot.db_orm.md5.MD5FieldMixin">MD5FieldMixin (class in robo_orchard_lab.dataset.robot.db_orm.md5)</a>
+</li>
+        <li><a href="autoapi/robo_orchard_lab/dataset/robot/db_orm/md5/index.html#robo_orchard_lab.dataset.robot.db_orm.md5.MD5ObjCache">MD5ObjCache (class in robo_orchard_lab.dataset.robot.db_orm.md5)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/models/codec/normalize/index.html#robo_orchard_lab.models.codec.normalize.NormStatistics.mean">mean (robo_orchard_lab.models.codec.normalize.NormStatistics attribute)</a>
 
@@ -3587,6 +3649,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
         </ul></li>
         <li><a href="autoapi/robo_orchard_lab/models/codec/normalize/index.html#robo_orchard_lab.models.codec.normalize.MeanStdNormalizeCodec">MeanStdNormalizeCodec (class in robo_orchard_lab.models.codec.normalize)</a>
+</li>
+        <li><a href="autoapi/robo_orchard_lab/dataset/robot/merge/index.html#robo_orchard_lab.dataset.robot.merge.merge_datasets">merge_datasets() (in module robo_orchard_lab.dataset.robot.merge)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/embodiedscan/embodiedscan_det_grounding_dataset/index.html#robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset.EmbodiedScanDetGroundingDataset.merge_grounding_data">merge_grounding_data() (robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset.EmbodiedScanDetGroundingDataset method)</a>
 </li>
@@ -3792,6 +3856,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
           <li><a href="autoapi/robo_orchard_lab/dataset/robot/engine/index.html#module-robo_orchard_lab.dataset.robot.engine">robo_orchard_lab.dataset.robot.engine</a>
 </li>
+          <li><a href="autoapi/robo_orchard_lab/dataset/robot/merge/index.html#module-robo_orchard_lab.dataset.robot.merge">robo_orchard_lab.dataset.robot.merge</a>
+</li>
           <li><a href="autoapi/robo_orchard_lab/dataset/robot/packaging/index.html#module-robo_orchard_lab.dataset.robot.packaging">robo_orchard_lab.dataset.robot.packaging</a>
 </li>
           <li><a href="autoapi/robo_orchard_lab/dataset/robot/re_packing/index.html#module-robo_orchard_lab.dataset.robot.re_packing">robo_orchard_lab.dataset.robot.re_packing</a>
@@ -3899,6 +3965,8 @@ document.addEventListener('DOMContentLoaded', function() {
           <li><a href="autoapi/robo_orchard_lab/models/finegrasp/head/head/index.html#module-robo_orchard_lab.models.finegrasp.head.head">robo_orchard_lab.models.finegrasp.head.head</a>
 </li>
           <li><a href="autoapi/robo_orchard_lab/models/finegrasp/losses/index.html#module-robo_orchard_lab.models.finegrasp.losses">robo_orchard_lab.models.finegrasp.losses</a>
+</li>
+          <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#module-robo_orchard_lab.models.finegrasp.processor">robo_orchard_lab.models.finegrasp.processor</a>
 </li>
           <li><a href="autoapi/robo_orchard_lab/models/finegrasp/utils/index.html#module-robo_orchard_lab.models.finegrasp.utils">robo_orchard_lab.models.finegrasp.utils</a>
 </li>
@@ -4189,10 +4257,10 @@ document.addEventListener('DOMContentLoaded', function() {
         </ul></li>
         <li><a href="autoapi/robo_orchard_lab/models/bip3d/grounding_decoder/deformable_aggregation/index.html#robo_orchard_lab.models.bip3d.grounding_decoder.deformable_aggregation.DeformableFeatureAggregation.num_cams">num_cams (robo_orchard_lab.models.bip3d.grounding_decoder.deformable_aggregation.DeformableFeatureAggregation attribute)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="autoapi/robo_orchard_lab/models/finegrasp/backbone/spunet/index.html#robo_orchard_lab.models.finegrasp.backbone.spunet.SpUNetBase.num_classes">num_classes (robo_orchard_lab.models.finegrasp.backbone.spunet.SpUNetBase attribute)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="autoapi/robo_orchard_lab/models/bip3d/grounding_decoder/bbox3d_decoder/index.html#robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.BBox3DDecoder.num_decoder">num_decoder (robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.BBox3DDecoder attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/embodiedscan/transforms/index.html#robo_orchard_lab.dataset.embodiedscan.transforms.DepthProbLabelGenerator.num_depth">num_depth (robo_orchard_lab.dataset.embodiedscan.transforms.DepthProbLabelGenerator attribute)</a>
@@ -4272,13 +4340,19 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="autoapi/robo_orchard_lab/models/bip3d/grounding_decoder/bbox3d_decoder/index.html#robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.SparseBox3DKeyPointsGenerator.num_pts">num_pts (robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.SparseBox3DKeyPointsGenerator attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/graspnet1b/ecograsp1b_dataset/index.html#robo_orchard_lab.dataset.graspnet1b.ecograsp1b_dataset.EconomicGraspNet1BDataset.num_sample_points">num_sample_points (robo_orchard_lab.dataset.graspnet1b.ecograsp1b_dataset.EconomicGraspNet1BDataset attribute)</a>
+
+        <ul>
+          <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.GraspInput.num_sample_points">(robo_orchard_lab.models.finegrasp.processor.GraspInput attribute)</a>
 </li>
+        </ul></li>
         <li><a href="autoapi/robo_orchard_lab/dataset/graspnet1b/metrics/index.html#robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetMetric.num_seed_points">num_seed_points (robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetMetric attribute)</a>
 
         <ul>
           <li><a href="autoapi/robo_orchard_lab/models/finegrasp/finegrasp/index.html#robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp.num_seed_points">(robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp attribute)</a>
 </li>
           <li><a href="autoapi/robo_orchard_lab/models/finegrasp/finegrasp/index.html#robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig.num_seed_points">(robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig attribute)</a>
+</li>
+          <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg.num_seed_points">(robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg attribute)</a>
 </li>
         </ul></li>
         <li><a href="autoapi/robo_orchard_lab/models/bip3d/grounding_decoder/bbox3d_decoder/index.html#robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.BBox3DDecoder.num_single_frame_decoder">num_single_frame_decoder (robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.BBox3DDecoder attribute)</a>
@@ -4523,6 +4597,8 @@ document.addEventListener('DOMContentLoaded', function() {
           <li><a href="autoapi/robo_orchard_lab/models/finegrasp/backbone/minkunet/index.html#robo_orchard_lab.models.finegrasp.backbone.minkunet.ResNetBase.PLANES">(robo_orchard_lab.models.finegrasp.backbone.minkunet.ResNetBase attribute)</a>
 </li>
         </ul></li>
+        <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.GraspInput.points">points (robo_orchard_lab.models.finegrasp.processor.GraspInput attribute)</a>
+</li>
         <li><a href="autoapi/robo_orchard_lab/policy/evaluator/index.html#robo_orchard_lab.policy.evaluator.PolicyEvaluator.policy">policy (robo_orchard_lab.policy.evaluator.PolicyEvaluator attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/policy/evaluator/index.html#robo_orchard_lab.policy.evaluator.PolicyEvaluatorConfig.policy_cfg">policy_cfg (robo_orchard_lab.policy.evaluator.PolicyEvaluatorConfig attribute)</a>
@@ -4554,6 +4630,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
           <li><a href="autoapi/robo_orchard_lab/models/bip3d/grounding_decoder/bbox3d_decoder/index.html#robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.BBox3DDecoder.post_process">(robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.BBox3DDecoder method)</a>
 </li>
+          <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.FineGraspProcessor.post_process">(robo_orchard_lab.models.finegrasp.processor.FineGraspProcessor method)</a>
+</li>
           <li><a href="autoapi/robo_orchard_lab/models/sem_modules/action_decoder/index.html#robo_orchard_lab.models.sem_modules.action_decoder.SEMActionDecoder.post_process">(robo_orchard_lab.models.sem_modules.action_decoder.SEMActionDecoder method)</a>
 </li>
           <li><a href="autoapi/robo_orchard_lab/models/sem_modules/processor/index.html#robo_orchard_lab.models.sem_modules.processor.SEMProcessor.post_process">(robo_orchard_lab.models.sem_modules.processor.SEMProcessor method)</a>
@@ -4575,6 +4653,8 @@ document.addEventListener('DOMContentLoaded', function() {
           <li><a href="autoapi/robo_orchard_lab/inference/processor/identity/index.html#robo_orchard_lab.inference.processor.identity.IdentityProcessor.pre_process">(robo_orchard_lab.inference.processor.identity.IdentityProcessor method)</a>
 </li>
           <li><a href="autoapi/robo_orchard_lab/inference/processor/mixin/index.html#robo_orchard_lab.inference.processor.mixin.ProcessorMixin.pre_process">(robo_orchard_lab.inference.processor.mixin.ProcessorMixin method)</a>
+</li>
+          <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.FineGraspProcessor.pre_process">(robo_orchard_lab.models.finegrasp.processor.FineGraspProcessor method)</a>
 </li>
           <li><a href="autoapi/robo_orchard_lab/models/sem_modules/processor/index.html#robo_orchard_lab.models.sem_modules.processor.SEMProcessor.pre_process">(robo_orchard_lab.models.sem_modules.processor.SEMProcessor method)</a>
 </li>
@@ -4923,6 +5003,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
         <li><a href="autoapi/robo_orchard_lab/envs/robotwin/env/index.html#robo_orchard_lab.envs.robotwin.env.RoboTwinEnvStepReturn.rewards">rewards (robo_orchard_lab.envs.robotwin.env.RoboTwinEnvStepReturn attribute)</a>
 </li>
+        <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.GraspInput.rgb_image">rgb_image (robo_orchard_lab.models.finegrasp.processor.GraspInput attribute)</a>
+</li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robotwin/transforms/index.html#robo_orchard_lab.dataset.robotwin.transforms.DualArmKinematics.right_arm_joint_id">right_arm_joint_id (robo_orchard_lab.dataset.robotwin.transforms.DualArmKinematics attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robotwin/transforms/index.html#robo_orchard_lab.dataset.robotwin.transforms.DualArmKinematics.right_arm_link_keys">right_arm_link_keys (robo_orchard_lab.dataset.robotwin.transforms.DualArmKinematics attribute)</a>
@@ -5214,6 +5296,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <ul>
           <li><a href="autoapi/robo_orchard_lab/dataset/robot/engine/index.html#module-robo_orchard_lab.dataset.robot.engine">module</a>
+</li>
+        </ul></li>
+        <li>
+    robo_orchard_lab.dataset.robot.merge
+
+        <ul>
+          <li><a href="autoapi/robo_orchard_lab/dataset/robot/merge/index.html#module-robo_orchard_lab.dataset.robot.merge">module</a>
 </li>
         </ul></li>
         <li>
@@ -5594,6 +5683,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <ul>
           <li><a href="autoapi/robo_orchard_lab/models/finegrasp/losses/index.html#module-robo_orchard_lab.models.finegrasp.losses">module</a>
+</li>
+        </ul></li>
+        <li>
+    robo_orchard_lab.models.finegrasp.processor
+
+        <ul>
+          <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#module-robo_orchard_lab.models.finegrasp.processor">module</a>
 </li>
         </ul></li>
         <li>
@@ -6541,7 +6637,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robot/db_orm/episode/index.html#robo_orchard_lab.dataset.robot.db_orm.episode.Episode.task">task() (robo_orchard_lab.dataset.robot.db_orm.episode.Episode method)</a>
 </li>
-        <li><a href="autoapi/robo_orchard_lab/envs/robotwin/env/index.html#robo_orchard_lab.envs.robotwin.env.RoboTwinEnvCfg.task_config_path">task_config_path (robo_orchard_lab.envs.robotwin.env.RoboTwinEnvCfg property)</a>
+        <li><a href="autoapi/robo_orchard_lab/envs/robotwin/env/index.html#robo_orchard_lab.envs.robotwin.env.RoboTwinEnvCfg.task_config_path">task_config_path (robo_orchard_lab.envs.robotwin.env.RoboTwinEnvCfg attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/robot/columns/index.html#robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns.task_index">task_index (robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns attribute)</a>
 
@@ -6905,10 +7001,10 @@ document.addEventListener('DOMContentLoaded', function() {
           <li><a href="autoapi/robo_orchard_lab/pipeline/hooks/mixin/index.html#robo_orchard_lab.pipeline.hooks.mixin.ModelOutput.values">(robo_orchard_lab.pipeline.hooks.mixin.ModelOutput method)</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="autoapi/robo_orchard_lab/models/bip3d/layers/index.html#robo_orchard_lab.models.bip3d.layers.BiMultiHeadAttention.values_l_proj">values_l_proj (robo_orchard_lab.models.bip3d.layers.BiMultiHeadAttention attribute)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="autoapi/robo_orchard_lab/models/bip3d/layers/index.html#robo_orchard_lab.models.bip3d.layers.BiMultiHeadAttention.values_v_proj">values_v_proj (robo_orchard_lab.models.bip3d.layers.BiMultiHeadAttention attribute)</a>
 </li>
         <li><a href="autoapi/robo_orchard_lab/dataset/embodiedscan/embodiedscan_det_grounding_dataset/index.html#robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset.EmbodiedScanDetGroundingDataset.vg_file">vg_file (robo_orchard_lab.dataset.embodiedscan.embodiedscan_det_grounding_dataset.EmbodiedScanDetGroundingDataset attribute)</a>
@@ -6934,11 +7030,17 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
           <li><a href="autoapi/robo_orchard_lab/models/finegrasp/finegrasp/index.html#robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig.voxel_size">(robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig attribute)</a>
 </li>
+          <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg.voxel_size">(robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg attribute)</a>
+</li>
           <li><a href="autoapi/robo_orchard_lab/models/finegrasp/utils/index.html#robo_orchard_lab.models.finegrasp.utils.ModelFreeCollisionDetector.voxel_size">(robo_orchard_lab.models.finegrasp.utils.ModelFreeCollisionDetector attribute)</a>
 </li>
         </ul></li>
         <li><a href="autoapi/robo_orchard_lab/dataset/graspnet1b/metrics/index.html#robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetMetric.voxel_size_cd">voxel_size_cd (robo_orchard_lab.dataset.graspnet1b.metrics.GraspNetMetric attribute)</a>
+
+        <ul>
+          <li><a href="autoapi/robo_orchard_lab/models/finegrasp/processor/index.html#robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg.voxel_size_cd">(robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg attribute)</a>
 </li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
