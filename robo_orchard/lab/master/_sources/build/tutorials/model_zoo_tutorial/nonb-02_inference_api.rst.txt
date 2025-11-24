@@ -250,7 +250,7 @@ method will save:
 
  .. code-block:: none
 
-    Pipeline created: <robo_orchard_lab.inference.basic.InferencePipeline object at 0x7fe5be9459f0>
+    Pipeline created: <robo_orchard_lab.inference.basic.InferencePipeline object at 0x7fe01c79c790>
     Pipeline has been saved to the `.workspace/pipeline_checkpoint` directory.
     .workspace/pipeline_checkpoint
     ├── inference.config.json
@@ -313,17 +313,17 @@ and loads the model weights.
 
  .. code-block:: none
 
-    Pipeline loaded: <robo_orchard_lab.inference.basic.InferencePipeline object at 0x7fe7a47ab760>
+    Pipeline loaded: <robo_orchard_lab.inference.basic.InferencePipeline object at 0x7fd9dc201720>
 
     Raw input data:
     [0. 1. 2. 3. 4. 5. 6. 7. 8. 9.]
     Pipeline output (post-processed):
-    [[ 0.12073863 -1.5129011 ]]
+    [[0.99153924 0.5943328 ]]
 
     Batch input (2 items).
     Batch output (1 batch of 2 items):
-    [[ 0.12073863 -1.5129011 ]
-     [ 2.0238729  -3.9518404 ]]
+    [[ 0.99153924  0.5943328 ]
+     [-0.24922408  1.031111  ]]
 
 
 
@@ -331,7 +331,7 @@ and loads the model weights.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.147 seconds)
+   **Total running time of the script:** (0 minutes 0.827 seconds)
 
 
 .. _sphx_glr_download_build_tutorials_model_zoo_tutorial_nonb-02_inference_api.py:

@@ -94,18 +94,18 @@ These tutorials demonstrate the two core APIs of the framework: the **Model Zoo 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial demonstrates how to load and use the pre-trained State-of-the-Art (SOTA) locomotion models provided by the RoboOrchardLab.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial demonstrates how to load and use the pre-trained State-of-the-Art (SOTA) navigation models provided by the RoboOrchardLab.">
 
 .. only:: html
 
-  .. image:: /build/tutorials/model_zoo_tutorial/images/thumb/sphx_glr_nonb-05_locomotion_models_thumb.png
+  .. image:: /build/tutorials/model_zoo_tutorial/images/thumb/sphx_glr_nonb-05_navigation_models_thumb.png
     :alt:
 
-  :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-05_locomotion_models.py`
+  :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-05_navigation_models.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Model Zoo: Loading Pre-trained Locomotion Models</div>
+      <div class="sphx-glr-thumbnail-title">Model Zoo: Loading Pre-trained Navigation Models</div>
     </div>
 
 
@@ -123,7 +123,7 @@ These tutorials demonstrate the two core APIs of the framework: the **Model Zoo 
    /build/tutorials/model_zoo_tutorial/nonb-02_inference_api
    /build/tutorials/model_zoo_tutorial/nonb-03_perception_models
    /build/tutorials/model_zoo_tutorial/nonb-04_manipulation_models
-   /build/tutorials/model_zoo_tutorial/nonb-05_locomotion_models
+   /build/tutorials/model_zoo_tutorial/nonb-05_navigation_models
 
 
 

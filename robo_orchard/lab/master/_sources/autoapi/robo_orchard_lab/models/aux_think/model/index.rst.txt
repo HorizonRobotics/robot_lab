@@ -43,7 +43,7 @@ Module Contents
    .. py:method:: generate_content(prompt)
 
 
-   .. py:method:: forward(inputs)
+   .. py:method:: forward(inputs, is_training: bool = False)
 
 
    .. py:method:: save_pretrained(directory: str)

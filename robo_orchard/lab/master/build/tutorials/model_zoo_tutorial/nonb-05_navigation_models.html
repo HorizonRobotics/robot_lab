@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="API Reference" href="../../../autoapi/index.html" /><link rel="prev" title="Model Zoo: Loading Pre-trained Manipulation Models" href="nonb-04_manipulation_models.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>Model Zoo: Loading Pre-trained Locomotion Models - RoboOrchardLab</title>
+        <title>Model Zoo: Loading Pre-trained Navigation Models - RoboOrchardLab</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
@@ -375,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l2"><a class="reference internal" href="nonb-02_inference_api.html">Creating, Saving, and Loading Inference Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nonb-03_perception_models.html">Model Zoo: Loading Pre-trained Perception Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nonb-04_manipulation_models.html">Model Zoo: Loading Pre-trained Manipulation Models</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Model Zoo: Loading Pre-trained Locomotion Models</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Model Zoo: Loading Pre-trained Navigation Models</a></li>
 </ul>
 </li>
 </ul>
@@ -488,6 +488,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/index.html">models</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/aux_think/index.html">aux_think</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of aux_think</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/aux_think/model/index.html">model</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/aux_think/processor/index.html">processor</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../autoapi/robo_orchard_lab/models/bip3d/index.html">bip3d</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of bip3d</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -653,7 +654,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../../../_sources/build/tutorials/model_zoo_tutorial/nonb-05_locomotion_models.rst.txt" title="View this page">
+  <a class="muted-link" href="../../../_sources/build/tutorials/model_zoo_tutorial/nonb-05_navigation_models.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -675,13 +676,13 @@ document.addEventListener('DOMContentLoaded', function() {
         <article role="main" id="furo-main-content">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p><a class="reference internal" href="#sphx-glr-download-build-tutorials-model-zoo-tutorial-nonb-05-locomotion-models-py"><span class="std std-ref">Go to the end</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-build-tutorials-model-zoo-tutorial-nonb-05-navigation-models-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code.</p>
 </div>
-<section class="sphx-glr-example-title" id="model-zoo-loading-pre-trained-locomotion-models">
-<span id="sphx-glr-build-tutorials-model-zoo-tutorial-nonb-05-locomotion-models-py"></span><h1>Model Zoo: Loading Pre-trained Locomotion Models<a class="headerlink" href="#model-zoo-loading-pre-trained-locomotion-models" title="Link to this heading">¶</a></h1>
+<section class="sphx-glr-example-title" id="model-zoo-loading-pre-trained-navigation-models">
+<span id="sphx-glr-build-tutorials-model-zoo-tutorial-nonb-05-navigation-models-py"></span><h1>Model Zoo: Loading Pre-trained Navigation Models<a class="headerlink" href="#model-zoo-loading-pre-trained-navigation-models" title="Link to this heading">¶</a></h1>
 <p>This tutorial demonstrates how to load and use the pre-trained
-State-of-the-Art (SOTA) locomotion models provided by the
+State-of-the-Art (SOTA) navigation models provided by the
 <strong>RoboOrchardLab</strong>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># sphinx_gallery_thumbnail_path = &#39;_static/images/sphx_glr_install_thumb.png&#39;</span>
 </pre></div>
@@ -700,17 +701,63 @@ State-of-the-Art (SOTA) locomotion models provided by the
 </section>
 <section id="inference-pipeline">
 <h3>Inference Pipeline<a class="headerlink" href="#inference-pipeline" title="Link to this heading">¶</a></h3>
-<p>TBD.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.inference</span> <span class="kn">import</span> <span class="n">InferencePipelineMixin</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.processors.auxthink_processor</span> <span class="kn">import</span> <span class="n">AuxThinkInput</span>
+
+<span class="c1"># -----------------------------</span>
+<span class="c1"># Step 1. Load a saved pipeline</span>
+<span class="c1"># -----------------------------</span>
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">InferencePipelineMixin</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;hf://HorizonRobotics/Aux-Think&quot;</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+<span class="c1"># -----------------------------</span>
+<span class="c1"># Step 2. Prepare raw input</span>
+<span class="c1"># -----------------------------</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">AuxThinkInput</span><span class="p">(</span>
+    <span class="n">image_paths</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;hf://HorizonRobotics/Aux-Think/data_example/rgb_0.png&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hf://HorizonRobotics/Aux-Think/data_example/rgb_1.png&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hf://HorizonRobotics/Aux-Think/data_example/rgb_2.png&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hf://HorizonRobotics/Aux-Think/data_example/rgb_3.png&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hf://HorizonRobotics/Aux-Think/data_example/rgb_4.png&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hf://HorizonRobotics/Aux-Think/data_example/rgb_5.png&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hf://HorizonRobotics/Aux-Think/data_example/rgb_6.png&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hf://HorizonRobotics/Aux-Think/data_example/rgb_7.png&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">instruction</span><span class="o">=</span><span class="s2">&quot;Go around the kitchen island and wait between the tall cabinet and wine fridge.&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># -----------------------------</span>
+<span class="c1"># Step 3. Run inference</span>
+<span class="c1"># (pre_process → collate → model → post_process)</span>
+<span class="c1"># -----------------------------</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+<span class="c1"># Example Output:</span>
+<span class="c1"># &quot;The next action is  move forward 25 cm, turn left 45 degrees, turn left 15 degrees.&quot;</span>
+
+
+<span class="c1"># -----------------------------</span>
+<span class="c1"># Step 4. Batch inference (optional)</span>
+<span class="c1"># -----------------------------</span>
+<span class="n">batch_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">,</span> <span class="n">data</span><span class="p">]</span>
+<span class="n">batch_results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pipeline</span><span class="p">(</span><span class="n">batch_data</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">batch_results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.000 seconds)</p>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-build-tutorials-model-zoo-tutorial-nonb-05-locomotion-models-py">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-build-tutorials-model-zoo-tutorial-nonb-05-navigation-models-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../../../_downloads/adb6768b0bf122a0b7d69c666a3a53eb/nonb-05_locomotion_models.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">nonb-05_locomotion_models.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../../_downloads/36387a1fb248965e03ee15ceffa487c0/nonb-05_navigation_models.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">nonb-05_navigation_models.ipynb</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../../_downloads/d65b47d7a63f2b3b4fc1f68581179d77/nonb-05_locomotion_models.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">nonb-05_locomotion_models.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../../_downloads/9fa2f7308d626e9b589441f6e6accbbd/nonb-05_navigation_models.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">nonb-05_navigation_models.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-zip docutils container">
-<p><a class="reference download internal" download="" href="../../../_downloads/03f51575a9ccf24f5c87ce9713c1483a/nonb-05_locomotion_models.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">nonb-05_locomotion_models.zip</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../../_downloads/21aedba36f71db6c5888c4e691079813/nonb-05_navigation_models.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">nonb-05_navigation_models.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -780,7 +827,7 @@ State-of-the-Art (SOTA) locomotion models provided by the
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Model Zoo: Loading Pre-trained Locomotion Models</a><ul>
+<li><a class="reference internal" href="#">Model Zoo: Loading Pre-trained Navigation Models</a><ul>
 <li><a class="reference internal" href="#aux-think-exploring-reasoning-strategies-for-data-efficient-vision-language-navigation">Aux-Think: Exploring Reasoning Strategies for Data-Efficient Vision-Language Navigation</a><ul>
 <li><a class="reference internal" href="#loading-pretrained-model">Loading Pretrained Model</a></li>
 <li><a class="reference internal" href="#inference-pipeline">Inference Pipeline</a></li>
