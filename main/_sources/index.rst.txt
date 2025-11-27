@@ -83,6 +83,19 @@ Publications
    :widths: 20 80
    :class: publication-table
 
+   * - .. image:: _static/publications/progress-think.gif
+          :class: publication-thumbnail
+          :alt: progress-think Logo
+          :target: _static/publications/progress-think.gif
+
+     - **Progress-Think: Semantic Progress Reasoning for Vision-Language Navigation**
+
+       :blue:`Shuo Wang`, :blue:`Yucheng Wang`, :blue:`Guoxin Lian`, Yongcai Wang, :blue:`Maiyue Chen`, :blue:`Kaihui Wang`, :blue:`Bo Zhang`, :blue:`Zhizhong Su`, Yutian Zhou, Wanting Li, Zhaoxin Fan
+
+       Arxiv 2025
+
+       `Webpage <https://horizonrobotics.github.io/robot_lab/progress-think/>`__ | `Paper <https://arxiv.org/pdf/2511.17097>`__
+
    * - .. image:: _static/publications/fsr-vln.gif
           :class: publication-thumbnail
           :alt: fsr-vln Logo

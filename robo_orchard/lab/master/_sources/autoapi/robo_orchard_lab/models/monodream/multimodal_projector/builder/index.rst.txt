@@ -1,0 +1,19 @@
+builder
+=======
+
+.. py:module:: robo_orchard_lab.models.monodream.multimodal_projector.builder
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.multimodal_projector.builder.build_mm_projector
+
+
+Module Contents
+---------------
+
+.. py:function:: build_mm_projector(model_type_or_path: str, config: transformers.PretrainedConfig) -> transformers.PreTrainedModel
+

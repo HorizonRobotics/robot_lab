@@ -20,6 +20,7 @@ Submodules
    /autoapi/robo_orchard_lab/models/layers/index
    /autoapi/robo_orchard_lab/models/mixin/index
    /autoapi/robo_orchard_lab/models/modules/index
+   /autoapi/robo_orchard_lab/models/monodream/index
    /autoapi/robo_orchard_lab/models/sem_modules/index
    /autoapi/robo_orchard_lab/models/tokenizer/index
    /autoapi/robo_orchard_lab/models/torch_model/index

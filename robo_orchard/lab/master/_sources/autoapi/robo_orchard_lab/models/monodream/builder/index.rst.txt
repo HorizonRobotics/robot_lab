@@ -1,0 +1,25 @@
+builder
+=======
+
+.. py:module:: robo_orchard_lab.models.monodream.builder
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.builder.load_navigation_vlm
+   robo_orchard_lab.models.monodream.builder.load_pretrained_model
+   robo_orchard_lab.models.monodream.builder.prepare_config_for_eval
+
+
+Module Contents
+---------------
+
+.. py:function:: load_navigation_vlm(model_path: str, model_base: Optional[str] = None, devices: Optional[List[int]] = None, **kwargs) -> transformers.PreTrainedModel
+
+.. py:function:: load_pretrained_model(model_path, device_map='auto', device='cuda', **kwargs)
+
+.. py:function:: prepare_config_for_eval(config: transformers.PretrainedConfig, kwargs: dict)
+

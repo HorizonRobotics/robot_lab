@@ -365,7 +365,7 @@ This is the "MCAP -> Dataset" workflow, it is the same packaging pattern we lear
       [.workspace/conversion/mcap/dummy_dataset_episode0.mcap] Starting frame generation stream...
 
       [.workspace/conversion/mcap/dummy_dataset_episode0.mcap] Finished generating frames.
-    Generating train split: 5 examples [00:00, 60.94 examples/s]
+    Generating train split: 5 examples [00:00, 58.96 examples/s]
     --- Ingestion Complete! ---
 
 
@@ -526,7 +526,7 @@ Create the list of packagers
 
     /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:481: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/lerobot/default_ts/dataset' already exists. It will be overwritten.
       warnings.warn(
-    Generating train split: 0 examples [00:00, ? examples/s]    Generating train split: 1 examples [00:15, 15.53s/ examples]    Generating train split: 2 examples [00:30, 15.17s/ examples]    Generating train split: 3 examples [00:45, 14.89s/ examples]    Generating train split: 4 examples [00:59, 14.80s/ examples]    Generating train split: 4 examples [00:59, 14.96s/ examples]
+    Generating train split: 0 examples [00:00, ? examples/s]    Generating train split: 1 examples [00:08,  8.31s/ examples]    Generating train split: 2 examples [00:16,  8.11s/ examples]    Generating train split: 3 examples [00:24,  7.97s/ examples]    Generating train split: 4 examples [00:32,  8.00s/ examples]    Generating train split: 4 examples [00:32,  8.09s/ examples]
 
 
 
@@ -679,7 +679,7 @@ image tensors into our custom :py:class:`~robo_orchard_core.datatypes.camera.Bat
 
     /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:481: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/lerobot/custom/dataset' already exists. It will be overwritten.
       warnings.warn(
-    Generating train split: 0 examples [00:00, ? examples/s]    Generating train split: 1 examples [00:12, 12.76s/ examples]    Generating train split: 2 examples [00:25, 12.83s/ examples]    Generating train split: 3 examples [00:38, 12.68s/ examples]    Generating train split: 4 examples [00:50, 12.64s/ examples]    Generating train split: 4 examples [00:51, 12.78s/ examples]
+    Generating train split: 0 examples [00:00, ? examples/s]    Generating train split: 1 examples [00:06,  6.05s/ examples]    Generating train split: 2 examples [00:11,  5.89s/ examples]    Generating train split: 3 examples [00:17,  5.87s/ examples]    Generating train split: 4 examples [00:23,  5.85s/ examples]    Generating train split: 4 examples [00:23,  5.99s/ examples]
 
 
 
@@ -715,7 +715,7 @@ image tensors into our custom :py:class:`~robo_orchard_core.datatypes.camera.Bat
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 52.913 seconds)
+   **Total running time of the script:** (0 minutes 58.316 seconds)
 
 
 .. _sphx_glr_download_build_tutorials_dataset_tutorial_nonb-06_dataset_conversion.py:

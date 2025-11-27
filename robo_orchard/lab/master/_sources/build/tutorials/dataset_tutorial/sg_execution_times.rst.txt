@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**01:55.684** total execution time for 6 files **from build/tutorials/dataset_tutorial**:
+**01:01.426** total execution time for 6 files **from build/tutorials/dataset_tutorial**:
 
 .. container::
 
@@ -33,20 +33,20 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-06_dataset_conversion.py` (``nonb-06_dataset_conversion.py``)
-     - 01:52.913
+     - 00:58.316
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-03_dataset_access.py` (``nonb-03_dataset_access.py``)
-     - 00:01.649
+     - 00:01.715
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-04_dataset_training.py` (``nonb-04_dataset_training.py``)
-     - 00:00.743
+     - 00:00.867
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-05_dataset_create.py` (``nonb-05_dataset_create.py``)
-     - 00:00.377
+     - 00:00.524
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-01_dataset_introduce.py` (``nonb-01_dataset_introduce.py``)
      - 00:00.002
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-02_dataset_overview.py` (``nonb-02_dataset_overview.py``)
-     - 00:00.000
+     - 00:00.001
      - 0.0

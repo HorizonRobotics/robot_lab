@@ -38,7 +38,7 @@ State-of-the-Art (SOTA) navigation models provided by the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-95
+.. GENERATED FROM PYTHON SOURCE LINES 30-94
 
 Aux-Think: Exploring Reasoning Strategies for Data-Efficient Vision-Language Navigation
 --------------------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ Inference Pipeline
 
   import torch
   from robo_orchard_lab.inference import InferencePipelineMixin
-  from robo_orchard_lab.processors.auxthink_processor import AuxThinkInput
+  from robo_orchard_lab.models.aux_think.processor import AuxThinkInput
 
   # -----------------------------
   # Step 1. Load a saved pipeline
@@ -84,7 +84,7 @@ Inference Pipeline
           "hf://HorizonRobotics/Aux-Think/data_example/rgb_6.png",
           "hf://HorizonRobotics/Aux-Think/data_example/rgb_7.png",
       ],
-      instruction="Go around the kitchen island and wait between the tall cabinet and wine fridge."
+      instruction="Walk down the hallway to the right of the billiards table. Stop at the top of the staircase."
   )
 
   # -----------------------------
@@ -95,8 +95,76 @@ Inference Pipeline
   print(result.text)
 
   # Example Output:
-  # "The next action is  move forward 25 cm, turn left 45 degrees, turn left 15 degrees."
+  # "The next action is turn right 15 degrees, move forward 50 cm, turn right 15 degrees."
 
+  # -----------------------------
+  # Step 4. Batch inference (optional)
+  # -----------------------------
+  batch_data = [data, data]
+  batch_results = list(pipeline(batch_data))
+  for r in batch_results:
+      print(r.text)
+
+.. GENERATED FROM PYTHON SOURCE LINES 96-162
+
+MonoDream: Monocular Vision-Language Navigation with Panoramic Dreaming
+--------------------------------------------------------------------------------------------
+
+`Click here to visit the homepage. <https://horizonrobotics.github.io/robot_lab/monodream/index.html>`__
+
+Loading Pretrained Model
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+  import torch
+  from robo_orchard_lab.models import TorchModelMixin
+
+  model: torch.nn.Module = TorchModelMixin.load("hf://HorizonRobotics/MonoDream")
+
+Inference Pipeline
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+  import torch
+  from robo_orchard_lab.inference import InferencePipelineMixin
+  from robo_orchard_lab.models.monodream.processor import MonoDreamInput
+
+  # -----------------------------
+  # Step 1. Load a saved pipeline
+  # -----------------------------
+  directory = "hf://HorizonRobotics/MonoDream"
+  pipeline = InferencePipelineMixin.load(directory)
+  pipeline.model.init_components(directory)
+  pipeline.model.eval()
+
+  # -----------------------------
+  # Step 2. Prepare raw input
+  # -----------------------------
+  data = MonoDreamInput(
+      image_paths=[
+          "hf://HorizonRobotics/MonoDream/data_example/rgb_0.png",
+          "hf://HorizonRobotics/MonoDream/data_example/rgb_1.png",
+          "hf://HorizonRobotics/MonoDream/data_example/rgb_2.png",
+          "hf://HorizonRobotics/MonoDream/data_example/rgb_3.png",
+          "hf://HorizonRobotics/MonoDream/data_example/rgb_4.png",
+          "hf://HorizonRobotics/MonoDream/data_example/rgb_5.png",
+          "hf://HorizonRobotics/MonoDream/data_example/rgb_6.png",
+          "hf://HorizonRobotics/MonoDream/data_example/rgb_7.png",
+      ],
+      instruction="Walk down the hallway to the right of the billiards table. Stop at the top of the staircase."
+  )
+
+  # -----------------------------
+  # Step 3. Run inference
+  # (pre_process → collate → model → post_process)
+  # -----------------------------
+  result = pipeline(data)
+  print(result.text)
+
+  # Example Output:
+  # "The next action is turn right 15 degrees, move forward 25 cm, turn right 45 degrees."
 
   # -----------------------------
   # Step 4. Batch inference (optional)
@@ -109,7 +177,7 @@ Inference Pipeline
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.000 seconds)
+   **Total running time of the script:** (0 minutes 0.001 seconds)
 
 
 .. _sphx_glr_download_build_tutorials_model_zoo_tutorial_nonb-05_navigation_models.py:

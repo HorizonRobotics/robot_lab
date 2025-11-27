@@ -1,0 +1,185 @@
+model
+=====
+
+.. py:module:: robo_orchard_lab.models.monodream.model
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.model.MonoDream
+   robo_orchard_lab.models.monodream.model.MonoDreamConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: MonoDream(cfg: MonoDreamConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.models.mixin.ModelMixin`
+
+
+   A mixin class for PyTorch `nn.Module` providing model saving and loading utilities.
+
+   This mixin standardizes how models are configured, saved, and loaded,
+   integrating with a configuration system and supporting `safetensors`
+   for model weights.
+
+
+   .. py:attribute:: cfg
+      :type:  MonoDreamConfig
+
+
+   .. py:attribute:: model_config
+
+
+   .. py:attribute:: model
+
+
+   .. py:attribute:: projector_config
+
+
+   .. py:attribute:: vision_config
+
+
+   .. py:attribute:: llm_cfg
+
+
+   .. py:method:: init_components(directory: str)
+
+
+   .. py:method:: generate_content(prompt: list)
+
+
+   .. py:method:: forward(inputs, is_training: bool = False)
+
+
+   .. py:method:: save_pretrained(directory: str)
+
+
+   .. py:method:: load_from_decrete_model(model_path: str)
+
+
+   .. py:method:: load_model(directory: str, use_decrete: bool = False)
+      :classmethod:
+
+
+      Loads a model from a local directory or the Hugging Face Hub.
+
+      This method supports loading from a local path or a Hugging Face Hub
+      repository. For Hub models, a URI format is used:
+      `hf://[<token>@]<repo_id>`
+
+      .. code-block:: text
+
+          Public model: `hf://google/gemma-7b`
+
+          Private model: `hf://hf_YourToken@username/private-repo`
+
+      .. warning::
+
+          Embedding tokens directly in the URL can be a security risk.
+          The URL may be logged in shell history or server logs. It is often safer
+          to rely on the environment variable **HF_TOKEN** or the
+          local token cache from `huggingface-cli login`.
+
+      This method first loads the model's configuration from a JSON file
+      (e.g., "model.config.json") found in the given directory. It then
+      instantiates the model using this configuration. The instantiation
+      occurs within a context where the current working directory is set to
+      the specified directory.
+
+      If `load_weight` is True, the method proceeds to load the model's
+      weights (state dictionary) from a ".safetensors" file (e.g.,
+      "model.safetensors") located in the same directory.
+
+      :param directory: The path to the directory containing the model's
+                        configuration file and state dictionary file.
+      :type directory: str
+      :param device: The device (e.g., "cpu", "cuda:0")
+                     onto which the model's state dictionary should be loaded.
+                     Passed to `load_file` for loading the safetensors file.
+                     Defaults to "cpu".
+      :type device: str|None, optional
+      :param device_map: A device map to specify how to distribute the model's
+                         layers across multiple devices. This parameter is only used
+                         when `load_impl` is "accelerate". `device` and `device_map`
+                         cannot be both specified. Defaults to None.
+      :type device_map: str | dict[str, int | str | torch.device] | None, optional
+      :param strict: Whether to strictly enforce that the keys
+                     in `state_dict` match the keys returned by this module's
+                     `state_dict()` function. Passed to `model.load_state_dict()`.
+                     Defaults to True.
+      :type strict: bool, optional
+      :param model_prefix: The prefix for the configuration
+                           and state dictionary files. For example, if "model", files
+                           will be sought as "model.config.json" and "model.safetensors".
+                           Defaults to "model".
+      :type model_prefix: str, optional
+      :param load_impl: The
+                        implementation to use for loading the model weights:
+
+                          - "native": Uses the native PyTorch loading mechanism via
+                            `safetensors.torch.load_file`.
+                          - "accelerate": Uses Hugging Face Accelerate's
+                            `load_checkpoint_and_dispatch`, which supports
+                            advanced features like device mapping and offloading.
+
+                        Defaults to "accelerate".
+      :type load_impl: Literal["native", "accelerate"], optional
+
+      :returns:
+
+                An instance of the model (typed as "ModelMixin" or a subclass),
+                    initialized from the configuration and optionally with weights loaded.
+      :rtype: torch.nn.Module
+
+      :raises FileNotFoundError: If the specified `directory` does not exist,
+          or if the configuration file (`{model_prefix}.config.json`)
+          or the state dictionary file (`{model_prefix}.safetensors}`,
+          when `load_weight` is True) is not found in the directory.
+      :raises ValueError: If the Hugging Face Hub URI is invalid.
+
+
+
+.. py:class:: MonoDreamConfig
+
+   Bases: :py:obj:`robo_orchard_lab.models.mixin.TorchModuleCfg`\ [\ :py:obj:`MonoDream`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.models.mixin.ClassType_co[MonoDream]
+
+
+   .. py:attribute:: model_dtype
+      :type:  str
+      :value: 'torch.float16'
+
+
+
+   .. py:attribute:: llava_llama_config
+      :type:  Optional[Dict[str, Any]]
+      :value: None
+
+
+
+   .. py:attribute:: projector_config
+      :type:  Optional[Dict[str, Any]]
+      :value: None
+
+
+
+   .. py:attribute:: vision_config
+      :type:  Optional[Dict[str, Any]]
+      :value: None
+
+
+
+   .. py:attribute:: llm_config
+      :type:  Optional[Dict[str, Any]]
+      :value: None
+
+
+

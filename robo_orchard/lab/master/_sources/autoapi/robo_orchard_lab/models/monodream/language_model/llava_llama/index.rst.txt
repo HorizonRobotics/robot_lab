@@ -1,0 +1,85 @@
+llava_llama
+===========
+
+.. py:module:: robo_orchard_lab.models.monodream.language_model.llava_llama
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.language_model.llava_llama.LlavaLlamaConfig
+   robo_orchard_lab.models.monodream.language_model.llava_llama.LlavaLlamaModel
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.language_model.llava_llama.soft_cross_entropy
+
+
+Module Contents
+---------------
+
+.. py:class:: LlavaLlamaConfig(llm_cfg=None, vision_tower_cfg=None, mm_projector_cfg=None, architectures=None, resume_path=None, hidden_size=None, mm_hidden_size=None, image_aspect_ratio=None, num_video_frames=None, fps=None, mm_vision_select_layer=None, mm_vision_select_feature=None, mm_use_im_start_end=False, mm_use_im_patch_token=False, mm_projector_lr=None, vision_tower_lr=None, vision_resolution=None, interpolate_mode=None, s2=None, dynamic_s2=None, s2_scales=None, s2_max_split_size=None, s2_resize_output_to_scale_idx=0, min_tiles: Optional[int] = 1, max_tiles: Optional[int] = 12, num_time_tokens=None, time_token_format=None, model_dtype=None, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_lab.models.monodream.configuration_llava.LlavaConfig`
+
+
+   Language model config.
+
+   Initialized from LlavaConfig.
+
+
+   .. py:attribute:: model_type
+      :value: 'llava_llama'
+
+
+
+.. py:class:: LlavaLlamaModel(config: LlavaLlamaConfig = None, preload=True, *args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_lab.models.monodream.navigation_arch.LlavaMetaModel`, :py:obj:`robo_orchard_lab.models.monodream.navigation_arch.LlavaMetaForCausalLM`, :py:obj:`transformers.PreTrainedModel`
+
+
+   Language model define.
+
+   Inherits from LlavaMetaModel and LlavaMetaForCausalLM.
+   Main function is to handle multimodal input and forward pass.
+
+
+   .. py:attribute:: config_class
+
+
+   .. py:attribute:: main_input_name
+      :value: 'input_embeds'
+
+
+
+   .. py:attribute:: supports_gradient_checkpointing
+      :value: True
+
+
+
+   .. py:method:: from_pretrained(pretrained_model_name_or_path: Optional[Union[str, os.PathLike]], *model_args, config: Optional[Union[transformers.PretrainedConfig, str, os.PathLike]] = None, cache_dir: Optional[Union[str, os.PathLike]] = None, ignore_mismatched_sizes: bool = False, force_download: bool = False, local_files_only: bool = False, token: Optional[Union[str, bool]] = None, revision: str = 'main', use_safetensors: bool = None, **kwargs)
+      :classmethod:
+
+
+      Load a pretrained LlavaLlamaModel from a pre-trained model.
+
+      Inherits from PreTrainedModel.
+
+
+
+   .. py:method:: forward(input_ids: torch.LongTensor = None, media: Optional[Dict[str, List[torch.Tensor]]] = None, images: Optional[torch.FloatTensor] = None, media_config: Optional[List] = None, attention_mask: Optional[torch.Tensor] = None, position_ids: Optional[torch.LongTensor] = None, past_key_values: Optional[List[torch.FloatTensor]] = None, inputs_embeds: Optional[torch.FloatTensor] = None, labels: Optional[torch.LongTensor] = None, **kwargs) -> Union[Tuple, transformers.modeling_outputs.CausalLMOutputWithPast]
+
+      Main forward pass of MonoDream.
+
+      Main function is to handle multimodal input and forward pass.
+
+
+
+.. py:function:: soft_cross_entropy(outputs: torch.Tensor, targets: torch.Tensor, soft_tokens: Union[torch.Tensor, List[int]], std: float = 1, ignore_index: int = IGNORE_INDEX) -> torch.Tensor
+

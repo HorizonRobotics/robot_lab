@@ -1,0 +1,18 @@
+multimodal_projector
+====================
+
+.. py:module:: robo_orchard_lab.models.monodream.multimodal_projector
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_lab/models/monodream/multimodal_projector/base_projector/index
+   /autoapi/robo_orchard_lab/models/monodream/multimodal_projector/builder/index
+
+

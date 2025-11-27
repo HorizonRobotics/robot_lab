@@ -1,0 +1,172 @@
+configuration_llava
+===================
+
+.. py:module:: robo_orchard_lab.models.monodream.configuration_llava
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.configuration_llava.LlavaConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: LlavaConfig(llm_cfg=None, vision_tower_cfg=None, mm_projector_cfg=None, architectures=None, resume_path=None, hidden_size=None, mm_hidden_size=None, image_aspect_ratio=None, num_video_frames=None, fps=None, mm_vision_select_layer=None, mm_vision_select_feature=None, mm_use_im_start_end=False, mm_use_im_patch_token=False, mm_projector_lr=None, vision_tower_lr=None, vision_resolution=None, interpolate_mode=None, s2=None, dynamic_s2=None, s2_scales=None, s2_max_split_size=None, s2_resize_output_to_scale_idx=0, min_tiles: Optional[int] = 1, max_tiles: Optional[int] = 12, num_time_tokens=None, time_token_format=None, model_dtype=None, **kwargs)
+
+   Bases: :py:obj:`transformers.PretrainedConfig`
+
+
+   VLM model config.
+
+   Configuration class for VLM training and testing.
+
+
+   .. py:attribute:: model_type
+      :value: 'llava'
+
+
+
+   .. py:attribute:: architectures
+      :value: None
+
+
+
+   .. py:attribute:: llm_cfg
+      :value: None
+
+
+
+   .. py:attribute:: vision_tower_cfg
+      :value: None
+
+
+
+   .. py:attribute:: mm_projector_cfg
+      :value: None
+
+
+
+   .. py:attribute:: resume_path
+      :value: None
+
+
+
+   .. py:attribute:: hidden_size
+      :value: None
+
+
+
+   .. py:attribute:: mm_hidden_size
+      :value: None
+
+
+
+   .. py:attribute:: image_aspect_ratio
+      :value: None
+
+
+
+   .. py:attribute:: num_video_frames
+      :value: None
+
+
+
+   .. py:attribute:: fps
+      :value: None
+
+
+
+   .. py:attribute:: mm_vision_select_layer
+      :value: None
+
+
+
+   .. py:attribute:: mm_vision_select_feature
+      :value: None
+
+
+
+   .. py:attribute:: mm_use_im_start_end
+      :value: False
+
+
+
+   .. py:attribute:: mm_use_im_patch_token
+      :value: False
+
+
+
+   .. py:attribute:: mm_projector_lr
+      :value: None
+
+
+
+   .. py:attribute:: vision_tower_lr
+      :value: None
+
+
+
+   .. py:attribute:: vision_resolution
+      :value: None
+
+
+
+   .. py:attribute:: interpolate_mode
+      :value: None
+
+
+
+   .. py:attribute:: s2
+      :value: None
+
+
+
+   .. py:attribute:: dynamic_s2
+      :value: None
+
+
+
+   .. py:attribute:: s2_scales
+      :value: None
+
+
+
+   .. py:attribute:: s2_max_split_size
+      :value: None
+
+
+
+   .. py:attribute:: s2_resize_output_to_scale_idx
+      :value: 0
+
+
+
+   .. py:attribute:: min_tiles
+      :value: 1
+
+
+
+   .. py:attribute:: max_tiles
+      :value: 12
+
+
+
+   .. py:attribute:: num_time_tokens
+      :value: None
+
+
+
+   .. py:attribute:: time_token_format
+      :value: None
+
+
+
+   .. py:attribute:: model_dtype
+      :value: None
+
+
+

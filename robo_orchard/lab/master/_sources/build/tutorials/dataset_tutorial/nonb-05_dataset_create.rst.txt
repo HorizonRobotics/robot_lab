@@ -360,14 +360,14 @@ orchestrator to do the work.
     Generating train split: 0 examples [00:00, ? examples/s]
       [ep_001] Generating episode metadata...
       [ep_001] Starting frame generation...
-    Generating train split: 1 examples [00:00,  8.82 examples/s]
+    Generating train split: 1 examples [00:00,  5.71 examples/s]
       [ep_001] Finished generating 5 frames.
 
       [ep_002] Generating episode metadata...
       [ep_002] Starting frame generation...
 
       [ep_002] Finished generating 3 frames.
-    Generating train split: 8 examples [00:00, 42.68 examples/s]
+    Generating train split: 8 examples [00:00, 29.77 examples/s]
     --- Packaging Complete! ---
 
 
@@ -476,7 +476,7 @@ Now, let's load it just like any other :py:class:`~robo_orchard_lab.dataset.robo
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.377 seconds)
+   **Total running time of the script:** (0 minutes 0.524 seconds)
 
 
 .. _sphx_glr_download_build_tutorials_dataset_tutorial_nonb-05_dataset_create.py:

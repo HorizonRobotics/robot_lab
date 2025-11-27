@@ -1,0 +1,279 @@
+base_projector
+==============
+
+.. py:module:: robo_orchard_lab.models.monodream.multimodal_projector.base_projector
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.multimodal_projector.base_projector.IdentityMap
+   robo_orchard_lab.models.monodream.multimodal_projector.base_projector.SimpleResBlock
+   robo_orchard_lab.models.monodream.multimodal_projector.base_projector.DownSampleBlock
+   robo_orchard_lab.models.monodream.multimodal_projector.base_projector.DownSample2x2BlockFix
+   robo_orchard_lab.models.monodream.multimodal_projector.base_projector.DownSample3x3BlockFix
+   robo_orchard_lab.models.monodream.multimodal_projector.base_projector.MultimodalProjectorConfig
+   robo_orchard_lab.models.monodream.multimodal_projector.base_projector.MultimodalProjector
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.multimodal_projector.base_projector.flat_square_2x2
+   robo_orchard_lab.models.monodream.multimodal_projector.base_projector.flat_square_3x3
+
+
+Module Contents
+---------------
+
+.. py:class:: IdentityMap
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:method:: forward(x, *args, **kwargs)
+
+
+   .. py:property:: config
+
+
+.. py:class:: SimpleResBlock(channels)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: pre_norm
+
+
+   .. py:attribute:: proj
+
+
+   .. py:method:: forward(x)
+
+
+.. py:class:: DownSampleBlock(*args, **kwargs)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:method:: forward(x)
+
+
+   .. py:method:: flat_square(x)
+
+
+.. py:class:: DownSample2x2BlockFix(*args, **kwargs)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:method:: forward(x)
+
+
+.. py:function:: flat_square_2x2(x)
+
+.. py:class:: DownSample3x3BlockFix(*args, **kwargs)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:method:: forward(x)
+
+
+.. py:function:: flat_square_3x3(x)
+
+.. py:class:: MultimodalProjectorConfig(mm_projector_type: str = None, **kwargs)
+
+   Bases: :py:obj:`transformers.PretrainedConfig`
+
+
+   .. py:attribute:: model_type
+      :value: 'v2l_projector'
+
+
+
+   .. py:attribute:: mm_projector_type
+      :value: None
+
+
+
+.. py:class:: MultimodalProjector(mm_projector_cfg: MultimodalProjectorConfig, config: transformers.PretrainedConfig)
+
+   Bases: :py:obj:`transformers.PreTrainedModel`
+
+
+   .. py:attribute:: config_class
+
+
+   .. py:attribute:: downsample_rate
+      :value: 1
+
+
+
+   .. py:method:: forward(x, *args, **kwargs)
+
+

@@ -1,0 +1,50 @@
+mm_utils
+========
+
+.. py:module:: robo_orchard_lab.models.monodream.multimodal_encoder.mm_utils
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.multimodal_encoder.mm_utils.load_image_from_base64
+   robo_orchard_lab.models.monodream.multimodal_encoder.mm_utils.expand2square
+   robo_orchard_lab.models.monodream.multimodal_encoder.mm_utils.process_image
+   robo_orchard_lab.models.monodream.multimodal_encoder.mm_utils.process_images
+   robo_orchard_lab.models.monodream.multimodal_encoder.mm_utils.tokenizer_image_token
+   robo_orchard_lab.models.monodream.multimodal_encoder.mm_utils.get_model_name_from_path
+
+
+Module Contents
+---------------
+
+.. py:function:: load_image_from_base64(image)
+
+.. py:function:: expand2square(pil_img, background_color)
+
+   Expand the given PIL image to a square shape by adding padding.
+
+   Parameters:
+   - pil_img: The PIL image to be expanded.
+   - background_color: The color of the padding to be added.
+
+   Returns:
+   - The expanded PIL image.
+
+   If the image is already square, it is returned as is.
+   If the image is wider than it is tall,
+   padding is added to the top and bottom.
+   If the image is taller than it is wide,
+   padding is added to the left and right.
+
+
+.. py:function:: process_image(image_file, data_args, image_folder)
+
+.. py:function:: process_images(images, image_processor, model_cfg, enable_dynamic_res=False)
+
+.. py:function:: tokenizer_image_token(prompt, tokenizer, return_tensors=None)
+
+.. py:function:: get_model_name_from_path(model_path)
+

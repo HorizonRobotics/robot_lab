@@ -1,0 +1,640 @@
+modeling_siglip
+===============
+
+.. py:module:: robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.SIGLIP_ATTENTION_CLASSES
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.SiglipVisionEmbeddings
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.SiglipTextEmbeddings
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.SiglipAttention
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.SiglipFlashAttention2
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.SiglipSdpaAttention
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.SiglipMLP
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.SiglipEncoderLayer
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.SiglipPreTrainedModel
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.SiglipEncoder
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.SiglipVisionTransformer
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.SiglipMultiheadAttentionPoolingHead
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.SiglipVisionModel
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.trunc_normal_tf_
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.variance_scaling_
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.lecun_normal_
+   robo_orchard_lab.models.monodream.multimodal_encoder.siglip.modeling_siglip.default_flax_embed_init
+
+
+Module Contents
+---------------
+
+.. py:function:: trunc_normal_tf_(tensor: torch.Tensor, mean: float = 0.0, std: float = 1.0, a: float = -2.0, b: float = 2.0) -> torch.Tensor
+
+.. py:function:: variance_scaling_(tensor, scale=1.0, mode='fan_in', distribution='normal')
+
+.. py:function:: lecun_normal_(tensor)
+
+.. py:function:: default_flax_embed_init(tensor)
+
+.. py:class:: SiglipVisionEmbeddings(config: transformers.models.siglip.configuration_siglip.SiglipVisionConfig)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: config
+
+
+   .. py:attribute:: embed_dim
+
+
+   .. py:attribute:: image_size
+
+
+   .. py:attribute:: patch_size
+
+
+   .. py:attribute:: patch_embedding
+
+
+   .. py:attribute:: num_patches
+
+
+   .. py:attribute:: num_positions
+
+
+   .. py:attribute:: position_embedding
+
+
+   .. py:method:: interpolate_pos_encoding(embeddings: torch.Tensor, height: int, width: int) -> torch.Tensor
+
+
+   .. py:method:: forward(pixel_values: torch.FloatTensor, interpolate_pos_encoding=False) -> torch.Tensor
+
+
+.. py:class:: SiglipTextEmbeddings(config: transformers.models.siglip.configuration_siglip.SiglipTextConfig)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: token_embedding
+
+
+   .. py:attribute:: position_embedding
+
+
+   .. py:method:: forward(input_ids: Optional[torch.LongTensor] = None, position_ids: Optional[torch.LongTensor] = None, inputs_embeds: Optional[torch.FloatTensor] = None) -> torch.Tensor
+
+
+.. py:class:: SiglipAttention(config)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: config
+
+
+   .. py:attribute:: embed_dim
+
+
+   .. py:attribute:: num_heads
+
+
+   .. py:attribute:: head_dim
+
+
+   .. py:attribute:: scale
+
+
+   .. py:attribute:: dropout
+
+
+   .. py:attribute:: k_proj
+
+
+   .. py:attribute:: v_proj
+
+
+   .. py:attribute:: q_proj
+
+
+   .. py:attribute:: out_proj
+
+
+   .. py:method:: forward(hidden_states: torch.Tensor, attention_mask: Optional[torch.Tensor] = None, output_attentions: Optional[bool] = False) -> Tuple[torch.Tensor, Optional[torch.Tensor]]
+
+
+.. py:class:: SiglipFlashAttention2(*args, **kwargs)
+
+   Bases: :py:obj:`SiglipAttention`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: is_causal
+      :value: False
+
+
+
+   .. py:method:: forward(hidden_states: torch.Tensor, attention_mask: Optional[torch.LongTensor] = None, output_attentions: bool = False) -> Tuple[torch.Tensor, Optional[torch.Tensor], Optional[Tuple[torch.Tensor]]]
+
+
+.. py:class:: SiglipSdpaAttention(config)
+
+   Bases: :py:obj:`SiglipAttention`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: is_causal
+      :value: False
+
+
+
+   .. py:method:: forward(hidden_states: torch.Tensor, attention_mask: Optional[torch.Tensor] = None, output_attentions: Optional[bool] = False) -> Tuple[torch.Tensor, Optional[torch.Tensor]]
+
+
+.. py:data:: SIGLIP_ATTENTION_CLASSES
+
+.. py:class:: SiglipMLP(config)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: config
+
+
+   .. py:attribute:: activation_fn
+
+
+   .. py:attribute:: fc1
+
+
+   .. py:attribute:: fc2
+
+
+   .. py:method:: forward(hidden_states: torch.Tensor) -> torch.Tensor
+
+
+.. py:class:: SiglipEncoderLayer(config: transformers.models.siglip.configuration_siglip.SiglipConfig)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: embed_dim
+
+
+   .. py:attribute:: self_attn
+
+
+   .. py:attribute:: layer_norm1
+
+
+   .. py:attribute:: mlp
+
+
+   .. py:attribute:: layer_norm2
+
+
+   .. py:method:: forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, output_attentions: Optional[bool] = False) -> Tuple[torch.FloatTensor]
+
+
+.. py:class:: SiglipPreTrainedModel(config: transformers.configuration_utils.PretrainedConfig, *inputs, **kwargs)
+
+   Bases: :py:obj:`transformers.modeling_utils.PreTrainedModel`
+
+
+   .. py:attribute:: config_class
+
+
+   .. py:attribute:: base_model_prefix
+      :value: 'siglip'
+
+
+
+   .. py:attribute:: supports_gradient_checkpointing
+      :value: True
+
+
+
+.. py:class:: SiglipEncoder(config: transformers.models.siglip.configuration_siglip.SiglipConfig)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: config
+
+
+   .. py:attribute:: layers
+
+
+   .. py:attribute:: gradient_checkpointing
+      :value: False
+
+
+
+   .. py:method:: forward(inputs_embeds, attention_mask: Optional[torch.Tensor] = None, output_attentions: Optional[bool] = None, output_hidden_states: Optional[bool] = None, return_dict: Optional[bool] = None) -> Union[Tuple, transformers.modeling_outputs.BaseModelOutput]
+
+
+.. py:class:: SiglipVisionTransformer(config: transformers.models.siglip.configuration_siglip.SiglipVisionConfig)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: config
+
+
+   .. py:attribute:: embeddings
+
+
+   .. py:attribute:: encoder
+
+
+   .. py:attribute:: post_layernorm
+
+
+   .. py:attribute:: use_head
+      :value: True
+
+
+
+   .. py:method:: forward(pixel_values, output_attentions: Optional[bool] = None, output_hidden_states: Optional[bool] = None, return_dict: Optional[bool] = None, interpolate_pos_encoding: Optional[bool] = False) -> Union[Tuple, transformers.modeling_outputs.BaseModelOutputWithPooling]
+
+
+.. py:class:: SiglipMultiheadAttentionPoolingHead(config: transformers.models.siglip.configuration_siglip.SiglipVisionConfig)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Multihead Attention Pooling.
+
+
+   .. py:attribute:: probe
+
+
+   .. py:attribute:: attention
+
+
+   .. py:attribute:: layernorm
+
+
+   .. py:attribute:: mlp
+
+
+   .. py:method:: forward(hidden_state)
+
+
+.. py:class:: SiglipVisionModel(config: transformers.models.siglip.configuration_siglip.SiglipVisionConfig)
+
+   Bases: :py:obj:`SiglipPreTrainedModel`
+
+
+   Base class for all models.
+
+   [`PreTrainedModel`] takes care of storing the configuration of the models and handles methods for loading,
+   downloading and saving models as well as a few methods common to all models to:
+
+       - resize the input embeddings,
+       - prune heads in the self-attention heads.
+
+   Class attributes (overridden by derived classes):
+
+       - **config_class** ([`PretrainedConfig`]) -- A subclass of [`PretrainedConfig`] to use as configuration class
+         for this model architecture.
+       - **load_tf_weights** (`Callable`) -- A python *method* for loading a TensorFlow checkpoint in a PyTorch model,
+         taking as arguments:
+
+           - **model** ([`PreTrainedModel`]) -- An instance of the model on which to load the TensorFlow checkpoint.
+           - **config** ([`PreTrainedConfig`]) -- An instance of the configuration associated to the model.
+           - **path** (`str`) -- A path to the TensorFlow checkpoint.
+
+       - **base_model_prefix** (`str`) -- A string indicating the attribute associated to the base model in derived
+         classes of the same architecture adding modules on top of the base model.
+       - **is_parallelizable** (`bool`) -- A flag indicating whether this model supports model parallelization.
+       - **main_input_name** (`str`) -- The name of the principal input to the model (often `input_ids` for NLP
+         models, `pixel_values` for vision models and `input_values` for speech models).
+
+
+   .. py:attribute:: config_class
+
+
+   .. py:attribute:: main_input_name
+      :value: 'pixel_values'
+
+
+
+   .. py:attribute:: vision_model
+
+
+   .. py:method:: get_input_embeddings() -> torch.nn.Module
+
+      Returns the model's input embeddings.
+
+      :returns: A torch module mapping vocabulary to hidden states.
+      :rtype: `nn.Module`
+
+
+
+   .. py:method:: forward(pixel_values, output_attentions: Optional[bool] = None, output_hidden_states: Optional[bool] = None, return_dict: Optional[bool] = None, interpolate_pos_encoding: bool = False) -> Union[Tuple, transformers.modeling_outputs.BaseModelOutputWithPooling]
+
+
