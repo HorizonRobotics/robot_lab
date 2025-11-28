@@ -738,6 +738,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <tr class="row-odd"><td><p><a class="reference internal" href="#robo_orchard_lab.utils.huggingface.download_hf_resource" title="robo_orchard_lab.utils.huggingface.download_hf_resource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_hf_resource</span></code></a>(→ str)</p></td>
 <td><p>Downloads a resource (repo, dir, or file) from the Hugging Face Hub using a custom HF URI scheme.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#robo_orchard_lab.utils.huggingface.auto_add_repo_type" title="robo_orchard_lab.utils.huggingface.auto_add_repo_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">auto_add_repo_type</span></code></a>(→ str)</p></td>
+<td><p>Automatically add repo type to url.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -865,13 +868,13 @@ Accelerator.load_state should inherit from this class.</p>
 <span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.utils.huggingface.</span></span><span class="sig-name descname"><span class="pre">download_hf_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/utils/huggingface.html#download_hf_resource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.utils.huggingface.download_hf_resource" title="Link to this definition">¶</a></dt>
 <dd><p>Downloads a resource (repo, dir, or file) from the Hugging Face Hub using a custom HF URI scheme.</p>
 <p>The URI scheme is defined as:
-hf://&lt;repo_type&gt;/&lt;repo_id&gt;[&lt;/path&gt;][&#64;&lt;revision&gt;]?token=&lt;token&gt;</p>
+<code class="docutils literal notranslate"><span class="pre">hf://[&lt;token&gt;&#64;]&lt;repo_type&gt;/&lt;repo_id&gt;[/&lt;path&gt;][&#64;&lt;revision&gt;]</span></code></p>
 <ul class="simple">
-<li><p>repo_type: ‘model’, ‘dataset’, or ‘space’.</p></li>
-<li><p>repo_id: The repository ID (e.g., ‘gpt2’ or ‘meta-llama/Llama-2-7b-chat-hf’).</p></li>
-<li><p>/&lt;path&gt;: (Optional) Download a single file or a specific subdirectory.</p></li>
-<li><p>&#64;&lt;revision&gt;: (Optional) A git revision.</p></li>
-<li><p>?token=&lt;token&gt;: (Optional) A Hugging Face Hub token.</p></li>
+<li><p>&lt;token&gt;&#64;: (Optional) User token</p></li>
+<li><p>repo_type: (Optional) ‘model’, ‘dataset’, or ‘space’</p></li>
+<li><p>repo_id: The repository ID (e.g., ‘gpt2’ or ‘meta-llama/Llama-2-7b-chat-hf’)</p></li>
+<li><p>/&lt;path&gt;: (Optional) Download a single file or a specific subdirectory</p></li>
+<li><p>&#64;&lt;revision&gt;: (Optional) A git revision</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -887,6 +890,12 @@ hf://&lt;repo_type&gt;/&lt;repo_id&gt;[&lt;/path&gt;][&#64;&lt;revision&gt;]?tok
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.10/library/exceptions.html#ValueError" title="(in Python v3.10)"><strong>ValueError</strong></a> – If the URL format is invalid or missing required components.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="robo_orchard_lab.utils.huggingface.auto_add_repo_type">
+<span class="sig-prename descclassname"><span class="pre">robo_orchard_lab.utils.huggingface.</span></span><span class="sig-name descname"><span class="pre">auto_add_repo_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">repo_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'model'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../../../_modules/robo_orchard_lab/utils/huggingface.html#auto_add_repo_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robo_orchard_lab.utils.huggingface.auto_add_repo_type" title="Link to this definition">¶</a></dt>
+<dd><p>Automatically add repo type to url.</p>
 </dd></dl>
 
 </section>
@@ -966,6 +975,7 @@ hf://&lt;repo_type&gt;/&lt;repo_id&gt;[&lt;/path&gt;][&#64;&lt;revision&gt;]?tok
 </ul>
 </li>
 <li><a class="reference internal" href="#robo_orchard_lab.utils.huggingface.download_hf_resource"><code class="docutils literal notranslate"><span class="pre">download_hf_resource()</span></code></a></li>
+<li><a class="reference internal" href="#robo_orchard_lab.utils.huggingface.auto_add_repo_type"><code class="docutils literal notranslate"><span class="pre">auto_add_repo_type()</span></code></a></li>
 </ul>
 </li>
 </ul>

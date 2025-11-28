@@ -20,6 +20,7 @@ Functions
    robo_orchard_lab.utils.huggingface.get_accelerate_project_last_checkpoint_id
    robo_orchard_lab.utils.huggingface.accelerator_load_state
    robo_orchard_lab.utils.huggingface.download_hf_resource
+   robo_orchard_lab.utils.huggingface.auto_add_repo_type
 
 
 Module Contents
@@ -132,13 +133,17 @@ Module Contents
    Downloads a resource (repo, dir, or file) from the Hugging Face Hub using a custom HF URI scheme.
 
    The URI scheme is defined as:
-   hf://<repo_type>/<repo_id>[</path>][@<revision>]?token=<token>
+   ``hf://[<token>@]<repo_type>/<repo_id>[/<path>][@<revision>]``
 
-   - repo_type: 'model', 'dataset', or 'space'.
-   - repo_id: The repository ID (e.g., 'gpt2' or 'meta-llama/Llama-2-7b-chat-hf').
-   - /<path>: (Optional) Download a single file or a specific subdirectory.
-   - @<revision>: (Optional) A git revision.
-   - ?token=<token>: (Optional) A Hugging Face Hub token.
+   - <token>@: (Optional) User token
+
+   - repo_type: (Optional) 'model', 'dataset', or 'space'
+
+   - repo_id: The repository ID (e.g., 'gpt2' or 'meta-llama/Llama-2-7b-chat-hf')
+
+   - /<path>: (Optional) Download a single file or a specific subdirectory
+
+   - @<revision>: (Optional) A git revision
 
    :param url: The HF URI string.
    :type url: str
@@ -147,5 +152,10 @@ Module Contents
    :rtype: str
 
    :raises ValueError: If the URL format is invalid or missing required components.
+
+
+.. py:function:: auto_add_repo_type(url: str, repo_type: str = 'model') -> str
+
+   Automatically add repo type to url.
 
 

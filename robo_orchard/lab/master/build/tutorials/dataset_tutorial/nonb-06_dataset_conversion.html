@@ -993,7 +993,7 @@ Generating train split: 0 examples [00:00, ? examples/s]
 
   [.workspace/conversion/mcap/dummy_dataset_episode0.mcap] Finished generating frames.
 
-Generating train split: 5 examples [00:00, 58.96 examples/s]
+Generating train split: 5 examples [00:00, 50.46 examples/s]
 --- Ingestion Complete! ---
 </pre></div>
 </div>
@@ -1109,11 +1109,11 @@ define the schema using <cite>hg_datasets.features.Image()</cite>.</p>
   warnings.warn(
 
 Generating train split: 0 examples [00:00, ? examples/s]
-Generating train split: 1 examples [00:08,  8.31s/ examples]
-Generating train split: 2 examples [00:16,  8.11s/ examples]
-Generating train split: 3 examples [00:24,  7.97s/ examples]
-Generating train split: 4 examples [00:32,  8.00s/ examples]
-Generating train split: 4 examples [00:32,  8.09s/ examples]
+Generating train split: 1 examples [00:18, 18.08s/ examples]
+Generating train split: 2 examples [00:35, 17.45s/ examples]
+Generating train split: 3 examples [00:49, 16.08s/ examples]
+Generating train split: 4 examples [01:05, 15.84s/ examples]
+Generating train split: 4 examples [01:05, 16.33s/ examples]
 </pre></div>
 </div>
 </section>
@@ -1235,11 +1235,11 @@ image tensors into our custom <code class="xref py py-class docutils literal not
   warnings.warn(
 
 Generating train split: 0 examples [00:00, ? examples/s]
-Generating train split: 1 examples [00:06,  6.05s/ examples]
-Generating train split: 2 examples [00:11,  5.89s/ examples]
-Generating train split: 3 examples [00:17,  5.87s/ examples]
-Generating train split: 4 examples [00:23,  5.85s/ examples]
-Generating train split: 4 examples [00:23,  5.99s/ examples]
+Generating train split: 1 examples [00:14, 14.26s/ examples]
+Generating train split: 2 examples [00:29, 14.64s/ examples]
+Generating train split: 3 examples [00:43, 14.38s/ examples]
+Generating train split: 4 examples [00:57, 14.26s/ examples]
+Generating train split: 4 examples [00:57, 14.48s/ examples]
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">ro_dataset</span> <span class="o">=</span> <a href="https://pytorch.org/docs/stable/data.html#torch.utils.data.Dataset" title="torch.utils.data.Dataset" class="sphx-glr-backref-module-torch-utils-data sphx-glr-backref-type-py-class"><span class="n">RODataset</span></a><span class="p">(</span><a href="https://docs.python.org/3.10/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">TARGET_LEROBOT_CONVERT_PATH</span></a><span class="p">)</span>
@@ -1258,7 +1258,7 @@ key = observation.images.right_backward, value type = &lt;class &#39;robo_orchar
 key = observation.images.map, value type = &lt;class &#39;robo_orchard_core.datatypes.camera_data.BatchCameraData&#39;&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 58.316 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (2 minutes 5.482 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-build-tutorials-dataset-tutorial-nonb-06-dataset-conversion-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../../_downloads/87baaea4d607fd8b0b2d832cc2cbedf1/nonb-06_dataset_conversion.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">nonb-06_dataset_conversion.ipynb</span></code></a></p>

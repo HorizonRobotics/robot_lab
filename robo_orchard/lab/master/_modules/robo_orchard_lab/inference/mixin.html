@@ -730,7 +730,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypeVar</span>
 
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.models.mixin</span> <span class="kn">import</span> <span class="n">TorchModelMixin</span><span class="p">,</span> <span class="n">TorchModuleCfg</span>
-<span class="kn">from</span> <span class="nn">robo_orchard_lab.utils.huggingface</span> <span class="kn">import</span> <span class="n">download_hf_resource</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_lab.utils.huggingface</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">auto_add_repo_type</span><span class="p">,</span>
+    <span class="n">download_hf_resource</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">robo_orchard_lab.utils.path</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">DirectoryNotEmptyError</span><span class="p">,</span>
     <span class="n">abspath</span><span class="p">,</span>
@@ -942,6 +945,18 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Loads a pipeline from a directory or a Hugging Face Hub repository.</span>
 
+<span class="sd">        This method supports loading from a local path or a Hugging Face Hub</span>
+<span class="sd">        repository. For Hub models, a URI format is used:</span>
+<span class="sd">        ``hf://[&lt;token&gt;@][model/]&lt;repo_id&gt;[/&lt;path&gt;][@&lt;revision&gt;]``</span>
+
+<span class="sd">        .. code-block:: text</span>
+
+<span class="sd">            Public model: `hf://HorizonRobotics/Aux-Think`</span>
+
+<span class="sd">            Public model directory: `hf://HorizonRobotics/FineGrasp/finegrasp_pipeline`</span>
+
+<span class="sd">            Private model: `hf://your-name/private-repo`</span>
+
 <span class="sd">        This factory method dynamically instantiates the correct pipeline class</span>
 <span class="sd">        based on the `class_type` specified in the saved configuration file.</span>
 <span class="sd">        It first loads the model and then uses the configuration to create the</span>
@@ -970,9 +985,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="sd">            in the configuration.</span>
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
         <span class="k">if</span> <span class="n">directory</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;hf://&quot;</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">directory</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;hf://model/&quot;</span><span class="p">):</span>
-                <span class="n">directory</span> <span class="o">=</span> <span class="s2">&quot;hf://model/&quot;</span> <span class="o">+</span> <span class="n">directory</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span>
-            <span class="n">directory</span> <span class="o">=</span> <span class="n">download_hf_resource</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+            <span class="n">directory</span> <span class="o">=</span> <span class="n">download_hf_resource</span><span class="p">(</span><span class="n">auto_add_repo_type</span><span class="p">(</span><span class="n">directory</span><span class="p">))</span>
 
         <span class="n">directory</span> <span class="o">=</span> <span class="n">abspath</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 

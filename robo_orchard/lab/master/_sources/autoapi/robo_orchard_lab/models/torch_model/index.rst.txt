@@ -151,20 +151,15 @@ Module Contents
 
       This method supports loading from a local path or a Hugging Face Hub
       repository. For Hub models, a URI format is used:
-      `hf://[<token>@]<repo_id>`
+      ``hf://[<token>@][model/]<repo_id>[/<path>][@<revision>]``
 
       .. code-block:: text
 
-          Public model: `hf://google/gemma-7b`
+          Public model: `hf://HorizonRobotics/BIP3D_Tiny_Det`
 
-          Private model: `hf://hf_YourToken@username/private-repo`
+          Public model directory: `hf://HorizonRobotics/FineGrasp/finegrasp_pipeline`
 
-      .. warning::
-
-          Embedding tokens directly in the URL can be a security risk.
-          The URL may be logged in shell history or server logs. It is often safer
-          to rely on the environment variable **HF_TOKEN** or the
-          local token cache from `huggingface-cli login`.
+          Private model: `hf://your-name/private-repo`
 
       This method first loads the model's configuration from a JSON file
       (e.g., "model.config.json") found in the given directory. It then

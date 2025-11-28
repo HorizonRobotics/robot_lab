@@ -725,7 +725,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">asdict</span><span class="p">,</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
-<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">parse_qs</span><span class="p">,</span> <span class="n">urlparse</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">unquote</span><span class="p">,</span> <span class="n">urlparse</span>
 
 <span class="kn">import</span> <span class="nn">fsspec</span>
 <span class="kn">from</span> <span class="nn">accelerate</span> <span class="kn">import</span> <span class="n">Accelerator</span>
@@ -739,6 +739,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="s2">&quot;accelerator_load_state&quot;</span><span class="p">,</span>
     <span class="s2">&quot;AcceleratorState&quot;</span><span class="p">,</span>
     <span class="s2">&quot;download_hf_resource&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;auto_add_repo_type&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -952,11 +953,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-<span class="n">HF_URI_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-    <span class="sa">r</span><span class="s2">&quot;^/(?P&lt;repo_type&gt;model|dataset|space)/&quot;</span>
-    <span class="sa">r</span><span class="s2">&quot;(?P&lt;repo_id&gt;[^/]+(?:/[^/]+)?)&quot;</span>
-    <span class="sa">r</span><span class="s2">&quot;(?:/(?P&lt;path_inside_repo&gt;.+))?$&quot;</span>
-<span class="p">)</span>
+<span class="n">VALID_REPO_TYPES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;space&quot;</span><span class="p">}</span>
 
 
 <div class="viewcode-block" id="download_hf_resource">
@@ -965,13 +962,17 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Downloads a resource (repo, dir, or file) from the Hugging Face Hub using a custom HF URI scheme.</span>
 
 <span class="sd">    The URI scheme is defined as:</span>
-<span class="sd">    hf://&lt;repo_type&gt;/&lt;repo_id&gt;[&lt;/path&gt;][@&lt;revision&gt;]?token=&lt;token&gt;</span>
+<span class="sd">    ``hf://[&lt;token&gt;@]&lt;repo_type&gt;/&lt;repo_id&gt;[/&lt;path&gt;][@&lt;revision&gt;]``</span>
 
-<span class="sd">    - repo_type: &#39;model&#39;, &#39;dataset&#39;, or &#39;space&#39;.</span>
-<span class="sd">    - repo_id: The repository ID (e.g., &#39;gpt2&#39; or &#39;meta-llama/Llama-2-7b-chat-hf&#39;).</span>
-<span class="sd">    - /&lt;path&gt;: (Optional) Download a single file or a specific subdirectory.</span>
-<span class="sd">    - @&lt;revision&gt;: (Optional) A git revision.</span>
-<span class="sd">    - ?token=&lt;token&gt;: (Optional) A Hugging Face Hub token.</span>
+<span class="sd">    - &lt;token&gt;@: (Optional) User token</span>
+
+<span class="sd">    - repo_type: (Optional) &#39;model&#39;, &#39;dataset&#39;, or &#39;space&#39;</span>
+
+<span class="sd">    - repo_id: The repository ID (e.g., &#39;gpt2&#39; or &#39;meta-llama/Llama-2-7b-chat-hf&#39;)</span>
+
+<span class="sd">    - /&lt;path&gt;: (Optional) Download a single file or a specific subdirectory</span>
+
+<span class="sd">    - @&lt;revision&gt;: (Optional) A git revision</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        url (str): The HF URI string.</span>
@@ -985,30 +986,54 @@ document.addEventListener('DOMContentLoaded', function() {
     <span class="k">if</span> <span class="ow">not</span> <span class="n">url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;hf://&quot;</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;URL must start with hf://&quot;</span><span class="p">)</span>
 
-    <span class="c1"># parse revision</span>
-    <span class="k">if</span> <span class="s2">&quot;@&quot;</span> <span class="ow">in</span> <span class="n">url</span><span class="p">[</span><span class="mi">5</span><span class="p">:]:</span>
-        <span class="n">base_url</span><span class="p">,</span> <span class="n">revision</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;?&quot;</span> <span class="ow">in</span> <span class="n">revision</span> <span class="ow">and</span> <span class="s2">&quot;?&quot;</span> <span class="ow">in</span> <span class="n">base_url</span><span class="p">:</span>
-            <span class="n">base_url</span> <span class="o">=</span> <span class="n">url</span>
-            <span class="n">revision</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">parsed_uri</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="c1"># Extract Token (Priority: Userinfo &gt; Query Param)</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">parsed_uri</span><span class="o">.</span><span class="n">username</span>
+    <span class="k">if</span> <span class="n">token</span><span class="p">:</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">unquote</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+    <span class="c1"># Handle revision at the end of the path (e.g., .../file.txt@v1.0)</span>
+    <span class="n">raw_path</span> <span class="o">=</span> <span class="n">parsed_uri</span><span class="o">.</span><span class="n">path</span>
+    <span class="n">revision</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="s2">&quot;@&quot;</span> <span class="ow">in</span> <span class="n">raw_path</span><span class="p">:</span>
+        <span class="n">raw_path</span><span class="p">,</span> <span class="n">revision</span> <span class="o">=</span> <span class="n">raw_path</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Path reconstruction</span>
+    <span class="n">netloc</span> <span class="o">=</span> <span class="n">parsed_uri</span><span class="o">.</span><span class="n">netloc</span>
+
+    <span class="c1"># remove token part</span>
+    <span class="k">if</span> <span class="s2">&quot;@&quot;</span> <span class="ow">in</span> <span class="n">netloc</span><span class="p">:</span>
+        <span class="n">host_part</span> <span class="o">=</span> <span class="n">netloc</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">base_url</span> <span class="o">=</span> <span class="n">url</span>
-        <span class="n">revision</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">host_part</span> <span class="o">=</span> <span class="n">netloc</span>
 
-    <span class="c1"># parse uri</span>
-    <span class="n">parsed_uri</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">base_url</span><span class="p">)</span>
-    <span class="n">query_params</span> <span class="o">=</span> <span class="n">parse_qs</span><span class="p">(</span><span class="n">parsed_uri</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
-    <span class="n">token</span> <span class="o">=</span> <span class="n">query_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">path_part</span> <span class="o">=</span> <span class="n">raw_path</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+    <span class="n">full_path_str</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">host_part</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">path_part</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="n">host_part</span> <span class="ow">and</span> <span class="n">path_part</span>
+        <span class="k">else</span> <span class="p">(</span><span class="n">host_part</span> <span class="ow">or</span> <span class="n">path_part</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">full_path_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">p</span><span class="p">]</span>
 
-    <span class="n">match</span> <span class="o">=</span> <span class="n">HF_URI_PATTERN</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">parsed_uri</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid HF URI structure.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">parts</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid URI: Empty path in &#39;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
-    <span class="n">groups</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
-    <span class="n">repo_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">&quot;repo_type&quot;</span><span class="p">]</span>
-    <span class="n">repo_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">&quot;repo_id&quot;</span><span class="p">]</span>
-    <span class="n">path_inside_repo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">groups</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;path_inside_repo&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">VALID_REPO_TYPES</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid repo type </span><span class="si">{</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">repo_type</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">segments</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
 
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">segments</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid repo_id structure. Expected &#39;username/repo_name&#39;, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;but got: </span><span class="si">{</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">segments</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">repo_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">segments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">segments</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">path_inside_repo</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">segments</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">segments</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="c1"># download</span>
     <span class="k">with</span> <span class="n">set_env</span><span class="p">(</span><span class="n">HF_HUB_DISABLE_PROGRESS_BARS</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">path_inside_repo</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">snapshot_download</span><span class="p">(</span>
@@ -1054,6 +1079,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="n">allow_patterns</span><span class="o">=</span><span class="p">[</span><span class="n">allow_pattern</span><span class="p">],</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path_inside_repo</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="auto_add_repo_type">
+<a class="viewcode-back" href="../../../autoapi/robo_orchard_lab/utils/huggingface/index.html#robo_orchard_lab.utils.huggingface.auto_add_repo_type">[docs]</a>
+<span class="k">def</span> <span class="nf">auto_add_repo_type</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">repo_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;model&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Automatically add repo type to url.&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;hf://&quot;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;URL must start with hf://&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">repo_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">VALID_REPO_TYPES</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid repo type: </span><span class="si">{</span><span class="n">repo_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">parsed_uri</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="n">url_repo_type</span> <span class="o">=</span> <span class="n">parsed_uri</span><span class="o">.</span><span class="n">netloc</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">url_repo_type</span> <span class="ow">in</span> <span class="n">VALID_REPO_TYPES</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">url_repo_type</span> <span class="o">!=</span> <span class="n">repo_type</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;url already has repo type </span><span class="si">{</span><span class="n">url_repo_type</span><span class="si">}</span><span class="s2"> &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;but not matched required repo type </span><span class="si">{</span><span class="n">repo_type</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">url</span>
+
+    <span class="k">if</span> <span class="n">parsed_uri</span><span class="o">.</span><span class="n">username</span><span class="p">:</span>
+        <span class="n">token</span><span class="p">,</span> <span class="n">organize</span> <span class="o">=</span> <span class="n">parsed_uri</span><span class="o">.</span><span class="n">netloc</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)</span>
+        <span class="n">netloc</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">repo_type</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">organize</span><span class="si">}</span><span class="s2">/&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">netloc</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">repo_type</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">parsed_uri</span><span class="o">.</span><span class="n">netloc</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parsed_uri</span><span class="o">.</span><span class="n">scheme</span><span class="si">}</span><span class="s2">://</span><span class="si">{</span><span class="n">netloc</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">parsed_uri</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
 </pre></div>
         </article>

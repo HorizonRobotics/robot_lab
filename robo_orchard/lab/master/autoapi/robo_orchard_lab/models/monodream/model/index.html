@@ -798,18 +798,13 @@ for model weights.</p>
 <dd><p>Loads a model from a local directory or the Hugging Face Hub.</p>
 <p>This method supports loading from a local path or a Hugging Face Hub
 repository. For Hub models, a URI format is used:
-<cite>hf://[&lt;token&gt;&#64;]&lt;repo_id&gt;</cite></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Public model: `hf://google/gemma-7b`
+<code class="docutils literal notranslate"><span class="pre">hf://[&lt;token&gt;&#64;][model/]&lt;repo_id&gt;[/&lt;path&gt;][&#64;&lt;revision&gt;]</span></code></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Public model: `hf://HorizonRobotics/BIP3D_Tiny_Det`
 
-Private model: `hf://hf_YourToken@username/private-repo`
+Public model directory: `hf://HorizonRobotics/FineGrasp/finegrasp_pipeline`
+
+Private model: `hf://your-name/private-repo`
 </pre></div>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Embedding tokens directly in the URL can be a security risk.
-The URL may be logged in shell history or server logs. It is often safer
-to rely on the environment variable <strong>HF_TOKEN</strong> or the
-local token cache from <cite>huggingface-cli login</cite>.</p>
 </div>
 <p>This method first loads the model’s configuration from a JSON file
 (e.g., “model.config.json”) found in the given directory. It then

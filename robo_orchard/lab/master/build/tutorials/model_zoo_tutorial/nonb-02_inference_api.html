@@ -879,7 +879,7 @@ method will save:</p>
 <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3.10/library/subprocess.html#subprocess.check_output" title="subprocess.check_output" class="sphx-glr-backref-module-subprocess sphx-glr-backref-type-py-function"><span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span></a><span class="p">([</span><span class="s2">&quot;tree&quot;</span><span class="p">,</span> <a href="https://docs.python.org/3.10/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">output_dir</span></a><span class="p">])</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Pipeline created: &lt;robo_orchard_lab.inference.basic.InferencePipeline object at 0x7f8a29e661d0&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Pipeline created: &lt;robo_orchard_lab.inference.basic.InferencePipeline object at 0x7f826832b730&gt;
 Pipeline has been saved to the `.workspace/pipeline_checkpoint` directory.
 .workspace/pipeline_checkpoint
 ├── inference.config.json
@@ -924,20 +924,20 @@ and loads the model weights.</p>
 <span class="k">assert</span> <a href="https://docs.python.org/3.10/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">batch_output</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Pipeline loaded: &lt;robo_orchard_lab.inference.basic.InferencePipeline object at 0x7f8a29e641c0&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Pipeline loaded: &lt;robo_orchard_lab.inference.basic.InferencePipeline object at 0x7f826832b2e0&gt;
 
 Raw input data:
 [0. 1. 2. 3. 4. 5. 6. 7. 8. 9.]
 Pipeline output (post-processed):
-[[ 2.861309  -1.9944396]]
+[[ 0.13170312 -1.7435416 ]]
 
 Batch input (2 items).
 Batch output (1 batch of 2 items):
-[[ 2.861309  -1.9944396]
- [ 5.4552326 -3.603422 ]]
+[[ 0.13170312 -1.7435416 ]
+ [-1.6447861  -6.2183614 ]]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.945 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.739 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-build-tutorials-model-zoo-tutorial-nonb-02-inference-api-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../../_downloads/0477b29e26f4b8574aee66104399233d/nonb-02_inference_api.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">nonb-02_inference_api.ipynb</span></code></a></p>
