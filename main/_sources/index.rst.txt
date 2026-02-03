@@ -83,6 +83,20 @@ Publications
    :widths: 20 80
    :class: publication-table
 
+   * - .. image:: _static/publications/mapdream.gif
+        :class: publication-thumbnail
+        :alt: MapDream Logo
+        :target: _static/publications/mapdream.gif
+
+     - **MapDream: Task-Driven Map Learning for Vision-Language Navigation**
+
+       :blue:`Guoxin Lian`, :blue:`Shuo Wang`, :blue:`Yucheng Wang`, Yongcai Wang, :blue:`Maiyue Chen`, :blue:`Kaihui Wang`, :blue:`Bo Zhang`, :blue:`Zhizhong Su`, Deying Li, Zhaoxin Fan
+
+       arXiv 2026
+
+       `Webpage <https://horizonrobotics.github.io/robot_lab/mapdream/>`__ | `Paper <https://arxiv.org/abs/2602.00222>`__
+
+
    * - .. image:: _static/publications/progress-think.gif
           :class: publication-thumbnail
           :alt: progress-think Logo
