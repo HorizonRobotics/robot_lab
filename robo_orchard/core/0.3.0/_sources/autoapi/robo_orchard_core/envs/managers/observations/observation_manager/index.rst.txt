@@ -1,0 +1,221 @@
+observation_manager
+===================
+
+.. py:module:: robo_orchard_core.envs.managers.observations.observation_manager
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.observations.observation_manager.ObsManagerConfigType_co
+   robo_orchard_core.envs.managers.observations.observation_manager.ObsReturnType
+   robo_orchard_core.envs.managers.observations.observation_manager.ObservationManagerType_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.observations.observation_manager.ObservationGroupCfg
+   robo_orchard_core.envs.managers.observations.observation_manager.ObservationManager
+   robo_orchard_core.envs.managers.observations.observation_manager.ObservationManagerCfg
+
+
+Module Contents
+---------------
+
+.. py:class:: ObservationGroupCfg
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.manager_term_base.ManagerTermGroupCfg`\ [\ :py:obj:`robo_orchard_core.envs.managers.observations.observation_term.ObsCfgType_co`\ ]
+
+
+   The configuration for the observation group.
+
+   Template Args:
+       EnvType: The type of the environment.
+       ObsTermType_co: The type of the observation term.
+       ObsCfgType_co: The type of the observation term configuration.
+
+
+
+   .. py:attribute:: concatenate_terms
+      :type:  bool
+      :value: False
+
+
+      Whether to concatenate the observation terms.
+
+      If True, the observation terms are concatenated along the last dimension.
+      Otherwise, they are kept separate and returned as a dictionary.
+
+      User should make sure that the observation terms have the same shape
+      when concatenating them.
+
+      Note that the observation terms must return a tensor when concatenating
+      the terms.
+
+
+.. py:data:: ObsManagerConfigType_co
+
+.. py:data:: ObsReturnType
+   :type:  typing_extensions.TypeAlias
+
+.. py:class:: ObservationManager(cfg: ObsManagerConfigType_co, env: robo_orchard_core.envs.managers.manager_base.EnvType_co)
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.manager_base.ManagerBase`\ [\ :py:obj:`robo_orchard_core.envs.managers.manager_base.EnvType_co`\ , :py:obj:`ObsManagerConfigType_co`\ ]
+
+
+   Manager for the observation terms.
+
+   This class manages the observation terms and groups them into groups. It
+   also provides methods to get the observation signals from given
+   environment.
+
+
+   Template Args:
+       EnvType_co: The type of the environment.
+       ObsManagerConfigType_co: The type of the configuration for the manager.
+
+   :param cfg: The configuration for the manager.
+   :type cfg: ObservationManagerCfg
+   :param env: The environment object.
+   :type env: EnvBase
+
+
+   .. py:attribute:: obs_return_type
+      :type:  type[ObsReturnType]
+
+
+   .. py:property:: active_terms
+      :type: dict[str, list[str]]
+
+
+      The names of the observation terms in the groups.
+
+
+   .. py:property:: group_term_cfgs
+      :type: dict[str, dict[str, robo_orchard_core.envs.managers.observations.observation_term.ObservationTermCfg]]
+
+
+      The configuration of the observation terms in the groups.
+
+
+   .. py:property:: group_obs_concatenate
+      :type: dict[str, bool]
+
+
+      The concatenate flags for the observation groups.
+
+
+   .. py:method:: reset(env_ids: Sequence[int] | None = None) -> None
+
+      Resets the manager.
+
+      :param env_ids: The environment ids. Defaults to None, in which case
+                      all environments are considered.
+
+
+
+   .. py:method:: get_observations(group_names: Sequence[str] | None = None) -> ObsReturnType
+
+      Returns the observations for the groups.
+
+      :param group_names: The names of the groups.
+                          Defaults to None, in which case all groups are considered.
+      :type group_names: Sequence[str] | None
+
+      :returns: The observations
+                for the groups.
+      :rtype: dict[str, Any | dict[str, Any]]
+
+
+
+   .. py:property:: observation_space
+      :type: gymnasium.spaces.Dict
+
+
+      The observation space of the environment.
+
+      This is used to determine the type of observations that can be
+      received from the environment. The observation space is usually
+      defined in the environment configuration.
+
+      :returns: The observation space of the environment.
+      :rtype: gym.Space
+
+
+.. py:data:: ObservationManagerType_co
+
+.. py:class:: ObservationManagerCfg
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.manager_base.ManagerBaseCfg`\ [\ :py:obj:`ObservationManager`\ ]
+
+
+   The configuration for the observation manager.
+
+   Template Args:
+       EnvType: The type of the environment.
+
+   :param groups: The configuration
+                  for the observation groups.
+   :type groups: Mapping[str, ObservationGroupCfg]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType_co[ObservationManager]
+
+
+   .. py:attribute:: groups
+      :type:  Mapping[str, ObservationGroupCfg]
+
+      The configuration for the observation groups.
+
+
+   .. py:method:: get_term_names(group_names: Sequence[str] | None = None) -> Dict[str, List[str]]
+
+      Returns the names of the observation terms in the groups.
+
+      :param group_names: The names of the groups.
+                          Defaults to None, in which case all groups are considered.
+      :type group_names: Sequence[str] | None
+
+      :returns:
+
+                The names of the observation terms in the
+                    groups.
+      :rtype: Dict[str, List[str]]
+
+
+
+   .. py:method:: get_term_cfgs(group_names: Sequence[str] | None = None) -> Dict[str, Dict[str, robo_orchard_core.envs.managers.observations.observation_term.ObservationTermCfg]]
+
+      Returns the configuration of the observation terms in the groups.
+
+      :param group_names: The names of the groups.
+                          Defaults to None, in which case all groups are considered.
+      :type group_names: Sequence[str] | None
+
+      :returns:
+
+                The configuration of the
+                    observation terms in the groups.
+      :rtype: Dict[str, Dict[str, ObservationTermCfg]]
+
+
+
+   .. py:method:: get_concatenate_flags(group_names: Sequence[str] | None = None) -> Dict[str, bool]
+
+      Returns the concatenate flags for the observation groups.
+
+      :param group_names: The names of the groups.
+                          Defaults to None, in which case all groups are considered.
+      :type group_names: Sequence[str] | None
+
+      :returns: The concatenate flags for the observation groups.
+      :rtype: Dict[str, bool]
+
+
+

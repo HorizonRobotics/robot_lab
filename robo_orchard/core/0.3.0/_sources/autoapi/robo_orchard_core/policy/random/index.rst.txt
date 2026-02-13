@@ -1,0 +1,47 @@
+random
+======
+
+.. py:module:: robo_orchard_core.policy.random
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.policy.random.RandomPolicy
+   robo_orchard_core.policy.random.RandomPolicyConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: RandomPolicy(cfg: robo_orchard_core.policy.base.PolicyConfig[robo_orchard_core.policy.base.PolicyMixin] | None = None, observation_space: gymnasium.Space[Any] | None = None, action_space: gymnasium.Space[robo_orchard_core.policy.base.ACTType] | None = None)
+
+   Bases: :py:obj:`robo_orchard_core.policy.base.PolicyMixin`\ [\ :py:obj:`Any`\ , :py:obj:`robo_orchard_core.policy.base.ACTType`\ ]
+
+
+   A random policy that samples actions uniformly from the action space.
+
+
+   .. py:method:: act(obs: Any) -> robo_orchard_core.policy.base.ACTType
+
+      Sample a random action from the action space.
+
+
+
+   .. py:method:: reset() -> None
+
+      Reset the policy. No specific action is needed for random policy.
+
+
+
+.. py:class:: RandomPolicyConfig
+
+   Bases: :py:obj:`robo_orchard_core.policy.base.PolicyConfig`\ [\ :py:obj:`RandomPolicy`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  Type[RandomPolicy]
+
+

@@ -1,0 +1,38 @@
+timestamps
+==========
+
+.. py:module:: robo_orchard_core.datatypes.timestamps
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.datatypes.timestamps.concat_timestamps
+
+
+Module Contents
+---------------
+
+.. py:function:: concat_timestamps(data: list[list[int] | None], concat_dim: Literal['row', 'col'] = 'row') -> list[int] | None
+
+   Concatenate a batch of timestamps.
+
+   :param data: A batch of timestamps, each element
+                is a list of timestamps or None.
+   :type data: list[list[int]|None]
+   :param concat_dim: The dimension to
+                      concatenate along. If "row", timestamps are concatenated
+                      along the first dimension (batch dimension). If "col", timestamps
+                      are checked for consistency across the batch to be the same.
+                      Defaults to "row".
+   :type concat_dim: Literal["row", "col"], optional
+
+   :returns:
+
+             Concatenated timestamps or None if all
+                 elements are None.
+   :rtype: list[int]|None
+
+

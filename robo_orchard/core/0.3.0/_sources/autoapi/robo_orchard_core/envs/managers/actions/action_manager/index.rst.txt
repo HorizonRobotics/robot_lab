@@ -1,0 +1,144 @@
+action_manager
+==============
+
+.. py:module:: robo_orchard_core.envs.managers.actions.action_manager
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.actions.action_manager.ActionTermCfgType_co
+   robo_orchard_core.envs.managers.actions.action_manager.ActManagerConfigType_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.actions.action_manager.ActionManager
+   robo_orchard_core.envs.managers.actions.action_manager.ActionManagerCfg
+
+
+Module Contents
+---------------
+
+.. py:data:: ActionTermCfgType_co
+
+.. py:data:: ActManagerConfigType_co
+
+.. py:class:: ActionManager(cfg: ActManagerConfigType_co, env: robo_orchard_core.envs.managers.manager_base.EnvType_co)
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.manager_base.ManagerBase`\ [\ :py:obj:`robo_orchard_core.envs.managers.manager_base.EnvType_co`\ , :py:obj:`ActManagerConfigType_co`\ ]
+
+
+   The manager for the action terms.
+
+   Template Args:
+       EnvType_co: The environment type.
+       ActManagerConfigType_co: The configuration type.
+
+   :param env: The environment.
+   :type env: EnvBase
+   :param cfg: The configuration for the action manager.
+   :type cfg: ActionManagerCfg
+
+
+   .. py:property:: active_terms
+      :type: List[str]
+
+
+      Returns the active terms.
+
+
+   .. py:method:: reset(env_ids: Sequence[int] | None = None) -> None
+
+      Resets the manager.
+
+      :param env_ids: The environment ids. Defaults to None, in which case
+                      all environments are considered.
+
+
+
+   .. py:property:: action
+      :type: Dict[str, torch.Tensor]
+
+
+      Returns the actions.
+
+
+   .. py:property:: prev_action
+      :type: Dict[str, torch.Tensor]
+
+
+      Returns the previous actions.
+
+
+   .. py:property:: action_space
+      :type: gymnasium.spaces.Dict
+
+
+      Returns the action space of the action manager.
+
+      The action space is a dictionary where the keys are the term names
+      and the values are the action spaces of the terms.
+
+      :returns: The action space of the action manager.
+      :rtype: gym.spaces.Dict
+
+
+   .. py:method:: process(actions: Dict[str, torch.Tensor]) -> None
+
+      Processes the actions.
+
+      Actions are (str, torch.Tensor) pairs where the key is the term
+      name and the value is the action tensor for that term.
+
+      This function will update the action cache for each term.
+
+      :param actions: The actions to process.
+      :type actions: Dict[str, torch.Tensor]
+
+
+
+   .. py:method:: apply() -> None
+
+      Applies the action terms to the environment.
+
+
+
+.. py:class:: ActionManagerCfg
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.manager_base.ManagerBaseCfg`\ [\ :py:obj:`ActionManager`\ ], :py:obj:`Generic`\ [\ :py:obj:`ActionTermCfgType_co`\ ]
+
+
+   The configuration for the action manager.
+
+   Template Args:
+       ActionTermCfgType_co: The configuration type for the action terms.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType_co[ActionManager]
+
+
+   .. py:attribute:: terms
+      :type:  Mapping[str, ActionTermCfgType_co]
+
+      The configuration for the action terms.
+
+
+   .. py:method:: create_terms(env: Any) -> Dict[str, robo_orchard_core.envs.managers.actions.action_term.ActionTermBase]
+
+      Creates the action terms.
+
+      :param env: The environment.
+      :type env: EnvType
+
+      :returns: The action terms.
+      :rtype: Dict[str, ActionTermBase]
+
+
+

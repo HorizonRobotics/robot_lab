@@ -1,0 +1,28 @@
+.. include:: readme.md
+   :parser: myst_parser.sphinx_
+
+
+Contents
+-------------------
+
+
+
+.. toctree::
+    :maxdepth: 2
+    :includehidden:
+
+    build/gallery/get_started/installation/index
+
+
+.. toctree::
+    :maxdepth: 2
+    :includehidden:
+
+    build/gallery/tutorials/system_overview/index
+    build/gallery/tutorials/datatypes/index
+
+
+.. toctree::
+    :maxdepth: 3
+
+    autoapi/index

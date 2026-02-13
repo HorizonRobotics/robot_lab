@@ -300,9 +300,9 @@ Let's perform a "crop" of the top-left quadrant of the image.
      [  0.   0.   1.]]
 
     Updated Intrinsics after transform:
-    [[1.05e+03 0.00e+00 6.40e+02]
-     [0.00e+00 1.05e+03 4.80e+02]
-     [0.00e+00 0.00e+00 1.00e+00]]
+    [[525.   0. 320.]
+     [  0. 525. 240.]
+     [  0.   0.   1.]]
 
     Notice how the focal lengths (fx, fy) and principal point (cx, cy) were automatically updated!
 
@@ -317,7 +317,7 @@ In real-world applications (datasets, network streams), images are often
 compressed (e.g., JPEG, PNG). :py:class:`~robo_orchard_core.datatypes.camera_data.BatchCameraDataEncoded` is designed for this.
 It holds the metadata (:py:class:`~robo_orchard_core.datatypes.camera_data.BatchCameraInfo`) plus a list of raw bytes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 187-239
+.. GENERATED FROM PYTHON SOURCE LINES 187-229
 
 .. code-block:: Python
 
@@ -347,18 +347,8 @@ It holds the metadata (:py:class:`~robo_orchard_core.datatypes.camera_data.Batch
     )
 
 
-    # The most important method is `decode()`. It converts the compressed data back
-    # into a fully usable `BatchCameraData` object with a pixel tensor.
-    # We need to provide a decoder function that knows how to handle the bytes.
-    def simple_decoder(image_bytes: bytes, format: str) -> BatchImageData:
-        pil_img = Image.open(io.BytesIO(image_bytes))
-        # Convert to tensor and add batch dimension
-        img_tensor = torch.from_numpy(np.array(pil_img)).unsqueeze(0)
-        return BatchImageData(sensor_data=img_tensor, pix_fmt=ImageMode.RGB)
-
-
     # Perform the decoding
-    decoded_camera_data = encoded_camera_data.decode(decoder=simple_decoder)
+    decoded_camera_data = encoded_camera_data.decode()
 
     print("\n--- After Decoding ---")
     print(f"Decoded object is of type: {type(decoded_camera_data)}")
@@ -401,7 +391,7 @@ It holds the metadata (:py:class:`~robo_orchard_core.datatypes.camera_data.Batch
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.724 seconds)
+   **Total running time of the script:** (0 minutes 0.610 seconds)
 
 
 .. _sphx_glr_download_build_gallery_tutorials_datatypes_nonb-04_camera.py:

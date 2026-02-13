@@ -1,0 +1,35 @@
+network
+=======
+
+.. py:module:: robo_orchard_core.utils.network
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.network.find_free_port
+
+
+Module Contents
+---------------
+
+.. py:function:: find_free_port() -> int
+
+   Find an available free port on the local machine.
+
+   This function creates a temporary socket, binds it to port 0
+   (which lets the OS assign a free port), and then retrieves and
+   returns that port number. The socket is automatically
+   closed after use.
+
+   :returns: The free port number assigned by the operating system.
+   :rtype: int
+
+   .. rubric:: Examples
+
+   >>> port = find_free_port()
+   >>> print(port)  # Outputs a free port number, e.g., 49152
+
+

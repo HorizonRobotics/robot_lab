@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:01.372** total execution time for 4 files **from build/gallery/tutorials/datatypes**:
+**00:01.174** total execution time for 4 files **from build/gallery/tutorials/datatypes**:
 
 .. container::
 
@@ -33,14 +33,14 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_build_gallery_tutorials_datatypes_nonb-04_camera.py` (``nonb-04_camera.py``)
-     - 00:00.724
+     - 00:00.610
      - 0.0
    * - :ref:`sphx_glr_build_gallery_tutorials_datatypes_nonb-03_robot.py` (``nonb-03_robot.py``)
-     - 00:00.253
+     - 00:00.221
      - 0.0
    * - :ref:`sphx_glr_build_gallery_tutorials_datatypes_nonb-01_geometry.py` (``nonb-01_geometry.py``)
-     - 00:00.224
+     - 00:00.193
      - 0.0
    * - :ref:`sphx_glr_build_gallery_tutorials_datatypes_nonb-02_tf_graph.py` (``nonb-02_tf_graph.py``)
-     - 00:00.170
+     - 00:00.150
      - 0.0

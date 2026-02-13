@@ -1,0 +1,61 @@
+misc
+====
+
+.. py:module:: robo_orchard_core.utils.misc
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.misc.logger
+   robo_orchard_core.utils.misc.RETRY_ERROR_TYPES
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.misc.SingletonMixin
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.misc.auto_retry
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:data:: RETRY_ERROR_TYPES
+
+.. py:class:: SingletonMixin
+
+   A singleton mixin class.
+
+
+.. py:function:: auto_retry(error_type: RETRY_ERROR_TYPES = Exception, error_callback: Optional[Callable[[Exception], None]] = None, retry_times: int = 3, delay: float = 0.1, logger: logging.Logger = logger)
+
+   A decorator to auto retry a function.
+
+   :param error_type: The error
+                      type to catch. Default: Exception.
+   :type error_type: Type[Exception] | Tuple[Type[Exception], ...]
+   :param error_callback: The error
+                          callback function. Default: None.
+   :type error_callback: Optional[Callable[[Exception], None]]
+   :param retry_times: The retry times. Default: 3.
+   :type retry_times: int
+   :param delay: The delay time. Default: 0.1.
+   :type delay: float
+   :param logger: The logger. Default: logger.
+   :type logger: logging.Logger
+
+

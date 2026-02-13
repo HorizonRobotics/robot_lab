@@ -1,0 +1,57 @@
+dict
+====
+
+.. py:module:: robo_orchard_core.utils.dict
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.dict.flatten_dict
+
+
+Module Contents
+---------------
+
+.. py:function:: flatten_dict(d: dict | list | tuple, parent_key: str = '', sep: str = '/', keep_order: bool = False) -> dict[str, Any]
+
+   Flatten a nested dictionary or list into a flat dictionary.
+
+   For example, given the following dictionary:
+
+   .. code-block: text
+
+       {
+           "a": 1,
+           "b": {
+               "c": 2,
+               "d": [3, 4],
+           }
+       }
+
+   The flattened dictionary would be:
+
+   .. code-block: text
+
+       {
+           "a": 1,
+           "b/c": 2,
+           "b/d/index_0": 3,
+           "b/d/index_1": 4,
+       }
+
+   :param d: The dictionary or list to flatten.
+   :type d: dict|list|tuple
+   :param parent_key: The parent key of the dictionary.
+   :type parent_key: str
+   :param sep: The separator to use between keys.
+   :type sep: str
+   :param keep_order: Whether to keep the order of the items.
+   :type keep_order: bool
+
+   :returns: The flattened dictionary.
+   :rtype: dict
+
+

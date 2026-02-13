@@ -1,0 +1,205 @@
+remote
+======
+
+.. py:module:: robo_orchard_core.envs.remote
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.remote.RemoteEnv
+   robo_orchard_core.envs.remote.RemoteEnvCfg
+
+
+Module Contents
+---------------
+
+.. py:class:: RemoteEnv(cfg: RemoteEnvCfg)
+
+   Bases: :py:obj:`robo_orchard_core.utils.ray.RayRemoteInstance`\ [\ :py:obj:`robo_orchard_core.envs.env_base.EnvBase`\ ], :py:obj:`robo_orchard_core.envs.env_base.EnvBase`
+
+
+   The environment class which runs the env in ray remote actor.
+
+   This environment is useful for running multiple environments in parallel
+   in distributed setting.
+
+
+   :param cfg: The configuration for the Ray environment.
+   :type cfg: RemoteEnvCfg
+
+   :raises RayActorNotAliveError: If the Ray actor fails to be alive within the
+       specified timeout.
+
+
+   .. py:attribute:: cfg
+      :type:  RemoteEnvCfg
+
+
+   .. py:property:: unwrapped_env
+
+      For ray env, return the remote env instance.
+
+
+   .. py:method:: async_step(*args, **kwargs) -> concurrent.futures.Future[robo_orchard_core.envs.env_base.EnvStepReturn]
+
+      Asynchronously step the environment.
+
+
+
+   .. py:method:: step(*args, **kwargs) -> robo_orchard_core.envs.env_base.EnvStepReturn
+
+      Interface of takeing a step in the environment.
+
+      Usually, this function takes in an action and returns the
+      observations, rewards, and other information.
+
+      User should implement this function in the subclass.
+
+
+
+
+   .. py:method:: reset(*args, **kwargs) -> tuple[Any, dict]
+
+      Reset the environment.
+
+
+
+   .. py:method:: async_reset(*args, **kwargs) -> concurrent.futures.Future[tuple[Any, dict]]
+
+
+   .. py:method:: rollout(max_steps: int, init_obs: Any, policy: robo_orchard_core.policy.base.PolicyMixin | None = None, env_step_callback: Callable[[Any, Any], None] | None = None, terminal_condition: Callable[[Any], bool] | None = None, keep_last_results: int = -1) -> robo_orchard_core.envs.rollout.EnvRolloutReturn
+
+      Roll out the environment for a number of steps.
+
+      This function is used to run the environment for a number of steps
+      and return the results of each step.
+
+      :param max_steps: The maximum number of steps to roll out the
+                        environment.
+      :type max_steps: int
+      :param init_obs: The initial observations to start the rollout
+                       from.
+      :type init_obs: Any
+      :param policy: The policy to use for
+                     taking actions in the environment. If None, random actions
+                     will be taken. Defaults to None.
+      :type policy: PolicyMixin | None, optional
+      :param env_step_callback: A callback function that takes in the current action and the
+                                result of the step. This can be used to log information or
+                                perform other operations after each step. Defaults to None.
+      :type env_step_callback: Callable[[Any, Any], None] | None, optional
+      :param terminal_condition: A function that takes in the result of a step and returns
+                                 whether to terminate the rollout. If None, the rollout will
+                                 continue until max_steps is reached. Defaults to None.
+      :type terminal_condition: Callable[[Any], bool] | None, optional
+      :param keep_last_results: If > 0, only keep the last
+                                `keep_last_results` results. This is useful for long rollouts
+                                where only the last few results are needed. Defaults to -1,
+      :type keep_last_results: int, optional
+
+      :returns:
+
+                An instance of `EnvRolloutReturn` containing
+                    the actions taken and the results from each step of the
+                    environment.
+      :rtype: EnvRolloutReturn
+
+
+
+   .. py:method:: async_rollout(max_steps: int, init_obs: Any, policy: robo_orchard_core.policy.base.PolicyMixin | None = None, env_step_callback: Callable[[Any, Any], None] | None = None, terminal_condition: Callable[[Any], bool] | None = None, keep_last_results: int = -1) -> concurrent.futures.Future[robo_orchard_core.envs.rollout.EnvRolloutReturn]
+
+      Asynchronous version of `rollout`.
+
+
+
+   .. py:method:: close()
+
+      Close the environment.
+
+
+
+   .. py:property:: num_envs
+      :type: int
+
+
+      The number of instances of the environment that are running.
+
+      For example, if the environment is a single instance, then this
+      should return 1. This is the case for most classical environments.
+
+      In the case of reforcement learning, usually a vectorized environment
+      is used to run multiple instances of the environment in parallel to
+      speed up the training process. In this case, this function should
+      return the number of instances of the environment that are running.
+
+      The number of instances of the environment is used in other parts of
+      the code to manage the environment.
+
+
+   .. py:property:: action_space
+      :type: Any
+
+
+      The action space of the environment.
+
+      This is used to determine the type of actions that can be taken in
+      the environment. The action space is usually defined in the
+      environment configuration.
+
+      :returns: The action space of the environment.
+      :rtype: gym.Space
+
+
+   .. py:property:: observation_space
+      :type: Any
+
+
+      The observation space of the environment.
+
+      This is used to determine the type of observations that can be
+      received from the environment. The observation space is usually
+      defined in the environment configuration.
+
+      :returns: The observation space of the environment.
+      :rtype: gym.Space
+
+
+.. py:class:: RemoteEnvCfg
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvBaseCfg`\ [\ :py:obj:`RemoteEnv`\ ], :py:obj:`robo_orchard_core.utils.ray.RayRemoteInstanceConfig`\ [\ :py:obj:`RemoteEnv`\ , :py:obj:`robo_orchard_core.envs.env_base.EnvBaseCfgType_co`\ ], :py:obj:`Generic`\ [\ :py:obj:`robo_orchard_core.envs.env_base.EnvBaseCfgType_co`\ ]
+
+
+   Abstract base class for generic types.
+
+   A generic type is typically declared by inheriting from
+   this class parameterized with one or more type variables.
+   For example, a generic mapping type might be defined as::
+
+     class Mapping(Generic[KT, VT]):
+         def __getitem__(self, key: KT) -> VT:
+             ...
+         # Etc.
+
+   This class can then be used as follows::
+
+     def lookup_name(mapping: Mapping[KT, VT], key: KT, default: VT) -> VT:
+         try:
+             return mapping[key]
+         except KeyError:
+             return default
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType[RemoteEnv]
+
+
+   .. py:attribute:: instance_config
+      :type:  robo_orchard_core.utils.config.ConfigInstanceOf[robo_orchard_core.envs.env_base.EnvBaseCfgType_co]
+
+
+   .. py:method:: as_remote(remote_class_config: robo_orchard_core.utils.ray.RayRemoteClassConfig | None = None, ray_init_config: dict[str, Any] | None = None, check_init_timeout: int = 60) -> RemoteEnvCfg[robo_orchard_core.envs.env_base.EnvBaseCfgType_co]
+
+

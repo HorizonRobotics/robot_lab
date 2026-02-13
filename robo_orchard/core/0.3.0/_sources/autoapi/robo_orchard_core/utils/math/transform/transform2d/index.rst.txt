@@ -1,0 +1,280 @@
+transform2d
+===========
+
+.. py:module:: robo_orchard_core.utils.math.transform.transform2d
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.math.transform.transform2d.Transform2D_M
+   robo_orchard_core.utils.math.transform.transform2d.Translate2D
+   robo_orchard_core.utils.math.transform.transform2d.Scale2D
+   robo_orchard_core.utils.math.transform.transform2d.Rotate2D
+   robo_orchard_core.utils.math.transform.transform2d.Shear2D
+
+
+Module Contents
+---------------
+
+.. py:class:: Transform2D_M(dtype: torch.dtype = torch.float32, device: robo_orchard_core.utils.torch_utils.Device = 'cpu', matrix: torch.Tensor | None = None)
+
+   A class for 2D transformations, including rotation and translation.
+
+   This class assumes that transformations are applied on inputs which
+   are column vectors. The internal representation
+   of the Nx3x3 transformation matrix is of the form:
+
+   .. code-block:: python
+
+       M = [
+           [Rxx, Rxy, Tx],
+           [Ryx, Ryy, Ty],
+           [0, 0, 1],
+       ]
+
+   :param dtype: The data type of the transformation
+                 matrix. Defaults to torch.float32.
+   :type dtype: torch.dtype, optional
+   :param device: The device on which the transformation
+                  matrix is stored. Defaults to "cpu".
+   :type device: Device, optional
+   :param matrix: A 2D or 3D tensor representing the
+                  transformation matrix. If not provided, an identity matrix is used.
+                  The shape should be (3, 3) or (N, 3, 3) for a batch of N matrices.
+                  If not provided, an identity matrix of shape (1, 3, 3) is created.
+   :type matrix: torch.Tensor, optional
+
+
+   .. py:attribute:: device
+
+
+   .. py:attribute:: dtype
+      :value: Ellipsis
+
+
+
+   .. py:method:: get_matrix() -> torch.Tensor
+
+      Returns a 3x3 matrix corresponding to each transform in the batch.
+
+      If the transform was composed from others, the matrix for the composite
+      transform will be returned.
+      For example, if self.transforms contains transforms t1, t2, and t3, and
+      given a set of points x, the following should be true:
+
+      .. code-block:: python
+
+          y1 = t1.compose(t2, t3).transform(x)
+          y2 = t3.transform(t2.transform(t1.transform(x)))
+          y1.get_matrix() == y2.get_matrix()
+
+      Where necessary, those transforms are broadcast against each other.
+
+      :returns:
+
+                A (N, 3, 3) batch of transformation matrices representing
+                    the stored transforms. See the class documentation for the conventions.
+      :rtype: torch.Tensor
+
+
+
+   .. py:method:: compose(*others: Transform2D_M) -> Transform2D_M
+
+      Return a new Transform2D_M representing the composition of self with the given other transforms, which will be stored as an internal list.
+
+      :param \*others: Any number of Transform2D_M objects
+
+      :returns: A new Transform2D_M with the stored transforms
+      :rtype: Transform2D_M
+
+
+
+   .. py:method:: get_translation() -> torch.Tensor
+
+      Returns the translation component of the transformation.
+
+      :returns: A (N, 2) tensor representing the translation component
+                of the stored transforms.
+
+
+
+   .. py:method:: inverse(invert_composed: bool = False) -> Transform2D_M
+
+      Returns a new Transform2D_M object that represents an inverse of the current transformation.
+
+      :param invert_composed:
+                              - True: First compose the list of stored transformations
+                                and then apply inverse to the result. This is
+                                potentially slower for classes of transformations
+                                with inverses that can be computed efficiently
+                                (e.g. rotations and translations).
+                              - False: Invert the individual stored transformations
+                                independently without composing them.
+
+      :returns: A new Transform3D_M object containing the inverse of the original transformation.
+      :rtype: Transform3D_M
+
+
+
+   .. py:method:: stack(*others: Transform2D_M) -> Transform2D_M
+
+      Return a new batched Transform representing the batch elements from self and all the given other transforms all batched together.
+
+      :param \*others: Any number of Transform objects
+
+      :returns: A new Transform.
+      :rtype: Transform2D_M
+
+
+
+   .. py:method:: transform_points(points: torch.Tensor, eps: Optional[float] = None) -> torch.Tensor
+
+      Use this transform to transform a set of 2D points.
+
+      Assumes row major ordering of the input points.
+
+      :param points: Tensor of shape (P, 2) or (N, P, 2)
+      :param eps: If eps!=None, the argument is used to clamp the
+                  last coordinate before performing the final division.
+                  The clamping corresponds to:
+                  last_coord := (last_coord.sign() + (last_coord==0)) *
+                  torch.clamp(last_coord.abs(), eps),
+                  i.e. the last coordinates that are exactly 0 will
+                  be clamped to +eps.
+
+      :returns: points of shape (N, P, 2) or (P, 2) depending
+                on the dimensions of the transform
+      :rtype: points_out
+
+
+
+   .. py:method:: clone() -> Transform2D_M
+
+      Return a clone of the current Transform2D_M object.
+
+
+
+   .. py:method:: to(device: robo_orchard_core.utils.torch_utils.Device, copy: bool = False, dtype: Optional[torch.dtype] = None) -> Transform2D_M
+
+      Match functionality of torch.Tensor.to().
+
+      If copy = True or the self Tensor is on a different device, the
+      returned tensor is a copy of self with the desired torch.device.
+      If copy = False and the self Tensor already has the correct torch.device,
+      then self is returned.
+
+      :param device: Device (as str or torch.device) for the new tensor.
+      :param copy: Boolean indicator whether or not to clone self. Default False.
+      :param dtype: If not None, casts the internal tensor variables
+                    to a given torch.dtype.
+
+      :returns: New Transforms object move to device.
+      :rtype: Transform2D_M
+
+
+
+   .. py:method:: cpu() -> Transform2D_M
+
+
+   .. py:method:: cuda() -> Transform2D_M
+
+
+.. py:class:: Translate2D(trans: list | torch.Tensor | tuple, dtype: torch.dtype = torch.float32, device: Optional[robo_orchard_core.utils.torch_utils.Device] = None)
+
+   Bases: :py:obj:`Transform2D_M`
+
+
+   A class for 2D translation transformations.
+
+   This class represents a translation in 2D space, defined by a translation
+   vector (Tx, Ty). The transformation matrix is of the form:
+
+   .. code-block:: python
+
+       M = [
+           [1, 0, Tx],
+           [0, 1, Ty],
+           [0, 0, 1],
+       ]
+
+   :param trans: A list or tensor of shape (2,) or (N, 2) representing the
+                 translation vector.
+
+
+.. py:class:: Scale2D(scale: Sequence | torch.Tensor, dtype: torch.dtype = torch.float32, device: Optional[robo_orchard_core.utils.torch_utils.Device] = None)
+
+   Bases: :py:obj:`Transform2D_M`
+
+
+   A class for 2D scaling transformations.
+
+   This class represents a scaling transformation in 2D space, defined by a
+   scaling vector (Sx, Sy). The transformation matrix is of the form:
+
+   .. code-block:: python
+
+       M = [
+           [Sx, 0, 0],
+           [0, Sy, 0],
+           [0, 0, 1],
+       ]
+
+
+.. py:class:: Rotate2D(angle: float | Sequence[float] | torch.Tensor, axis: Literal['Z', '-Z'] = 'Z', dtype: torch.dtype = torch.float32, device: Optional[robo_orchard_core.utils.torch_utils.Device] = None)
+
+   Bases: :py:obj:`Transform2D_M`
+
+
+   A class for 2D rotation transformations.
+
+   This class represents a rotation transformation in 2D space, defined by an
+   angle in radians. The transformation matrix is of the form (when
+   axis is Z):
+
+   .. code-block:: python
+
+       M = [
+           [cos(angle), -sin(angle), 0],
+           [sin(angle), cos(angle), 0],
+           [0, 0, 1],
+       ]
+
+   :param angle: A float, list, or
+                 tensor of shape (N,) representing the rotation angle in radians.
+                 If a list or tensor is provided, it should be of shape (N,). The
+                 angle value should be in radians.
+   :type angle: float | Sequence[float] | torch.Tensor
+   :param axis: The axis of rotation. In opencv, the
+                rotation transformation describes the transform from the image
+                to new image, which is inverse of the rotation transformation
+                for coordinates. To match the behavior of opencv image rotation,
+                the axis should be `-Z` for counter-clockwise rotation of image.
+                Defaults to "Z".
+   :type axis: Literal["Z", "-Z"]
+
+
+.. py:class:: Shear2D(shear: Sequence | torch.Tensor, dtype: torch.dtype = torch.float32, device: Optional[robo_orchard_core.utils.torch_utils.Device] = None)
+
+   Bases: :py:obj:`Transform2D_M`
+
+
+   A class for 2D shear transformations.
+
+   This class represents a shear transformation in 2D space, defined by
+   shear factors (Sxy, Syx). The transformation matrix is of the form:
+
+   .. code-block:: python
+
+       M = [
+           [1, Sxy, 0],
+           [Syx, 1, 0],
+           [0, 0, 1],
+       ]
+
+   :param shear: A list or tensor of shape (2,) or (N, 2) representing the
+                 shear factors.
+
+

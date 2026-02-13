@@ -1,0 +1,55 @@
+cli
+===
+
+.. py:module:: robo_orchard_core.tools.cli
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.tools.cli.app
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.tools.cli.main_callback
+   robo_orchard_core.tools.cli.load_plugins
+   robo_orchard_core.tools.cli.file_server
+   robo_orchard_core.tools.cli.main
+
+
+Module Contents
+---------------
+
+.. py:data:: app
+
+.. py:function:: main_callback()
+
+   Robo Orchard Core CLI - A unified toolset for robotics development.
+
+   Use 'robo-orchard [COMMAND] --help' for more information.
+
+
+.. py:function:: load_plugins(cli_app: typer.Typer)
+
+   Dynamically loads external plugins registered via entry points.
+
+   This function scans for the group 'robo_orchard.plugins' and mounts
+   discovered Typer apps as sub-commands.
+
+   :param cli_app: The main CLI application instance.
+   :type cli_app: typer.Typer
+
+
+.. py:function:: file_server(port: int | None = typer.Option(None, '--port', help='Port to bind the server to.'), host: str = typer.Option('127.0.0.1', '--host', help='Host interface to bind to.'), directory: str = typer.Option('.', '--dir', help='Directory to serve.'))
+
+   Starts the simple HTTP file server.
+
+
+.. py:function:: main()
+

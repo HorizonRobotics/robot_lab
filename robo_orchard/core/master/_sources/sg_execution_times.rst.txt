@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:03.046** total execution time for 6 files **from all galleries**:
+**00:02.749** total execution time for 6 files **from all galleries**:
 
 .. container::
 
@@ -33,19 +33,19 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_build_gallery_tutorials_system_overview_nonb-01_config_design.py` (``gallery/tutorials/system_overview/nonb-01_config_design.py``)
-     - 00:01.674
+     - 00:01.575
      - 0.0
    * - :ref:`sphx_glr_build_gallery_tutorials_datatypes_nonb-04_camera.py` (``gallery/tutorials/datatypes/nonb-04_camera.py``)
-     - 00:00.724
+     - 00:00.610
      - 0.0
    * - :ref:`sphx_glr_build_gallery_tutorials_datatypes_nonb-03_robot.py` (``gallery/tutorials/datatypes/nonb-03_robot.py``)
-     - 00:00.253
+     - 00:00.221
      - 0.0
    * - :ref:`sphx_glr_build_gallery_tutorials_datatypes_nonb-01_geometry.py` (``gallery/tutorials/datatypes/nonb-01_geometry.py``)
-     - 00:00.224
+     - 00:00.193
      - 0.0
    * - :ref:`sphx_glr_build_gallery_tutorials_datatypes_nonb-02_tf_graph.py` (``gallery/tutorials/datatypes/nonb-02_tf_graph.py``)
-     - 00:00.170
+     - 00:00.150
      - 0.0
    * - :ref:`sphx_glr_build_gallery_tutorials_system_overview_nonb-02_env_and_managers.py` (``gallery/tutorials/system_overview/nonb-02_env_and_managers.py``)
      - 00:00.000
