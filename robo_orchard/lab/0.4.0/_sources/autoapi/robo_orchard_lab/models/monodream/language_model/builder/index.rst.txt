@@ -1,0 +1,28 @@
+builder
+=======
+
+.. py:module:: robo_orchard_lab.models.monodream.language_model.builder
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.language_model.builder.has_tokenizer
+   robo_orchard_lab.models.monodream.language_model.builder.context_length_extension
+   robo_orchard_lab.models.monodream.language_model.builder.build_llm_and_tokenizer
+   robo_orchard_lab.models.monodream.language_model.builder.init_tokenizer
+
+
+Module Contents
+---------------
+
+.. py:function:: has_tokenizer(repo_id_or_path: str) -> bool
+
+.. py:function:: context_length_extension(config)
+
+.. py:function:: build_llm_and_tokenizer(model_name_or_path: str, config: transformers.PretrainedConfig, attn_implementation=None, model_max_length=None) -> Tuple[transformers.PreTrainedModel, transformers.PreTrainedTokenizer]
+
+.. py:function:: init_tokenizer(llm_path, config, model_max_length=4096)
+

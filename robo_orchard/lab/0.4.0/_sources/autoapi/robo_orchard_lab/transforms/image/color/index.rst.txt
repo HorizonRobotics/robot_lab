@@ -1,0 +1,120 @@
+color
+=====
+
+.. py:module:: robo_orchard_lab.transforms.image.color
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.transforms.image.color.ColorJitter
+   robo_orchard_lab.transforms.image.color.ColorJitterConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: ColorJitter(cfg: ColorJitterConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransform`
+
+
+   A class that defines the interface for transforming a dict.
+
+   The dict is usually a row in a dataset, and the transform
+   will take the input columns, apply some transformation, and return
+   a new dict with the transformed values added to the original dict.
+
+   User should implement the `transform` method to define the specific
+   transformation logic.
+
+   If you use a dataclass or BaseModel as the return type of
+   the transform method, `output_columns` will be automatically
+   inferred from the fields of the dataclass or BaseModel. Otherwise,
+   you should implement the `output_columns` property to return the
+   expected output columns for the transform.
+
+
+   For Transform whose input and output columns are not known
+   at the time of configuration, the input and output columns
+   properties should not be used, and the `check_return_columns`
+   configuration should be set to False. This will prevent runtime
+   errors when the transform is called with a row dict.
+
+
+
+   .. py:attribute:: cfg
+      :type:  ColorJitterConfig
+
+
+   .. py:method:: transform(**kwargs: dict[str, BatchImageDataType]) -> dict[str, BatchImageDataType]
+
+      Apply color jitter to the input columns.
+
+
+
+.. py:class:: ColorJitterConfig
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransformConfig`\ [\ :py:obj:`ColorJitter`\ ]
+
+
+   Configuration class for ColorJitter transform.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.transforms.base.ClassType[ColorJitter]
+
+
+   .. py:attribute:: batching_all
+      :type:  bool
+      :value: False
+
+
+      Whether to apply color jitter to all images in the batch together.
+
+      If True, all images in the batch will be processed together.
+      If False, each image will be processed separately.
+
+
+   .. py:attribute:: brightness
+      :type:  float | tuple[float, float]
+      :value: 0
+
+
+      The brightness adjustment factor.
+
+      See `torchvision.transforms.ColorJitter` for details.
+
+
+   .. py:attribute:: contrast
+      :type:  float | tuple[float, float]
+      :value: 0
+
+
+      The contrast adjustment factor.
+
+      See `torchvision.transforms.ColorJitter` for details.
+
+
+   .. py:attribute:: saturation
+      :type:  float | tuple[float, float]
+      :value: 0
+
+
+      The saturation adjustment factor.
+
+      See `torchvision.transforms.ColorJitter` for details.
+
+
+   .. py:attribute:: hue
+      :type:  float | tuple[float, float]
+      :value: 0
+
+
+      The hue adjustment factor.
+
+      See `torchvision.transforms.ColorJitter` for details.
+
+

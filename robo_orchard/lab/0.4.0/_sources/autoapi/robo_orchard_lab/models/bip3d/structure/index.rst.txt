@@ -1,0 +1,203 @@
+structure
+=========
+
+.. py:module:: robo_orchard_lab.models.bip3d.structure
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.bip3d.structure.BIP3D
+   robo_orchard_lab.models.bip3d.structure.BIP3DConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: BIP3D(cfg: BIP3DConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.models.mixin.ModelMixin`
+
+
+   A mixin class for PyTorch `nn.Module` providing model saving and loading utilities.
+
+   This mixin standardizes how models are configured, saved, and loaded,
+   integrating with a configuration system and supporting `safetensors`
+   for model weights.
+
+
+   .. py:attribute:: cfg
+      :type:  BIP3DConfig
+
+
+   .. py:attribute:: backbone
+
+
+   .. py:attribute:: decoder
+
+
+   .. py:attribute:: neck
+
+
+   .. py:attribute:: text_encoder
+
+
+   .. py:attribute:: feature_enhancer
+
+
+   .. py:attribute:: spatial_enhancer
+
+
+   .. py:attribute:: data_preprocessor
+
+
+   .. py:attribute:: backbone_3d
+
+
+   .. py:attribute:: neck_3d
+
+
+   .. py:attribute:: input_2d
+
+
+   .. py:attribute:: input_3d
+
+
+   .. py:attribute:: embed_dims
+
+
+   .. py:attribute:: pre_spatial_enhancer
+
+
+   .. py:method:: save_model(directory: str, model_prefix: str = 'model', **kwargs)
+
+      Saves the model's config and weights to a directory.
+
+      This method saves the model's configuration to `{model_prefix}.config.json`
+      and its weights to `{model_prefix}.safetensors`.
+
+      If an `accelerator` instance is provided, it uses the accelerator's
+      `save_model` method to save the model, which is useful for distributed
+      training scenarios. In this case, `model_prefix` is ignored.
+
+      :param directory: The path to the directory for saving the model.
+      :param model_prefix: The file prefix for the config and weights files.
+                           If None and `accelerator` is not provided, defaults to "model".
+                           Ignored if `accelerator` is provided.
+      :param allow_shared_tensor: If True, enables the logic to handle
+                                  tied weights by saving a de-duplicated state dict and a
+                                  key-sharing map. This field is deprecated and will be
+                                  removed in future versions. The shared tensor handling
+                                  is always enabled.
+      :param required_empty: If True, raises an error if the target
+                             directory is not empty. Defaults to True.
+      :type required_empty: bool
+      :param accerator: An optional `Accelerator` instance from Hugging Face
+                        Accelerate. If provided, the model will be saved using the
+                        accelerator's `save_model` method.
+
+      :raises DirectoryNotEmptyError: If the target directory already exists and
+          is not empty.
+
+
+
+   .. py:method:: extract_feat(inputs)
+
+
+   .. py:method:: extract_text_feature(inputs)
+
+
+   .. py:method:: forward(inputs)
+
+
+   .. py:method:: loss(inputs)
+
+
+   .. py:method:: predict(inputs)
+
+
+.. py:class:: BIP3DConfig
+
+   Bases: :py:obj:`robo_orchard_lab.models.mixin.TorchModuleCfg`\ [\ :py:obj:`BIP3D`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.models.mixin.ClassType_co[BIP3D]
+
+
+   .. py:attribute:: backbone
+      :type:  MODULE_TPYE
+
+
+   .. py:attribute:: decoder
+      :type:  MODULE_TPYE
+
+
+   .. py:attribute:: neck
+      :type:  MODULE_TPYE | None
+      :value: None
+
+
+
+   .. py:attribute:: text_encoder
+      :type:  MODULE_TPYE | None
+      :value: None
+
+
+
+   .. py:attribute:: feature_enhancer
+      :type:  MODULE_TPYE | None
+      :value: None
+
+
+
+   .. py:attribute:: spatial_enhancer
+      :type:  MODULE_TPYE | None
+      :value: None
+
+
+
+   .. py:attribute:: data_preprocessor
+      :type:  MODULE_TPYE | None
+      :value: None
+
+
+
+   .. py:attribute:: backbone_3d
+      :type:  MODULE_TPYE | None
+      :value: None
+
+
+
+   .. py:attribute:: neck_3d
+      :type:  MODULE_TPYE | None
+      :value: None
+
+
+
+   .. py:attribute:: input_2d
+      :type:  str
+      :value: 'imgs'
+
+
+
+   .. py:attribute:: input_3d
+      :type:  str
+      :value: 'depths'
+
+
+
+   .. py:attribute:: embed_dims
+      :type:  int
+      :value: 256
+
+
+
+   .. py:attribute:: pre_spatial_enhancer
+      :type:  bool
+      :value: False
+
+
+

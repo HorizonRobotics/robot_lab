@@ -1,0 +1,133 @@
+transforms
+==========
+
+.. py:module:: robo_orchard_lab.dataset.embodiedscan.transforms
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.embodiedscan.transforms.LoadMultiViewImageDepthFromFile
+   robo_orchard_lab.dataset.embodiedscan.transforms.CategoryGroundingDataPrepare
+   robo_orchard_lab.dataset.embodiedscan.transforms.DepthProbLabelGenerator
+   robo_orchard_lab.dataset.embodiedscan.transforms.Format
+
+
+Module Contents
+---------------
+
+.. py:class:: LoadMultiViewImageDepthFromFile(num_views=50, max_num_views=None, sample_mode='fix', rotate_3rscan=False, load_img=True, load_depth=True, dst_intrinsic=None, dst_wh=None, random_crop_range=None)
+
+   .. py:attribute:: num_views
+      :value: 50
+
+
+
+   .. py:attribute:: max_num_views
+      :value: None
+
+
+
+   .. py:attribute:: sample_mode
+      :value: 'fix'
+
+
+
+   .. py:attribute:: rotate_3rscan
+      :value: False
+
+
+
+   .. py:attribute:: load_img
+      :value: True
+
+
+
+   .. py:attribute:: load_depth
+      :value: True
+
+
+
+   .. py:attribute:: random_crop_range
+      :value: None
+
+
+
+   .. py:attribute:: dst_wh
+      :value: None
+
+
+
+   .. py:method:: random_crop(img=None, depth=None, intrinsic=None)
+
+
+   .. py:method:: resize(img=None, depth=None, intrinsic=None)
+
+
+.. py:class:: CategoryGroundingDataPrepare(training, classes=None, max_class=None, sep_token='[SEP]', filter_others=True, z_range=None, filter_invisible=True, instance_mask_key='visible_instance_masks')
+
+   .. py:attribute:: classes
+
+
+   .. py:attribute:: training
+
+
+   .. py:attribute:: max_class
+      :value: None
+
+
+
+   .. py:attribute:: sep_token
+      :value: '[SEP]'
+
+
+
+   .. py:attribute:: filter_others
+      :value: True
+
+
+
+   .. py:attribute:: z_range
+      :value: None
+
+
+
+   .. py:attribute:: filter_invisible
+      :value: True
+
+
+
+   .. py:attribute:: instance_mask_key
+      :value: 'visible_instance_masks'
+
+
+
+.. py:class:: DepthProbLabelGenerator(max_depth=10, min_depth=0.25, num_depth=64, stride=(8, 16, 32, 64), origin_stride=1)
+
+   .. py:attribute:: max_depth
+      :value: 10
+
+
+
+   .. py:attribute:: min_depth
+      :value: 0.25
+
+
+
+   .. py:attribute:: num_depth
+      :value: 64
+
+
+
+   .. py:attribute:: stride
+
+
+   .. py:attribute:: origin_stride
+      :value: 1
+
+
+
+.. py:class:: Format
+

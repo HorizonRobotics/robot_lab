@@ -1,0 +1,142 @@
+utils
+=====
+
+.. py:module:: robo_orchard_lab.models.holobrain.utils
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.holobrain.utils.apply_scale_shift
+   robo_orchard_lab.models.holobrain.utils.forward_kinematics
+   robo_orchard_lab.models.holobrain.utils.recompute
+   robo_orchard_lab.models.holobrain.utils.apply_joint_mask
+
+
+Module Contents
+---------------
+
+.. py:function:: apply_scale_shift(robot_state: torch.Tensor, joint_scale_shift: torch.Tensor | None = None, inverse: bool = False, scale_only: bool = False)
+
+   Applies scale and shift normalization to joint angles in robot state.
+
+   This function normalizes or denormalizes joint angles in the robot state
+   using provided scale and shift. The normalization is applied only
+   to the first channel (joint angle dimension) of the state tensor.
+   The robot state tensor has shape [bs, num_step, num_joint, c], where
+   c >= 1 and the first channel contains joint angle values.
+
+   :param robot_state: Robot state tensor with shape
+                       [batch_size, num_steps, num_joints, channels]. The joint angles are
+                       assumed to be in the first channel (index 0) of the last dimension.
+   :type robot_state: torch.Tensor
+   :param joint_scale_shift: Scale and shift parameters
+                             tensor with shape [batch_size, num_joints, 2]. The last dimension
+                             contains [scale, shift] pairs for each joint. If None,
+                             no scaling/shifting is applied (identity operation).
+   :type joint_scale_shift: torch.Tensor, optional
+   :param inverse: If False, apply forward normalization: normalized =
+                   (original - shift) / scale. If True, apply inverse transformation
+                   (denormalization): original = normalized * scale + shift.
+   :type inverse: bool
+   :param scale_only: If True, the shift will be set as 0.
+   :type scale_only: bool
+
+   :returns:
+
+             Normalized/denormalized robot state tensor with the same
+                 shape as input: [batch_size, num_steps, num_joints, c]. Only the
+                 first channel is modified; other channels remain unchanged.
+   :rtype: torch.Tensor
+
+
+.. py:function:: forward_kinematics(joint_state: torch.Tensor, inputs: dict)
+
+   Computes robot state from joint positions using forward kinematics.
+
+   This function computes the robot state by applying forward kinematics to
+   joint  positions. It transforms joint positions into joint poses using the
+   provided kinematics and embodiedment_mat from the inputs.
+
+   .. note::
+
+      The joint_state tensor can have shape [bs, num_steps, num_joints]
+      or [bs, num_steps, num_joints, 1]. The output robot state has
+      shape [batch_size, num_steps, num_joints, c], where the first channel
+      contains joint positions and remaining channels contain joint 6D poses.
+
+   :param joint_state: Joint position tensor with shape
+                       [batch_size, num_steps, num_joints] or [batch_size, num_steps,
+                       num_joints, 1].
+   :type joint_state: torch.Tensor
+   :param inputs: Dictionary containing required keys:
+                  - kinematics: Object with joint_state_to_robot_state function
+                  - embodiedment_mat(optional): Embodiment transformation matrix,
+                  from base coordinate to ego coordinate
+   :type inputs: dict
+
+   :returns:
+
+             Robot state tensor with shape [batch_size, num_steps,
+                 num_joints, c]. Channel 0 contains joint positions, remaining
+                 channels contain joint 6D poses.
+   :rtype: torch.Tensor
+
+
+.. py:function:: recompute(robot_state: torch.Tensor, inputs: dict)
+
+   Recomputes robot state from normalized joint positions.
+
+   This function recomputes the robot state by first denormalizing joint
+   positions and then applying forward kinematics to compute joint poses
+   from joint positions.
+
+   :param robot_state: Robot state tensor with shape
+                       [batch_size, num_steps, num_joints, c]. The first channel contains
+                       normalized joint positions.
+   :type robot_state: torch.Tensor
+   :param inputs: Dictionary containing required keys:
+                  - joint_scale_shift: Scale and shift parameters for denormalization
+                  - kinematics: Object with joint_state_to_robot_state function
+                  - embodiedment_mat (optional): Embodiment transformation matrix,
+                  from base coordinate to ego coordinate
+   :type inputs: dict
+
+   :returns:
+
+             Recomputed robot state tensor with shape [batch_size,
+                 num_steps, num_joints, c]. First channel contains joint positions,
+                 remaining channels contain joint 6D poses.
+   :rtype: torch.Tensor
+
+
+.. py:function:: apply_joint_mask(robot_state, joint_mask, constant_value=-1)
+
+   Applies a joint mask to set joint positions to a constant value.
+
+   This function masks joint positions in the robot state by setting values
+   at positions indicated by the joint mask to a constant. Only joints where
+   joint_mask is True are modified.
+
+   :param robot_state: Robot state tensor with shape
+                       [batch_size, num_joint, num_steps, c]. Contains joint states across
+                       batches, joints, time steps, and channels. The first channel is
+                       normalized joint positions.
+   :type robot_state: torch.Tensor
+   :param joint_mask: Boolean mask tensor wiht shape
+                      [batch_size, num_joint].
+   :type joint_mask: torch.Tensor
+   :param constant_value: Value to masked joint positions.
+                          Default is -1.
+   :type constant_value: int | float
+
+   :returns:
+
+             Modified robot state with the same shape as input
+                 [batch_size, num_joint, num_steps, c]. Masked joints have positions
+                 set to constant_value.
+   :rtype: torch.Tensor
+
+

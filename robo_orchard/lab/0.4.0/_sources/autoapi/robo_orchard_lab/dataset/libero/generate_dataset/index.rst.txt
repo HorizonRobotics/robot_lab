@@ -1,0 +1,139 @@
+generate_dataset
+================
+
+.. py:module:: robo_orchard_lab.dataset.libero.generate_dataset
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.libero.generate_dataset.logger
+   robo_orchard_lab.dataset.libero.generate_dataset.LiberoDatasetFeatures
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.libero.generate_dataset.LiberoEpisodeCache
+   robo_orchard_lab.dataset.libero.generate_dataset.LiberoSuiteStatistics
+   robo_orchard_lab.dataset.libero.generate_dataset.LiberoEpisodePacking
+   robo_orchard_lab.dataset.libero.generate_dataset.LiberoEpisodePackingGenerator
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.libero.generate_dataset.get_libero_suite_statistics
+   robo_orchard_lab.dataset.libero.generate_dataset.make_libero_dataset
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: LiberoEpisodeCache
+
+   .. py:attribute:: success
+      :type:  bool
+
+
+   .. py:attribute:: cached_frames
+      :type:  list[dict]
+
+
+   .. py:attribute:: episode_meta
+      :type:  robo_orchard_lab.dataset.robot.packaging.EpisodeMeta | None
+      :value: None
+
+
+
+   .. py:attribute:: task_info
+      :type:  robo_orchard_core.envs.task.TaskInfo | None
+      :value: None
+
+
+
+.. py:class:: LiberoSuiteStatistics
+
+   .. py:attribute:: suite_name
+      :type:  robo_orchard_lab.envs.libero.env.LiberoSuiteName
+
+
+   .. py:attribute:: num_tasks
+      :type:  int
+
+
+   .. py:attribute:: num_episodes_per_task
+      :type:  list[int]
+
+
+.. py:function:: get_libero_suite_statistics() -> list[LiberoSuiteStatistics]
+
+   Get statistics about Libero suites.
+
+   :returns: The statistics of the suite.
+   :rtype: list[LiberoSuiteStatistics]
+
+
+.. py:data:: LiberoDatasetFeatures
+
+.. py:class:: LiberoEpisodePacking(suite_name: robo_orchard_lab.envs.libero.env.LiberoSuiteName, task_id: int, episode_idx: int)
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.robot.packaging.EpisodePackaging`
+
+
+   A class to package a Libero episode into dataset frames.
+
+
+   .. py:property:: episode_cache
+      :type: LiberoEpisodeCache
+
+
+
+   .. py:method:: generate_episode_meta() -> robo_orchard_lab.dataset.robot.packaging.EpisodeMeta | None
+
+      Generate episode meta information.
+
+      For failed episodes, this method still generates the episode meta
+      information.
+
+
+
+   .. py:method:: generate_frames() -> Generator[robo_orchard_lab.dataset.robot.packaging.DataFrame, None, None]
+
+      Generate frame data for the episode.
+
+
+
+.. py:class:: LiberoEpisodePackingGenerator(max_episode: int = -1)
+
+.. py:function:: make_libero_dataset(dataset_path: str, max_shard_size: str | int = '8GB', split: datasets.Split | None = None, force_overwrite: bool = False, max_episode=-1, writer_batch_size=4096) -> None
+
+   Generate a Libero dataset at the specified path.
+
+   :param dataset_path: The path to save the dataset.
+   :type dataset_path: str
+   :param max_shard_size: The maximum shard size.
+                          Defaults to "8GB".
+   :type max_shard_size: str | int, optional
+   :param split: The dataset split to use.
+                 If None, uses the default split. Defaults to None.
+   :type split: hg_datasets.Split | None, optional
+   :param force_overwrite: Whether to overwrite existing
+                           dataset. Defaults to False.
+   :type force_overwrite: bool, optional
+   :param max_episode: The maximum number of episodes to include.
+                       Defaults to -1 (all episodes).
+   :type max_episode: int, optional
+   :param writer_batch_size: The batch size for the writer.
+                             Defaults to 4096.
+   :type writer_batch_size: int, optional
+
+

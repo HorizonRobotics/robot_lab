@@ -1,0 +1,68 @@
+obs
+===
+
+.. py:module:: robo_orchard_lab.envs.libero.obs
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.envs.libero.obs.get_joints
+   robo_orchard_lab.envs.libero.obs.get_camera_data
+   robo_orchard_lab.envs.libero.obs.get_robot_tf
+
+
+Module Contents
+---------------
+
+.. py:function:: get_joints(libero_env: libero.libero.envs.OffScreenRenderEnv) -> robo_orchard_core.datatypes.BatchJointsState
+
+   Get the joints state of the robot in the Libero environment.
+
+   .. note::
+
+      This method get the joint data from simulator directly instead of
+      from the observation dict. This may be didfferent from the observation
+      if there is action delay or noise.
+
+
+.. py:function:: get_camera_data(libero_obs: dict, libero_env: libero.libero.envs.OffScreenRenderEnv) -> dict[str, robo_orchard_core.datatypes.BatchCameraData]
+
+   Convert camera data from observation dict to BatchCameraData.
+
+   This function assumes the input observation dict has the
+   following structure (RoboTwin):
+
+   .. code-block:: text
+
+       {
+           "agentview_image": (H, W, 3) np.ndarray,
+           "agentview_depth": (H, W, 1) np.ndarray,
+       }
+
+
+
+.. py:function:: get_robot_tf(robot_kin_chain: robo_orchard_core.kinematics.chain.KinematicChain, libero_env: libero.libero.envs.OffScreenRenderEnv) -> dict[str, robo_orchard_core.datatypes.BatchFrameTransform]
+
+   Get the robot frame transforms for the given robot kinematic chain.
+
+   .. note::
+
+      This method get poses from simulator directly instead of
+      from the observation dict. This may be didfferent from the observation
+      if there is action delay or noise.
+
+   :param robot_kin_chain: The robot kinematic chain.
+   :type robot_kin_chain: KinematicChain
+   :param libero_env: The Libero environment.
+   :type libero_env: OffScreenRenderEnv
+
+   :returns:
+
+             The frame transforms for the given robot kinematic chain
+                 in the environment.
+   :rtype: list[str]
+
+

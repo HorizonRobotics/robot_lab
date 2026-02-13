@@ -1,0 +1,96 @@
+dataset_db_engine
+=================
+
+.. py:module:: robo_orchard_lab.dataset.robot.dataset_db_engine
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.dataset_db_engine.get_ro_dataset_home
+   robo_orchard_lab.dataset.robot.dataset_db_engine.create_engine
+   robo_orchard_lab.dataset.robot.dataset_db_engine.try_upgrade_database
+   robo_orchard_lab.dataset.robot.dataset_db_engine.create_tables
+   robo_orchard_lab.dataset.robot.dataset_db_engine.get_local_db_url
+   robo_orchard_lab.dataset.robot.dataset_db_engine.need_upgrade
+
+
+Module Contents
+---------------
+
+.. py:function:: get_ro_dataset_home() -> str
+
+   Get the RoboOrchard dataset home directory.
+
+   :returns: The RoboOrchard dataset home directory.
+   :rtype: str
+
+
+.. py:function:: create_engine(url: sqlalchemy.URL, readonly: bool = False, json_serializer: Callable[[Any], str] = lambda obj: json.dumps(obj, sort_keys=True, ensure_ascii=True), auto_upgrade: bool = True, **kwargs)
+
+   Create a database engine.
+
+   This method is a wrapper of :py:func:`sqlalchemy.create_engine` with
+   additional support for readonly mode, and default JSON serializer.
+
+   See :py:func:`sqlalchemy.create_engine` for more details.
+
+   :param url: The database URL.
+   :type url: URL
+   :param readonly: Whether to create a readonly engine.
+                    Defaults to False.
+   :type readonly: bool, optional
+   :param json_serializer: The JSON serializer
+                           for the engine. Defaults to
+                           `lambda obj: json.dumps(obj, sort_keys=True, ensure_ascii=True).`
+   :type json_serializer: Callable[[Any], str], optional
+   :param auto_upgrade: Whether to automatically upgrade the
+                        database to the latest version when reading.
+                        Defaults to True.
+   :type auto_upgrade: bool, optional
+   :param \*\*kwargs: Additional keyword arguments for
+                      :py:func:`sqlalchemy.create_engine`.
+
+   :returns: The database engine.
+   :rtype: Engine
+
+
+.. py:function:: try_upgrade_database(url: sqlalchemy.URL) -> sqlalchemy.URL
+
+   Try to upgrade the database to the latest version.
+
+   :param url: The database URL.
+   :type url: URL
+
+   :returns: The upgraded database URL.
+   :rtype: URL
+
+
+.. py:function:: create_tables(engine: sqlalchemy.engine.Engine, checkfirst: bool = True)
+
+   Create all tables in the database and add table info.
+
+   :param engine: The database engine.
+   :type engine: Engine
+   :param checkfirst: Whether to check first. Defaults to True.
+   :type checkfirst: bool, optional
+
+
+.. py:function:: get_local_db_url(db_path: str, drivername: str) -> sqlalchemy.URL
+
+   Get the local database URL.
+
+
+.. py:function:: need_upgrade(url_or_engine: sqlalchemy.URL | sqlalchemy.engine.Engine) -> bool
+
+   Check whether the database needs to be upgraded.
+
+   :param url_or_engine: The database URL or engine.
+   :type url_or_engine: URL | Engine
+
+   :returns: Whether the database needs to be upgraded.
+   :rtype: bool
+
+

@@ -1,0 +1,34 @@
+close_loop_eval
+===============
+
+.. py:module:: robo_orchard_lab.dataset.robotwin.close_loop_eval
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robotwin.close_loop_eval.get_embodiment_config
+   robo_orchard_lab.dataset.robotwin.close_loop_eval.class_decorator
+   robo_orchard_lab.dataset.robotwin.close_loop_eval.deploy_data_process
+   robo_orchard_lab.dataset.robotwin.close_loop_eval.update_task_config
+   robo_orchard_lab.dataset.robotwin.close_loop_eval.visualize
+   robo_orchard_lab.dataset.robotwin.close_loop_eval.evaluation
+
+
+Module Contents
+---------------
+
+.. py:function:: get_embodiment_config(robot_file)
+
+.. py:function:: class_decorator(task_name)
+
+.. py:function:: deploy_data_process(dataset, obs, task_name, joint_state=None)
+
+.. py:function:: update_task_config(task_args, CONFIGS_PATH)
+
+.. py:function:: visualize(data, video_writer, task_env, save_path)
+
+.. py:function:: evaluation(task_env, model, dataset, save_path)
+

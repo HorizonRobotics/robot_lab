@@ -1,0 +1,160 @@
+bert
+====
+
+.. py:module:: robo_orchard_lab.models.bip3d.bert
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.bip3d.bert.BertModel
+   robo_orchard_lab.models.bip3d.bert.BertEncoder
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.bip3d.bert.generate_masks_with_special_tokens_and_transfer_map
+
+
+Module Contents
+---------------
+
+.. py:function:: generate_masks_with_special_tokens_and_transfer_map(tokenized, special_tokens_list)
+
+   Generate attention mask between each pair of special tokens.
+
+   Only token pairs in between two special tokens are attended to
+   and thus the attention mask for these pairs is positive.
+
+   :param input_ids: input ids. Shape: [bs, num_token]
+   :type input_ids: torch.Tensor
+   :param special_tokens_mask: special tokens mask.
+   :type special_tokens_mask: list
+
+   :returns:
+
+             - attention_mask is the attention mask between each tokens.
+               Only token pairs in between two special tokens are positive.
+               Shape: [bs, num_token, num_token].
+             - position_ids is the position id of tokens within each valid sentence.
+               The id starts from 0 whenenver a special token is encountered.
+               Shape: [bs, num_token]
+   :rtype: Tuple(Tensor, Tensor)
+
+
+.. py:class:: BertModel(name: str = 'bert-base-uncased', max_tokens: int = 256, pad_to_max: bool = True, use_sub_sentence_represent: bool = False, special_tokens_list: list = None, add_pooling_layer: bool = False, num_layers_of_embedded: int = 1, use_checkpoint: bool = False, return_tokenized: bool = False, **kwargs)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   BERT model for language embedding only encoder.
+
+   :param name: name of the pretrained BERT model from
+                HuggingFace. Defaults to bert-base-uncased.
+   :type name: str, optional
+   :param max_tokens: maximum number of tokens to be
+                      used for BERT. Defaults to 256.
+   :type max_tokens: int, optional
+   :param pad_to_max: whether to pad the tokens to max_tokens.
+                      Defaults to True.
+   :type pad_to_max: bool, optional
+   :param use_sub_sentence_represent: whether to use sub
+                                      sentence represent introduced in `Grounding DINO
+                                      <https://arxiv.org/abs/2303.05499>`. Defaults to False.
+   :type use_sub_sentence_represent: bool, optional
+   :param special_tokens_list: special tokens used to split
+                               subsentence. It cannot be None when `use_sub_sentence_represent`
+                               is True. Defaults to None.
+   :type special_tokens_list: list, optional
+   :param add_pooling_layer: whether to adding pooling
+                             layer in bert encoder. Defaults to False.
+   :type add_pooling_layer: bool, optional
+   :param num_layers_of_embedded: number of layers of
+                                  the embedded model. Defaults to 1.
+   :type num_layers_of_embedded: int, optional
+   :param use_checkpoint: whether to use gradient checkpointing.
+                          Defaults to False.
+   :type use_checkpoint: bool, optional
+
+
+   .. py:attribute:: name
+      :value: 'bert-base-uncased'
+
+
+
+   .. py:attribute:: max_tokens
+      :value: 256
+
+
+
+   .. py:attribute:: pad_to_max
+      :value: True
+
+
+
+   .. py:attribute:: return_tokenized
+      :value: False
+
+
+
+   .. py:attribute:: tokenizer
+
+
+   .. py:attribute:: language_backbone
+
+
+   .. py:attribute:: use_sub_sentence_represent
+      :value: False
+
+
+
+   .. py:method:: save_metadata(directory, *args, **kwargs)
+
+
+   .. py:method:: forward(captions: Sequence[str], **kwargs) -> dict
+
+      Forward function.
+
+
+
+.. py:class:: BertEncoder(name: str, add_pooling_layer: bool = False, num_layers_of_embedded: int = 1, use_checkpoint: bool = False)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   BERT encoder for language embedding.
+
+   :param name: name of the pretrained BERT model from HuggingFace.
+                Defaults to bert-base-uncased.
+   :type name: str
+   :param add_pooling_layer: whether to add a pooling layer.
+   :type add_pooling_layer: bool
+   :param num_layers_of_embedded: number of layers of the embedded model.
+                                  Defaults to 1.
+   :type num_layers_of_embedded: int
+   :param use_checkpoint: whether to use gradient checkpointing.
+                          Defaults to False.
+   :type use_checkpoint: bool
+
+
+   .. py:attribute:: model
+
+
+   .. py:attribute:: language_dim
+      :value: 768
+
+
+
+   .. py:attribute:: num_layers_of_embedded
+      :value: 1
+
+
+
+   .. py:method:: forward(x) -> dict
+
+

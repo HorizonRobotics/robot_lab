@@ -1,0 +1,114 @@
+loss_tracker
+============
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.loss_tracker
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.loss_tracker.LossTracker
+   robo_orchard_lab.pipeline.hooks.loss_tracker.LossTrackerConfig
+   robo_orchard_lab.pipeline.hooks.loss_tracker.LossMovingAverageTrackerConfig
+   robo_orchard_lab.pipeline.hooks.loss_tracker.LossMovingAverageTracker
+
+
+Module Contents
+---------------
+
+.. py:class:: LossTracker(cfg: LossTrackerConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   A class to manage pipeline hooks for training processes.
+
+   This class only accept config class as input for the constructor.
+
+
+
+   .. py:attribute:: cfg
+      :type:  LossTrackerConfig
+
+
+   .. py:method:: reset_cached_loss()
+
+
+   .. py:method:: update(accelerator: accelerate.Accelerator, model_outputs: robo_orchard_lab.pipeline.hooks.mixin.ModelOutput)
+
+      Track and update the loss values.
+
+      This method only runs on the main process, and all loss values are
+      reduced (averaged) across all processes.
+
+
+
+.. py:class:: LossTrackerConfig
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooksConfig`\ [\ :py:obj:`LossTracker`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.pipeline.hooks.mixin.ClassType[LossTracker]
+
+
+   .. py:attribute:: step_log_freq
+      :type:  int
+      :value: None
+
+
+      The frequency (in steps) to log the loss.
+
+
+   .. py:attribute:: log_total_loss
+      :type:  bool
+      :value: False
+
+
+      If True, log the total loss as well.
+
+
+   .. py:attribute:: moving_average
+      :type:  bool
+      :value: True
+
+
+      If True, compute moving average of the loss.
+
+      The moving average window size is the same as `step_log_freq`.
+
+
+.. py:class:: LossMovingAverageTrackerConfig
+
+   Bases: :py:obj:`LossTrackerConfig`
+
+
+   .. py:attribute:: step_log_freq
+      :type:  int
+      :value: 25
+
+
+      The frequency (in steps) to log the loss.
+
+
+   .. py:attribute:: log_total_loss
+      :type:  bool
+      :value: True
+
+
+      If True, log the total loss as well.
+
+
+.. py:class:: LossMovingAverageTracker(cfg: LossMovingAverageTrackerConfig)
+
+   Bases: :py:obj:`LossTracker`
+
+
+   A class to manage pipeline hooks for training processes.
+
+   This class only accept config class as input for the constructor.
+
+
+

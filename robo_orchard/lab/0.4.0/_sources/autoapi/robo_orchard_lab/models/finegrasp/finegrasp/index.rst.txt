@@ -1,0 +1,232 @@
+finegrasp
+=========
+
+.. py:module:: robo_orchard_lab.models.finegrasp.finegrasp
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.finegrasp.finegrasp.MODULE_TPYE
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.finegrasp.finegrasp.GroupTransformerFusion
+   robo_orchard_lab.models.finegrasp.finegrasp.FineGrasp
+   robo_orchard_lab.models.finegrasp.finegrasp.FineGraspConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: GroupTransformerFusion(feature_dim, num_groups)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: transformer
+
+
+   .. py:attribute:: attn
+
+
+   .. py:method:: forward(x)
+
+
+.. py:class:: FineGrasp(cfg: FineGraspConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.models.mixin.ModelMixin`
+
+
+   A mixin class for PyTorch `nn.Module` providing model saving and loading utilities.
+
+   This mixin standardizes how models are configured, saved, and loaded,
+   integrating with a configuration system and supporting `safetensors`
+   for model weights.
+
+
+   .. py:attribute:: cfg
+      :type:  FineGraspConfig
+
+
+   .. py:attribute:: seed_feature_dim
+
+
+   .. py:attribute:: num_depth
+
+
+   .. py:attribute:: num_angle
+
+
+   .. py:attribute:: num_seed_points
+
+
+   .. py:attribute:: num_view
+
+
+   .. py:attribute:: voxel_size
+
+
+   .. py:attribute:: cylinder_radius
+
+
+   .. py:attribute:: cylinder_groups
+
+
+   .. py:attribute:: use_normal
+
+
+   .. py:attribute:: loss
+
+
+   .. py:attribute:: backbone
+
+
+   .. py:attribute:: graspable
+
+
+   .. py:attribute:: view
+
+
+   .. py:attribute:: cy_groups
+
+
+   .. py:attribute:: fuse_multi_scale
+
+
+   .. py:attribute:: grasp_head
+
+
+   .. py:attribute:: graspness_threshold
+
+
+   .. py:method:: forward(end_points)
+
+
+.. py:data:: MODULE_TPYE
+
+.. py:class:: FineGraspConfig
+
+   Bases: :py:obj:`robo_orchard_lab.models.mixin.TorchModuleCfg`\ [\ :py:obj:`FineGrasp`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.models.mixin.ClassType_co[FineGrasp]
+
+
+   .. py:attribute:: model_name
+      :type:  str
+      :value: 'FineGrasp'
+
+
+
+   .. py:attribute:: seed_feat_dim
+      :type:  int
+      :value: 512
+
+
+
+   .. py:attribute:: graspness_threshold
+      :type:  float
+      :value: 0.1
+
+
+
+   .. py:attribute:: grasp_max_width
+      :type:  float
+      :value: 0.1
+
+
+
+   .. py:attribute:: num_depth
+      :type:  int
+      :value: 4
+
+
+
+   .. py:attribute:: num_view
+      :type:  int
+      :value: 300
+
+
+
+   .. py:attribute:: num_angle
+      :type:  int
+      :value: 12
+
+
+
+   .. py:attribute:: num_seed_points
+      :type:  int
+      :value: 1024
+
+
+
+   .. py:attribute:: voxel_size
+      :type:  float
+      :value: 0.005
+
+
+
+   .. py:attribute:: cylinder_radius
+      :type:  float
+      :value: 0.05
+
+
+
+   .. py:attribute:: cylinder_groups
+      :type:  list
+      :value: [0.25, 0.5, 0.75, 1.0]
+
+
+
+   .. py:attribute:: use_normal
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: loss
+      :type:  MODULE_TPYE | None
+      :value: None
+
+
+

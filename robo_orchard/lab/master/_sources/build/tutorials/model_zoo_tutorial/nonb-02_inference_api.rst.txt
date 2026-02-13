@@ -183,7 +183,7 @@ to nest the model and processor configurations.
     # 2. Create the main pipeline config
     pipeline_config = InferencePipelineCfg(
         # Nest the model config
-        model=model_cfg,
+        model_cfg=model_cfg,
         # Nest the processor config
         processor=processor_cfg,
         # Assign the collate function
@@ -237,7 +237,7 @@ method will save:
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
 
-    pipeline.save(output_dir)
+    pipeline.save_pipeline(output_dir)
 
     print(f"Pipeline has been saved to the `{output_dir}` directory.")
     print(subprocess.check_output(["tree", output_dir]).decode())
@@ -250,7 +250,7 @@ method will save:
 
  .. code-block:: none
 
-    Pipeline created: <robo_orchard_lab.inference.basic.InferencePipeline object at 0x7f826832b730>
+    Pipeline created: <robo_orchard_lab.inference.basic.InferencePipeline object at 0x7fbbc4112860>
     Pipeline has been saved to the `.workspace/pipeline_checkpoint` directory.
     .workspace/pipeline_checkpoint
     ├── inference.config.json
@@ -280,7 +280,7 @@ and loads the model weights.
 
 
     # 1. Load the pipeline
-    loaded_pipeline = InferencePipelineMixin.load(output_dir)
+    loaded_pipeline = InferencePipelineMixin.load_pipeline(output_dir)
     loaded_pipeline.model.eval()  # Set model to eval mode
     print("Pipeline loaded:", loaded_pipeline)
 
@@ -313,17 +313,17 @@ and loads the model weights.
 
  .. code-block:: none
 
-    Pipeline loaded: <robo_orchard_lab.inference.basic.InferencePipeline object at 0x7f826832b2e0>
+    Pipeline loaded: <robo_orchard_lab.inference.basic.InferencePipeline object at 0x7fbbc4110460>
 
     Raw input data:
     [0. 1. 2. 3. 4. 5. 6. 7. 8. 9.]
     Pipeline output (post-processed):
-    [[ 0.13170312 -1.7435416 ]]
+    [[ 2.0147138 -2.1646867]]
 
     Batch input (2 items).
     Batch output (1 batch of 2 items):
-    [[ 0.13170312 -1.7435416 ]
-     [-1.6447861  -6.2183614 ]]
+    [[ 2.0147138 -2.1646867]
+     [ 4.7790713 -5.3038187]]
 
 
 
@@ -331,7 +331,7 @@ and loads the model weights.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.739 seconds)
+   **Total running time of the script:** (0 minutes 0.796 seconds)
 
 
 .. _sphx_glr_download_build_tutorials_model_zoo_tutorial_nonb-02_inference_api.py:

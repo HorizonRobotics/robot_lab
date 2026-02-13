@@ -1,0 +1,80 @@
+processor
+=========
+
+.. py:module:: robo_orchard_lab.models.monodream.processor
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.processor.MonoDreamProcessor
+   robo_orchard_lab.models.monodream.processor.MonoDreamProcessorCfg
+
+
+Module Contents
+---------------
+
+.. py:class:: MonoDreamProcessor(cfg: MonoDreamProcessorCfg)
+
+   Bases: :py:obj:`robo_orchard_lab.inference.processor.ProcessorMixin`
+
+
+   Processor for the MonoDream navigation model.
+
+   Converts image paths + instruction into a multimodal list input format,
+   and extracts the generated text from model outputs.
+
+
+   .. py:attribute:: cfg
+      :type:  MonoDreamProcessorCfg
+
+
+   .. py:attribute:: pathlist_to_data
+
+
+   .. py:attribute:: transforms
+
+
+   .. py:attribute:: prompt_template_list
+      :value: ['Imagine you are a robot programmed for navigation tasks.', 'You have been given a video of...
+
+
+
+   .. py:method:: pre_process(data: Union[MonoDreamInput, Dict])
+
+      Convert MonoDreamInput into model-ready multimodal list format.
+
+
+
+   .. py:method:: post_process(model_outputs, _) -> MonoDreamOutput
+
+      Extract model-generated text output.
+
+
+
+.. py:class:: MonoDreamProcessorCfg
+
+   Bases: :py:obj:`robo_orchard_lab.inference.processor.ProcessorMixinCfg`\ [\ :py:obj:`MonoDreamProcessor`\ ]
+
+
+   Configuration for MonoDreamProcessor.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.inference.processor.ClassType_co[MonoDreamProcessor]
+
+
+   .. py:attribute:: load_image
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: transforms
+      :type:  Optional[List[robo_orchard_lab.utils.build.DelayInitDictType]]
+      :value: None
+
+
+

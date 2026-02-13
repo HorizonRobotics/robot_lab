@@ -1,0 +1,19 @@
+builder
+=======
+
+.. py:module:: robo_orchard_lab.models.monodream.multimodal_encoder.builder
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.multimodal_encoder.builder.build_vision_tower
+
+
+Module Contents
+---------------
+
+.. py:function:: build_vision_tower(model_name_or_path: str, config: transformers.PretrainedConfig) -> transformers.PreTrainedModel
+

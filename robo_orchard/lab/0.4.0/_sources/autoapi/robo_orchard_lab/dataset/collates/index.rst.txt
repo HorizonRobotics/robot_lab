@@ -1,0 +1,73 @@
+collates
+========
+
+.. py:module:: robo_orchard_lab.dataset.collates
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.collates.CollatorT_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.collates.Collator
+   robo_orchard_lab.dataset.collates.CollatorConfig
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.collates.collate_batch_dict
+
+
+Module Contents
+---------------
+
+.. py:function:: collate_batch_dict(batch: Sequence[dict]) -> dict[str, Any]
+
+.. py:class:: Collator
+
+   Base class for collators that process batches of data.
+
+
+   .. py:attribute:: cfg
+      :type:  CollatorConfig
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+   .. py:method:: from_config(config_path: str) -> Collator
+      :classmethod:
+
+
+      Load a Collator from a configuration file.
+
+
+
+.. py:data:: CollatorT_co
+
+.. py:class:: CollatorConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`CollatorT_co`\ ]
+
+
+   Configuration class for Collator.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType[CollatorT_co]
+
+

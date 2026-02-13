@@ -1,0 +1,194 @@
+spatial_enhancer
+================
+
+.. py:module:: robo_orchard_lab.models.bip3d.spatial_enhancer
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.bip3d.spatial_enhancer.BatchDepthProbGTGenerator
+   robo_orchard_lab.models.bip3d.spatial_enhancer.DepthFusionSpatialEnhancer
+
+
+Module Contents
+---------------
+
+.. py:class:: BatchDepthProbGTGenerator(stride, min_depth=0.25, max_depth=10, num_depth=64, origin_stride=1, input_key='depths', output_key='depth_prob_gt', max_valid_depth=None, valid_threshold=-1)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Generate depth prob gt for spatial enhancer.
+
+   To generate the ground truth required for thespatial enhancer,
+   the GT should have a shape of [bs, num_view, num_feature, num_depth],
+   where num_feature represents the total number of feature vectors in the
+   multi-stride feature maps. Each image feature corresponds to a patch
+   (composed of stride x stride pixels), and the GT indicates the depth
+   distribution of all pixels within that patch.
+
+   Compute the depth distribution for a single pixel using linear
+   interpolation, example:
+
+   .. code-block: text
+
+       min_depth, max_depth, num_depth = 0, 3, 4
+       depth_anchor: [0, 1, 2, 3]
+       pixel_depth: 1.2
+       Since 1.2 lies between depth anchors 1 and 2, we interpolate:
+           Weight for 1: (2 - 1.2) / (2 - 1) = 0.8
+           Weight for 2: (1.2 - 1) / (2 - 1) = 0.2
+       depth_prob_gt: [0, 0.8, 0.2, 0]
+
+   Invalid Depth Handling:
+       If a pixel's depth is ≤0 or >=valid_max_depth, it is marked as
+       invalid. The valid pixel ratio in a patch is used as the loss
+       weight for that patch. If more than valid_threshold% of pixels in
+       a patch are valid, the entire patch is deemed invalid, and the
+       corresponding depth_prob_gt weights are set to 0.
+
+
+   .. py:attribute:: max_depth
+      :value: 10
+
+
+
+   .. py:attribute:: min_depth
+      :value: 0.25
+
+
+
+   .. py:attribute:: num_depth
+      :value: 64
+
+
+
+   .. py:attribute:: stride
+
+
+   .. py:attribute:: origin_stride
+      :value: 1
+
+
+
+   .. py:attribute:: input_key
+      :value: 'depths'
+
+
+
+   .. py:attribute:: output_key
+      :value: 'depth_prob_gt'
+
+
+
+   .. py:attribute:: max_valid_depth
+      :value: None
+
+
+
+   .. py:attribute:: valid_threshold
+      :value: -1
+
+
+
+.. py:class:: DepthFusionSpatialEnhancer(embed_dims=256, feature_3d_dim=32, num_depth_layers=2, min_depth=0.25, max_depth=10, num_depth=64, with_feature_3d=True, loss_depth_weight=-1, **kwargs)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: embed_dims
+      :value: 256
+
+
+
+   .. py:attribute:: feature_3d_dim
+      :value: 32
+
+
+
+   .. py:attribute:: num_depth_layers
+      :value: 2
+
+
+
+   .. py:attribute:: min_depth
+      :value: 0.25
+
+
+
+   .. py:attribute:: max_depth
+      :value: 10
+
+
+
+   .. py:attribute:: num_depth
+      :value: 64
+
+
+
+   .. py:attribute:: with_feature_3d
+      :value: True
+
+
+
+   .. py:attribute:: loss_depth_weight
+      :value: -1
+
+
+
+   .. py:attribute:: pts_prob_fc
+
+
+   .. py:attribute:: pts_fc
+
+
+   .. py:attribute:: fusion_fc
+
+
+   .. py:attribute:: fusion_norm
+
+
+   .. py:method:: forward(feature_maps, inputs: dict, feature_3d=None, **kwargs)
+
+
+   .. py:method:: get_pts(spatial_shapes, image_wh, projection_mat, device, dtype)
+
+
+   .. py:method:: depth_prob_loss(depth_prob, inputs)
+
+

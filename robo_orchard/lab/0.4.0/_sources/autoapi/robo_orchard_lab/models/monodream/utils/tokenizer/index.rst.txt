@@ -1,0 +1,25 @@
+tokenizer
+=========
+
+.. py:module:: robo_orchard_lab.models.monodream.utils.tokenizer
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.utils.tokenizer.tokenize_conversation
+   robo_orchard_lab.models.monodream.utils.tokenizer.preprocess_conversation
+   robo_orchard_lab.models.monodream.utils.tokenizer.infer_stop_tokens
+
+
+Module Contents
+---------------
+
+.. py:function:: tokenize_conversation(messages: Sequence[Dict[str, str]], tokenizer: transformers.PreTrainedTokenizer, add_generation_prompt: bool = False, overrides: Optional[Dict[str, str]] = None, no_system_prompt: bool = False) -> torch.Tensor
+
+.. py:function:: preprocess_conversation(conversation: Sequence[Dict[str, str]], tokenizer: transformers.PreTrainedTokenizer, no_system_prompt: bool = False, retried: bool = False) -> Dict[str, Any]
+
+.. py:function:: infer_stop_tokens(tokenizer: transformers.PreTrainedTokenizer) -> List[str]
+

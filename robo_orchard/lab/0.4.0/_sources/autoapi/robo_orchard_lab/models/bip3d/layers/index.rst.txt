@@ -1,0 +1,449 @@
+layers
+======
+
+.. py:module:: robo_orchard_lab.models.bip3d.layers
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.bip3d.layers.MultiScaleDeformableAttention
+   robo_orchard_lab.models.bip3d.layers.SinePositionalEncoding
+   robo_orchard_lab.models.bip3d.layers.DetrTransformerEncoderLayer
+   robo_orchard_lab.models.bip3d.layers.DeformableDetrTransformerEncoderLayer
+   robo_orchard_lab.models.bip3d.layers.BiMultiHeadAttention
+   robo_orchard_lab.models.bip3d.layers.SingleScaleBiAttentionBlock
+
+
+Module Contents
+---------------
+
+.. py:class:: MultiScaleDeformableAttention(embed_dims: int = 256, num_heads: int = 8, num_levels: int = 4, num_points: int = 4, im2col_step: int = 64, dropout: float = 0.1, batch_first: bool = False, norm_cfg: Optional[dict] = None, value_proj_ratio: float = 1.0)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   An attention module used in Deformable-Detr.
+
+   `Deformable DETR: Deformable Transformers for End-to-End Object Detection.
+   <https://arxiv.org/pdf/2010.04159.pdf>`_.
+
+   :param embed_dims: The embedding dimension of Attention.
+                      Default: 256.
+   :type embed_dims: int
+   :param num_heads: Parallel attention heads. Default: 64.
+   :type num_heads: int
+   :param num_levels: The number of feature map used in
+                      Attention. Default: 4.
+   :type num_levels: int
+   :param num_points: The number of sampling points for
+                      each query in each head. Default: 4.
+   :type num_points: int
+   :param im2col_step: The step used in image_to_column.
+                       Default: 64.
+   :type im2col_step: int
+   :param dropout: A Dropout layer on `inp_identity`.
+                   Default: 0.1.
+   :type dropout: float
+   :param batch_first: Key, Query and Value are shape of
+                       (batch, n, embed_dim) or (n, batch, embed_dim).
+                       Default to False.
+   :type batch_first: bool
+   :param norm_cfg: Config dict for normalization layer.
+                    Default: None.
+   :type norm_cfg: dict
+   :param value_proj_ratio: The expansion ratio of value_proj.
+                            Default: 1.0.
+   :type value_proj_ratio: float
+
+
+   .. py:attribute:: norm_cfg
+      :value: None
+
+
+
+   .. py:attribute:: dropout
+
+
+   .. py:attribute:: batch_first
+      :value: False
+
+
+
+   .. py:attribute:: im2col_step
+      :value: 64
+
+
+
+   .. py:attribute:: embed_dims
+      :value: 256
+
+
+
+   .. py:attribute:: num_levels
+      :value: 4
+
+
+
+   .. py:attribute:: num_heads
+      :value: 8
+
+
+
+   .. py:attribute:: num_points
+      :value: 4
+
+
+
+   .. py:attribute:: sampling_offsets
+
+
+   .. py:attribute:: attention_weights
+
+
+   .. py:attribute:: value_proj
+
+
+   .. py:attribute:: output_proj
+
+
+   .. py:method:: init_weights()
+
+      Default initialization for Parameters of Module.
+
+
+
+   .. py:method:: forward(query: torch.Tensor, key: Optional[torch.Tensor] = None, value: Optional[torch.Tensor] = None, identity: Optional[torch.Tensor] = None, query_pos: Optional[torch.Tensor] = None, key_padding_mask: Optional[torch.Tensor] = None, reference_points: Optional[torch.Tensor] = None, spatial_shapes: Optional[torch.Tensor] = None, level_start_index: Optional[torch.Tensor] = None, **kwargs)
+
+      Forward Function of MultiScaleDeformAttention.
+
+      :param query: Query of Transformer with shape
+                    (num_query, bs, embed_dims).
+      :type query: Tensor
+      :param key: The key tensor with shape
+                  `(num_key, bs, embed_dims)`.
+      :type key: Tensor
+      :param value: The value tensor with shape
+                    `(num_key, bs, embed_dims)`.
+      :type value: Tensor
+      :param identity: The tensor used for addition, with the
+                       same shape as `query`. Default None. If None,
+                       `query` will be used.
+      :type identity: Tensor
+      :param query_pos: The positional encoding for `query`.
+                        Default: None.
+      :type query_pos: Tensor
+      :param key_padding_mask: ByteTensor for `query`, with
+                               shape [bs, num_key].
+      :type key_padding_mask: Tensor
+      :param reference_points: The normalized reference
+                               points with shape (bs, num_query, num_levels, 2),
+                               all elements is range in [0, 1], top-left (0,0),
+                               bottom-right (1, 1), including padding area.
+                               or (N, Length_{query}, num_levels, 4), add
+                               additional two dimensions is (w, h) to
+                               form reference boxes.
+      :type reference_points: Tensor
+      :param spatial_shapes: Spatial shape of features in
+                             different levels. With shape (num_levels, 2),
+                             last dimension represents (h, w).
+      :type spatial_shapes: Tensor
+      :param level_start_index: The start index of each level.
+                                A tensor has shape ``(num_levels, )`` and can be represented
+                                as [0, h_0*w_0, h_0*w_0+h_1*w_1, ...].
+      :type level_start_index: Tensor
+
+      :returns: forwarded results with shape [num_query, bs, embed_dims].
+      :rtype: Tensor
+
+
+
+.. py:class:: SinePositionalEncoding(num_feats: int, temperature: int = 10000, normalize: bool = False, scale: float = 2 * math.pi, eps: float = 1e-06, offset: float = 0.0)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Position encoding with sine and cosine functions.
+
+   See `End-to-End Object Detection with Transformers
+   <https://arxiv.org/pdf/2005.12872>`_ for details.
+
+   :param num_feats: The feature dimension for each position
+                     along x-axis or y-axis. Note the final returned dimension
+                     for each position is 2 times of this value.
+   :type num_feats: int
+   :param temperature: The temperature used for scaling
+                       the position embedding. Defaults to 10000.
+   :type temperature: int, optional
+   :param normalize: Whether to normalize the position
+                     embedding. Defaults to False.
+   :type normalize: bool, optional
+   :param scale: A scale factor that scales the position
+                 embedding. The scale will be used only when `normalize` is True.
+                 Defaults to 2*pi.
+   :type scale: float, optional
+   :param eps: A value added to the denominator for
+               numerical stability. Defaults to 1e-6.
+   :type eps: float, optional
+   :param offset: offset add to embed when do the normalization.
+                  Defaults to 0.
+   :type offset: float
+
+
+   .. py:attribute:: num_feats
+
+
+   .. py:attribute:: temperature
+      :value: 10000
+
+
+
+   .. py:attribute:: normalize
+      :value: False
+
+
+
+   .. py:attribute:: scale
+      :value: 6.283185307179586
+
+
+
+   .. py:attribute:: eps
+      :value: 1e-06
+
+
+
+   .. py:attribute:: offset
+      :value: 0.0
+
+
+
+   .. py:method:: forward(mask: torch.Tensor, input: Optional[torch.Tensor] = None) -> torch.Tensor
+
+      Forward function for `SinePositionalEncoding`.
+
+      :param mask: ByteTensor mask. Non-zero values representing
+                   ignored positions, while zero values means valid positions
+                   for this image. Shape [bs, h, w].
+      :type mask: Tensor
+      :param input: Input image/feature Tensor.
+                    Shape [bs, c, h, w]
+      :type input: Tensor, optional
+
+      :returns:
+
+                Returned position embedding with shape
+                    [bs, num_feats*2, h, w].
+      :rtype: pos (Tensor)
+
+
+
+.. py:class:: DetrTransformerEncoderLayer(self_attn_cfg: Optional[dict] = None, ffn_cfg: Optional[dict] = None, norm_cfg: Optional[dict] = None)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Implements encoder layer in DETR transformer.
+
+   :param self_attn_cfg: Config for self
+                         attention.
+   :type self_attn_cfg: :obj:`ConfigDict` or dict, optional
+   :param ffn_cfg: Config for FFN.
+   :type ffn_cfg: :obj:`ConfigDict` or dict, optional
+   :param norm_cfg: Config for
+                    normalization layers. All the layers will share the same
+                    config. Defaults to `LN`.
+   :type norm_cfg: :obj:`ConfigDict` or dict, optional
+
+
+   .. py:attribute:: self_attn_cfg
+      :value: None
+
+
+
+   .. py:attribute:: ffn_cfg
+      :value: None
+
+
+
+   .. py:attribute:: norm_cfg
+      :value: None
+
+
+
+   .. py:method:: forward(query: torch.Tensor, query_pos: torch.Tensor, key_padding_mask: torch.Tensor, **kwargs)
+
+      Forward function of an encoder layer.
+
+      :param query: The input query, has shape (bs, num_queries, dim).
+      :type query: Tensor
+      :param query_pos: The positional encoding for query, with
+                        the same shape as `query`.
+      :type query_pos: Tensor
+      :param key_padding_mask: The `key_padding_mask` of `self_attn`
+                               input. ByteTensor. has shape (bs, num_queries).
+      :type key_padding_mask: Tensor
+
+      :returns: forwarded results, has shape (bs, num_queries, dim).
+      :rtype: Tensor
+
+
+
+.. py:class:: DeformableDetrTransformerEncoderLayer(self_attn_cfg: Optional[dict] = None, ffn_cfg: Optional[dict] = None, norm_cfg: Optional[dict] = None)
+
+   Bases: :py:obj:`DetrTransformerEncoderLayer`
+
+
+   Encoder layer of Deformable DETR.
+
+
+.. py:class:: BiMultiHeadAttention(v_dim: int, l_dim: int, embed_dim: int, num_heads: int, dropout: float = 0.1)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Bidirectional fusion Multi-Head Attention layer.
+
+   :param v_dim: The dimension of the vision input.
+   :type v_dim: int
+   :param l_dim: The dimension of the language input.
+   :type l_dim: int
+   :param embed_dim: The embedding dimension for the attention operation.
+   :type embed_dim: int
+   :param num_heads: The number of attention heads.
+   :type num_heads: int
+   :param dropout: The dropout probability. Defaults to 0.1.
+   :type dropout: float, optional
+
+
+   .. py:attribute:: MAX_CLAMP_VALUE
+      :value: 50000
+
+
+
+   .. py:attribute:: embed_dim
+
+
+   .. py:attribute:: num_heads
+
+
+   .. py:attribute:: head_dim
+
+
+   .. py:attribute:: v_dim
+
+
+   .. py:attribute:: l_dim
+
+
+   .. py:attribute:: scale
+
+
+   .. py:attribute:: dropout
+      :value: 0.1
+
+
+
+   .. py:attribute:: v_proj
+
+
+   .. py:attribute:: l_proj
+
+
+   .. py:attribute:: values_v_proj
+
+
+   .. py:attribute:: values_l_proj
+
+
+   .. py:attribute:: out_v_proj
+
+
+   .. py:attribute:: out_l_proj
+
+
+   .. py:attribute:: stable_softmax_2d
+      :value: False
+
+
+
+   .. py:attribute:: clamp_min_for_underflow
+      :value: True
+
+
+
+   .. py:attribute:: clamp_max_for_overflow
+      :value: True
+
+
+
+   .. py:method:: forward(vision: torch.Tensor, lang: torch.Tensor, attention_mask_v: Optional[torch.Tensor] = None, attention_mask_l: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor]
+
+
+.. py:class:: SingleScaleBiAttentionBlock(v_dim: int, l_dim: int, embed_dim: int, num_heads: int, dropout: float = 0.1, init_values: float = 0.0001)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   BiAttentionBlock Module.
+
+   First, multi-level visual features are concat; Then the concat visual
+   feature and lang feature are fused by attention; Finally the newly visual
+   feature are split into multi levels.
+
+   :param v_dim: The dimension of the visual features.
+   :type v_dim: int
+   :param l_dim: The dimension of the language feature.
+   :type l_dim: int
+   :param embed_dim: The embedding dimension for the attention operation.
+   :type embed_dim: int
+   :param num_heads: The number of attention heads.
+   :type num_heads: int
+   :param dropout: The dropout probability. Defaults to 0.1.
+   :type dropout: float, optional
+   :param init_values: The initial value for the scaling parameter.
+                       Defaults to 1e-4.
+   :type init_values: float, optional
+
+
+   .. py:attribute:: layer_norm_v
+
+
+   .. py:attribute:: layer_norm_l
+
+
+   .. py:attribute:: attn
+
+
+   .. py:attribute:: gamma_v
+
+
+   .. py:attribute:: gamma_l
+
+
+   .. py:method:: forward(visual: torch.Tensor, lang: torch.Tensor, attention_mask_v: Optional[torch.Tensor] = None, attention_mask_l: Optional[torch.Tensor] = None)
+
+      NN forward.
+
+      Perform a single attention call between the visual and language
+      inputs.
+
+      :param visual: The visual input tensor.
+      :type visual: Tensor
+      :param lang: The language input tensor.
+      :type lang: Tensor
+      :param attention_mask_v: An optional attention mask tensor for the visual input.
+      :type attention_mask_v: Optional[Tensor]
+      :param attention_mask_l: An optional attention mask tensor for the language input.
+      :type attention_mask_l: Optional[Tensor]
+
+      :returns:
+
+                A tuple containing the updated
+                    visual and language tensors after the attention call.
+      :rtype: Tuple[Tensor, Tensor]
+
+
+

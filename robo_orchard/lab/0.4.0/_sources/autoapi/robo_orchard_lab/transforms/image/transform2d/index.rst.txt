@@ -1,0 +1,154 @@
+transform2d
+===========
+
+.. py:module:: robo_orchard_lab.transforms.image.transform2d
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.transforms.image.transform2d.ImageTransform2DConfigType_co
+   robo_orchard_lab.transforms.image.transform2d.Transform2DGenMixinType_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.transforms.image.transform2d.ImageTransform2D
+   robo_orchard_lab.transforms.image.transform2d.Transform2DGenMixin
+   robo_orchard_lab.transforms.image.transform2d.ImageTransform2DConfig
+
+
+Module Contents
+---------------
+
+.. py:data:: ImageTransform2DConfigType_co
+
+.. py:class:: ImageTransform2D(cfg: ImageTransform2DConfigType_co)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransform`, :py:obj:`Generic`\ [\ :py:obj:`ImageTransform2DConfigType_co`\ ]
+
+
+   A class that defines the interface for transforming a dict.
+
+   The dict is usually a row in a dataset, and the transform
+   will take the input columns, apply some transformation, and return
+   a new dict with the transformed values added to the original dict.
+
+   User should implement the `transform` method to define the specific
+   transformation logic.
+
+   If you use a dataclass or BaseModel as the return type of
+   the transform method, `output_columns` will be automatically
+   inferred from the fields of the dataclass or BaseModel. Otherwise,
+   you should implement the `output_columns` property to return the
+   expected output columns for the transform.
+
+
+   For Transform whose input and output columns are not known
+   at the time of configuration, the input and output columns
+   properties should not be used, and the `check_return_columns`
+   configuration should be set to False. This will prevent runtime
+   errors when the transform is called with a row dict.
+
+
+
+   .. py:attribute:: cfg
+      :type:  ImageTransform2DConfigType_co
+
+
+   .. py:attribute:: is_variadic
+      :type:  bool
+      :value: True
+
+
+
+   .. py:method:: transform(**kwargs: dict[str, BatchImageDataType]) -> dict[str, BatchImageDataType]
+
+      Apply the affine transformation to the image data.
+
+
+
+   .. py:method:: transform_single(value: BatchImageDataType) -> BatchImageDataType
+
+
+   .. py:method:: transform_batch(**kwargs: dict[str, BatchImageDataType]) -> dict[str, BatchImageDataType]
+
+      Apply the same affine transformation to all inputs.
+
+
+
+.. py:class:: Transform2DGenMixin(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.Config`
+
+
+   Base class for configuration classes.
+
+
+   .. py:method:: generate_affine_transform(input_hw: tuple[int, int]) -> robo_orchard_core.utils.math.transform.Transform2D_M
+      :abstractmethod:
+
+
+      Generate the affine transformation matrix.
+
+
+
+.. py:data:: Transform2DGenMixinType_co
+
+.. py:class:: ImageTransform2DConfig(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransformConfig`\ [\ :py:obj:`ImageTransform2D`\ ], :py:obj:`Transform2DGenMixin`
+
+
+   Base class for configuration classes.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.transforms.base.ClassType[ImageTransform2D]
+
+
+   .. py:attribute:: target_hw
+      :type:  tuple[int, int]
+
+      The target height and width of the image after transformation.
+
+
+   .. py:attribute:: inter_mode
+      :type:  Literal['bilinear', 'nearest', 'bicubic']
+      :value: 'bilinear'
+
+
+      The interpolation mode to use for the transformation.
+
+
+   .. py:attribute:: padding_mode
+      :type:  Literal['zeros']
+      :value: 'zeros'
+
+
+
+   .. py:attribute:: batching_groups
+      :type:  list[list[str]] | None
+      :value: None
+
+
+      Whether to apply the same transformation to a group of inputs.
+
+      If None, the transformation will be applied to each input separately.
+      If a list of lists is provided, each inner list will be treated as a group
+      of inputs that should be transformed together.
+
+
+   .. py:method:: generate_affine_transform(input_hw: tuple[int, int]) -> robo_orchard_core.utils.math.transform.Transform2D_M
+      :abstractmethod:
+
+
+      Generate the affine transformation matrix.
+
+
+

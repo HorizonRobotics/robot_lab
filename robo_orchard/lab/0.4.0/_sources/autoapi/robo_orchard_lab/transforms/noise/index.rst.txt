@@ -1,0 +1,172 @@
+noise
+=====
+
+.. py:module:: robo_orchard_lab.transforms.noise
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.transforms.noise.GaussianNoiseConfig
+   robo_orchard_lab.transforms.noise.UniformNoiseConfig
+   robo_orchard_lab.transforms.noise.AddNoise
+   robo_orchard_lab.transforms.noise.AddNoiseConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: GaussianNoiseConfig(/, **data: Any)
+
+   Bases: :py:obj:`NoiseConfig`
+
+
+   Configuration for Gaussian noise transform.
+
+
+   .. py:attribute:: mean
+      :type:  robo_orchard_core.utils.config.TorchTensor
+
+      Mean of the Gaussian noise.
+
+
+   .. py:attribute:: std
+      :type:  robo_orchard_core.utils.config.TorchTensor
+
+      Standard deviation of the Gaussian noise.
+
+
+   .. py:method:: generate_noise(target_shape: Sequence[int] | None = None) -> torch.Tensor
+
+      Generate Gaussian noise with the specified shape.
+
+
+
+.. py:class:: UniformNoiseConfig(/, **data: Any)
+
+   Bases: :py:obj:`NoiseConfig`
+
+
+   Configuration for Uniform noise transform.
+
+
+   .. py:attribute:: low
+      :type:  robo_orchard_core.utils.config.TorchTensor
+
+      Lower bound of the uniform noise.
+
+
+   .. py:attribute:: high
+      :type:  robo_orchard_core.utils.config.TorchTensor
+
+      Upper bound of the uniform noise.
+
+
+   .. py:method:: generate_noise(target_shape: Sequence[int] | None = None) -> torch.Tensor
+
+      Generate Uniform noise with the specified shape.
+
+
+
+   .. py:method:: from_min_max_stats(min: torch.Tensor, max: torch.Tensor, scale: float, repeat: Sequence[int] | None = None) -> UniformNoiseConfig
+      :staticmethod:
+
+
+      Create a UniformNoiseConfig from min and max statistics.
+
+      The noise will be uniformly distributed in the range
+      [- scale * (max - min)/2, scale * (max - min)/2].
+      The scale factor is actually the percentage of the range
+      that the noise will cover.
+
+      :param min: Minimum values.
+      :type min: torch.Tensor
+      :param max: Maximum values.
+      :type max: torch.Tensor
+      :param scale: Scale factor to determine the range of the noise.
+      :type scale: float
+
+
+
+.. py:class:: AddNoise(cfg: AddNoiseConfig[NoiseConfigT_co])
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransform`, :py:obj:`Generic`\ [\ :py:obj:`NoiseConfigT_co`\ ]
+
+
+   A class that defines the interface for transforming a dict.
+
+   The dict is usually a row in a dataset, and the transform
+   will take the input columns, apply some transformation, and return
+   a new dict with the transformed values added to the original dict.
+
+   User should implement the `transform` method to define the specific
+   transformation logic.
+
+   If you use a dataclass or BaseModel as the return type of
+   the transform method, `output_columns` will be automatically
+   inferred from the fields of the dataclass or BaseModel. Otherwise,
+   you should implement the `output_columns` property to return the
+   expected output columns for the transform.
+
+
+   For Transform whose input and output columns are not known
+   at the time of configuration, the input and output columns
+   properties should not be used, and the `check_return_columns`
+   configuration should be set to False. This will prevent runtime
+   errors when the transform is called with a row dict.
+
+
+
+   .. py:attribute:: cfg
+      :type:  AddNoiseConfig[NoiseConfigT_co]
+
+
+   .. py:method:: transform(**kwargs) -> dict
+
+      Apply noise to the input columns.
+
+
+
+.. py:class:: AddNoiseConfig
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransformConfig`\ [\ :py:obj:`AddNoise`\ ], :py:obj:`Generic`\ [\ :py:obj:`NoiseConfigT_co`\ ]
+
+
+   Abstract base class for generic types.
+
+   A generic type is typically declared by inheriting from
+   this class parameterized with one or more type variables.
+   For example, a generic mapping type might be defined as::
+
+     class Mapping(Generic[KT, VT]):
+         def __getitem__(self, key: KT) -> VT:
+             ...
+         # Etc.
+
+   This class can then be used as follows::
+
+     def lookup_name(mapping: Mapping[KT, VT], key: KT, default: VT) -> VT:
+         try:
+             return mapping[key]
+         except KeyError:
+             return default
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.transforms.base.ClassType[AddNoise]
+
+
+   .. py:attribute:: noise
+      :type:  NoiseConfigT_co
+
+      Configuration for the noise to be added.
+
+
+   .. py:attribute:: inplace
+      :type:  bool
+      :value: True
+
+
+

@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**01:05.381** total execution time for 3 files **from build/tutorials/trainer_tutorial**:
+**01:03.601** total execution time for 3 files **from build/tutorials/trainer_tutorial**:
 
 .. container::
 
@@ -33,11 +33,11 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_build_tutorials_trainer_tutorial_nonb-02_built_in_hooks.py` (``nonb-02_built_in_hooks.py``)
-     - 00:23.130
+     - 00:23.250
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_trainer_tutorial_nonb-01_basic_run.py` (``nonb-01_basic_run.py``)
-     - 00:22.251
+     - 00:21.533
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_trainer_tutorial_nonb-03_custom_hook.py` (``nonb-03_custom_hook.py``)
-     - 00:19.1000
+     - 00:18.818
      - 0.0

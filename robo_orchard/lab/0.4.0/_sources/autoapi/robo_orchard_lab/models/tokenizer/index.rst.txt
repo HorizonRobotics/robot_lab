@@ -1,0 +1,27 @@
+tokenizer
+=========
+
+.. py:module:: robo_orchard_lab.models.tokenizer
+
+.. autoapi-nested-parse::
+
+   Tokenizer is a mapping of data to discrete tokens.
+
+   A tokenizer usually provides methods to encode and decode data. So it can be
+   regarded as a special type of codec.
+
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_lab/models/tokenizer/action_bbpe/index
+   /autoapi/robo_orchard_lab/models/tokenizer/action_dct/index
+   /autoapi/robo_orchard_lab/models/tokenizer/huggingface/index
+
+

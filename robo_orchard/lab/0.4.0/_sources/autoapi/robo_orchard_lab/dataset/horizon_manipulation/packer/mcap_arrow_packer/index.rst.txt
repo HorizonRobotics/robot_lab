@@ -1,0 +1,156 @@
+mcap_arrow_packer
+=================
+
+.. py:module:: robo_orchard_lab.dataset.horizon_manipulation.packer.mcap_arrow_packer
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.horizon_manipulation.packer.mcap_arrow_packer.logger
+   robo_orchard_lab.dataset.horizon_manipulation.packer.mcap_arrow_packer.LmdbDatasetFeatures
+   robo_orchard_lab.dataset.horizon_manipulation.packer.mcap_arrow_packer.parser
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.horizon_manipulation.packer.mcap_arrow_packer.McapEpisodePackaging
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.horizon_manipulation.packer.mcap_arrow_packer.make_dataset_from_mcap
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:data:: LmdbDatasetFeatures
+
+.. py:class:: McapEpisodePackaging(episode_path: str, user: str, task_name: str, date: str, urdf_path: str, pack_config: robo_orchard_lab.dataset.horizon_manipulation.packer.utils.PackConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.robot.packaging.EpisodePackaging`
+
+
+   Processes single robotics episode from an MCAP file for Arrow packaging.
+
+   This class handles the entire pipeline for a single episode: loading data
+   from an MCAP file, synchronizing multimodal data streams (images, joints),
+   filtering unwanted frames, and preparing the data for generation of a
+   Hugging Face dataset in Arrow format.
+
+   The synchronization strategy uses a primary camera's timestamps as the
+   structural base, ensuring that each frame in the output dataset corresponds
+   to a consistent point in time. Other data streams are aligned to this base
+   clock by selecting the nearest temporal neighbors.
+
+
+   .. py:attribute:: episode_path
+
+
+   .. py:attribute:: user
+
+
+   .. py:attribute:: task_name
+
+
+   .. py:attribute:: date
+
+
+   .. py:attribute:: pack_config
+
+
+   .. py:attribute:: urdf_path
+
+
+   .. py:method:: forward_kinematics(joint_states: robo_orchard_lab.dataset.datatypes.BatchJointsState)
+
+      Computes the forward kinematics for the dual-arm robot.
+
+      :param joint_states: A batch of combined joint states
+                           for both arms, typically shaped (N, 14) for 7 DOF per arm.
+      :type joint_states: BatchJointsState
+
+      :returns: end-effector poses (BatchFrameTransform) for both arms.
+      :rtype: dict
+
+
+
+   .. py:method:: generate_episode_meta() -> robo_orchard_lab.dataset.robot.packaging.EpisodeMeta
+
+      Generates the metadata for the current episode.
+
+      This method compiles the necessary metadata objects that describe the
+      episode, the robot used, and the task performed, which will be stored
+      alongside the Arrow dataset.
+
+      :returns:
+
+                An object containing the structured metadata for the
+                    episode.
+      :rtype: EpisodeMeta
+
+
+
+   .. py:method:: process_data()
+
+
+   .. py:method:: generate_frames() -> Generator[robo_orchard_lab.dataset.robot.packaging.DataFrame, None, None]
+
+      Generates structured DataFrame for each frame in the episode.
+
+      This generator function iterates through each processed time step of
+      the episode and yields a `DataFrame` object. Each `DataFrame` contains
+      all the data for that specific moment, including joint states (robot),
+      actions (teleop controller), multiple camera views, and instructional
+      data.
+
+      :Yields: *DataFrame* --
+
+               An object representing all data for a single,
+                   synchronized frame of the episode.
+
+
+
+.. py:function:: make_dataset_from_mcap(input_path: str, output_path: str, urdf_path: str, pack_config: robo_orchard_lab.dataset.horizon_manipulation.packer.utils.PackConfig, max_shard_size: str | int = '2GB', split: datasets.Split | None = None, force_overwrite: bool = False)
+
+   Orchestrates conversion of multiple MCAP episodes into an Arrow dataset.
+
+   This function scans the input path for episode directories, initializes a
+   `McapEpisodePackaging` instance for each valid episode, and then uses the
+   `DatasetPackaging` utility to write all episodes into a sharded Arrow
+   dataset compatible with Hugging Face datasets.
+
+   :param input_path: A comma-separated string of glob patterns that match
+                      episode directories.
+   :type input_path: str
+   :param output_path: The destination path for the output Arrow dataset.
+   :type output_path: str
+   :param urdf_path: The path to the robot's URDF file.
+   :type urdf_path: str
+   :param pack_config: Configuration parameters for packaging,
+   :type pack_config: PackConfig
+   :param max_shard_size: The maximum size for each Arrow file shard.
+                          Defaults to "2GB".
+   :type max_shard_size: str | int
+   :param split: The dataset split to assign (e.g.,
+                 'train', 'test'). Defaults to None, which the packager typically
+                 treats as 'train'.
+   :type split: hg_datasets.Split | None
+   :param force_overwrite: If True, the destination directory will be
+                           overwritten if it already exists. Defaults to False.
+   :type force_overwrite: bool
+
+
+.. py:data:: parser
+

@@ -115,7 +115,7 @@ files to complete the dataset.
 Setup and Imports
 --------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-130
+.. GENERATED FROM PYTHON SOURCE LINES 103-131
 
 .. code-block:: Python
 
@@ -139,6 +139,7 @@ Setup and Imports
         EpisodePackaging,
         InstructionData,
         RobotData,
+        RobotDescriptionFormat,
         RODataset,
         TaskData,
     )
@@ -153,7 +154,7 @@ Setup and Imports
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 131-145
+.. GENERATED FROM PYTHON SOURCE LINES 132-146
 
 Step 1: Define the Data Schema (Features)
 ---------------------------------------------------------
@@ -170,7 +171,7 @@ This defines all the columns that will be written to the Apache Arrow files.
 For this example, we'll create a simple dataset with joints and a TF graph.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-157
+.. GENERATED FROM PYTHON SOURCE LINES 146-158
 
 .. code-block:: Python
 
@@ -195,18 +196,14 @@ For this example, we'll create a simple dataset with joints and a TF graph.
  .. code-block:: none
 
     --- Defined Features ---
-    {'joints': BatchJointsStateFeature(dtype='float32',
-                                       decode=True,
-                                       _decode_type=<class 'robo_orchard_core.datatypes.joint_state.BatchJointsState'>),
+    {'joints': BatchJointsStateFeature(dtype='float32', decode=True),
      'some_string_data': Value('string'),
-     'tf_graph': BatchFrameTransformGraphFeature(dtype='float32',
-                                                 decode=True,
-                                                 _decode_type=<class 'robo_orchard_core.datatypes.tf_graph.BatchFrameTransformGraphState'>)}
+     'tf_graph': BatchFrameTransformGraphFeature(dtype='float32', decode=True)}
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-169
+.. GENERATED FROM PYTHON SOURCE LINES 159-170
 
 Step 2: Implement EpisodePackaging
 ------------------------------------
@@ -220,12 +217,16 @@ You can re-use the same :py:class:`~robo_orchard_lab.dataset.robot.packaging.Rob
 object across many episodes.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 169-244
+.. GENERATED FROM PYTHON SOURCE LINES 170-249
 
 .. code-block:: Python
 
 
-    MOCK_ROBOT = RobotData(name="my_robot_v1", urdf_content="<xml>...</xml>")
+    MOCK_ROBOT = RobotData(
+        name="my_robot_v1",
+        content="<xml>...</xml>",
+        content_format=RobotDescriptionFormat.URDF,
+    )
     MOCK_TASK = TaskData(name="stack_blocks", description="Stack red on blue")
 
     # We can also define instructions that might change frame-by-frame
@@ -306,14 +307,14 @@ object across many episodes.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 245-249
+.. GENERATED FROM PYTHON SOURCE LINES 250-254
 
 Step 3: Run the Packager
 ------------------------
 Now we use the :py:class:`~robo_orchard_lab.dataset.robot.packaging.DatasetPackaging`
 orchestrator to do the work.
 
-.. GENERATED FROM PYTHON SOURCE LINES 249-276
+.. GENERATED FROM PYTHON SOURCE LINES 254-281
 
 .. code-block:: Python
 
@@ -355,25 +356,25 @@ orchestrator to do the work.
     --- Starting Packaging Process ---
     Initialized packager for ep_001
     Initialized packager for ep_002
-    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:481: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/dummy_dataset' already exists. It will be overwritten.
+    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:490: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/dummy_dataset' already exists. It will be overwritten.
       warnings.warn(
     Generating train split: 0 examples [00:00, ? examples/s]
       [ep_001] Generating episode metadata...
       [ep_001] Starting frame generation...
-    Generating train split: 1 examples [00:00,  8.34 examples/s]
+    Generating train split: 1 examples [00:02,  2.30s/ examples]
       [ep_001] Finished generating 5 frames.
 
       [ep_002] Generating episode metadata...
       [ep_002] Starting frame generation...
 
       [ep_002] Finished generating 3 frames.
-    Generating train split: 8 examples [00:00, 40.31 examples/s]
+    Generating train split: 8 examples [00:02,  3.38 examples/s]
     --- Packaging Complete! ---
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 277-282
+.. GENERATED FROM PYTHON SOURCE LINES 282-287
 
 Step 4: Verify the Output
 -------------------------
@@ -381,7 +382,7 @@ Let's check the directory structure and then load the dataset
 using :py:class:`~robo_orchard_lab.dataset.robot.dataset.RODataset` to prove it worked.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 282-293
+.. GENERATED FROM PYTHON SOURCE LINES 287-298
 
 .. code-block:: Python
 
@@ -414,11 +415,11 @@ using :py:class:`~robo_orchard_lab.dataset.robot.dataset.RODataset` to prove it 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 294-295
+.. GENERATED FROM PYTHON SOURCE LINES 299-300
 
 Now, let's load it just like any other :py:class:`~robo_orchard_lab.dataset.robot.dataset.RODataset`
 
-.. GENERATED FROM PYTHON SOURCE LINES 295-323
+.. GENERATED FROM PYTHON SOURCE LINES 300-328
 
 .. code-block:: Python
 
@@ -476,7 +477,7 @@ Now, let's load it just like any other :py:class:`~robo_orchard_lab.dataset.robo
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.384 seconds)
+   **Total running time of the script:** (0 minutes 2.560 seconds)
 
 
 .. _sphx_glr_download_build_tutorials_dataset_tutorial_nonb-05_dataset_create.py:

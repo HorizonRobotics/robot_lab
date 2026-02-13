@@ -1,0 +1,77 @@
+formatter
+=========
+
+.. py:module:: robo_orchard_lab.transforms.image.formatter
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.transforms.image.formatter.ImageLayoutFormatter
+   robo_orchard_lab.transforms.image.formatter.ImageLayoutFormatterConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: ImageLayoutFormatter(cfg: ImageLayoutFormatterConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransform`
+
+
+   A transform to format the image layout.
+
+   This transform changes the layout of the image data to HWC or CHW format,
+   depending on the specified output layout. For training, CHW is often
+   preferred, while for visualization, HWC is more common. The transform also
+   ensures that the image data is in the specified dtype.
+
+
+
+   .. py:attribute:: cfg
+      :type:  ImageLayoutFormatterConfig
+
+
+   .. py:attribute:: is_variadic
+      :type:  bool
+      :value: True
+
+
+
+   .. py:method:: transform(**kwargs: dict[str, BatchImageDataType]) -> dict[str, BatchImageDataType]
+
+      Format the image layout.
+
+
+
+.. py:class:: ImageLayoutFormatterConfig
+
+   Bases: :py:obj:`robo_orchard_lab.transforms.base.DictTransformConfig`\ [\ :py:obj:`ImageLayoutFormatter`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.transforms.base.ClassType[ImageLayoutFormatter]
+
+
+   .. py:attribute:: input_columns
+      :type:  Sequence[str]
+
+      The columns to format.
+
+
+   .. py:attribute:: output_layout
+      :type:  robo_orchard_core.datatypes.camera_data.ImageChannelLayout
+
+      The output image channel layout.
+
+
+   .. py:attribute:: output_dtype
+      :type:  str | None
+      :value: None
+
+
+      The output image dtype. If None, the input dtype is used.
+
+

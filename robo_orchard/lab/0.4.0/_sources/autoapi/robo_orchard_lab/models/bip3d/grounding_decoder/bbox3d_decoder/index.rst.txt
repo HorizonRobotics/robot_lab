@@ -1,0 +1,388 @@
+bbox3d_decoder
+==============
+
+.. py:module:: robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.BBox3DDecoder
+   robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.GroundingRefineClsHead
+   robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.DoF9BoxLoss
+   robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.GroundingBox3DPostProcess
+   robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.DoF9BoxEncoder
+   robo_orchard_lab.models.bip3d.grounding_decoder.bbox3d_decoder.SparseBox3DKeyPointsGenerator
+
+
+Module Contents
+---------------
+
+.. py:class:: BBox3DDecoder(instance_bank: dict, anchor_encoder: dict, graph_model: dict, norm_layer: dict, ffn: dict, deformable_model: dict, refine_layer: dict, num_decoder: int = 6, num_single_frame_decoder: int = -1, text_cross_attn: Union[None, dict, torch.nn.Module] = None, loss_cls: Union[None, dict, torch.nn.Module] = None, loss_reg: Union[None, dict, torch.nn.Module] = None, post_processor: Union[None, dict, torch.nn.Module] = None, sampler: Union[None, dict, torch.nn.Module] = None, gt_cls_key: str = 'gt_labels_3d', gt_reg_key: str = 'gt_bboxes_3d', task_prefix: str = 'det', reg_weights: Optional[List] = None, operation_order: Optional[List[str]] = None, look_forward_twice: bool = False, **kwargs)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: num_decoder
+      :value: 6
+
+
+
+   .. py:attribute:: num_single_frame_decoder
+      :value: -1
+
+
+
+   .. py:attribute:: gt_cls_key
+      :value: 'gt_labels_3d'
+
+
+
+   .. py:attribute:: gt_reg_key
+      :value: 'gt_bboxes_3d'
+
+
+
+   .. py:attribute:: task_prefix
+      :value: 'det'
+
+
+
+   .. py:attribute:: look_forward_twice
+      :value: False
+
+
+
+   .. py:attribute:: operation_order
+      :value: None
+
+
+
+   .. py:attribute:: instance_bank
+
+
+   .. py:attribute:: anchor_encoder
+
+
+   .. py:attribute:: sampler
+
+
+   .. py:attribute:: post_processor
+
+
+   .. py:attribute:: loss_cls
+
+
+   .. py:attribute:: loss_reg
+
+
+   .. py:attribute:: op_config_map
+
+
+   .. py:attribute:: layers
+
+
+   .. py:attribute:: embed_dims
+
+
+   .. py:attribute:: norm
+
+
+   .. py:method:: init_weights()
+
+
+   .. py:method:: save_metadata(directory, *args, **kwargs)
+
+
+   .. py:method:: forward(feature_maps, text_dict: Optional[dict] = None, inputs: Optional[dict] = None, depth_prob=None, **kwargs)
+
+
+   .. py:method:: loss(model_outs, data, text_dict=None)
+
+
+   .. py:method:: prepare_for_dn_loss(model_outs, prefix='')
+
+
+   .. py:method:: post_process(model_outs, inputs, text_dict)
+
+
+.. py:class:: GroundingRefineClsHead(embed_dims=256, output_dim=9, scale=None, cls_layers=False, cls_bias=True)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: embed_dims
+      :value: 256
+
+
+
+   .. py:attribute:: output_dim
+      :value: 9
+
+
+
+   .. py:attribute:: refine_state
+
+
+   .. py:attribute:: scale
+      :value: None
+
+
+
+   .. py:attribute:: layers
+
+
+   .. py:method:: forward(instance_feature: torch.Tensor, anchor: torch.Tensor = None, anchor_embed: torch.Tensor = None, text_feature=None, text_token_mask=None, **kwargs)
+
+
+.. py:class:: DoF9BoxLoss(loss_weight_wd=1.0, loss_weight_cd=0.8, decode_pred=False)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: loss_weight_wd
+      :value: 1.0
+
+
+
+   .. py:attribute:: loss_weight_cd
+      :value: 0.8
+
+
+
+   .. py:attribute:: decode_pred
+      :value: False
+
+
+
+   .. py:method:: forward(box, box_target, weight=None, avg_factor=None, prefix='', suffix='', **kwargs)
+
+
+.. py:class:: GroundingBox3DPostProcess(num_output: int = 300, score_threshold: Optional[float] = None, sorted: bool = True)
+
+   .. py:attribute:: num_output
+      :value: 300
+
+
+
+   .. py:attribute:: score_threshold
+      :value: None
+
+
+
+   .. py:attribute:: sorted
+      :value: True
+
+
+
+.. py:class:: DoF9BoxEncoder(embed_dims, rot_dims=3, output_fc=True, in_loops=1, out_loops=2)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: embed_dims
+
+
+   .. py:attribute:: pos_fc
+
+
+   .. py:attribute:: size_fc
+
+
+   .. py:attribute:: yaw_fc
+
+
+   .. py:attribute:: rot_dims
+      :value: 3
+
+
+
+   .. py:method:: forward(box_3d: torch.Tensor)
+
+
+.. py:class:: SparseBox3DKeyPointsGenerator(embed_dims=256, num_learnable_pts=0, fix_scale=None)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: embed_dims
+      :value: 256
+
+
+
+   .. py:attribute:: num_learnable_pts
+      :value: 0
+
+
+
+   .. py:attribute:: fix_scale
+
+
+   .. py:attribute:: num_pts
+
+
+   .. py:method:: forward(anchor, instance_feature=None)
+
+

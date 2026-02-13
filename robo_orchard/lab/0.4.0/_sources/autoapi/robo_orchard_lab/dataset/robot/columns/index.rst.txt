@@ -1,0 +1,78 @@
+columns
+=======
+
+.. py:module:: robo_orchard_lab.dataset.robot.columns
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.columns.PreservedIndexColumnsKeys
+   robo_orchard_lab.dataset.robot.columns.PreservedColumnsKeys
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.columns.PreservedIndexColumns
+
+
+Module Contents
+---------------
+
+.. py:class:: PreservedIndexColumns
+
+   .. py:attribute:: index
+      :type:  int
+
+      The global index of the frame in the dataset.
+
+      Usually corresponds to the row number in the dataset.
+
+
+   .. py:attribute:: episode_index
+      :type:  int
+
+      The index of the episode the frame belongs to.
+
+
+   .. py:attribute:: frame_index
+      :type:  int
+
+      The index of the frame within the episode.
+
+
+   .. py:attribute:: task_index
+      :type:  int | None
+
+      The index of the task associated with the frame, if any.
+
+
+   .. py:attribute:: robot_index
+      :type:  int | None
+
+      The index of the robot associated with the frame, if any.
+
+
+   .. py:attribute:: instruction_index
+      :type:  int | None
+
+      The index of the instruction associated with the frame, if any.
+
+
+   .. py:attribute:: timestamp_min
+      :type:  int | None
+
+
+   .. py:attribute:: timestamp_max
+      :type:  int | None
+
+
+.. py:data:: PreservedIndexColumnsKeys
+
+.. py:data:: PreservedColumnsKeys
+

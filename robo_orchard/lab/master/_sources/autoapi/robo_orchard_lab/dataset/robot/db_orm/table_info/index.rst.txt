@@ -1,0 +1,50 @@
+table_info
+==========
+
+.. py:module:: robo_orchard_lab.dataset.robot.db_orm.table_info
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.db_orm.table_info.TableInfo
+
+
+Module Contents
+---------------
+
+.. py:class:: TableInfo
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.robot.db_orm.base.DatasetORMBase`
+
+
+   The table information.
+
+   This table is used to store the information of the tables in the database.
+
+
+   .. py:property:: pk_str
+      :type: str
+
+
+      Return the primary key string.
+
+
+   .. py:attribute:: table_name
+      :type:  sqlalchemy.orm.Mapped[str]
+
+
+   .. py:attribute:: table_version
+      :type:  sqlalchemy.orm.Mapped[str]
+
+
+   .. py:attribute:: app_version
+      :type:  sqlalchemy.orm.Mapped[str]
+
+
+   .. py:attribute:: creation_statement
+      :type:  sqlalchemy.orm.Mapped[str]
+
+

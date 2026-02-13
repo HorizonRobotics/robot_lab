@@ -1,0 +1,48 @@
+joint_state
+===========
+
+.. py:module:: robo_orchard_lab.dataset.datatypes.joint_state
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.datatypes.joint_state.BatchJointsStateFeature
+
+
+Module Contents
+---------------
+
+.. py:class:: BatchJointsStateFeature
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.RODictDataFeature`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.TypedDictFeatureDecode`
+
+
+   A feature that is composed of a dictionary of features.
+
+   This class does not inherit from `dict` but use `dict` to define features.
+   It is useful for defining complex features that are
+   composed of multiple fields. The user should define the `_dict` attribute
+   as a dictionary mapping field names to features. The keys of the dictionary
+   are the field names, and the values are the features.
+
+   This class does not include `decode_example` method, as it is not
+   required for all features. If you need to decode the example values,
+   you can inherit from `DictFeatureDecodeMixin`.
+
+
+
+   .. py:attribute:: dtype
+      :type:  Literal['float32', 'float64']
+      :value: 'float32'
+
+
+
+   .. py:attribute:: decode
+      :type:  bool
+      :value: True
+
+
+

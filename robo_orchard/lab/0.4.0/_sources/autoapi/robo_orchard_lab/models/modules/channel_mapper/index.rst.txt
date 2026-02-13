@@ -1,0 +1,65 @@
+channel_mapper
+==============
+
+.. py:module:: robo_orchard_lab.models.modules.channel_mapper
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.modules.channel_mapper.ChannelMapper
+
+
+Module Contents
+---------------
+
+.. py:class:: ChannelMapper(in_channels: List[int], out_channels: int, kernel_size: int = 3, conv_type: str = 'Conv2d', norm_cfg: Optional[dict] = None, act_cfg: Optional[dict] = None, bias: Union[bool, str] = 'auto', num_outs: int | None = None)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Channel Mapper to reduce/increase channels of backbone features.
+
+   This is used to reduce/increase channels of backbone features.
+
+   :param in_channels: Number of input channels per scale.
+   :type in_channels: List[int]
+   :param out_channels: Number of output channels (used at each scale).
+   :type out_channels: int
+   :param kernel_size: kernel_size for reducing channels (used
+                       at each scale). Default: 3.
+   :type kernel_size: int, optional
+   :param conv_type: The config dict for embedding
+                     conv layer type selection. Default: "Conv2d.
+   :type conv_type: str
+   :param norm_cfg: Config dict for
+                    normalization layer. Default: None.
+   :type norm_cfg: :obj:`ConfigDict` or dict, optional
+   :param act_cfg: Config dict for
+                   activation layer in ConvModule. Default: dict(type='ReLU').
+   :type act_cfg: :obj:`ConfigDict` or dict, optional
+   :param bias: If specified as `auto`, it will be decided by the
+                norm_cfg. Bias will be set as True if `norm_cfg` is None, otherwise
+                False. Default: "auto".
+   :type bias: bool | str
+   :param num_outs: Number of output feature maps. There would
+                    be extra_convs when num_outs larger than the length of in_channels.
+   :type num_outs: int | None
+
+
+   .. py:attribute:: extra_convs
+      :value: None
+
+
+
+   .. py:attribute:: convs
+
+
+   .. py:method:: forward(inputs: Tuple[torch.Tensor]) -> Tuple[torch.Tensor]
+
+      Forward function.
+
+
+

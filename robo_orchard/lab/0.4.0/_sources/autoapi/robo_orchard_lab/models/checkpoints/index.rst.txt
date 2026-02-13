@@ -1,0 +1,46 @@
+checkpoints
+===========
+
+.. py:module:: robo_orchard_lab.models.checkpoints
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.checkpoints.UnknownCheckpointFormatError
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.checkpoints.checkpoint2pretrain
+
+
+Module Contents
+---------------
+
+.. py:exception:: UnknownCheckpointFormatError
+
+   Bases: :py:obj:`Exception`
+
+
+   Common base class for all non-exit exceptions.
+
+
+.. py:function:: checkpoint2pretrain(ckpt_path: str, target_path: str, ckpt_format: Literal['deepspeed']) -> None
+
+   Convert a checkpoint to a pretrain model.
+
+   :param ckpt_path: The path to the checkpoint.
+   :type ckpt_path: str
+   :param target_path: The target folder to save the pretrain model.
+   :type target_path: str
+   :param ckpt_format: The format of the checkpoint.
+                       Currently only "deepspeed" is supported.
+   :type ckpt_format: Literal["deepspeed"]
+
+

@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:01.538** total execution time for 5 files **from build/tutorials/model_zoo_tutorial**:
+**00:01.607** total execution time for 5 files **from build/tutorials/model_zoo_tutorial**:
 
 .. container::
 
@@ -33,17 +33,17 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-01_model_api.py` (``nonb-01_model_api.py``)
-     - 00:00.798
+     - 00:00.810
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-02_inference_api.py` (``nonb-02_inference_api.py``)
-     - 00:00.739
+     - 00:00.796
      - 0.0
-   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-03_perception_models.py` (``nonb-03_perception_models.py``)
+   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-05_navigation_models.py` (``nonb-05_navigation_models.py``)
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-04_manipulation_models.py` (``nonb-04_manipulation_models.py``)
      - 00:00.000
      - 0.0
-   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-05_navigation_models.py` (``nonb-05_navigation_models.py``)
+   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-03_perception_models.py` (``nonb-03_perception_models.py``)
      - 00:00.000
      - 0.0

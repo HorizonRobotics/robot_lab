@@ -1,0 +1,242 @@
+robotwin
+========
+
+.. py:module:: robo_orchard_lab.policy.evaluator.robotwin
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.policy.evaluator.robotwin.logger
+   robo_orchard_lab.policy.evaluator.robotwin.SEM_TASKS_16
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.policy.evaluator.robotwin.RoboTwinTaskQueueItem
+   robo_orchard_lab.policy.evaluator.robotwin.TaskStatus
+   robo_orchard_lab.policy.evaluator.robotwin.TaskInfo
+   robo_orchard_lab.policy.evaluator.robotwin.SuccessRateInfo
+   robo_orchard_lab.policy.evaluator.robotwin.SuccessRateMetric
+   robo_orchard_lab.policy.evaluator.robotwin.RoboTwinRemoteEvaluator
+   robo_orchard_lab.policy.evaluator.robotwin.RoboTwinRemoteEvaluatorCfg
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:data:: SEM_TASKS_16
+   :value: ('adjust_bottle', 'beat_block_hammer', 'blocks_ranking_rgb', 'blocks_ranking_size',...
+
+
+.. py:class:: RoboTwinTaskQueueItem
+
+   .. py:attribute:: task_name
+      :type:  str
+
+
+   .. py:attribute:: seed
+      :type:  int | None
+
+
+.. py:class:: TaskStatus
+
+   .. py:attribute:: episode_count
+      :type:  int
+      :value: 0
+
+
+
+.. py:class:: TaskInfo
+
+   .. py:attribute:: tasks
+      :type:  dict[str, TaskStatus]
+
+
+   .. py:attribute:: task_queue
+      :type:  queue.Queue[RoboTwinTaskQueueItem]
+
+
+   .. py:attribute:: episode_per_task
+      :type:  int
+
+
+   .. py:attribute:: lock
+      :type:  threading.RLock
+
+
+   .. py:method:: get_task_item() -> RoboTwinTaskQueueItem | None
+
+      Get a task item from the queue.
+
+      If all tasks have reached the episode_per_task limit,
+      return None.
+
+
+
+   .. py:method:: push_task_item(item: RoboTwinTaskQueueItem) -> bool
+
+      Push a task item back to the queue.
+
+      The item should be pushed back only if the task has not
+      reached the episode_per_task limit.
+
+      User should make sure that the item information is updated
+      correctly before pushing back.
+
+
+
+
+.. py:class:: SuccessRateInfo
+
+   .. py:attribute:: task_name
+      :type:  str
+
+
+   .. py:attribute:: success_count
+      :type:  int
+
+
+   .. py:attribute:: total_count
+      :type:  int
+
+
+   .. py:attribute:: info_list
+      :type:  list[dict[str, Any]]
+
+
+   .. py:method:: success_rate() -> float
+
+
+   .. py:method:: merge(infos: Iterable[SuccessRateInfo])
+
+
+   .. py:method:: summary() -> dict[str, Any]
+
+
+.. py:class:: SuccessRateMetric
+
+   .. py:attribute:: info
+      :type:  dict[str, SuccessRateInfo]
+
+
+   .. py:attribute:: last_update_info
+      :type:  dict | None
+
+
+   .. py:method:: reset(**kwargs)
+
+
+   .. py:method:: update(action: Any, step_return: robo_orchard_lab.envs.robotwin.RoboTwinEnvStepReturn)
+
+
+   .. py:method:: compute() -> dict
+
+
+   .. py:method:: to(*args, **kwargs)
+
+
+   .. py:method:: merge(metrics: Iterable[SuccessRateMetric])
+
+
+.. py:class:: RoboTwinRemoteEvaluator(cfg: RoboTwinRemoteEvaluatorCfg)
+
+   Evaluate policies on RoboTwin tasks using remote ray evaluators.
+
+   This evaluator runs multiple remote evaluators in parallel to
+   evaluate a list of RoboTwin tasks, collecting success rate metrics
+   for each task.
+
+   Compared to official RoboTwin evaluation scripts, this evaluator
+   runs evaluations in parallel using Ray, which can significantly
+   speed up the evaluation process when multiple CPUs/GPUs are available:
+
+   - Tasks are distributed among multiple remote evaluators.
+   - Episodes for each task are run in parallel across the remote evaluators
+     while the seed for each episode is incremented to ensure diversity.
+
+
+
+   .. py:attribute:: cfg
+      :type:  RoboTwinRemoteEvaluatorCfg
+
+
+   .. py:attribute:: evaluators
+      :type:  list[robo_orchard_lab.policy.evaluator.PolicyEvaluatorRemote]
+
+
+   .. py:attribute:: metric
+      :type:  SuccessRateMetric
+
+
+   .. py:method:: evaluate(policy_or_cfg: robo_orchard_lab.policy.base.PolicyConfig | robo_orchard_lab.policy.base.PolicyMixin, device: str | torch.device | None = None) -> dict
+
+      Evaluate the policy on all tasks and return the metrics.
+
+
+
+.. py:class:: RoboTwinRemoteEvaluatorCfg
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`RoboTwinRemoteEvaluator`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType[RoboTwinRemoteEvaluator]
+
+
+   .. py:attribute:: task_names
+      :type:  list[str]
+
+
+   .. py:attribute:: episode_num
+      :type:  int
+      :value: 100
+
+
+      The number of evaluation episodes for each task.
+
+
+   .. py:attribute:: config_type
+      :type:  Literal['demo_clean', 'demo_randomized']
+      :value: 'demo_clean'
+
+
+      The type of RoboTwin configuration to use:
+      - "demo_clean": Use the clean demo configuration, known as easy tasks.
+      - "demo_randomized": Use the randomized demo configuration,
+      known as hard tasks.
+
+
+   .. py:attribute:: seed
+      :type:  int
+      :value: 0
+
+
+
+   .. py:attribute:: num_parallel_envs
+      :type:  int
+      :value: None
+
+
+      Number of parallel environments to run in the remote evaluator.
+
+
+   .. py:attribute:: remote_class_config
+      :type:  robo_orchard_core.utils.ray.RayRemoteClassConfig
+
+      The configuration for the remote class.
+
+
+   .. py:attribute:: ray_init_config
+      :type:  dict[str, Any] | None
+      :value: None
+
+
+

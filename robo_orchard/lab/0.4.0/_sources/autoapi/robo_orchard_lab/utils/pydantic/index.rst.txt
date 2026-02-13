@@ -1,0 +1,22 @@
+pydantic
+========
+
+.. py:module:: robo_orchard_lab.utils.pydantic
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.pydantic.pydantic_serialize_with_pickle
+   robo_orchard_lab.utils.pydantic.pydantic_deserialize_with_pickle
+
+
+Module Contents
+---------------
+
+.. py:function:: pydantic_serialize_with_pickle(value)
+
+.. py:function:: pydantic_deserialize_with_pickle(value)
+

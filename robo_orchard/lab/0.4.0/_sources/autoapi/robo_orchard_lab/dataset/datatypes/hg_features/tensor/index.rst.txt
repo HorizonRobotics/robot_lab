@@ -1,0 +1,97 @@
+tensor
+======
+
+.. py:module:: robo_orchard_lab.dataset.datatypes.hg_features.tensor
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.datatypes.hg_features.tensor.AnyTensorFeature
+   robo_orchard_lab.dataset.datatypes.hg_features.tensor.TypedTensorFeature
+
+
+Module Contents
+---------------
+
+.. py:class:: AnyTensorFeature
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.base.RODataFeature`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.base.FeatureDecodeMixin`
+
+
+   A feature for storing tensors in a dataset.
+
+   The underlying data is stored as a serialized numpy array
+   with additional metadata about the tensor's shape and dtype.
+
+
+   .. py:attribute:: decode
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: as_torch_tensor
+      :type:  bool
+      :value: True
+
+
+
+   .. py:property:: pa_type
+
+      Return the pyarrow data type for this feature.
+
+
+   .. py:method:: encode_example(value: numpy.ndarray | torch.Tensor) -> bytes
+
+      Encode the example value into a format suitable for storage.
+
+
+
+   .. py:method:: decode_example(value: bytes, **kwargs) -> numpy.ndarray | torch.Tensor
+
+      Decode the example value from its stored format.
+
+
+
+.. py:class:: TypedTensorFeature
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.base.RODictDataFeature`, :py:obj:`robo_orchard_lab.dataset.datatypes.hg_features.base.FeatureDecodeMixin`
+
+
+   A feature for storing typed tensors in a dataset.
+
+   The underlying data is stored as a flattened numpy array
+   with shape information.
+
+
+   .. py:attribute:: dtype
+      :type:  str
+
+
+   .. py:attribute:: decode
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: as_torch_tensor
+      :type:  bool
+      :value: True
+
+
+
+   .. py:method:: encode_example(value: numpy.ndarray | torch.Tensor | None) -> TensorFeatureSerialized | None
+
+      Encode the example value into a format suitable for storage.
+
+
+
+   .. py:method:: decode_example(value: TensorFeatureSerialized | None, **kwargs) -> numpy.ndarray | torch.Tensor | None
+
+      Decode the example value from its stored format.
+
+
+

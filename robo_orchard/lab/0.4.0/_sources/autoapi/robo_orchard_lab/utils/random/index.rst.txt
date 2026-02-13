@@ -1,0 +1,26 @@
+random
+======
+
+.. py:module:: robo_orchard_lab.utils.random
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.utils.random.seed_everything
+
+
+Module Contents
+---------------
+
+.. py:function:: seed_everything(seed: int)
+
+   Set seed for pseudo-random number generators.
+
+   Include: pytorch, numpy, python.random.
+
+   :param seed: the integer value seed for global random state.
+
+

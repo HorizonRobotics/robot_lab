@@ -1,0 +1,118 @@
+loss
+====
+
+.. py:module:: robo_orchard_lab.models.holobrain.loss
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.holobrain.loss.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.holobrain.loss.HoloBrainActionLoss
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: HoloBrainActionLoss(default_state_loss_weight=None, default_fk_loss_weight=None, default_mobile_loss_weight=1.0, loss_mode='l2', smooth_l1_beta=1.0, with_wasserstein_distance=True, with_consistent_loss=False, timestep_loss_weight=None, parallel_loss_weight=None, **kwargs)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing to nest them in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will have their
+   parameters converted too when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+
+   .. py:attribute:: state_loss_weight
+      :value: None
+
+
+
+   .. py:attribute:: fk_loss_weight
+      :value: None
+
+
+
+   .. py:attribute:: mobile_loss_weight
+      :value: 1.0
+
+
+
+   .. py:attribute:: loss_mode
+      :value: 'l2'
+
+
+
+   .. py:attribute:: smooth_l1_beta
+      :value: 1.0
+
+
+
+   .. py:attribute:: with_wasserstein_distance
+      :value: True
+
+
+
+   .. py:attribute:: with_consistent_loss
+      :value: False
+
+
+
+   .. py:attribute:: timestep_loss_weight
+      :value: None
+
+
+
+   .. py:attribute:: parallel_loss_weight
+      :value: None
+
+
+
+   .. py:method:: forward(model_outs, inputs, **kwargs)
+
+
+   .. py:method:: robot_state_loss(pred, target, weight, suffix='', **kwargs)
+
+
+   .. py:method:: mobile_trajectory_loss(pred, target, weight, **kwargs)
+
+

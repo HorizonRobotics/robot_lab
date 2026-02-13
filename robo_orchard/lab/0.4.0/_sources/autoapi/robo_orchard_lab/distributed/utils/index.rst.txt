@@ -1,0 +1,22 @@
+utils
+=====
+
+.. py:module:: robo_orchard_lab.distributed.utils
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.distributed.utils.reduce_mean
+
+
+Module Contents
+---------------
+
+.. py:function:: reduce_mean(tensor)
+
+   Obtain the mean of tensor on different GPUs.
+
+

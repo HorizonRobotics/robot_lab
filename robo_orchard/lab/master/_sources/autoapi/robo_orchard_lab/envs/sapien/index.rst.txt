@@ -1,0 +1,31 @@
+sapien
+======
+
+.. py:module:: robo_orchard_lab.envs.sapien
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.envs.sapien.sapien_pose_to_orchard
+
+
+Module Contents
+---------------
+
+.. py:function:: sapien_pose_to_orchard(pose: sapien.Pose, timestamp: int | None = None) -> robo_orchard_lab.dataset.datatypes.BatchTransform3D
+
+   Convert a SAPIEN Pose to a BatchTransform3D.
+
+   :param pose: The SAPIEN Pose to convert.
+   :type pose: Pose
+   :param timestamp: The timestamp of the pose. Should be
+                     int nanoseconds(1e-9s). If None, no timestamp will be set.
+   :type timestamp: int | None
+
+   :returns: The converted BatchTransform3D.
+   :rtype: BatchTransform3D
+
+

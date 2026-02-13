@@ -1,0 +1,6 @@
+mixin
+=====
+
+.. py:module:: robo_orchard_lab.models.mixin
+
+

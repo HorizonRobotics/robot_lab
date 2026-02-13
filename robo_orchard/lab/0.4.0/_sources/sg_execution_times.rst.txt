@@ -1,0 +1,76 @@
+
+:orphan:
+
+.. _sphx_glr_sg_execution_times:
+
+
+Computation times
+=================
+**03:10.875** total execution time for 14 files **from all galleries**:
+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-06_dataset_conversion.py` (``tutorials/dataset_tutorial/nonb-06_dataset_conversion.py``)
+     - 01:57.316
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_trainer_tutorial_nonb-01_basic_run.py` (``tutorials/trainer_tutorial/nonb-01_basic_run.py``)
+     - 00:23.720
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_trainer_tutorial_nonb-02_built_in_hooks.py` (``tutorials/trainer_tutorial/nonb-02_built_in_hooks.py``)
+     - 00:22.294
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_trainer_tutorial_nonb-03_custom_hook.py` (``tutorials/trainer_tutorial/nonb-03_custom_hook.py``)
+     - 00:18.007
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-03_dataset_access.py` (``tutorials/dataset_tutorial/nonb-03_dataset_access.py``)
+     - 00:06.006
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-04_dataset_training.py` (``tutorials/dataset_tutorial/nonb-04_dataset_training.py``)
+     - 00:01.534
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-01_model_api.py` (``tutorials/model_zoo_tutorial/nonb-01_model_api.py``)
+     - 00:00.809
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-02_inference_api.py` (``tutorials/model_zoo_tutorial/nonb-02_inference_api.py``)
+     - 00:00.790
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-05_dataset_create.py` (``tutorials/dataset_tutorial/nonb-05_dataset_create.py``)
+     - 00:00.395
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-01_dataset_introduce.py` (``tutorials/dataset_tutorial/nonb-01_dataset_introduce.py``)
+     - 00:00.002
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_dataset_tutorial_nonb-02_dataset_overview.py` (``tutorials/dataset_tutorial/nonb-02_dataset_overview.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-05_navigation_models.py` (``tutorials/model_zoo_tutorial/nonb-05_navigation_models.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-04_manipulation_models.py` (``tutorials/model_zoo_tutorial/nonb-04_manipulation_models.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_build_tutorials_model_zoo_tutorial_nonb-03_perception_models.py` (``tutorials/model_zoo_tutorial/nonb-03_perception_models.py``)
+     - 00:00.000
+     - 0.0

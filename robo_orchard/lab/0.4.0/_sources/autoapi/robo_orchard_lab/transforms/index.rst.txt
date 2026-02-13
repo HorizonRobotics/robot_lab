@@ -1,0 +1,35 @@
+transforms
+==========
+
+.. py:module:: robo_orchard_lab.transforms
+
+.. autoapi-nested-parse::
+
+   Transform module.
+
+   A Transform is a callable that takes an input and returns a transformed output.
+
+   Usually transforms are used to preprocess the input data before feeding
+   it into a model. The data loader usually applies dataset-specific transforms
+   to the input data, such as decoding, resizing, cropping, etc, to normalize
+   the input data to a specific format.
+
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_lab/transforms/action/index
+   /autoapi/robo_orchard_lab/transforms/base/index
+   /autoapi/robo_orchard_lab/transforms/image/index
+   /autoapi/robo_orchard_lab/transforms/noise/index
+   /autoapi/robo_orchard_lab/transforms/normalize/index
+   /autoapi/robo_orchard_lab/transforms/padding/index
+   /autoapi/robo_orchard_lab/transforms/take/index
+
+

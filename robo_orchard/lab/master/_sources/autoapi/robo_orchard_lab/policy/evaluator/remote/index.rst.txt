@@ -1,0 +1,158 @@
+remote
+======
+
+.. py:module:: robo_orchard_lab.policy.evaluator.remote
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.policy.evaluator.remote.PolicyEvaluatorRemote
+   robo_orchard_lab.policy.evaluator.remote.PolicyEvaluatorRemoteConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: PolicyEvaluatorRemote(cfg: PolicyEvaluatorRemoteConfig)
+
+   Bases: :py:obj:`robo_orchard_core.utils.ray.RayRemoteInstance`\ [\ :py:obj:`robo_orchard_lab.policy.evaluator.base.PolicyEvaluator`\ ]
+
+
+   A class that manages a Ray remote actor instance.
+
+
+   .. py:attribute:: cfg
+      :type:  PolicyEvaluatorRemoteConfig
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+   .. py:method:: setup(env_cfg: robo_orchard_core.envs.env_base.EnvBaseCfg, policy_or_cfg: robo_orchard_core.policy.base.PolicyConfig | robo_orchard_lab.policy.base.PolicyMixin, metrics: robo_orchard_lab.metrics.base.MetricDict | robo_orchard_lab.metrics.base.MetricProtocol, device: str | torch.device | None = None)
+
+      Setup the remote policy evaluator.
+
+
+
+   .. py:method:: async_setup(env_cfg: robo_orchard_core.envs.env_base.EnvBaseCfg, policy_or_cfg: robo_orchard_core.policy.base.PolicyConfig | robo_orchard_lab.policy.base.PolicyMixin, metrics: robo_orchard_lab.metrics.base.MetricDict | robo_orchard_lab.metrics.base.MetricProtocol, device: str | torch.device | None = None) -> concurrent.futures.Future
+
+      Asynchronously setup the remote policy evaluator.
+
+
+
+   .. py:method:: reconfigure_metrics(metrics: robo_orchard_lab.metrics.base.MetricDict | robo_orchard_lab.metrics.base.MetricProtocol) -> None
+
+      Reconfigure the metrics.
+
+      :param metrics: The new metrics.
+      :type metrics: MetricDict
+
+
+
+   .. py:method:: reconfigure_env(env_cfg: robo_orchard_core.envs.env_base.EnvBaseCfg) -> None
+
+      Reconfigure the environment.
+
+      :param env_cfg: The new environment configuration.
+      :type env_cfg: EnvBaseCfg
+
+
+
+   .. py:method:: reconfigure_policy(policy_or_cfg: robo_orchard_core.policy.base.PolicyConfig | robo_orchard_lab.policy.base.PolicyMixin, device: str | torch.device | None = None) -> None
+
+      Reconfigure the policy with a new configuration.
+
+      :param policy_or_cfg: The new configuration
+                            for the policy or a policy instance.
+      :type policy_or_cfg: PolicyConfig | PolicyMixin
+
+
+
+   .. py:method:: evaluate_episode(max_steps: int, env_reset_kwargs: dict[str, Any] | None = None, policy_reset_kwargs: dict[str, Any] | None = None, rollout_stop_condition: robo_orchard_lab.policy.evaluator.base.RollOutStopCondition = evaluate_rollout_stop_condition) -> dict[str, Any]
+
+
+   .. py:method:: async_evaluate_episode(max_steps: int, env_reset_kwargs: dict[str, Any] | None = None, policy_reset_kwargs: dict[str, Any] | None = None, rollout_stop_condition: robo_orchard_lab.policy.evaluator.base.RollOutStopCondition = evaluate_rollout_stop_condition) -> concurrent.futures.Future
+
+
+   .. py:method:: make_episode_evaluation(max_steps: int, env_reset_kwargs: dict[str, Any] | None = None, policy_reset_kwargs: dict[str, Any] | None = None, rollout_steps: int = 5, rollout_stop_condition: robo_orchard_lab.policy.evaluator.base.RollOutStopCondition = evaluate_rollout_stop_condition) -> Generator[int, None, None]
+
+      Make an episode evaluation.
+
+      :param max_steps: The maximum number of steps to run in the episode.
+      :type max_steps: int
+      :param env_reset_kwargs: Additional arguments to
+                               pass to the environment's reset method.
+      :type env_reset_kwargs: dict[str, Any] | None
+      :param policy_reset_kwargs: Additional arguments
+                                  to pass to the policy's reset method.
+      :type policy_reset_kwargs: dict[str, Any] | None
+      :param rollout_steps: The number of steps to rollout
+                            at each iteration. Defaults to 5.
+      :type rollout_steps: int, optional
+
+      :returns:
+
+                A generator that yields the number
+                    of steps taken in each rollout batch.
+      :rtype: Generator[int, None, None]
+
+
+
+   .. py:method:: reset_metrics(**kwargs) -> None
+
+      Reset the metrics.
+
+
+
+   .. py:method:: reset_policy(**kwargs) -> None
+
+      Reset the policy.
+
+
+
+   .. py:method:: reset_env(**kwargs) -> Any
+
+      Reset the environment.
+
+
+
+   .. py:method:: async_reset_env(**kwargs) -> concurrent.futures.Future
+
+      Asynchronously reset the environment.
+
+
+
+   .. py:method:: get_metrics() -> robo_orchard_lab.metrics.base.MetricDict | robo_orchard_lab.metrics.base.MetricProtocol | None
+
+
+   .. py:method:: compute_metrics() -> dict[str, Any]
+
+      Compute the metrics and return the results.
+
+      :returns: The computed metrics.
+      :rtype: dict[str, Any]
+
+
+
+.. py:class:: PolicyEvaluatorRemoteConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.ray.RayRemoteInstanceConfig`\ [\ :py:obj:`PolicyEvaluatorRemote`\ , :py:obj:`robo_orchard_lab.policy.evaluator.base.PolicyEvaluatorConfig`\ ]
+
+
+   Configuration for PolicyEvaluatorRemote.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType[PolicyEvaluatorRemote]
+
+
+   .. py:attribute:: instance_config
+      :type:  robo_orchard_core.utils.config.ConfigInstanceOf[robo_orchard_lab.policy.evaluator.base.PolicyEvaluatorConfig]
+
+

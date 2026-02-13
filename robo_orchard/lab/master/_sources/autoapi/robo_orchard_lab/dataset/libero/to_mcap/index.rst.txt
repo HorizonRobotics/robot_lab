@@ -1,0 +1,22 @@
+to_mcap
+=======
+
+.. py:module:: robo_orchard_lab.dataset.libero.to_mcap
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.libero.to_mcap.default_dataset_to_mcap_config
+
+
+Module Contents
+---------------
+
+.. py:function:: default_dataset_to_mcap_config() -> dict[str, robo_orchard_lab.dataset.experimental.mcap.batch_encoder.McapBatchEncoderConfig]
+
+   Get the default dataset to MCAP encoder config for Libero dataset.
+
+

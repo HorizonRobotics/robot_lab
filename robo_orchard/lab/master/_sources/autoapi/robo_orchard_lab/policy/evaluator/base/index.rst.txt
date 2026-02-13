@@ -1,0 +1,239 @@
+base
+====
+
+.. py:module:: robo_orchard_lab.policy.evaluator.base
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.policy.evaluator.base.RollOutStopCondition
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.policy.evaluator.base.PolicyEvaluator
+   robo_orchard_lab.policy.evaluator.base.PolicyEvaluatorConfig
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.policy.evaluator.base.evaluate_rollout_stop_condition
+
+
+Module Contents
+---------------
+
+.. py:data:: RollOutStopCondition
+
+.. py:function:: evaluate_rollout_stop_condition(step_ret: robo_orchard_core.envs.env_base.EnvStepReturn | tuple[Any, Any, bool, bool, dict[str, Any]]) -> bool
+
+   Determine whether to stop the rollout based on terminal conditions.
+
+   :returns: True if the rollout should stop, False otherwise.
+   :rtype: bool
+
+
+.. py:class:: PolicyEvaluator(cfg: PolicyEvaluatorConfig)
+
+   Evaluate a policy using a set of metrics on an environment.
+
+   The evaluator setup process may be time-consuming, so it is separated
+   from the initialization process. Please call the `setup()` method after
+   initialization to prepare the evaluator for use.
+
+   :param cfg: Configuration for the
+               PolicyEvaluator instance.
+   :type cfg: PolicyEvaluatorConfig
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: metrics
+      :type:  robo_orchard_lab.metrics.base.MetricDict | robo_orchard_lab.metrics.base.MetricProtocol
+
+
+   .. py:attribute:: policy
+      :type:  robo_orchard_lab.policy.base.PolicyMixin
+
+
+   .. py:attribute:: env
+      :type:  robo_orchard_core.envs.env_base.EnvBase
+
+
+   .. py:attribute:: cfg
+      :type:  PolicyEvaluatorConfig
+
+
+   .. py:method:: setup(env_cfg: robo_orchard_core.envs.env_base.EnvBaseCfg, policy_or_cfg: robo_orchard_lab.policy.base.PolicyConfig | robo_orchard_lab.policy.base.PolicyMixin, metrics: robo_orchard_lab.metrics.base.MetricDict, device: str | torch.device | None = None)
+
+      Setup the evaluator with the current configuration.
+
+
+
+   .. py:method:: reconfigure_metrics(metrics: robo_orchard_lab.metrics.base.MetricDict | robo_orchard_lab.metrics.base.MetricProtocol) -> None
+
+      Reconfigure the metrics with a new set of metrics.
+
+      :param metrics: A dictionary where keys are
+                      metric names and values are callable metric functions that
+                      follow the MetricProtocol.
+      :type metrics: MetricDict|MetricProtocol
+
+
+
+   .. py:method:: reconfigure_env(env_cfg: robo_orchard_core.envs.env_base.EnvBaseCfg) -> None
+
+      Reconfigure the environment with a new configuration.
+
+      We only provide reconfiguration via configuration here because for
+      most cases, the environment does not support pickling/unpickling.
+
+      :param env_cfg: The new configuration for the environment.
+      :type env_cfg: EnvBaseCfg
+
+
+
+   .. py:method:: reconfigure_policy(policy_or_cfg: robo_orchard_lab.policy.base.PolicyConfig | robo_orchard_lab.policy.base.PolicyMixin, device: str | torch.device | None = None) -> None
+
+      Reconfigure the policy with a new configuration.
+
+      :param policy_or_cfg: The new configuration
+                            for the policy or a policy instance.
+      :type policy_or_cfg: PolicyConfig | PolicyMixin
+
+
+
+   .. py:method:: evaluate_episode(max_steps: int, env_reset_kwargs: dict[str, Any] | None = None, policy_reset_kwargs: dict[str, Any] | None = None, rollout_stop_condition: RollOutStopCondition = evaluate_rollout_stop_condition) -> dict[str, Any]
+
+      Evaluate the policy on a single episode and return metrics.
+
+
+
+   .. py:method:: make_episode_evaluation(max_steps: int, env_reset_kwargs: dict[str, Any] | None = None, policy_reset_kwargs: dict[str, Any] | None = None, rollout_steps: int = 5, rollout_stop_condition: RollOutStopCondition = evaluate_rollout_stop_condition) -> Generator[int, None, None]
+
+      Make a generator to evaluate the policy on episodes.
+
+      This method yields the number of steps taken in each rollout
+      until the episode ends or the maximum number of steps is reached.
+
+      At the beginning of each episode, the environment and policy
+      are reset using the provided keyword arguments. And after the
+      final step, the metrics are updated with the last action
+      and step result.
+
+      .. warning::
+
+         The final action and step result are used to update the metrics,
+         regardless of whether the episode ended due to reaching the
+         maximum number of steps or due to the terminal condition. This
+         may lead to unexpected behavior if the last action and step result
+         are not representative of the entire episode.
+
+      :param max_steps: The maximum number of steps to evaluate
+                        the policy for.
+      :type max_steps: int
+      :param env_reset_kwargs: Keyword arguments to
+                               pass to the environment's reset method. Defaults to None.
+      :type env_reset_kwargs: dict, optional
+      :param policy_reset_kwargs: Keyword arguments to
+                                  pass to the policy's reset method. Defaults to None.
+      :type policy_reset_kwargs: dict, optional
+      :param rollout_steps: The number of steps to roll
+                            out in each iteration. Defaults to 5.
+      :type rollout_steps: int, optional
+
+      :Yields: *int* -- The number of steps taken in each rollout.
+
+
+
+   .. py:method:: reset_metrics(**kwargs) -> None
+
+      Reset all metrics.
+
+      :param kwargs: Additional arguments to pass to the
+                     metrics' reset method.
+
+
+
+   .. py:method:: reset_env(**kwargs) -> Any
+
+      Reset the environment.
+
+      :param kwargs: Additional arguments to pass to the
+                     environment's reset method.
+
+
+
+   .. py:method:: reset_policy(**kwargs) -> None
+
+      Reset the policy.
+
+      :param kwargs: Additional arguments to pass to the policy's
+                     reset method.
+
+
+
+   .. py:method:: get_metrics() -> robo_orchard_lab.metrics.base.MetricDict | robo_orchard_lab.metrics.base.MetricProtocol | None
+
+      Get the current metrics.
+
+      :returns:
+
+                A dictionary where keys are metric names
+                    and values are the current metric values.
+      :rtype: MetricDict
+
+
+
+   .. py:method:: compute_metrics() -> dict[str, Any]
+
+      Compute all metrics and return the results as a dictionary.
+
+      :returns:
+
+                A dictionary where keys are metric names and values are
+                    the computed metric values.
+      :rtype: dict
+
+
+
+.. py:class:: PolicyEvaluatorConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`PolicyEvaluator`\ ]
+
+
+   Configuration class for PolicyEvaluator.
+
+   This class is used to configure and instantiate a PolicyEvaluator
+   object with the specified environment, policy, and metrics.
+
+   :param env_cfg: The configuration for the environment.
+   :type env_cfg: EnvBaseCfg
+   :param policy_cfg: The configuration for the policy.
+   :type policy_cfg: PolicyConfig
+   :param metrics: A dictionary where keys are
+                   metric names and values are callable metric functions that
+                   follow the MetricProtocol.
+   :type metrics: dict | MetricDict
+
+
+   .. py:attribute:: class_type
+      :type:  type[PolicyEvaluator]
+
+
+   .. py:method:: as_remote(remote_class_config: robo_orchard_core.utils.ray.RayRemoteClassConfig | None = None, ray_init_config: dict[str, Any] | None = None, check_init_timeout: int = 60) -> robo_orchard_lab.policy.evaluator.remote.PolicyEvaluatorRemoteConfig
+
+

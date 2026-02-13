@@ -1,0 +1,125 @@
+dataset_wrapper
+===============
+
+.. py:module:: robo_orchard_lab.dataset.dataset_wrapper
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.dataset_wrapper.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.dataset_wrapper.ConcatDatasetWithFlag
+   robo_orchard_lab.dataset.dataset_wrapper.DistributedBatchFlagSampler
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: ConcatDatasetWithFlag(datasets, mode='concat_flag')
+
+   Bases: :py:obj:`torch.utils.data.dataset.ConcatDataset`
+
+
+   Dataset as a concatenation of multiple datasets.
+
+   This class is useful to assemble different existing datasets.
+
+   :param datasets: List of datasets to be concatenated
+   :type datasets: sequence
+
+
+   .. py:method:: generate_flag()
+
+
+.. py:class:: DistributedBatchFlagSampler(data_source, batch_size, drop_last=False, seed=0, dataset_sample_weights=None)
+
+   Bases: :py:obj:`torch.utils.data.sampler.Sampler`\ [\ :py:obj:`list`\ [\ :py:obj:`int`\ ]\ ]
+
+
+   Base class for all Samplers.
+
+   Every Sampler subclass has to provide an :meth:`__iter__` method, providing a
+   way to iterate over indices or lists of indices (batches) of dataset elements,
+   and may provide a :meth:`__len__` method that returns the length of the returned iterators.
+
+   :param data_source: This argument is not used and will be removed in 2.2.0.
+                       You may still have custom implementation that utilizes it.
+   :type data_source: Dataset
+
+   .. rubric:: Example
+
+   >>> # xdoctest: +SKIP
+   >>> class AccedingSequenceLengthSampler(Sampler[int]):
+   >>>     def __init__(self, data: List[str]) -> None:
+   >>>         self.data = data
+   >>>
+   >>>     def __len__(self) -> int:
+   >>>         return len(self.data)
+   >>>
+   >>>     def __iter__(self) -> Iterator[int]:
+   >>>         sizes = torch.tensor([len(x) for x in self.data])
+   >>>         yield from torch.argsort(sizes).tolist()
+   >>>
+   >>> class AccedingSequenceLengthBatchSampler(Sampler[List[int]]):
+   >>>     def __init__(self, data: List[str], batch_size: int) -> None:
+   >>>         self.data = data
+   >>>         self.batch_size = batch_size
+   >>>
+   >>>     def __len__(self) -> int:
+   >>>         return (len(self.data) + self.batch_size - 1) // self.batch_size
+   >>>
+   >>>     def __iter__(self) -> Iterator[List[int]]:
+   >>>         sizes = torch.tensor([len(x) for x in self.data])
+   >>>         for batch in torch.chunk(torch.argsort(sizes), len(self)):
+   >>>             yield batch.tolist()
+
+   .. note:: The :meth:`__len__` method isn't strictly required by
+             :class:`~torch.utils.data.DataLoader`, but is expected in any
+             calculation involving the length of a :class:`~torch.utils.data.DataLoader`.
+
+
+   .. py:attribute:: rank
+
+
+   .. py:attribute:: data_source
+
+
+   .. py:attribute:: batch_size
+
+
+   .. py:attribute:: drop_last
+      :value: False
+
+
+
+   .. py:attribute:: groups_length
+
+
+   .. py:attribute:: flags
+
+
+   .. py:attribute:: seed
+
+
+   .. py:attribute:: dataset_sample_weights
+      :value: None
+
+
+
+   .. py:method:: reset()
+
+
+   .. py:method:: set_epoch(epoch)
+
+

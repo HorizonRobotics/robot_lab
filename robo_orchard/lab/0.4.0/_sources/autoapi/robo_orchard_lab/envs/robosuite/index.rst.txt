@@ -1,0 +1,56 @@
+robosuite
+=========
+
+.. py:module:: robo_orchard_lab.envs.robosuite
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.envs.robosuite.get_depth_image
+   robo_orchard_lab.envs.robosuite.get_camera_info
+   robo_orchard_lab.envs.robosuite.get_joint_state
+   robo_orchard_lab.envs.robosuite.get_tf_world
+
+
+Module Contents
+---------------
+
+.. py:function:: get_depth_image(env: robosuite.environments.robot_env.RobotEnv, depth_img: numpy.ndarray) -> torch.Tensor
+
+.. py:function:: get_camera_info(env: robosuite.environments.robot_env.RobotEnv, camera_name: str) -> robo_orchard_core.datatypes.BatchCameraInfo
+
+.. py:function:: get_joint_state(env: robosuite.environments.robot_env.RobotEnv, joint_names: list[str]) -> robo_orchard_core.datatypes.BatchJointsState
+
+   Get the joint states for the given joint names.
+
+   :param env: The robosuite environment.
+   :type env: RobotEnv
+   :param joint_names: The list of joint names.
+   :type joint_names: list[str]
+
+   :returns:
+
+             The joint states for the given joint names
+                 in the environment.
+   :rtype: BatchJointsState
+
+
+.. py:function:: get_tf_world(env: robosuite.environments.robot_env.RobotEnv, frame_names: list[str]) -> dict[str, robo_orchard_core.datatypes.BatchFrameTransform]
+
+   Get the frame transforms for the given frame names.
+
+   :param env: The robosuite environment.
+   :type env: RobotEnv
+   :param frame_names: The list of frame names.
+   :type frame_names: list[str]
+
+   :returns:
+
+             The frame transforms for the
+                 given frame names in the environment.
+   :rtype: dict[str, BatchFrameTransform]
+
+

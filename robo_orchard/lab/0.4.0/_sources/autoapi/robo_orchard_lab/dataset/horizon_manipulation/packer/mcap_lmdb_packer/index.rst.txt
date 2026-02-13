@@ -1,0 +1,93 @@
+mcap_lmdb_packer
+================
+
+.. py:module:: robo_orchard_lab.dataset.horizon_manipulation.packer.mcap_lmdb_packer
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.horizon_manipulation.packer.mcap_lmdb_packer.logger
+   robo_orchard_lab.dataset.horizon_manipulation.packer.mcap_lmdb_packer.parser
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.horizon_manipulation.packer.mcap_lmdb_packer.McapLmdbDataPacker
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: McapLmdbDataPacker(input_path: str, output_path: str, urdf_path: str, pack_config: robo_orchard_lab.dataset.horizon_manipulation.packer.utils.PackConfig, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_lab.dataset.lmdb.base_lmdb_dataset.BaseLmdbManipulationDataPacker`
+
+
+   Packs robotics episode data from MCAP files into LMDB format.
+
+   This class reads multimodal robotics data (images, joint states, etc.)
+   from MCAP files, synchronizes the different data streams to a common
+   timeline, filters the data, and then writes the processed information
+   into an LMDB (Lightning Memory-Mapped Database) dataset.
+
+   The synchronization is based on a primary camera's timestamps, ensuring
+   that all data for a given frame is temporally aligned.
+
+
+   .. py:attribute:: episodes_meta
+      :value: []
+
+
+
+   .. py:attribute:: pack_config
+
+
+   .. py:attribute:: urdf_path
+
+
+   .. py:attribute:: chain
+
+
+   .. py:method:: input_path_handler(input_path)
+
+      Scans input paths to find and validate episode data.
+
+      This method takes a comma-separated string of glob patterns, finds all
+      matching directories, and verifies that each contains the necessary
+      metadata files (`episode_meta.json`).
+
+      :param input_path: A string containing one or more glob patterns,
+                         separated by commas.
+      :type input_path: str
+
+      :returns:
+
+                A sorted list where each element is a list containing the
+                    path, user, task name, and date for a valid episode.
+      :rtype: list
+
+
+
+   .. py:method:: forward_kinematics(joint_states: robo_orchard_lab.dataset.datatypes.BatchJointsState)
+
+      Computes the forward kinematics for the dual-arm robot.
+
+      :param joint_states: A batch of combined joint states
+                           for both arms, typically shaped (N, 14) for 7 DOF per arm.
+      :type joint_states: BatchJointsState
+
+      :returns: end-effector poses (BatchFrameTransform) for both arms.
+      :rtype: dict
+
+
+
+.. py:data:: parser
+

@@ -1,0 +1,225 @@
+utils
+=====
+
+.. py:module:: robo_orchard_lab.models.finegrasp.utils
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.finegrasp.utils.ModelFreeCollisionDetector
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.finegrasp.utils.transform_point_cloud
+   robo_orchard_lab.models.finegrasp.utils.generate_grasp_views
+   robo_orchard_lab.models.finegrasp.utils.batch_viewpoint_params_to_matrix
+   robo_orchard_lab.models.finegrasp.utils.compute_pointwise_dists
+   robo_orchard_lab.models.finegrasp.utils.process_grasp_labels
+   robo_orchard_lab.models.finegrasp.utils.pred_decode
+
+
+Module Contents
+---------------
+
+.. py:class:: ModelFreeCollisionDetector(scene_points, voxel_size=0.005)
+
+   Model-free collision detection in unlabeled scenes.
+
+   Reference:
+       https://github.com/iSEE-Laboratory/EconomicGrasp/blob/main/utils/collision_detector.py
+
+   The detector assumes fixed finger width and length for grasp simulation.
+
+   :param scene_points: [numpy.ndarray, (N,3), numpy.float32]
+                        the scene points to detect
+   :param voxel_size: [float]
+                      used for downsample
+
+   .. rubric:: Examples
+
+   >>> mfcdetector = ModelFreeCollisionDetector(
+   ...     scene_points, voxel_size=0.005
+   ... )
+
+   >>> collision_mask = mfcdetector.detect(
+   ...     grasp_group, approach_dist=0.03
+   ... )
+
+   >>> collision_mask, iou_list = mfcdetector.detect(
+   ...     grasp_group,
+   ...     approach_dist=0.03,
+   ...     collision_thresh=0.05,
+   ...     return_ious=True,
+   ... )
+
+   >>> collision_mask, empty_mask = mfcdetector.detect(
+   ...     grasp_group,
+   ...     approach_dist=0.03,
+   ...     collision_thresh=0.05,
+   ...     return_empty_grasp=True,
+   ...     empty_thresh=0.01,
+   ... )
+
+   >>> collision_mask, empty_mask, iou_list = mfcdetector.detect(
+   ...     grasp_group,
+   ...     approach_dist=0.03,
+   ...     collision_thresh=0.05,
+   ...     return_empty_grasp=True,
+   ...     empty_thresh=0.01,
+   ...     return_ious=True,
+   ... )
+
+
+   .. py:attribute:: finger_width
+      :value: 0.01
+
+
+
+   .. py:attribute:: finger_length
+      :value: 0.06
+
+
+
+   .. py:attribute:: voxel_size
+      :value: 0.005
+
+
+
+   .. py:attribute:: scene_points
+
+
+   .. py:method:: detect(grasp_group, approach_dist=0.03, collision_thresh=0.05, return_empty_grasp=False, empty_thresh=0.01, return_ious=False)
+
+      Detect collision of grasps.
+
+      :param grasp_group: [GraspGroup, M grasps]
+                          the grasps to check
+      :param approach_dist: [float]
+                            the distance for a gripper to move along approaching direction
+                            before grasping this shifting space requires no point either
+      :param collision_thresh: [float]
+                               if global collision iou is greater than this threshold,
+                               a collision is detected
+      :param return_empty_grasp: [bool]
+                                 if True, return a mask to imply whether there are
+                                 objects in a grasp
+      :param empty_thresh: [float]
+                           if inner space iou is smaller than this threshold,
+                           a collision is detected
+                           only set when [return_empty_grasp] is True
+      :param return_ious: [bool]
+                          if True, return global collision iou and part collision ious
+
+      :returns:
+
+                [numpy.ndarray, (M,), numpy.bool]
+                    True implies collision
+                [optional] empty_mask: [numpy.ndarray, (M,), numpy.bool]
+                    True implies empty grasp
+                    only returned when [return_empty_grasp] is True
+                [optional] iou_list: list of [numpy.ndarray, (M,), numpy.float32]
+                    global and part collision ious, containing
+                    [global_iou, left_iou, right_iou, bottom_iou, shifting_iou]
+                    only returned when [return_ious] is True
+      :rtype: collision_mask
+
+
+
+.. py:function:: transform_point_cloud(cloud, transform, format='4x4')
+
+   Transform points to new coordinates with transformation matrix.
+
+   :param cloud: [torch.FloatTensor, (N,3)]
+                 points in original coordinates
+   :param transform: [torch.FloatTensor, (3,3)/(3,4)/(4,4)]
+                     transformation matrix, could be rotation only or
+                     rotation+translation
+   :param format: [string, '3x3'/'3x4'/'4x4']
+                  the shape of transformation matrix
+                  '3x3' --> rotation matrix
+                  '3x4'/'4x4' --> rotation matrix + translation matrix
+
+   :returns:
+
+             [torch.FloatTensor, (N,3)]
+                 points in new coordinates
+   :rtype: cloud_transformed
+
+
+.. py:function:: generate_grasp_views(N=300, phi=None, center=None, r=1)
+
+   View sampling on a unit sphere using Fibonacci lattices.
+
+   Refernce:
+       https://arxiv.org/abs/0912.4540
+
+   :param N: [int]
+             number of sampled views
+   :param phi: [float]
+               constant for view coordinate calculation, different phi's bring
+               different distributions, default: (sqrt(5)-1)/2
+   :param center: [np.ndarray, (3,), np.float32]
+                  sphere center
+   :param r: [float]
+             sphere radius
+
+   :returns:
+
+             [torch.FloatTensor, (N,3)]
+                 sampled view coordinates
+   :rtype: views
+
+
+.. py:function:: batch_viewpoint_params_to_matrix(batch_towards, batch_angle)
+
+   Convert approach vectors and in-plane angles to rotation matrices.
+
+   This function computes rotation matrices based on approach directions
+   and in-plane rotation angles, commonly used in grasp representation.
+
+   :param batch_towards: [torch.FloatTensor, (N,3)]
+                         approach vectors in batch
+   :param batch_angle: [torch.floatTensor, (N,)]
+                       in-plane rotation angles in batch
+
+   :returns:
+
+             [torch.floatTensor, (N,3,3)]
+                 rotation matrices in batch
+   :rtype: batch_matrix
+
+
+.. py:function:: compute_pointwise_dists(A, B)
+
+   Compute pair-wise point distances in two matrices.
+
+   :param A: [torch.tensor, (N,3), np.float32]
+             point cloud A
+   :param B: [torch.tensor, (N,3), np.float32]
+             point cloud B
+
+   :returns:
+
+             [np.ndarray, (N,), np.float32]
+                 distance matrix
+   :rtype: dists
+
+
+.. py:function:: process_grasp_labels(end_points, model_cfgs)
+
+   Process labels according to scene points and object poses.
+
+   Reference:
+       https://github.com/iSEE-Laboratory/EconomicGrasp/blob/main/utils/label_generation.py
+
+
+
+.. py:function:: pred_decode(model_outputs, grasp_max_width, num_seed_points)
+

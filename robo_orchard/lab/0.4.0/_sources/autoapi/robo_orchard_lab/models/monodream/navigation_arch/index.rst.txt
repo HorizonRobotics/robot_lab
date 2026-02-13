@@ -1,0 +1,95 @@
+navigation_arch
+===============
+
+.. py:module:: robo_orchard_lab.models.monodream.navigation_arch
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.navigation_arch.LlavaMetaModel
+   robo_orchard_lab.models.monodream.navigation_arch.LlavaMetaForCausalLM
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.navigation_arch.extract_media
+   robo_orchard_lab.models.monodream.navigation_arch.get_model_config
+
+
+Module Contents
+---------------
+
+.. py:function:: extract_media(messages: List[Dict[str, Any]], draft: bool = False) -> Dict[str, List[Any]]
+
+.. py:function:: get_model_config(config)
+
+.. py:class:: LlavaMetaModel
+
+   Bases: :py:obj:`abc.ABC`
+
+
+   Language model define.
+
+   Define the construction methods.
+
+
+   .. py:method:: init_vlm(config, *args, **kwargs)
+
+
+   .. py:method:: get_llm()
+
+
+   .. py:method:: get_lm_head()
+
+
+   .. py:method:: get_vision_tower()
+
+
+   .. py:method:: get_mm_projector()
+
+
+   .. py:method:: post_config()
+
+
+   .. py:method:: freezed_module_patch()
+
+
+   .. py:method:: encode_images(images, block_sizes: Optional[Optional[Tuple[int, Ellipsis]]] = None)
+
+
+   .. py:method:: get_input_embeddings()
+
+
+   .. py:method:: get_output_embeddings()
+
+
+   .. py:method:: resize_token_embeddings(embed_size)
+
+
+.. py:class:: LlavaMetaForCausalLM
+
+   Bases: :py:obj:`abc.ABC`
+
+
+   Language model define.
+
+   Define the forward and generation methods.
+
+
+   .. py:method:: generate(input_ids: Optional[torch.FloatTensor] = None, media: Optional[Dict[str, List[torch.Tensor]]] = None, media_config: Dict[str, Dict[str, Any]] = None, attention_mask: Optional[torch.LongTensor] = None, **generation_kwargs)
+
+
+   .. py:method:: generate_content(prompt: Union[str, List], generation_config: Optional[transformers.GenerationConfig] = None) -> str
+
+
+   .. py:property:: default_generation_config
+      :type: transformers.GenerationConfig
+
+
+

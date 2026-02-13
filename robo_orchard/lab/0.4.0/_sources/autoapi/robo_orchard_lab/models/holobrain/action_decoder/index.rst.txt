@@ -1,0 +1,584 @@
+action_decoder
+==============
+
+.. py:module:: robo_orchard_lab.models.holobrain.action_decoder
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.holobrain.action_decoder.logger
+   robo_orchard_lab.models.holobrain.action_decoder.MODULE_TYPE
+   robo_orchard_lab.models.holobrain.action_decoder.VALID_NOISE_TYPES
+   robo_orchard_lab.models.holobrain.action_decoder.VALID_PREDICTION_TYPES
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.holobrain.action_decoder.HoloBrainDecoderTransformerConfig
+   robo_orchard_lab.models.holobrain.action_decoder.HoloBrainDecoderBaseConfig
+   robo_orchard_lab.models.holobrain.action_decoder.HoloBrainTrainingConfig
+   robo_orchard_lab.models.holobrain.action_decoder.HoloBrainActionDecoder
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:data:: MODULE_TYPE
+
+.. py:data:: VALID_NOISE_TYPES
+   :value: ('global_joint', 'local_joint', 'global_joint_global_pose', 'global_joint_local_pose',...
+
+
+.. py:data:: VALID_PREDICTION_TYPES
+   :value: ('absolute_joint_absolute_pose', 'absolute_joint_relative_pose', 'relative_joint_absolute_pose',...
+
+
+.. py:class:: HoloBrainDecoderTransformerConfig(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.Config`
+
+
+   Transformer config of HoloBrain decoder.
+
+   :param img_cross_attn: Cross attention module between action and image features.
+   :type img_cross_attn: MODULE_TYPE
+   :param norm_layer: Normalization layer.
+   :type norm_layer: MODULE_TYPE
+   :param ffn: Feed-forward network.
+   :type ffn: MODULE_TYPE
+   :param operation_order: Sequence of operations
+                           (attn/FFN/norm) in transformer decoder.
+   :type operation_order: Optional[List[str]]
+   :param joint_self_attn: Joint dimension self-attention
+                           module.
+   :type joint_self_attn: Optional[MODULE_TYPE]
+   :param temp_cross_attn: Causal temporal attention
+                           module across time steps.
+   :type temp_cross_attn: Optional[MODULE_TYPE]
+   :param text_cross_attn: Cross attention between action
+                           and text features.
+   :type text_cross_attn: Optional[MODULE_TYPE]
+   :param temp_joint_attn: Joint-temporal attention
+                           module (causal in temporal dimension).
+   :type temp_joint_attn: Optional[MODULE_TYPE]
+   :param timestep_norm_layer: Normalization layer for
+                               encoding diffusion timesteps.
+   :type timestep_norm_layer: Optional[MODULE_TYPE]
+   :param pre_norm: Use pre-normalization or post-normalization.
+   :type pre_norm: bool
+
+
+   .. py:attribute:: img_cross_attn
+      :type:  MODULE_TYPE
+
+
+   .. py:attribute:: norm_layer
+      :type:  MODULE_TYPE
+
+
+   .. py:attribute:: ffn
+      :type:  MODULE_TYPE
+
+
+   .. py:attribute:: operation_order
+      :type:  List[Union[str, None]]
+
+
+   .. py:attribute:: joint_self_attn
+      :type:  Optional[MODULE_TYPE]
+      :value: None
+
+
+
+   .. py:attribute:: temp_cross_attn
+      :type:  Optional[MODULE_TYPE]
+      :value: None
+
+
+
+   .. py:attribute:: text_cross_attn
+      :type:  Optional[MODULE_TYPE]
+      :value: None
+
+
+
+   .. py:attribute:: temp_joint_attn
+      :type:  Optional[MODULE_TYPE]
+      :value: None
+
+
+
+   .. py:attribute:: timestep_norm_layer
+      :type:  Optional[MODULE_TYPE]
+      :value: None
+
+
+
+   .. py:attribute:: pre_norm
+      :type:  bool
+      :value: True
+
+
+
+   .. py:property:: op_config_map
+      :type: dict
+
+
+
+.. py:class:: HoloBrainDecoderBaseConfig(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.Config`
+
+
+   Base config of HoloBrain decoder.
+
+   :param training_noise_scheduler: Diffusion scheduler for
+                                    training phase (supports "sample" prediction only).
+   :type training_noise_scheduler: Optional[Any]
+   :param test_noise_scheduler: Diffusion scheduler for inference
+                                phase (supports "sample" prediction only).
+   :type test_noise_scheduler: Optional[Any]
+   :param num_inference_timesteps: Num of denoising steps during inference.
+   :type num_inference_timesteps: int
+   :param feature_level: Image feature level(s) to use.
+   :type feature_level: Union[int, List[int]]
+   :param state_dims: Dimension size of robot state. Defaults to 8, refer
+                      to [a, x, y, z, qw, qx, qy, qz].
+   :type state_dims: int
+   :param embed_dims: Embedding dimension size. Defaults to 256.
+   :type embed_dims: int
+   :param pred_steps: Number of future steps to predict. Defaults to 30.
+   :type pred_steps: int
+   :param act_cfg: Activation function configuration.
+   :type act_cfg: Optional[MODULE_TYPE]
+   :param num_test_traj: Number of trajectories to sample during inference.
+   :type num_test_traj: int
+   :param chunk_size: Step size for chunking prediction horizon.
+   :type chunk_size: int
+   :param force_kinematics: Apply forward kinematics before state input.
+   :type force_kinematics: bool
+   :param with_mobile: Enable trajectory prediction branch.
+   :type with_mobile: bool
+   :param mobile_traj_state_dims: Trajectory state dimensions
+                                  (default 2 for [x,y]).
+   :type mobile_traj_state_dims: int
+   :param use_joint_mask: Mask joint angle information. Defaults to False.
+   :type use_joint_mask: bool
+   :param noise_type: Noise sampling space identifier.
+   :type noise_type: str
+   :param pred_scaled_joint: Predict joint angles scaled to [-1,1].
+   :type pred_scaled_joint: bool
+   :param prediction_type: Prediction space specification.
+   :type prediction_type: str
+
+
+   .. py:attribute:: training_noise_scheduler
+      :type:  Optional[MODULE_TYPE]
+      :value: None
+
+
+
+   .. py:attribute:: test_noise_scheduler
+      :type:  Optional[MODULE_TYPE]
+      :value: None
+
+
+
+   .. py:attribute:: num_inference_timesteps
+      :type:  int
+      :value: 10
+
+
+
+   .. py:attribute:: feature_level
+      :type:  int | List[int]
+      :value: 1
+
+
+
+   .. py:attribute:: state_dims
+      :type:  int
+      :value: 8
+
+
+
+   .. py:attribute:: embed_dims
+      :type:  int
+      :value: 256
+
+
+
+   .. py:attribute:: pred_steps
+      :type:  int
+      :value: 64
+
+
+
+   .. py:attribute:: act_cfg
+      :type:  Optional[MODULE_TYPE]
+      :value: None
+
+
+
+   .. py:attribute:: num_test_traj
+      :type:  int
+      :value: 1
+
+
+
+   .. py:attribute:: chunk_size
+      :type:  int
+      :value: 8
+
+
+
+   .. py:attribute:: force_kinematics
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: with_mobile
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: mobile_traj_state_dims
+      :type:  int
+      :value: 2
+
+
+
+   .. py:attribute:: use_joint_mask
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: noise_type
+      :type:  Literal[VALID_NOISE_TYPES]
+      :value: 'global_joint'
+
+
+
+   .. py:attribute:: pred_scaled_joint
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: prediction_type
+      :type:  Literal[VALID_PREDICTION_TYPES]
+      :value: 'absolute_joint_absolute_pose'
+
+
+
+.. py:class:: HoloBrainTrainingConfig(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.Config`
+
+
+   HoloBrain training config.
+
+   :param loss: Loss module.
+   :type loss: Optional[MODULE_TYPE]
+   :param temporal_attn_drop: Ratio of random dropout for
+                              current robot state during training.
+   :type temporal_attn_drop: Optional[float]
+   :param num_parallel_training_sample: Number of trajectories
+                                        sampled per training example.
+   :type num_parallel_training_sample: Optional[int]
+   :param teacher_forcing_rate: Probability of using teacher
+                                forcing during training.
+   :type teacher_forcing_rate: Optional[float]
+   :param teacher_forcing_mean_steps: Average steps for teacher
+                                      forcing.
+   :type teacher_forcing_mean_steps: Optional[int]
+
+
+   .. py:attribute:: loss
+      :type:  Optional[MODULE_TYPE]
+      :value: None
+
+
+
+   .. py:attribute:: temporal_attn_drop
+      :type:  Optional[float]
+      :value: None
+
+
+
+   .. py:attribute:: num_parallel_training_sample
+      :type:  Optional[int]
+      :value: None
+
+
+
+   .. py:attribute:: teacher_forcing_rate
+      :type:  Optional[float]
+      :value: None
+
+
+
+   .. py:attribute:: teacher_forcing_mean_steps
+      :type:  Optional[int]
+      :value: None
+
+
+
+.. py:class:: HoloBrainActionDecoder(transformer_cfg: HoloBrainDecoderTransformerConfig, head: MODULE_TYPE, base_cfg: HoloBrainDecoderBaseConfig, training_cfg: Optional[HoloBrainTrainingConfig] = None, robot_encoder: Optional[MODULE_TYPE] = None, mobile_head: Optional[MODULE_TYPE] = None, async_inference_plugin: Optional[MODULE_TYPE] = None, **kwargs)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Spatial Enhanced Manipulation (HoloBrain) Action Decoder.
+
+   Decoder implementation from the paper https://arxiv.org/abs/2505.16196
+
+   :param transformer_cfg: Config of
+                           transformer layers.
+   :type transformer_cfg: HoloBrainDecoderTransformerConfig
+   :param head: Output head for action prediction.
+   :type head: MODULE_TYPE
+   :param base_cfg: base config of holobrain.
+   :type base_cfg: HoloBrainDecoderBaseConfig
+   :param training_cfg: training config of holobrain
+                        decoder.
+   :type training_cfg: HoloBrainTrainingConfig
+   :param robot_encoder: Encoder for processing robot
+                         state inputs.
+   :type robot_encoder: Optional[MODULE_TYPE]
+   :param mobile_head: Head for trajectory prediction.
+   :type mobile_head: Optional[MODULE_TYPE]
+   :param async_inference_plugin: Plugin for aggregating
+                                  predicted/remaining actions for async inference.
+   :type async_inference_plugin: Optional[MODULE_TYPE]
+   :param \*\*kwargs: Additional keyword arguments.
+
+
+   .. py:attribute:: training_noise_scheduler
+
+
+   .. py:attribute:: test_noise_scheduler
+
+
+   .. py:attribute:: num_train_timesteps
+
+
+   .. py:attribute:: num_inference_timesteps
+
+
+   .. py:attribute:: feature_level
+      :value: []
+
+
+
+   .. py:attribute:: pred_steps
+
+
+   .. py:attribute:: chunk_size
+
+
+   .. py:attribute:: num_test_traj
+
+
+   .. py:attribute:: force_kinematics
+
+
+   .. py:attribute:: with_mobile
+
+
+   .. py:attribute:: state_dims
+
+
+   .. py:attribute:: embed_dims
+
+
+   .. py:attribute:: mobile_traj_state_dims
+
+
+   .. py:attribute:: use_joint_mask
+
+
+   .. py:attribute:: noise_type
+
+
+   .. py:attribute:: pred_scaled_joint
+
+
+   .. py:attribute:: prediction_type
+
+
+   .. py:attribute:: robot_encoder
+
+
+   .. py:attribute:: operation_order
+
+
+   .. py:attribute:: pre_norm
+
+
+   .. py:attribute:: layers
+
+
+   .. py:attribute:: input_layers
+
+
+   .. py:attribute:: head
+
+
+   .. py:attribute:: t_embed
+
+
+   .. py:attribute:: async_inference_plugin
+
+
+   .. py:method:: format_img_feature_maps(feature_maps: Union[list[torch.Tensor], torch.Tensor])
+
+      Formats multi-scale image feature maps.
+
+      :param feature_maps: Multi-scale
+                           feature as list of [bs, c, h, w] tensors, or single tensor.
+      :type feature_maps: list[torch.Tensor] | torch.Tensor
+
+      :returns:
+
+                Flattened features [bs, n, c] if input was list,
+                    otherwise original tensor.
+      :rtype: torch.Tensor
+
+
+
+   .. py:method:: sample_noise(noise_shape: List[int], hist_robot_state: torch.Tensor, noise_type: Literal[VALID_NOISE_TYPES])
+
+      Samples noise based on noise_shape and noise_type.
+
+      :param noise_shape: Shape of the output noise tensor
+                          (e.g., [bs, num_steps, num_joint, state_dims]).
+      :type noise_shape: tuple[int, ...]
+      :param hist_robot_state: Historical robot state tensor,
+                               used when get "local" noise_type.
+      :type hist_robot_state: torch.Tensor
+      :param noise_type: Type of noise to sample.
+      :type noise_type: VALID_NOISE_TYPE
+
+      :returns: Sampled noise tensor of shape noise_shape.
+      :rtype: torch.Tensor
+
+
+
+   .. py:method:: get_prediction(model_pred: torch.Tensor, hist_robot_state: torch.Tensor, joint_scale_shift: torch.Tensor, joint_mask: torch.Tensor)
+
+      Adjusts model_pred to absolute result based on prediction_type.
+
+      :param model_pred: Model output, shape [bs, num_steps,
+                         num_joint, c] (channel 0 = joint position).
+      :type model_pred: torch.Tensor
+      :param hist_robot_state: Historical robot state, shape
+                               [bs, num_hist_steps, num_joint, c].
+      :type hist_robot_state: torch.Tensor
+      :param joint_scale_shift: Scale/shift params for
+                                joint position normalization, shape [bs, num_joint].
+      :type joint_scale_shift: torch.Tensor
+      :param joint_mask: Boolean mask for joints, shape
+                         [bs, num_joint].
+      :type joint_mask: torch.Tensor
+
+      :returns:
+
+                Absolute prediction tensor (normalized joint
+                    position), shape same as model_pred.
+      :rtype: torch.Tensor
+
+
+
+   .. py:method:: forward(feature_maps, inputs, text_dict=None, **kwargs)
+
+      Forward pass of HoloBrain decoder for trajectory prediction.
+
+      Encodes historical robot state from inputs via self.robot_encoder, then
+      processes through diffusion-based denoising network.
+      Branches based on training mode:
+
+      - Training: Applies single noise step, executes forward_layers once to
+        predict  num_parallel_training_sample trajectories per sample.
+      - Inference: Iteratively refines predictions over
+        num_inference_timesteps steps, outputting num_test_traj
+        trajectories per sample.
+
+
+
+   .. py:method:: forward_layers(noisy_action: torch.Tensor, img_feature, text_dict=None, robot_feature=None, timesteps=None, joint_relative_pos=None, noisy_mobile_traj=None, joint_mask=None)
+
+      Forward holobrain transformer decoder and head.
+
+      :param noisy_action: Noisy action [bs, steps, joints, c].
+      :type noisy_action: torch.Tensor
+      :param img_feature: Flattened img feature [bs, n, c].
+      :type img_feature: torch.Tensor
+      :param text_dict: Dict with text embeddings [bs, m, c]
+                        and token_mask [bs, m].
+      :type text_dict: dict, optional
+      :param robot_feature: Robot state features
+                            [bs, num_hist_chunk, c]. Defaults to None.
+      :type robot_feature: torch.Tensor, optional
+      :param timesteps: Timestep indicators for
+                        diffusion, [bs].
+      :type timesteps: torch.Tensor, optional
+      :param joint_relative_pos: Relative joint
+                                 positions [bs, joints, joints]. Defaults to None.
+      :type joint_relative_pos: torch.Tensor, optional
+      :param noisy_mobile_traj: Noisy mobile trajectory
+                                [bs, steps, mobile_traj_state_dims]. Defaults to None.
+      :type noisy_mobile_traj: torch.Tensor, optional
+      :param joint_mask: Boolean joint mask
+                         [bs, joints]. Defaults to None.
+      :type joint_mask: torch.Tensor, optional
+
+      :returns:
+
+                Predicted robot state
+                    [bs, steps, joints, state_dims].
+                pred_mobile_traj (torch.Tensor): Predicted mobile trajectory
+                    [bs, steps, joints, mobile_traj_state_dims]. None
+                    when with_mobile is False
+      :rtype: pred (torch.Tensor)
+
+
+
+   .. py:method:: post_process(model_outs, inputs, **kwargs)
+
+      Post-processes model inference outputs.
+
+      Converts raw model outputs (dict) from inference mode into a list of
+      dictionaries, each corresponding to a sample in the batch. Denormalize
+      the joint position.
+
+      :param model_outs: Model inference outputs (dict), containing
+                         raw predicted action and mobile trajectory.
+      :type model_outs: dict
+      :param inputs: Input data contains joint_scale_shift.
+      :type inputs: dict
+
+      :returns:
+
+                Per-sample prediction results, length = batch size.
+                    Each dict contains:
+                    - pred_actions (torch.Tensor): Predicted robot action, shape
+                    [num_traj, num_steps, num_joint, state_dim].
+                    - pred_mobile_trajs (torch.Tensor): Predicted mobile
+                    trajectories, shape [num_traj, num_steps, num_joint,
+                    mobile_traj_state_dims].
+      :rtype: list[dict]
+
+
+

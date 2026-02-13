@@ -61,7 +61,7 @@ Setup and Imports
 --------------------------------
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-103
+.. GENERATED FROM PYTHON SOURCE LINES 50-104
 
 .. code-block:: Python
 
@@ -105,6 +105,7 @@ Setup and Imports
         EpisodeMeta,
         EpisodePackaging,
         RobotData,
+        RobotDescriptionFormat,
         RODataset,
         TaskData,
     )
@@ -125,13 +126,13 @@ Setup and Imports
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 104-107
+.. GENERATED FROM PYTHON SOURCE LINES 105-108
 
 Mcap conversion
 --------------------------------
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-141
+.. GENERATED FROM PYTHON SOURCE LINES 110-142
 
 Part 1: Exporting dataset to MCAP (for Visualization)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -166,7 +167,7 @@ write the data to.
 Let's walk through this step-by-step.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 141-169
+.. GENERATED FROM PYTHON SOURCE LINES 142-170
 
 .. code-block:: Python
 
@@ -216,7 +217,7 @@ Let's walk through this step-by-step.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-176
+.. GENERATED FROM PYTHON SOURCE LINES 171-177
 
 Part 2: Ingesting MCAP to RoboOrchard Dataset
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -225,7 +226,7 @@ This is the "MCAP -> Dataset" workflow, it is the same packaging pattern we lear
 :ref:`previous tutorial <sphx_glr_build_tutorials_dataset_tutorial_nonb-05_dataset_create.py>`.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 176-295
+.. GENERATED FROM PYTHON SOURCE LINES 177-298
 
 .. code-block:: Python
 
@@ -257,7 +258,9 @@ This is the "MCAP -> Dataset" workflow, it is the same packaging pattern we lear
             self.decoder_config = decoder_config
             self.monitor_topic = monitor_topic
 
-            self.mock_robot = RobotData("robot_from_mcap", "<urdf>...")
+            self.mock_robot = RobotData(
+                "robot_from_mcap", "<urdf>...", RobotDescriptionFormat.URDF
+            )
             self.mock_task = TaskData("task_from_mcap", "...")
 
         def generate_episode_meta(self) -> EpisodeMeta:
@@ -358,20 +361,20 @@ This is the "MCAP -> Dataset" workflow, it is the same packaging pattern we lear
 
 
     --- Starting MCAP Ingestion Process ---
-    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:481: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/mcap/dataset' already exists. It will be overwritten.
+    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:490: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/mcap/dataset' already exists. It will be overwritten.
       warnings.warn(
     Generating train split: 0 examples [00:00, ? examples/s]
       [.workspace/conversion/mcap/dummy_dataset_episode0.mcap] Generating episode metadata...
       [.workspace/conversion/mcap/dummy_dataset_episode0.mcap] Starting frame generation stream...
 
       [.workspace/conversion/mcap/dummy_dataset_episode0.mcap] Finished generating frames.
-    Generating train split: 5 examples [00:00, 50.46 examples/s]
+    Generating train split: 5 examples [00:00, 52.04 examples/s]
     --- Ingestion Complete! ---
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 296-312
+.. GENERATED FROM PYTHON SOURCE LINES 299-315
 
 Lerobot Dataset Conversion
 --------------------------------
@@ -390,7 +393,7 @@ Exporting our high-fidelity format back to LeRobot Dataset would force
 us to accept data degradation and loss of flexibility.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 314-335
+.. GENERATED FROM PYTHON SOURCE LINES 317-338
 
 Part 1: Ingesting Lerobot Dataset to RoboOrchard Dataset
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -414,7 +417,7 @@ follows the exact same packaging pattern as our MCAP ingestion.
    This example requires lerobot to be installed. (``pip install lerobot``)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 337-348
+.. GENERATED FROM PYTHON SOURCE LINES 340-351
 
 Example A: Using default conversion
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -428,7 +431,7 @@ define the schema using `hg_datasets.features.Image()`.
 This creates a standard, simple Hugging Face dataset.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 348-368
+.. GENERATED FROM PYTHON SOURCE LINES 351-371
 
 .. code-block:: Python
 
@@ -486,11 +489,11 @@ This creates a standard, simple Hugging Face dataset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 369-370
+.. GENERATED FROM PYTHON SOURCE LINES 372-373
 
 Create the list of packagers
 
-.. GENERATED FROM PYTHON SOURCE LINES 370-392
+.. GENERATED FROM PYTHON SOURCE LINES 373-395
 
 .. code-block:: Python
 
@@ -524,14 +527,14 @@ Create the list of packagers
 
  .. code-block:: none
 
-    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:481: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/lerobot/default_ts/dataset' already exists. It will be overwritten.
+    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:490: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/lerobot/default_ts/dataset' already exists. It will be overwritten.
       warnings.warn(
-    Generating train split: 0 examples [00:00, ? examples/s]    Generating train split: 1 examples [00:18, 18.08s/ examples]    Generating train split: 2 examples [00:35, 17.45s/ examples]    Generating train split: 3 examples [00:49, 16.08s/ examples]    Generating train split: 4 examples [01:05, 15.84s/ examples]    Generating train split: 4 examples [01:05, 16.33s/ examples]
+    Generating train split: 0 examples [00:00, ? examples/s]    Generating train split: 1 examples [00:15, 15.88s/ examples]    Generating train split: 2 examples [00:31, 15.73s/ examples]    Generating train split: 3 examples [00:46, 15.44s/ examples]    Generating train split: 4 examples [01:01, 15.19s/ examples]    Generating train split: 4 examples [01:01, 15.40s/ examples]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 393-400
+.. GENERATED FROM PYTHON SOURCE LINES 396-403
 
 Example B: Using custom conversion
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -541,7 +544,7 @@ data structure during ingestion. We will convert LeRobot's
 image tensors into our custom :py:class:`~robo_orchard_core.datatypes.camera.BatchCameraData` objects
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 400-424
+.. GENERATED FROM PYTHON SOURCE LINES 403-427
 
 .. code-block:: Python
 
@@ -581,26 +584,18 @@ image tensors into our custom :py:class:`~robo_orchard_core.datatypes.camera.Bat
     {'action.continuous': List(Value('float32'), length=3),
      'action.discrete': List(Value('int32'), length=2),
      'observation.images.front_left': BatchCameraDataFeature(dtype='float32',
-                                                             decode=True,
-                                                             _decode_type=<class 'robo_orchard_core.datatypes.camera_data.BatchCameraData'>),
+                                                             decode=True),
      'observation.images.left_backward': BatchCameraDataFeature(dtype='float32',
-                                                                decode=True,
-                                                                _decode_type=<class 'robo_orchard_core.datatypes.camera_data.BatchCameraData'>),
+                                                                decode=True),
      'observation.images.left_forward': BatchCameraDataFeature(dtype='float32',
-                                                               decode=True,
-                                                               _decode_type=<class 'robo_orchard_core.datatypes.camera_data.BatchCameraData'>),
-     'observation.images.map': BatchCameraDataFeature(dtype='float32',
-                                                      decode=True,
-                                                      _decode_type=<class 'robo_orchard_core.datatypes.camera_data.BatchCameraData'>),
+                                                               decode=True),
+     'observation.images.map': BatchCameraDataFeature(dtype='float32', decode=True),
      'observation.images.rear': BatchCameraDataFeature(dtype='float32',
-                                                       decode=True,
-                                                       _decode_type=<class 'robo_orchard_core.datatypes.camera_data.BatchCameraData'>),
+                                                       decode=True),
      'observation.images.right_backward': BatchCameraDataFeature(dtype='float32',
-                                                                 decode=True,
-                                                                 _decode_type=<class 'robo_orchard_core.datatypes.camera_data.BatchCameraData'>),
+                                                                 decode=True),
      'observation.images.right_forward': BatchCameraDataFeature(dtype='float32',
-                                                                decode=True,
-                                                                _decode_type=<class 'robo_orchard_core.datatypes.camera_data.BatchCameraData'>),
+                                                                decode=True),
      'observation.state.conditions': Value('string'),
      'observation.state.lanes': Value('string'),
      'observation.state.lighting': Value('string'),
@@ -617,7 +612,7 @@ image tensors into our custom :py:class:`~robo_orchard_core.datatypes.camera.Bat
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 426-474
+.. GENERATED FROM PYTHON SOURCE LINES 429-477
 
 .. code-block:: Python
 
@@ -677,14 +672,14 @@ image tensors into our custom :py:class:`~robo_orchard_core.datatypes.camera.Bat
 
  .. code-block:: none
 
-    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:481: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/lerobot/custom/dataset' already exists. It will be overwritten.
+    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/packaging.py:490: UserWarning: The dataset path '/home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/docs/tutorials/dataset_tutorial/.workspace/conversion/lerobot/custom/dataset' already exists. It will be overwritten.
       warnings.warn(
-    Generating train split: 0 examples [00:00, ? examples/s]    Generating train split: 1 examples [00:14, 14.26s/ examples]    Generating train split: 2 examples [00:29, 14.64s/ examples]    Generating train split: 3 examples [00:43, 14.38s/ examples]    Generating train split: 4 examples [00:57, 14.26s/ examples]    Generating train split: 4 examples [00:57, 14.48s/ examples]
+    Generating train split: 0 examples [00:00, ? examples/s]    Generating train split: 1 examples [00:13, 13.53s/ examples]    Generating train split: 2 examples [00:27, 13.58s/ examples]    Generating train split: 3 examples [00:40, 13.33s/ examples]    Generating train split: 4 examples [00:53, 13.16s/ examples]    Generating train split: 4 examples [00:53, 13.36s/ examples]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 476-481
+.. GENERATED FROM PYTHON SOURCE LINES 479-484
 
 .. code-block:: Python
 
@@ -715,7 +710,7 @@ image tensors into our custom :py:class:`~robo_orchard_core.datatypes.camera.Bat
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (2 minutes 5.482 seconds)
+   **Total running time of the script:** (1 minutes 57.001 seconds)
 
 
 .. _sphx_glr_download_build_tutorials_dataset_tutorial_nonb-06_dataset_conversion.py:

@@ -1,0 +1,151 @@
+transforms
+==========
+
+.. py:module:: robo_orchard_lab.dataset.horizon_manipulation.transforms
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.horizon_manipulation.transforms.IdentityTransform
+   robo_orchard_lab.dataset.horizon_manipulation.transforms.AddItems
+   robo_orchard_lab.dataset.horizon_manipulation.transforms.SimpleStateSampling
+   robo_orchard_lab.dataset.horizon_manipulation.transforms.Resize
+   robo_orchard_lab.dataset.horizon_manipulation.transforms.ToTensor
+   robo_orchard_lab.dataset.horizon_manipulation.transforms.ConvertDataType
+   robo_orchard_lab.dataset.horizon_manipulation.transforms.ItemSelection
+   robo_orchard_lab.dataset.horizon_manipulation.transforms.MultiArmKinematics
+   robo_orchard_lab.dataset.horizon_manipulation.transforms.GetProjectionMat
+   robo_orchard_lab.dataset.horizon_manipulation.transforms.UnsqueezeBatch
+
+
+Module Contents
+---------------
+
+.. py:class:: IdentityTransform
+
+.. py:class:: AddItems(to_numpy=True, **kwargs)
+
+   .. py:attribute:: items
+
+
+.. py:class:: SimpleStateSampling(hist_steps, pred_steps, use_master_gripper=True, use_master_joint=False, gripper_indices=None, limitation=3.14, static_threshold=0.001, only_hist=False)
+
+   .. py:attribute:: hist_steps
+
+
+   .. py:attribute:: pred_steps
+
+
+   .. py:attribute:: use_master_gripper
+      :value: True
+
+
+
+   .. py:attribute:: use_master_joint
+      :value: False
+
+
+
+   .. py:attribute:: gripper_indices
+      :value: None
+
+
+
+   .. py:attribute:: limitation
+      :value: 3.14
+
+
+
+   .. py:attribute:: static_threshold
+      :value: 0.001
+
+
+
+   .. py:attribute:: only_hist
+      :value: False
+
+
+
+.. py:class:: Resize(dst_wh, dst_intrinsic=None)
+
+   .. py:attribute:: dst_wh
+
+
+   .. py:method:: resize(inputs, intrinsic=None)
+
+
+.. py:class:: ToTensor
+
+.. py:class:: ConvertDataType(convert_map, strict=False)
+
+   .. py:attribute:: convert_map
+
+
+   .. py:attribute:: strict
+      :value: False
+
+
+
+.. py:class:: ItemSelection(keys)
+
+   .. py:attribute:: keys
+
+
+.. py:class:: MultiArmKinematics(urdf, arm_link_keys, arm_joint_id=None, finger_keys=None, ee_to_gripper=None)
+
+   .. py:attribute:: urdf
+
+
+   .. py:attribute:: chain
+
+
+   .. py:attribute:: chain_gpu
+
+
+   .. py:attribute:: arm_link_keys
+
+
+   .. py:attribute:: arm_joint_id
+      :value: None
+
+
+
+   .. py:attribute:: num_arms
+
+
+   .. py:attribute:: finger_keys
+      :value: None
+
+
+
+   .. py:attribute:: num_joints
+      :value: 0
+
+
+
+   .. py:attribute:: num_keys
+      :value: 0
+
+
+
+   .. py:method:: get_joint_relative_pos()
+
+
+   .. py:property:: joint_relative_pos
+
+
+   .. py:method:: joint_state_to_robot_state(joint_state, embodiedment_mat=None, return_matrix=False)
+
+
+.. py:class:: GetProjectionMat(target_coordinate='ego')
+
+   .. py:attribute:: target_coordinate
+      :value: 'ego'
+
+
+
+.. py:class:: UnsqueezeBatch
+

@@ -1,0 +1,256 @@
+transformer_layers
+==================
+
+.. py:module:: robo_orchard_lab.models.layers.transformer_layers
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.layers.transformer_layers.LayerScale
+   robo_orchard_lab.models.layers.transformer_layers.MultiheadAttention
+   robo_orchard_lab.models.layers.transformer_layers.FFN
+   robo_orchard_lab.models.layers.transformer_layers.MLP
+
+
+Module Contents
+---------------
+
+.. py:class:: LayerScale(dim: int, inplace: bool = False, data_format: Literal['channels_first', 'channels_last'] = 'channels_last', scale: float = 1e-05)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   LayerScale layer.
+
+   :param dim: Dimension of input features.
+   :type dim: int
+   :param inplace: Whether performs operation in-place.
+                   Default: `False`.
+   :type inplace: bool
+   :param data_format: The input data format,
+                       could be "channels_last" or "channels_first", representing (B, C, H, W) and
+                       (B, N, C) format data respectively. Default: "channels_last".
+   :type data_format: Literal["channels_first", "channels_last"]
+   :param scale: Initial value of scale factor. Default: 1.0
+   :type scale: float
+
+
+   .. py:attribute:: inplace
+      :value: False
+
+
+
+   .. py:attribute:: data_format
+      :value: 'channels_last'
+
+
+
+   .. py:attribute:: weight
+
+
+   .. py:method:: forward(x) -> torch.Tensor
+
+
+.. py:class:: MultiheadAttention(embed_dims: int, num_heads: int, attn_drop: float = 0.0, proj_drop: float = 0.0, dropout_layer: dict | None = None, batch_first: bool = False, **kwargs)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   A wrapper for ``torch.nn.MultiheadAttention``.
+
+   This module implements MultiheadAttention with identity connection,
+   and positional encoding  is also passed as input.
+
+   :param embed_dims: The embedding dimension.
+   :type embed_dims: int
+   :param num_heads: Parallel attention heads.
+   :type num_heads: int
+   :param attn_drop: A Dropout layer on attn_output_weights.
+                     Default: 0.0.
+   :type attn_drop: float
+   :param proj_drop: A Dropout layer after `nn.MultiheadAttention`.
+                     Default: 0.0.
+   :type proj_drop: float
+   :param dropout_layer (obj: `ConfigDict`): The dropout_layer used
+                              when adding the shortcut.
+   :param batch_first: When it is True,  Key, Query and Value are shape of
+                       (batch, n, embed_dim), otherwise (n, batch, embed_dim). Default to False.
+   :type batch_first: bool
+
+
+   .. py:attribute:: embed_dims
+
+
+   .. py:attribute:: num_heads
+
+
+   .. py:attribute:: batch_first
+      :value: False
+
+
+
+   .. py:attribute:: attn
+
+
+   .. py:attribute:: proj_drop
+
+
+   .. py:method:: forward(query: torch.Tensor, key: torch.Tensor | None = None, value: torch.Tensor | None = None, identity: torch.Tensor | None = None, query_pos: torch.Tensor | None = None, key_pos: torch.Tensor | None = None, attn_mask: torch.Tensor | None = None, key_padding_mask: torch.Tensor | None = None, **kwargs)
+
+      Forward function for `MultiheadAttention`.
+
+      kwargs allow passing a more general data flow when combining
+      with other operations in `transformerlayer`.
+
+      :param query: The input query with shape [num_queries, bs,
+                    embed_dims] if self.batch_first is False, else
+                    [bs, num_queries embed_dims].
+      :type query: Tensor
+      :param key: The key tensor with shape [num_keys, bs,
+                  embed_dims] if self.batch_first is False, else
+                  [bs, num_keys, embed_dims] .
+                  If None, the ``query`` will be used. Defaults to None.
+      :type key: Tensor | None
+      :param value: The value tensor with same shape as `key`.
+                    Same in `nn.MultiheadAttention.forward`. Defaults to None.
+                    If None, the `key` will be used.
+      :type value: Tensor | None
+      :param identity: This tensor, with the same shape as x,
+                       will be used for the identity link.
+                       If None, `x` will be used. Defaults to None.
+      :type identity: Tensor | None
+      :param query_pos: The positional encoding for query, with
+                        the same shape as `x`. If not None, it will
+                        be added to `x` before forward function. Defaults to None.
+      :type query_pos: Tensor | None
+      :param key_pos: The positional encoding for `key`, with the
+                      same shape as `key`. Defaults to None. If not None, it will
+                      be added to `key` before forward function. If None, and
+                      `query_pos` has the same shape as `key`, then `query_pos`
+                      will be used for `key_pos`. Defaults to None.
+      :type key_pos: Tensor | None
+      :param attn_mask: ByteTensor mask with shape [num_queries,
+                        num_keys]. Same in `nn.MultiheadAttention.forward`.
+                        Defaults to None.
+      :type attn_mask: Tensor | None
+      :param key_padding_mask: ByteTensor with shape [bs, num_keys].
+                               Defaults to None.
+      :type key_padding_mask: Tensor | None
+
+      :returns:
+
+                forwarded results with shape [num_queries, bs, embed_dims]
+                    if self.batch_first is False, else [bs, num_queries embed_dims].
+      :rtype: Tensor
+
+
+
+.. py:class:: FFN(embed_dims=256, feedforward_channels=1024, num_fcs=2, act_cfg=None, ffn_drop=0.0, dropout_layer=None, add_identity=True, layer_scale_init_value=0.0)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Implements feed-forward networks (FFNs) with identity connection.
+
+   :param embed_dims: The feature dimension. Same as
+                      `MultiheadAttention`. Defaults: 256.
+   :type embed_dims: int
+   :param feedforward_channels: The hidden dimension of FFNs.
+                                Defaults: 1024.
+   :type feedforward_channels: int
+   :param num_fcs: The number of fully-connected layers in
+                   FFNs. Default: 2.
+   :type num_fcs: int, optional
+   :param act_cfg: The activation config for FFNs.
+                   Default: dict(type='ReLU')
+   :type act_cfg: dict, optional
+   :param ffn_drop: Probability of an element to be
+                    zeroed in FFN. Default 0.0.
+   :type ffn_drop: float, optional
+   :param add_identity: Whether to add the
+                        identity connection. Default: `True`.
+   :type add_identity: bool, optional
+   :param dropout_layer (obj: `ConfigDict`): The dropout_layer used
+                              when adding the shortcut.
+   :param layer_scale_init_value: Initial value of scale factor in
+                                  LayerScale. Default: 1.0
+   :type layer_scale_init_value: float
+
+
+   .. py:attribute:: embed_dims
+      :value: 256
+
+
+
+   .. py:attribute:: feedforward_channels
+      :value: 1024
+
+
+
+   .. py:attribute:: num_fcs
+      :value: 2
+
+
+
+   .. py:attribute:: layers
+
+
+   .. py:attribute:: add_identity
+      :value: True
+
+
+
+   .. py:method:: forward(x, identity=None)
+
+      Forward function for `FFN`.
+
+      The function would add x to the output tensor if residue is None.
+
+
+
+.. py:class:: MLP(input_dim: int, hidden_dim: int, output_dim: int, num_layers: int)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   MLP layer.
+
+   Very simple multi-layer perceptron (also called FFN) with relu. Mostly
+   used in DETR series detectors.
+
+   :param input_dim: Feature dim of the input tensor.
+   :type input_dim: int
+   :param hidden_dim: Feature dim of the hidden layer.
+   :type hidden_dim: int
+   :param output_dim: Feature dim of the output tensor.
+   :type output_dim: int
+   :param num_layers: Number of FFN layers. As the last
+                      layer of MLP only contains FFN (Linear).
+   :type num_layers: int
+
+
+   .. py:attribute:: num_layers
+
+
+   .. py:attribute:: layers
+
+
+   .. py:method:: forward(x: torch.Tensor) -> torch.Tensor
+
+      Forward function of MLP.
+
+      :param x: The input feature, has shape
+                (num_queries, bs, input_dim).
+      :type x: Tensor
+
+      :returns:
+
+                The output feature, has shape
+                    (num_queries, bs, output_dim).
+      :rtype: Tensor
+
+
+

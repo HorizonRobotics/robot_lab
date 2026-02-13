@@ -1,0 +1,114 @@
+image_processor
+===============
+
+.. py:module:: robo_orchard_lab.models.monodream.multimodal_encoder.image_processor
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.multimodal_encoder.image_processor.ImageProcessor
+
+
+Module Contents
+---------------
+
+.. py:class:: ImageProcessor(do_resize: bool = True, size: Dict[str, int] = None, resample: transformers.image_utils.PILImageResampling = PILImageResampling.BILINEAR, do_rescale: bool = True, rescale_factor: Union[int, float] = 1 / 255, do_normalize: bool = True, image_mean: Optional[Union[float, List[float]]] = None, image_std: Optional[Union[float, List[float]]] = None, do_pad: bool = True, pad_size: int = None, pad_multiple: int = None, pad_value: Optional[Union[float, List[float]]] = 0.0, do_convert_rgb: bool = True, **kwargs)
+
+   Bases: :py:obj:`transformers.image_processing_utils.BaseImageProcessor`
+
+
+   .. py:attribute:: model_input_names
+      :value: ['pixel_values']
+
+
+
+   .. py:attribute:: do_resize
+      :value: True
+
+
+
+   .. py:attribute:: size
+
+
+   .. py:attribute:: resample
+
+
+   .. py:attribute:: do_rescale
+      :value: True
+
+
+
+   .. py:attribute:: rescale_factor
+      :value: 0.00392156862745098
+
+
+
+   .. py:attribute:: do_normalize
+      :value: True
+
+
+
+   .. py:attribute:: image_mean
+      :value: None
+
+
+
+   .. py:attribute:: image_std
+      :value: None
+
+
+
+   .. py:attribute:: do_pad
+      :value: True
+
+
+
+   .. py:attribute:: pad_multiple
+      :value: None
+
+
+
+   .. py:attribute:: pad_size
+      :value: None
+
+
+
+   .. py:attribute:: pad_value
+
+
+   .. py:attribute:: do_convert_rgb
+      :value: True
+
+
+
+   .. py:method:: pad_image(image: numpy.ndarray, pad_size: Dict[str, int], data_format: Optional[Union[str, transformers.image_utils.ChannelDimension]] = None, input_data_format: Optional[Union[str, transformers.image_utils.ChannelDimension]] = None, **kwargs) -> numpy.ndarray
+
+      Padding function.
+
+      Pad an image to `(pad_size["height"], pad_size["width"])` to
+      the right and bottom.
+
+
+      :param image: Image to pad.
+      :type image: `np.ndarray`
+      :param pad_size: Size of the output image after padding.
+      :type pad_size: `Dict[str, int]`
+      :param data_format: The data format of the image.
+                          Can be either "channels_first" or "channels_last". If `None`,
+                          the `data_format` of the `image` will be used.
+      :type data_format: `str` or `ChannelDimension`, *optional*
+      :param input_data_format: The channel dimension format of the input image.
+                                If not provided, it will be inferred.
+      :type input_data_format: `str` or `ChannelDimension`, *optional*
+
+
+
+   .. py:method:: resize(image: numpy.ndarray, size: Dict[str, int], resample: transformers.image_utils.PILImageResampling = PILImageResampling.BICUBIC, data_format: Optional[Union[str, transformers.image_utils.ChannelDimension]] = None, input_data_format: Optional[Union[str, transformers.image_utils.ChannelDimension]] = None, **kwargs) -> numpy.ndarray
+
+
+   .. py:method:: preprocess(images: transformers.image_utils.ImageInput, do_resize: Optional[bool] = None, size: Optional[Dict[str, int]] = None, resample: Optional[transformers.image_utils.PILImageResampling] = None, do_rescale: Optional[bool] = None, rescale_factor: Optional[Union[int, float]] = None, do_normalize: Optional[bool] = None, image_mean: Optional[Union[float, List[float]]] = None, image_std: Optional[Union[float, List[float]]] = None, do_pad: Optional[bool] = None, pad_size: Optional[Dict[str, int]] = None, do_convert_rgb: Optional[bool] = None, return_tensors: Optional[Union[str, transformers.utils.TensorType]] = None, data_format: transformers.image_utils.ChannelDimension = ChannelDimension.FIRST, input_data_format: Optional[Union[str, transformers.image_utils.ChannelDimension]] = None, **kwargs)
+
+

@@ -1,0 +1,102 @@
+obs
+===
+
+.. py:module:: robo_orchard_lab.envs.robotwin.obs
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.envs.robotwin.obs.get_joints
+   robo_orchard_lab.envs.robotwin.obs.get_observation_cams
+   robo_orchard_lab.envs.robotwin.obs.get_camera_data
+
+
+Module Contents
+---------------
+
+.. py:function:: get_joints(obs: dict, joint_names: list[str] | None = None, timestamps: list[int] | None = None) -> robo_orchard_core.datatypes.BatchJointsState
+
+   Convert joint data from observation dict to BatchJointsState.
+
+   This function assumes the input observation dict has the
+   following structure (RoboTwin):
+
+   .. code-block:: text
+
+       {
+           "joint_action": {
+               "vector": (N,) np.ndarray,
+               ...
+           },
+           ... other keys ...
+       }
+
+
+
+.. py:function:: get_observation_cams(obs: dict) -> dict
+
+   Convert all camera data in the observation dict.
+
+   This function assumes the input observation dict has
+   the following structure (RoboTwin):
+
+   .. code-block:: text
+
+       {
+           "observation": {
+               "camera_name_1": { ... camera data ... },
+               "camera_name_2": { ... camera data ... },
+               ...
+           },
+           ... other keys ...
+       }
+
+   Each camera data dict follows the same format as described
+   in `convert_camera_data`.
+
+   :returns:
+
+             A dictionary where keys are camera names and values
+                 are the converted camera data in BatchCameraData format.
+                 For example:
+
+                 .. code-block:: text
+
+                     {
+                         "camera_name_1": {
+                             "rgb": BatchCameraData,
+                             "depth": BatchCameraData,
+                         },
+                         "camera_name_2": {
+                             "rgb": BatchCameraData,
+                         },
+                         ...
+                     }
+   :rtype: dict
+
+
+.. py:function:: get_camera_data(cam: dict, camera_name: str, timestamps: list[int] | None = None) -> dict[str, robo_orchard_core.datatypes.BatchCameraData]
+
+   Convert camera data from dict to BatchCameraData.
+
+   This function assumes the input camera dict has the following keys
+   - "rgb": (H, W, 3) np.ndarray, optional
+   - "depth": (H, W) np.ndarray, optional
+   - "intrinsic_cv": (3, 3) np.ndarray
+   - "extrinsic_cv": (4, 4) np.ndarray, world to camera
+
+   :param cam: Camera data in dict format.
+   :type cam: dict
+   :param camera_name: Name of the camera.
+   :type camera_name: str
+
+   :returns:
+
+             Converted camera data.
+                 The keys can be "rgb" and/or "depth", depending on the input.
+   :rtype: dict[str, BatchCameraData]
+
+

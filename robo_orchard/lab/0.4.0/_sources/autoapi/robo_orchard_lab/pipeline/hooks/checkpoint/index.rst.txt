@@ -1,0 +1,95 @@
+checkpoint
+==========
+
+.. py:module:: robo_orchard_lab.pipeline.hooks.checkpoint
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.pipeline.hooks.checkpoint.SaveCheckpoint
+   robo_orchard_lab.pipeline.hooks.checkpoint.SaveCheckpointConfig
+   robo_orchard_lab.pipeline.hooks.checkpoint.SaveModel
+   robo_orchard_lab.pipeline.hooks.checkpoint.SaveModelConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: SaveCheckpoint(cfg: SaveCheckpointConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   Checkpoint hook.
+
+   A checkpointing hook for saving model state at specified epoch or
+   step intervals.
+
+
+   :param cfg: Configuration object containing
+               parameters for checkpointing.
+   :type cfg: SaveCheckpointConfig
+
+
+   .. py:attribute:: cfg
+
+
+   .. py:attribute:: save_root
+
+
+   .. py:attribute:: save_epoch_freq
+
+
+   .. py:attribute:: save_step_freq
+
+
+.. py:class:: SaveCheckpointConfig
+
+   Bases: :py:obj:`SaveHookConfigT`\ [\ :py:obj:`SaveCheckpoint`\ ]
+
+
+   Configuration class for SaveCheckpoint.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.pipeline.hooks.mixin.ClassType[SaveCheckpoint]
+
+
+.. py:class:: SaveModel(cfg: SaveModelConfig)
+
+   Bases: :py:obj:`robo_orchard_lab.pipeline.hooks.mixin.PipelineHooks`
+
+
+   A class to manage pipeline hooks for training processes.
+
+   This class only accept config class as input for the constructor.
+
+
+
+   .. py:attribute:: cfg
+      :type:  SaveModelConfig
+
+
+.. py:class:: SaveModelConfig
+
+   Bases: :py:obj:`SaveHookConfigT`\ [\ :py:obj:`SaveModel`\ ]
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.pipeline.hooks.mixin.ClassType[SaveModel]
+
+
+   .. py:method:: get_save_root(accelerator: accelerate.Accelerator) -> str
+
+      Get the root directory for saving checkpoints.
+
+      If `automatic_checkpoint_naming` is enabled in the Accelerator's
+      project configuration, the save root is set to a default directory
+      within the project's directory. Otherwise, it uses the provided
+      `save_root` value.
+
+
+

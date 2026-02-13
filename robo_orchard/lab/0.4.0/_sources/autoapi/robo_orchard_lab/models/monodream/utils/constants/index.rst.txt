@@ -1,0 +1,79 @@
+constants
+=========
+
+.. py:module:: robo_orchard_lab.models.monodream.utils.constants
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.utils.constants.CONTROLLER_HEART_BEAT_EXPIRATION
+   robo_orchard_lab.models.monodream.utils.constants.WORKER_HEART_BEAT_INTERVAL
+   robo_orchard_lab.models.monodream.utils.constants.LOGDIR
+   robo_orchard_lab.models.monodream.utils.constants.IGNORE_INDEX
+   robo_orchard_lab.models.monodream.utils.constants.DEFAULT_IMAGE_TOKEN
+   robo_orchard_lab.models.monodream.utils.constants.SENTINEL_TOKEN
+   robo_orchard_lab.models.monodream.utils.constants.MEDIA_TOKENS
+   robo_orchard_lab.models.monodream.utils.constants.NUM_EXTRA_TOKENS
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.monodream.utils.constants.Media
+   robo_orchard_lab.models.monodream.utils.constants.File
+   robo_orchard_lab.models.monodream.utils.constants.Image
+
+
+Module Contents
+---------------
+
+.. py:data:: CONTROLLER_HEART_BEAT_EXPIRATION
+   :value: 30
+
+
+.. py:data:: WORKER_HEART_BEAT_INTERVAL
+   :value: 15
+
+
+.. py:data:: LOGDIR
+   :value: '.'
+
+
+.. py:data:: IGNORE_INDEX
+   :value: -100
+
+
+.. py:data:: DEFAULT_IMAGE_TOKEN
+   :value: '<image>'
+
+
+.. py:data:: SENTINEL_TOKEN
+   :value: '<vila/sentinel>'
+
+
+.. py:data:: MEDIA_TOKENS
+
+.. py:data:: NUM_EXTRA_TOKENS
+   :value: 3
+
+
+.. py:class:: Media
+
+.. py:class:: File(path: str)
+
+   Bases: :py:obj:`Media`
+
+
+   .. py:attribute:: path
+
+
+.. py:class:: Image(path: str)
+
+   Bases: :py:obj:`File`
+
+

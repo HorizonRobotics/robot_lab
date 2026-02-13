@@ -1,0 +1,111 @@
+upgrade
+=======
+
+.. py:module:: robo_orchard_lab.dataset.robot.db_orm.upgrade
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.robot.db_orm.upgrade.TableUpgradeRegistry
+
+
+Module Contents
+---------------
+
+.. py:class:: TableUpgradeRegistry
+
+   Registry and resolver for table schema upgrade functions.
+
+   This class keeps a class-level mapping of upgrade steps for table rows,
+   allowing rows stored at an older schema "version" to be migrated to a
+   specified target version via a chain of registered functions.
+
+
+   .. py:method:: register_create(table_name: str, version: packaging.version.Version | None)
+      :staticmethod:
+
+
+      Decorator to register a table creation function.
+
+      :param table_name: The name of the table to create.
+      :type table_name: str
+      :param version: The version to create the table for.
+      :type version: str|None
+
+      :returns: The decorator function.
+      :rtype: Callable
+
+
+
+   .. py:method:: register_upgrade(table_name: str, from_version: packaging.version.Version | None, to_version: packaging.version.Version, from_orm_type: Type[robo_orchard_lab.dataset.robot.db_orm.base.ORMBase])
+      :staticmethod:
+
+
+      Decorator to register a table upgrade function.
+
+      :param table_name: The name of the table to upgrade.
+      :type table_name: str
+      :param from_version: The version to upgrade from.
+      :type from_version: str|None
+      :param to_version: The version to upgrade to. If None, the
+                         upgrade function applies to all higher versions.
+      :type to_version: str
+
+      :returns: The decorator function.
+      :rtype: Callable
+
+
+
+   .. py:method:: get_upgrade_func(table_name: str, current_version: packaging.version.Version | None, target_version: packaging.version.Version) -> UpgradeFuncType
+      :staticmethod:
+
+
+      Get the upgrade function for a table.
+
+      :param table_name: The name of the table.
+      :type table_name: str
+      :param current_version: The current version of the table.
+      :type current_version: str|None
+      :param target_version: The target version of the table.
+      :type target_version: str
+
+      :returns: The upgrade function.
+      :rtype: UpgradeFuncType
+
+      :raises ValueError: If no upgrade functions are registered for the table,
+          or if no upgrade path is found.
+
+
+
+   .. py:method:: get_create_func(table_name: str, version: packaging.version.Version | None) -> CreateFuncType
+      :staticmethod:
+
+
+      Get the create function for a table.
+
+      :param table_name: The name of the table.
+      :type table_name: str
+      :param version: The version of the table.
+      :type version: str|None
+
+      :returns: The create function.
+      :rtype: CreateFuncType
+
+
+
+   .. py:method:: get_version_orm(table_name: str, version: packaging.version.Version | None) -> Type[robo_orchard_lab.dataset.robot.db_orm.base.ORMBase]
+      :staticmethod:
+
+
+      Get the ORM class for a table version.
+
+      :param table_name: The name of the table.
+      :type table_name: str
+      :param version: The version of the table.
+      :type version: str|None
+
+
+

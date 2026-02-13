@@ -1,0 +1,445 @@
+env
+===
+
+.. py:module:: robo_orchard_lab.envs.libero.env
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_lab.envs.libero.env.LiberoSuiteName
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.envs.libero.env.LiberoEnvStepReturn
+   robo_orchard_lab.envs.libero.env.LiberoEnv
+   robo_orchard_lab.envs.libero.env.LiberoEvalEnv
+   robo_orchard_lab.envs.libero.env.LiberoEnvCfg
+   robo_orchard_lab.envs.libero.env.LiberoEvalEnvCfg
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_lab.envs.libero.env.get_libero_task
+
+
+Module Contents
+---------------
+
+.. py:type:: LiberoSuiteName
+   :canonical: Literal['libero_spatial', 'libero_object', 'libero_goal', 'libero_10', 'libero_90']
+
+
+.. py:class:: LiberoEnvStepReturn
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvStepReturn`\ [\ :py:obj:`LiberoObsType`\ , :py:obj:`LiberoRewardType`\ ]
+
+
+   The return type of the `step` function in the environment.
+
+   This class extends gymnasium's Env step return type to be a dataclass
+   with generic types for observations and rewards.
+
+
+   Template Args:
+       ObsType: The type of the observations returned by the environment.
+       RewardsType: The type of the rewards returned by the environment.
+
+
+
+   .. py:attribute:: observations
+      :type:  LiberoObsType
+
+      The observations returned by the environment after taking a step.
+
+
+   .. py:attribute:: terminated
+      :type:  bool
+
+      done flag
+
+
+   .. py:attribute:: rewards
+      :type:  LiberoRewardType
+
+      The rewards is a [0,1] value indicating whether the task was successful.
+
+
+   .. py:attribute:: truncated
+      :type:  bool | None
+
+      For evaluation environments, whether the episode was truncated due to
+      reaching the step limit. Otherwise always None.
+
+
+   .. py:attribute:: info
+      :type:  dict[str, Any]
+
+      Auxiliary information returned by the environment.
+
+
+.. py:function:: get_libero_task(suite_name: str, task_id: int) -> LiberoTask
+
+   Get the Libero task information.
+
+   :param suite_name: The name of the Libero task suite.
+   :type suite_name: str
+   :param task_id: The ID of the task within the suite.
+   :type task_id: int
+
+   :returns: The Libero task information.
+   :rtype: LiberoTask
+
+
+.. py:class:: LiberoEnv(cfg: LiberoEnvCfg)
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvBase`
+
+
+   Base class for all environments.
+
+   The environment is a class that comprise of all components and
+   functions required to interact with.
+
+   Specifically, the environment provides a `step` function, which
+   takes in an action and returns the information about observations,
+   rewards, and other information.
+
+
+   This class is a simplified version of the gymnasium environment
+   interface, which is used to define the environment for reinforcement
+   learning tasks. We simplify the interface to provide a more generic
+   and interface for environments.
+
+
+   Template Args:
+       EnvStepReturnType: The type of the return value of the `step` function.
+
+
+
+   .. py:attribute:: cfg
+      :type:  LiberoEnvCfg
+
+
+   .. py:method:: step(action: ArrayLike) -> LiberoEnvStepReturn
+
+      Take a step in the environment.
+
+      Libero uses OSC (operational space control) actions, which are
+      7-dimensional vectors representing the desired end-effector
+      movements in the x, y, z directions and rotations around those axes,
+      as well as the gripper open/close command (-1 = open, +1 = close).
+
+      See :class:`robosuite.controllers.osc.OperationalSpaceController`
+      and :class:`robosuite.manipulator.Manipulator` for more details.
+
+      This is the default action type for LiberoEnv, but users can also
+      choose to use the target end-effector pose as action by setting
+      `use_action_type` to "osc_delta_pose" in the config.
+      In that case, the action should be a 7-dimensional vector representing
+      the target end-effector pose (x, y, z, q_w, q_x, q_y, q_z) in world
+      frame, followed by gripper command.
+
+      Note: Different from step function in libero env, we force update
+      the observations after each step to ensure that the observations
+      are always up-to-date with the simulation state, as we observe that
+      the observation from step is delayed. The value is very close to
+      the one before the fix, but this ensures consistency of LiberoEnv,
+      because some method of LiberoEnv directly access the simulation state.
+
+
+
+
+   .. py:method:: get_sim_state() -> numpy.ndarray
+
+      Get the current simulator state as a flattened tensor.
+
+
+
+   .. py:method:: reset(seed: int | None = None, init_state: Any | None = None) -> tuple[LiberoObsType, dict]
+
+      Reset the environment.
+
+      :param seed: Seed for the environment's random
+                   number generator. Defaults to None.
+      :type seed: int | None, optional
+      :param init_state: Initial state to set after
+                         reset. Defaults to None.
+      :type init_state: Any | None, optional
+
+
+
+   .. py:property:: num_envs
+      :type: int
+
+
+      The number of instances of the environment that are running.
+
+      For example, if the environment is a single instance, then this
+      should return 1. This is the case for most classical environments.
+
+      In the case of reforcement learning, usually a vectorized environment
+      is used to run multiple instances of the environment in parallel to
+      speed up the training process. In this case, this function should
+      return the number of instances of the environment that are running.
+
+      The number of instances of the environment is used in other parts of
+      the code to manage the environment.
+
+
+   .. py:property:: task_info
+      :type: robo_orchard_core.envs.task.TaskInfo
+
+
+      Get the task information.
+
+
+   .. py:method:: unwrapped_env() -> libero.libero.envs.OffScreenRenderEnv
+
+      Get the original Libero environment.
+
+
+
+   .. py:method:: get_robot_xml() -> str
+
+      Get the robot XML used in the environment.
+
+      Currently, Libero environments only support single-arm robots.
+
+      :returns: robot XML strings.
+      :rtype: str
+
+
+
+   .. py:property:: eef_name
+      :type: str
+
+
+      Get the end-effector name of the robot.
+
+      Currently, Libero environments only support single-arm robots.
+
+      .. note::
+
+         Libero uses the end-effector name defined in the robot controller,
+         while the robot model may have a different end-effector name.
+         This is a BUG in Libero, which we work around here by
+         accessing the controller's end-effector name directly, as this
+         is what Libero actually uses in the environment!
+
+      :returns: The end-effector name of the robot.
+      :rtype: str
+
+
+   .. py:method:: get_arm_osc_delta_pose_from_target_pose(target_pose: robo_orchard_core.datatypes.BatchTransform3D, source_pose: robo_orchard_core.datatypes.BatchTransform3D) -> torch.Tensor
+
+      Convert a target end-effector pose to an OSC delta action.
+
+      This method requires that the input target_pose and source_pose
+      have the same batch size, and the output OSC action will have
+      the same batch size as well.
+
+
+
+   .. py:method:: get_last_action() -> ActionInfo | None
+
+      Get information about the last action taken in the environment.
+
+
+
+   .. py:method:: close() -> None
+
+      Close the environment.
+
+
+
+   .. py:property:: control_timestep
+      :type: float
+
+
+      Get the average time interval between steps in the environment.
+
+      In Libero, this value is around 1/20 seconds, corresponding to
+      the control frequency of 20 Hz.
+
+      :returns: The time interval between steps in seconds.
+      :rtype: float
+
+
+.. py:class:: LiberoEvalEnv(cfg: LiberoEvalEnvCfg)
+
+   Bases: :py:obj:`LiberoEnv`
+
+
+   Libero evaluation environment.
+
+   The evaluation environment is used for benchmarking the performance
+   of agents on the Libero tasks. The environment is configured to use a
+   fixed set of initial states for each task, and the episode length is
+   limited to a predefined number of steps based on the task suite.
+
+
+   .. py:attribute:: cfg
+      :type:  LiberoEvalEnvCfg
+
+
+   .. py:attribute:: step_limits
+      :type:  dict[str, int]
+
+      Step limits for different Libero task suites.
+
+      The value is copied from OpenVLA's Libero evaluation script.
+
+
+   .. py:property:: step_limit
+      :type: int
+
+
+
+   .. py:method:: step(action: ArrayLike) -> LiberoEnvStepReturn
+
+      Take a step in the environment.
+
+      Libero uses OSC (operational space control) actions, which are
+      7-dimensional vectors representing the desired end-effector
+      movements in the x, y, z directions and rotations around those axes,
+      as well as the gripper open/close command (-1 = open, +1 = close).
+
+      See :class:`robosuite.controllers.osc.OperationalSpaceController`
+      and :class:`robosuite.manipulator.Manipulator` for more details.
+
+      This is the default action type for LiberoEnv, but users can also
+      choose to use the target end-effector pose as action by setting
+      `use_action_type` to "osc_delta_pose" in the config.
+      In that case, the action should be a 7-dimensional vector representing
+      the target end-effector pose (x, y, z, q_w, q_x, q_y, q_z) in world
+      frame, followed by gripper command.
+
+      Note: Different from step function in libero env, we force update
+      the observations after each step to ensure that the observations
+      are always up-to-date with the simulation state, as we observe that
+      the observation from step is delayed. The value is very close to
+      the one before the fix, but this ensures consistency of LiberoEnv,
+      because some method of LiberoEnv directly access the simulation state.
+
+
+
+
+   .. py:method:: reset(seed: int | None = None) -> tuple[LiberoObsType, dict]
+
+      Reset the environment.
+
+      :param seed: Seed for the environment's random
+                   number generator. Defaults to None.
+      :type seed: int | None, optional
+      :param init_state: Initial state to set after
+                         reset. Defaults to None.
+      :type init_state: Any | None, optional
+
+
+
+.. py:class:: LiberoEnvCfg
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvBaseCfg`\ [\ :py:obj:`LiberoEnvType`\ ]
+
+
+   Configuration for the RoboTwin environment.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType[LiberoEnvType]
+
+
+   .. py:attribute:: suite_name
+      :type:  LiberoSuiteName
+
+
+   .. py:attribute:: task_id
+      :type:  int
+
+
+   .. py:attribute:: camera_heights
+      :type:  int
+      :value: 256
+
+
+
+   .. py:attribute:: camera_widths
+      :type:  int
+      :value: 256
+
+
+
+   .. py:attribute:: camera_depths
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: format_datatypes
+      :type:  bool
+      :value: False
+
+
+      whether to format observation as robo_orchard datatypes.
+
+      If True, the observation dict will be reformatted in the
+      following way:
+      - Camera data: replace with any rgb/depth camera keys containing
+      BatchCameraData.
+      - Robot joint data: replaced with 'joints' key containing
+      BatchJointsState.
+      - Robot frame transforms: replaced with 'tf_world' key containing
+      BatchFrameTransform.
+
+
+   .. py:attribute:: use_action_type
+      :type:  typing_extensions.Literal[libero, orchard_osc_target_eef]
+      :value: 'libero'
+
+
+      The type of action to use in the environment:
+      - "libero": use the original Libero action type defined in the robot
+      controller.
+      - "orchard_osc_target_eef": use the target end-effector pose as the action,
+      which will be converted to OSC delta pose internally in the environment.
+
+
+.. py:class:: LiberoEvalEnvCfg
+
+   Bases: :py:obj:`LiberoEnvCfg`\ [\ :py:obj:`LiberoEvalEnv`\ ]
+
+
+   Configuration for the RoboTwin evaluation environment.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType[LiberoEvalEnv]
+
+
+   .. py:attribute:: episode_idx
+      :type:  int
+
+      Index of the evaluation episode.
+
+      This is used to select the initial state from the predefined set
+      of initial states for evaluation.
+
+
+   .. py:attribute:: num_steps_wait
+      :type:  int
+      :value: 15
+
+
+      Number of steps to wait after setting the initial state.
+
+

@@ -1,0 +1,273 @@
+processor
+=========
+
+.. py:module:: robo_orchard_lab.models.finegrasp.processor
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.models.finegrasp.processor.GraspInput
+   robo_orchard_lab.models.finegrasp.processor.GraspOutput
+   robo_orchard_lab.models.finegrasp.processor.FineGraspProcessor
+   robo_orchard_lab.models.finegrasp.processor.FineGraspProcessorCfg
+
+
+Module Contents
+---------------
+
+.. py:class:: GraspInput
+
+   Input data for FineGraspProcessor.
+
+   :param rgb_image: RGB image of shape (H, W, 3),
+   :type rgb_image: str | np.ndarray
+   :param depth_image: Depth image of shape (H, W),
+   :type depth_image: str | np.ndarray
+   :param intrinsic_matrix: Camera intrinsic matrix of shape (3, 3),
+   :type intrinsic_matrix: str | np.ndarray
+   :param points: Point cloud of shape (N, 3). If provided,
+                  depth_image will be ignored.
+   :type points: np.ndarray | None
+   :param depth_scale: Scale factor to convert raw depth values to
+                       metric units. For example, if the depth map values are in
+                       millimeters and you want meters, set `depth_scale=1000.0`.
+   :type depth_scale: float
+   :param grasp_workspace: Workspace limits [xmin, xmax, ymin,
+                           ymax, zmin, zmax].
+   :type grasp_workspace: List[float]
+   :param num_sample_points: Number of points to sample from the point
+                             cloud.
+   :type num_sample_points: int
+
+   .. rubric:: Example
+
+   >>> from robo_orchard_lab.models.finegrasp.processor import GraspInput
+   >>> import numpy as np
+   >>> rgb_image = np.random.rand(480, 640, 3).astype(np.float32)
+   >>> depth_image = (
+   ...     np.random.rand(480, 640).astype(np.float32) * 1000
+   ... )  # in mm
+   >>> intrinsic_matrix = np.array(
+   ...     [[600, 0, 320], [0, 600, 240], [0, 0, 1]], dtype=np.float32
+   ... )
+   >>> depth_scale = 1000.0
+   >>> grasp_workspace = [-1, 1, -1, 1, 0.0, 2.0]
+   >>> input_data = GraspInput(
+   ...     rgb_image=rgb_image,
+   ...     depth_image=depth_image,
+   ...     depth_scale=depth_scale,
+   ...     intrinsic_matrix=intrinsic_matrix,
+   ...     grasp_workspace=grasp_workspace,
+   ... )
+   >>> print(input_data.grasp_workspace)
+   [-1, 1, -1, 1, 0.0, 2.0]
+   >>> print(input_data.rgb_image.shape)
+   (480, 640, 3)
+   >>> print(input_data.depth_image.shape)
+   (480, 640)
+   >>> print(input_data.intrinsic_matrix.shape)
+   (3, 3)
+
+
+   .. py:attribute:: rgb_image
+      :type:  str | numpy.ndarray
+
+
+   .. py:attribute:: depth_image
+      :type:  str | numpy.ndarray
+
+
+   .. py:attribute:: intrinsic_matrix
+      :type:  str | numpy.ndarray
+
+
+   .. py:attribute:: points
+      :type:  numpy.ndarray | None
+      :value: None
+
+
+
+   .. py:attribute:: depth_scale
+      :type:  float
+      :value: 1.0
+
+
+
+   .. py:attribute:: grasp_workspace
+      :type:  List[float]
+      :value: []
+
+
+
+   .. py:attribute:: num_sample_points
+      :type:  int
+      :value: 20000
+
+
+
+.. py:class:: GraspOutput
+
+   Output data for FineGraspProcessor.
+
+   :param grasp_poses: Detected grasp poses.
+   :type grasp_poses: GraspGroup
+
+   .. rubric:: Example
+
+   >>> from robo_orchard_lab.models.finegrasp.processor import GraspOutput
+   >>> import numpy as np
+   >>> from graspnetAPI.grasp import GraspGroup, GRASP_ARRAY_LEN
+   >>> np.random.seed(0)
+   >>> grasp_poses_array = np.random.rand(10, GRASP_ARRAY_LEN).astype(
+   ...     np.float32
+   ... )
+   >>> grasp_poses = GraspGroup(grasp_poses_array)
+   >>> output_data = GraspOutput(grasp_poses=grasp_poses)
+   >>> print(output_data.grasp_poses[0])
+   Grasp: score:0.54881352186203, width:0.7151893377304077,
+   ... height:0.6027633547782898, depth:0.5448831915855408,
+   ... translation:[0.92559665 0.07103606 0.0871293 ]
+   rotation:
+   [[0.4236548  0.6458941  0.4375872 ]
+   [0.891773   0.96366274 0.3834415 ]
+   [0.79172504 0.5288949  0.56804454]]
+   object id:0
+
+
+   .. py:attribute:: grasp_poses
+      :type:  graspnetAPI.graspnet_eval.GraspGroup
+
+
+.. py:class:: FineGraspProcessor(cfg: FineGraspProcessorCfg)
+
+   Bases: :py:obj:`robo_orchard_lab.inference.processor.ProcessorMixin`
+
+
+   An abstract base class for data processing modules.
+
+   This class defines a standard interface for data processors, which are
+   responsible for encapsulating the pre-processing and post-processing logic
+   required for a model. Subclasses must implement the `pre_process` method.
+
+   The primary role of a processor is to convert raw, user-provided data into
+   a format suitable for model consumption (pre-processing) and to convert the
+   model's raw output into a user-friendly, understandable format
+   (post-processing).
+
+
+   .. py:attribute:: cfg
+      :type:  FineGraspProcessorCfg
+
+
+   .. py:method:: get_normal(point_cloud)
+
+
+   .. py:method:: pre_process(input_data: GraspInput, device: str = 'cuda') -> Dict[str, torch.Tensor]
+
+      Transforms raw data into a model-ready format.
+
+      Subclasses must implement this method to handle the conversion of
+      user-provided input into the specific format expected by the model.
+
+      :param data: The raw input data.
+
+      :returns: The processed data, ready to be collated into a batch.
+
+
+
+   .. py:method:: post_process(model_outputs, input_data) -> GraspOutput
+
+      Transforms model output into a user-friendly format.
+
+      This method can be overridden by subclasses to convert the raw tensor
+      outputs from the model into a more structured or interpretable format,
+      such as dictionaries with meaningful keys, text, or image objects.
+
+      By default, it performs an identity mapping, returning the model
+      outputs as is.
+
+      :param model_outputs: The raw output from the model's forward pass.
+      :param model_input: The transformed batch as model input. For some
+                          processors, this may be needed for context during
+                          post-processing.
+
+      :returns: The post-processed, user-friendly output.
+
+
+
+.. py:class:: FineGraspProcessorCfg
+
+   Bases: :py:obj:`robo_orchard_lab.inference.processor.ProcessorMixinCfg`\ [\ :py:obj:`FineGraspProcessor`\ ]
+
+
+   Configuration for FineGraspProcessor.
+
+   :param voxel_size: Voxel size for point cloud downsampling.
+   :type voxel_size: float
+   :param grasp_max_width: Maximum width of the gripper for grasp
+                           prediction.
+   :type grasp_max_width: float
+   :param num_seed_points: Number of seed points for grasp prediction.
+   :type num_seed_points: int
+   :param max_gripper_width: Maximum gripper width to filter grasps.
+   :type max_gripper_width: float
+   :param collision_thresh: Distance threshold for collision detection.
+   :type collision_thresh: float
+   :param voxel_size_cd: Voxel size for collision detection.
+   :type voxel_size_cd: float
+
+   .. rubric:: Example
+
+   >>> from robo_orchard_lab.models.finegrasp.processor import (
+   ...     FineGraspProcessorCfg,
+   ... )
+   >>> cfg = FineGraspProcessorCfg()
+   >>> print(cfg.voxel_size)
+   0.005
+   >>> print(cfg.grasp_max_width)
+   0.1
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_lab.inference.processor.ClassType_co[FineGraspProcessor]
+
+
+   .. py:attribute:: voxel_size
+      :type:  float
+      :value: 0.005
+
+
+
+   .. py:attribute:: grasp_max_width
+      :type:  float
+      :value: 0.1
+
+
+
+   .. py:attribute:: num_seed_points
+      :type:  int
+      :value: 1024
+
+
+
+   .. py:attribute:: max_gripper_width
+      :type:  float
+      :value: 0.1
+
+
+
+   .. py:attribute:: collision_thresh
+      :type:  float
+      :value: 0.01
+
+
+
+   .. py:attribute:: voxel_size_cd
+      :type:  float
+      :value: 0.01
+
+
+

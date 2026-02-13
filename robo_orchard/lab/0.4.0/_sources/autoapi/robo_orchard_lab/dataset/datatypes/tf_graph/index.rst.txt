@@ -1,0 +1,40 @@
+tf_graph
+========
+
+.. py:module:: robo_orchard_lab.dataset.datatypes.tf_graph
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_lab.dataset.datatypes.tf_graph.BatchFrameTransformGraphFeature
+
+
+Module Contents
+---------------
+
+.. py:class:: BatchFrameTransformGraphFeature
+
+   Bases: :py:obj:`BatchFrameTransformGraphStateFeature`
+
+
+   A feature for storing batch frame transform graph in a dataset.
+
+   The underlying data is stored as BatchFrameTransformGraphState.
+
+
+
+   .. py:method:: encode_example(value: robo_orchard_core.datatypes.tf_graph.BatchFrameTransformGraph)
+
+      Encode the example value into a format suitable for storage.
+
+
+
+   .. py:method:: decode_example(value: Any, **kwargs) -> robo_orchard_core.datatypes.tf_graph.BatchFrameTransformGraph
+
+      Decode the example value from its stored format.
+
+
+

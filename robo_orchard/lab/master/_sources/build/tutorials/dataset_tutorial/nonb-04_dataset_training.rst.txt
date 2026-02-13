@@ -55,21 +55,15 @@ Setup and Imports
 --------------------------------
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-64
+.. GENERATED FROM PYTHON SOURCE LINES 44-58
 
 .. code-block:: Python
 
 
-    import io
-
     import matplotlib.pyplot as plt
-    import numpy as np
     import torch
-    from PIL import Image
     from robo_orchard_core.datatypes.camera_data import (
         BatchCameraData,
-        BatchImageData,
-        ImageMode,
     )
     from torch.utils.data import DataLoader
 
@@ -86,7 +80,7 @@ Setup and Imports
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-81
+.. GENERATED FROM PYTHON SOURCE LINES 59-75
 
 Part 1: Transform sample
 --------------------------------
@@ -105,26 +99,17 @@ This transform will:
 5. Return a new, simple dictionary.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-122
+.. GENERATED FROM PYTHON SOURCE LINES 75-107
 
 .. code-block:: Python
 
-
-
-    def simple_decoder(image_bytes: bytes, format: str) -> BatchImageData:
-        pil_img = Image.open(io.BytesIO(image_bytes))
-        # Convert to tensor and add batch dimension
-        img_tensor = torch.from_numpy(np.array(pil_img)).unsqueeze(0)
-        return BatchImageData(sensor_data=img_tensor, pix_fmt=ImageMode.RGB)
 
 
     # required input type dict is sample and output type is dict
     def transform(sample: dict) -> dict[str, torch.Tensor]:
         # 1. Decode camera
         #   (BatchCameraDataEncoded -> BatchCameraData)
-        env_camera_data: BatchCameraData = sample["middle"].decode(
-            decoder=simple_decoder
-        )
+        env_camera_data: BatchCameraData = sample["middle"].decode()
 
         # 2. Extract image tensor (Shape: [1, H, W, C] -> [H, W, C])
         # We squeeze(0) to remove the batch dim, as the DataLoader will add it back
@@ -154,14 +139,21 @@ This transform will:
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    /home/users/hongyu.xie/workspace/code-base/robo_orchard_group/robo_orchard_lab/robo_orchard_lab/dataset/robot/dataset.py:153: UserWarning: Failed to load dataset using `datasets.load_from_disk`. Falling back to use wrapped version. 
+      warnings.warn(
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 123-124
+
+.. GENERATED FROM PYTHON SOURCE LINES 108-109
 
 Let's test the transform on a single sample
 
-.. GENERATED FROM PYTHON SOURCE LINES 124-138
+.. GENERATED FROM PYTHON SOURCE LINES 109-123
 
 .. code-block:: Python
 
@@ -196,14 +188,14 @@ Let's test the transform on a single sample
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 139-143
+.. GENERATED FROM PYTHON SOURCE LINES 124-128
 
 Part 2: Working with PyTorch DataLoader
 -----------------------------------------------------
 Now that our dataset returns a simple ``dict`` of tensors, we can
 use the standard PyTorch ``DataLoader`` with its default collation fn.
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-157
+.. GENERATED FROM PYTHON SOURCE LINES 128-142
 
 .. code-block:: Python
 
@@ -237,11 +229,11 @@ use the standard PyTorch ``DataLoader`` with its default collation fn.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-159
+.. GENERATED FROM PYTHON SOURCE LINES 143-144
 
 Visualize the batch
 
-.. GENERATED FROM PYTHON SOURCE LINES 159-168
+.. GENERATED FROM PYTHON SOURCE LINES 144-153
 
 .. code-block:: Python
 
@@ -266,7 +258,7 @@ Visualize the batch
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 169-174
+.. GENERATED FROM PYTHON SOURCE LINES 154-159
 
 Part 3: DataLoader with ROMultiRowDataset
 ---------------------------------------------
@@ -274,7 +266,7 @@ This is common for Imitation Learning. The dataset returns a **list**
 of states/actions. We need a transform to stack them into a tensor.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 174-235
+.. GENERATED FROM PYTHON SOURCE LINES 159-218
 
 .. code-block:: Python
 
@@ -284,9 +276,7 @@ of states/actions. We need a transform to stack them into a tensor.
         """Converts a multi-row sample (with lists of data) into a collatable dictionary of stacked tensors."""
 
         # Decode camera
-        env_camera_data: BatchCameraData = sample["middle"].decode(
-            decoder=simple_decoder
-        )
+        env_camera_data: BatchCameraData = sample["middle"].decode()
         obs_camera = env_camera_data.sensor_data.squeeze(0)
 
         # 'joints' is a list[BatchJointsState] of length 8
@@ -358,7 +348,7 @@ of states/actions. We need a transform to stack them into a tensor.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.954 seconds)
+   **Total running time of the script:** (0 minutes 1.500 seconds)
 
 
 .. _sphx_glr_download_build_tutorials_dataset_tutorial_nonb-04_dataset_training.py:
