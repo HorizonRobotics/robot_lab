@@ -1,0 +1,65 @@
+camera
+======
+
+.. py:module:: robo_orchard_core.utils.math.camera
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.math.camera.project_points_to_image
+   robo_orchard_core.utils.math.camera.unproject_image_points
+
+
+Module Contents
+---------------
+
+.. py:function:: project_points_to_image(points_3d: torch.Tensor, projection_mat: torch.Tensor) -> torch.Tensor
+
+   Project 3D points to 2D image plane using the camera intrinsic matrix.
+
+   :param points_3d: A tensor of shape (P, 3) or (B, P, 3)
+                     representing the 3D points in any coordinate frame.
+   :type points_3d: torch.Tensor
+   :param projection_mat: A tensor of shape (3, 3) or (B, 3, 3),
+                          or (3, 4) or (B, 3, 4) , or (4, 4) or (B, 4, 4) representing
+                          projection matrix.
+   :type projection_mat: torch.Tensor
+
+   :returns:
+
+             A tensor of shape (B, P, 3) representing the projected
+                 2D points with depth (u, v, depth) in the image plane. The depth
+                 is orthogonal distance from the camera's image plane to the
+                 3D point.
+   :rtype: torch.Tensor
+
+
+.. py:function:: unproject_image_points(uvd: torch.Tensor, to_image_proj: torch.Tensor | None = None, from_image_unpoj: torch.Tensor | None = None) -> torch.Tensor
+
+   Unproject 2D image points with depth to 3D points in camera frame.
+
+   :param uvd: A tensor of shape (P, 3) or (B, P, 3)
+               representing the 2D image points with depth (u, v, depth).
+   :type uvd: torch.Tensor
+   :param to_image_proj: A tensor of shape (3, 3)
+                         or (B, 3, 3), or (3, 4) or (B, 3, 4) , or (4, 4) or (B, 4, 4)
+                         representing projection matrix to image plane. If
+                         projection_mat has shape (4, 4) or (B, 4, 4), the last row should
+                         be [0, 0, 0, 1], as the denominator of the 4D homogeneous
+                         coordinate is unknown.
+   :type to_image_proj: torch.Tensor | None
+   :param from_image_unpoj: The inverse of the projection
+                            matrix from camera frame to image plane. If provided, it will be
+                            used instead of computing the inverse of to_image_proj.
+   :type from_image_unpoj: torch.Tensor | None
+
+   :returns:
+
+             A tensor of shape (B, P, 3) representing the unprojected
+                 3D points in camera frame.
+   :rtype: torch.Tensor
+
+

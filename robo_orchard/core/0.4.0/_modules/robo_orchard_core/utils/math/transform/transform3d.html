@@ -1,0 +1,1801 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>robo_orchard_core.utils.math.transform.transform3d - RoboOrchardCore</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/version_switcher.css?v=ddc636d2" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../../index.html"><div class="brand">RoboOrchardCore</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../../../../_static/logo/logo_light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../../../_static/logo/logo_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">RoboOrchardCore</span>
+  
+</a>
+<meta name="current-version-id" content="0.4.0">
+
+<meta name="versions-json-url" content="https://horizonrobotics.github.io/robot_lab/robo_orchard/core/version.json">
+
+<style>
+  #version-selector-wrapper {
+    border: 1px solid var(--switcher-border-color, #e0e0e0);
+    background-color: var(--switcher-background-color, transparent);
+    visibility: hidden;
+    border-radius: 3px;
+    padding: 0;
+    margin: 8px 5px;
+    display: inline-block;
+    position: relative;
+  }
+
+  #version-selector {
+    color: var(--switcher-text-color, #333);
+    background-color: var(--switcher-background-color, transparent);
+
+    background-image: var(--switcher-arrow-icon);
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1em;
+
+    border: none;
+    padding: 6px 28px 6px 8px;
+    font-size: 0.9em;
+    display: block;
+    min-width: 140px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+    line-height: 1.4;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+</style>
+
+<div id="version-selector-wrapper">
+    <select id="version-selector">
+        </select>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const wrapper = document.getElementById('version-selector-wrapper');
+    const selector = document.getElementById('version-selector');
+    const metaCurrentVersionIdTag = document.querySelector('meta[name="current-version-id"]');
+    const actualCurrentVersionId = metaCurrentVersionIdTag ? metaCurrentVersionIdTag.content : null;
+    const metaVersionsJsonUrlTag = document.querySelector('meta[name="versions-json-url"]');
+    const versionsJsonUrl = metaVersionsJsonUrlTag ? metaVersionsJsonUrlTag.content : null;
+    const versionsCacheKey = 'sphinxVersionsJsonCache_vHybrid';
+
+    function populateSelector(versionsData) {
+        if (!selector || !wrapper) return;
+        selector.innerHTML = '';
+
+        if (Array.isArray(versionsData) && versionsData.length > 0) {
+            versionsData.forEach(version => {
+                if (version && version.url && version.name && version.id) {
+                    const option = document.createElement('option');
+                    option.value = version.url;
+                    option.textContent = version.name;
+                    if (actualCurrentVersionId && version.id === actualCurrentVersionId) {
+                        option.selected = true;
+                    }
+                    selector.appendChild(option);
+                }
+            });
+        } else {
+            const fallbackOption = document.createElement('option');
+            fallbackOption.textContent = "No versions available";
+            fallbackOption.disabled = true;
+            selector.appendChild(fallbackOption);
+            console.warn("versions.json was empty, not loaded, or invalid.");
+        }
+        wrapper.style.visibility = 'visible';
+    }
+
+    if (!versionsJsonUrl) {
+        console.error("Cannot fetch versions: versions.json URL is missing.");
+        populateSelector(null);
+        return;
+    }
+
+    const cachedVersions = sessionStorage.getItem(versionsCacheKey);
+    if (cachedVersions) {
+        try {
+            const versions = JSON.parse(cachedVersions);
+            populateSelector(versions);
+        } catch (e) {
+            sessionStorage.removeItem(versionsCacheKey);
+            fetchAndPopulate();
+        }
+    } else {
+        fetchAndPopulate();
+    }
+
+    function fetchAndPopulate() {
+        fetch(versionsJsonUrl)
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error fetching versions.json! Status: ${response.status}`);
+                return response.json();
+            })
+            .then(versions => {
+                sessionStorage.setItem(versionsCacheKey, JSON.stringify(versions));
+                populateSelector(versions);
+            })
+            .catch(error => {
+                console.error('Failed to load or parse versions.json:', error);
+                populateSelector(null);
+            });
+    }
+
+    if (selector) {
+        selector.addEventListener('change', function() {
+            if (this.value) window.location.href = this.value;
+        });
+    }
+});
+</script><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../build/gallery/get_started/installation/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../../build/gallery/tutorials/system_overview/index.html">System Overview</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of System Overview</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../build/gallery/tutorials/system_overview/nonb-01_config_design.html">Best Practices for Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../build/gallery/tutorials/system_overview/nonb-02_env_and_managers.html">Environment and Managers</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../../build/gallery/tutorials/datatypes/index.html">Data Types</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Data Types</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../build/gallery/tutorials/datatypes/nonb-01_geometry.html">Tutorial 1: Geometry Basics with BatchTransform3D and BatchPose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../build/gallery/tutorials/datatypes/nonb-02_tf_graph.html">Tutorial 2: Managing Coordinate Systems with TF Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../build/gallery/tutorials/datatypes/nonb-03_robot.html">Tutorial 3: Representing Robot Joints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../build/gallery/tutorials/datatypes/nonb-04_camera.html">Tutorial 4: A Deep Dive into Camera Data</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../../autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/index.html">robo_orchard_core</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of robo_orchard_core</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/controllers/index.html">controllers</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of controllers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/controllers/differential_ik/index.html">differential_ik</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/controllers/ik/index.html">ik</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/datatypes/index.html">datatypes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of datatypes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/datatypes/adaptor/index.html">adaptor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/datatypes/camera_data/index.html">camera_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/datatypes/dataclass/index.html">dataclass</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/datatypes/enum/index.html">enum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/datatypes/geometry/index.html">geometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/datatypes/joint_state/index.html">joint_state</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/datatypes/tf_graph/index.html">tf_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/datatypes/timestamps/index.html">timestamps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/datatypes/uuid/index.html">uuid</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/devices/index.html">devices</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of devices</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/devices/cameras/index.html">cameras</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of cameras</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/devices/cameras/camera/index.html">camera</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/index.html">envs</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of envs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/env_base/index.html">env_base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/manager_based_env/index.html">manager_based_env</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/managers/index.html">managers</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of managers</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/managers/actions/index.html">actions</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of actions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/managers/actions/action_manager/index.html">action_manager</a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/managers/actions/action_term/index.html">action_term</a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/managers/events/index.html">events</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of events</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/managers/events/event_manager/index.html">event_manager</a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/managers/events/event_term/index.html">event_term</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/managers/manager_base/index.html">manager_base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/managers/manager_term_base/index.html">manager_term_base</a></li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/managers/observations/index.html">observations</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of observations</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/managers/observations/observation_manager/index.html">observation_manager</a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/managers/observations/observation_term/index.html">observation_term</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/managers/scene_entity_cfg/index.html">scene_entity_cfg</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/remote/index.html">remote</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/rollout/index.html">rollout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/envs/task/index.html">task</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/kinematics/index.html">kinematics</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of kinematics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/kinematics/chain/index.html">chain</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/policy/index.html">policy</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of policy</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/policy/base/index.html">base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/policy/random/index.html">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/policy/remote/index.html">remote</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/tools/index.html">tools</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of tools</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/tools/cli/index.html">cli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/tools/simple_file_server/index.html">simple_file_server</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/index.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/cli/index.html">cli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/config/index.html">config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/dict/index.html">dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/distributed/index.html">distributed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/experimental/index.html">experimental</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/hook/index.html">hook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/image/index.html">image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/logging/index.html">logging</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/math/index.html">math</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of math</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/math/camera/index.html">camera</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/math/coord_convention/index.html">coord_convention</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/math/math_utils/index.html">math_utils</a></li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/index.html">transform</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of transform</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/se3/index.html">se3</a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/so3/index.html">so3</a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform2d/index.html">transform2d</a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html">transform3d</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/misc/index.html">misc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/network/index.html">network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/patches/index.html">patches</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/pip/index.html">pip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/ray/index.html">ray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/registry/index.html">registry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/string/index.html">string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/task_executor/index.html">task_executor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/timer/index.html">timer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/utils/torch_utils/index.html">torch_utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/version/index.html">version</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/viz/index.html">viz</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/viz/cam/index.html">cam</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/viz/jupyter/index.html">jupyter</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of jupyter</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/viz/jupyter/base_viz/index.html">base_viz</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/viz/jupyter/ipy_cam/index.html">ipy_cam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../../autoapi/robo_orchard_core/viz/jupyter/virtual_display/index.html">virtual_display</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for robo_orchard_core.utils.math.transform.transform3d</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Project RoboOrchard</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2024-2025 Horizon Robotics. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#       http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or</span>
+<span class="c1"># implied. See the License for the specific language governing</span>
+<span class="c1"># permissions and limitations under the License.</span>
+<span class="c1">#</span>
+<span class="c1"># ----------------(Copyright from Torch3d)----------------------------</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) Meta Platforms, Inc. and affiliates.</span>
+<span class="c1"># All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># This source code is licensed under the BSD-style license found in the</span>
+<span class="c1"># LICENSE file in the root directory of this source tree.</span>
+
+<span class="sd">&quot;&quot;&quot;3D transformations.</span>
+
+<span class="sd">This file is modified from pytorch3d.transforms.transform3d.py to follow</span>
+<span class="sd">the column-major convention of rotation matrix.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">from</span> <span class="nn">robo_orchard_core.utils.math.math_utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_axis_angle_rotation</span><span class="p">,</span>
+    <span class="n">matrix_to_axis_angle</span><span class="p">,</span>
+    <span class="n">matrix_to_quaternion</span><span class="p">,</span>
+    <span class="n">quaternion_to_matrix</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_core.utils.math.transform.se3</span> <span class="kn">import</span> <span class="n">se3_log_map</span>
+<span class="kn">from</span> <span class="nn">robo_orchard_core.utils.torch_utils</span> <span class="kn">import</span> <span class="n">Device</span><span class="p">,</span> <span class="n">get_device</span><span class="p">,</span> <span class="n">make_device</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Transform3D_M&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Translate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Scale&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Rotate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RotateAxisAngle&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_safe_det_3x3</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fast determinant calculation for a batch of 3x3 matrices.</span>
+
+<span class="sd">    Note, result of this function might not be the same as `torch.det()`.</span>
+<span class="sd">    The differences might be in the last significant digit.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        t: Tensor of shape (N, 3, 3).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor of shape (N) with determinants.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">det</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+        <span class="o">+</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">det</span>
+
+
+<div class="viewcode-block" id="Transform3D_M">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M">[docs]</a>
+<span class="k">class</span> <span class="nc">Transform3D_M</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The general transform3d using Matrix representation.</span>
+
+<span class="sd">    A Transform3d object encapsulates a batch of N 3D transformations, and knows</span>
+<span class="sd">    how to transform points and normal vectors. Suppose that t is a Transform3d;</span>
+<span class="sd">    then we can do the following:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        N = len(t)</span>
+<span class="sd">        points = torch.randn(N, P, 3)</span>
+<span class="sd">        normals = torch.randn(N, P, 3)</span>
+<span class="sd">        points_transformed = t.transform_points(points)  # =&gt; (N, P, 3)</span>
+<span class="sd">        normals_transformed = t.transform_normals(normals)  # =&gt; (N, P, 3)</span>
+
+
+<span class="sd">    BROADCASTING</span>
+<span class="sd">    Transform3d objects supports broadcasting. Suppose that t1 and tN are</span>
+<span class="sd">    Transform3d objects with len(t1) == 1 and len(tN) == N respectively. Then we</span>
+<span class="sd">    can broadcast transforms like this:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        t1.transform_points(torch.randn(P, 3))  # =&gt; (P, 3)</span>
+<span class="sd">        t1.transform_points(torch.randn(1, P, 3))  # =&gt; (1, P, 3)</span>
+<span class="sd">        t1.transform_points(torch.randn(M, P, 3))  # =&gt; (M, P, 3)</span>
+<span class="sd">        tN.transform_points(torch.randn(P, 3))  # =&gt; (N, P, 3)</span>
+<span class="sd">        tN.transform_points(torch.randn(1, P, 3))  # =&gt; (N, P, 3)</span>
+
+
+<span class="sd">    COMBINING TRANSFORMS</span>
+<span class="sd">    Transform3D_M objects can be combined in two ways: composing and stacking.</span>
+<span class="sd">    Composing is function composition. Given Transform3D_M objects t1, t2, t3,</span>
+<span class="sd">    the following all compute the same thing:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        y1 = t3.transform_points(t2.transform_points(t1.transform_points(x)))</span>
+<span class="sd">        y2 = t1.compose(t2).compose(t3).transform_points(x)</span>
+<span class="sd">        y3 = t1.compose(t2, t3).transform_points(x)</span>
+
+
+<span class="sd">    Composing transforms should broadcast.</span>
+
+<span class="sd">    if len(t1) == 1 and len(t2) == N, then len(t1.compose(t2)) == N.</span>
+<span class="sd">    We can also stack a sequence of Transform3D_M objects, which represents</span>
+<span class="sd">    composition along the batch dimension; then the following should compute</span>
+<span class="sd">    the same thing.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        N, M = len(tN), len(tM)</span>
+<span class="sd">        xN = torch.randn(N, P, 3)</span>
+<span class="sd">        xM = torch.randn(M, P, 3)</span>
+<span class="sd">        y1 = torch.cat(</span>
+<span class="sd">            [tN.transform_points(xN), tM.transform_points(xM)], dim=0</span>
+<span class="sd">        )</span>
+<span class="sd">        y2 = tN.stack(tM).transform_points(torch.cat([xN, xM], dim=0))</span>
+
+<span class="sd">    BUILDING TRANSFORMS</span>
+<span class="sd">    We provide convenience methods for easily building Transform3D_M objects</span>
+<span class="sd">    as compositions of basic transforms.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # Scale by 0.5, then translate by (1, 2, 3)</span>
+<span class="sd">        t1 = Transform3D_M().scale(0.5).translate(1, 2, 3)</span>
+
+<span class="sd">        # Scale each axis by a different amount, then translate, then scale</span>
+<span class="sd">        t2 = Transform3D_M().scale(1, 3, 3).translate(2, 3, 1).scale(2.0)</span>
+
+<span class="sd">        t3 = t1.compose(t2)</span>
+<span class="sd">        tN = t1.stack(t3, t3)</span>
+
+
+<span class="sd">    BACKPROP THROUGH TRANSFORMS</span>
+<span class="sd">    When building transforms, we can also parameterize them by Torch tensors;</span>
+<span class="sd">    in this case we can backprop through the construction and application of</span>
+<span class="sd">    Transform objects, so they could be learned via gradient descent or</span>
+<span class="sd">    predicted by a neural network.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        s1_params = torch.randn(N, requires_grad=True)</span>
+<span class="sd">        t_params = torch.randn(N, 3, requires_grad=True)</span>
+<span class="sd">        s2_params = torch.randn(N, 3, requires_grad=True)</span>
+
+<span class="sd">        t = (</span>
+<span class="sd">            Transform3D_M()</span>
+<span class="sd">            .scale(s1_params)</span>
+<span class="sd">            .translate(t_params)</span>
+<span class="sd">            .scale(s2_params)</span>
+<span class="sd">        )</span>
+<span class="sd">        x = torch.randn(N, 3)</span>
+<span class="sd">        y = t.transform_points(x)</span>
+<span class="sd">        loss = compute_loss(y)</span>
+<span class="sd">        loss.backward()</span>
+
+<span class="sd">        with torch.no_grad():</span>
+<span class="sd">            s1_params -= lr * s1_params.grad</span>
+<span class="sd">            t_params -= lr * t_params.grad</span>
+<span class="sd">            s2_params -= lr * s2_params.grad</span>
+
+<span class="sd">    CONVENTIONS</span>
+<span class="sd">    We adopt a right-hand coordinate system, meaning that rotation about an axis</span>
+<span class="sd">    with a positive angle results in a counter clockwise rotation.</span>
+
+<span class="sd">    This class assumes that transformations are applied on inputs which</span>
+<span class="sd">    are column vectors (different from pytorch3d!). The internal representation</span>
+<span class="sd">    of the Nx4x4 transformation matrix is of the form:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        M = [</span>
+<span class="sd">            [Rxx, Rxy, Rxz, Tx],</span>
+<span class="sd">            [Ryx, Ryy, Ryz, Ty],</span>
+<span class="sd">            [Rzx, Rzy, Rzz, Tz],</span>
+<span class="sd">            [0, 0, 0, 1],</span>
+<span class="sd">        ]</span>
+
+<span class="sd">    To apply the transformation to points, which are row vectors, the latter are</span>
+<span class="sd">    converted to homogeneous (4D) coordinates and right-multiplied by the</span>
+<span class="sd">    transposed M matrix:</span>
+
+<span class="sd">    .. code-block::</span>
+
+<span class="sd">        points = [[0, 1, 2]]  # (1 x 3) xyz coordinates of a point</span>
+<span class="sd">        [transformed_points, 1] ∝  M @ [points, 1].transpose(-1,-2)</span>
+<span class="sd">        [transformed_points, 1] ∝  [points, 1] @ M.transpose(-1,-2)</span>
+
+
+<span class="sd">    Note:</span>
+<span class="sd">        Be careful that this class uses the column-major convention for SE(3)</span>
+<span class="sd">        matrices, which is different from the row-major convention used in</span>
+<span class="sd">        PyTorch3D!</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">:</span> <span class="n">Device</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span>
+        <span class="n">matrix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Constructor.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dtype: The data type of the transformation matrix.</span>
+<span class="sd">                to be used if `matrix = None`.</span>
+<span class="sd">            device: The device for storing the implemented transformation.</span>
+<span class="sd">                If `matrix != None`, uses the device of input `matrix`.</span>
+<span class="sd">            matrix: A tensor of shape (4, 4) or of shape (minibatch, 4, 4)</span>
+<span class="sd">                representing the 4x4 3D transformation matrix.</span>
+<span class="sd">                If `None`, initializes with identity using</span>
+<span class="sd">                the specified `device` and `dtype`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">matrix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span>
+                <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s1">&#39;&quot;matrix&quot; has to be a 2- or a 3-dimensional tensor.&#39;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">4</span> <span class="ow">or</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s1">&#39;&quot;matrix&quot; has to be a tensor of shape (minibatch, 4, 4) or (4, 4).&#39;</span>  <span class="c1"># noqa: E501</span>
+                <span class="p">)</span>
+            <span class="c1"># set dtype and device from matrix</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="n">device</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">device</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># store transforms to compose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lu</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">make_device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Transform3D_M&lt;id=</span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2">&gt;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+<div class="viewcode-block" id="Transform3D_M.from_rot_trans">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.from_rot_trans">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_rot_trans</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">R</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transform3D_M</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a Transform3d Matrix from rotation and translation tensors.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            R: A tensor of shape (N, 3, 3) representing the rotation.</span>
+<span class="sd">            T: A tensor of shape (N, 3) representing the translation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A Transform3d Matrix with the rotation and translation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">R</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">T</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;R and T must have the same batch dimension.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;R must have shape (N, 3, 3).&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;T must have shape (N, 3).&quot;</span><span class="p">)</span>
+
+        <span class="n">N</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">R</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">R</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">matrix</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">R</span>
+        <span class="n">matrix</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">matrix</span><span class="o">=</span><span class="n">matrix</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.from_quat_trans">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.from_quat_trans">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_quat_trans</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">Q</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transform3D_M</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a Transform3d Matrix from quaternion and translation tensors.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            Q: A tensor of shape (N, 4) representing the quaternion</span>
+<span class="sd">                in (x, y, z, w) format.</span>
+<span class="sd">            T: A tensor of shape (N, 3) representing the translation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A Transform3d Matrix with the rotation and translation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_rot_trans</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="n">quaternion_to_matrix</span><span class="p">(</span><span class="n">Q</span><span class="p">),</span> <span class="n">T</span><span class="o">=</span><span class="n">T</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">slice</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">BoolTensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span>
+        <span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transform3D_M</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get item.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index: Specifying the index of the transform to retrieve.</span>
+<span class="sd">                Can be an int, slice, list of ints, boolean, long tensor.</span>
+<span class="sd">                Supports negative indices.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Transform3D_M: Transform3d object with selected transforms.</span>
+<span class="sd">                The tensors are not cloned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">matrix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()[</span><span class="n">index</span><span class="p">])</span>
+
+<div class="viewcode-block" id="Transform3D_M.compose">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.compose">[docs]</a>
+    <span class="k">def</span> <span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">others</span><span class="p">:</span> <span class="n">Transform3D_M</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transform3D_M</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a new Transform3D_M representing the composition of self with the given other transforms, which will be stored as an internal list.</span>
+
+<span class="sd">        The new transform will apply current transform first, and then the others</span>
+<span class="sd">        in the order they are given. In matrix form:</span>
+
+<span class="sd">        A.compose(B, C).matrix == C.matrix @ B.matrix @ A.matrix</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *others: Any number of Transform3D_M objects</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Transform3D_M: A new Transform3D_M with the stored transforms</span>
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">Transform3D_M</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">other</span> <span class="ow">in</span> <span class="n">others</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Transform3D_M</span><span class="p">):</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Only possible to compose Transform3D_M objects; got </span><span class="si">%s</span><span class="s2">&quot;</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">_transforms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">others</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__matmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Transform3D_M</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transform3D_M</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Overload the @ operator to compose two Transform3D_M objects.</span>
+
+<span class="sd">        Different from the compose() method, this method follows the</span>
+<span class="sd">        mathematical convention of matrix multiplication order. The</span>
+<span class="sd">        following should be the same:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            t3 = t2 @ t1</span>
+<span class="sd">            t3 = t1.compose(t2)</span>
+<span class="sd">            t3 = Transform3D_M(t2.get_matrix() @ t1.get_matrix())</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other: Another Transform3D_M object to compose with self.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Transform3D_M: A new Transform3D_M object representing the</span>
+<span class="sd">                composition.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Transform3D_M</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Only possible to compose Transform3D_M objects; got </span><span class="si">%s</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Transform3D_M.get_matrix">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.get_matrix">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a 4x4 matrix corresponding to each transform in the batch.</span>
+
+<span class="sd">        If the transform was composed from others, the matrix for the composite</span>
+<span class="sd">        transform will be returned.</span>
+<span class="sd">        For example, if self.transforms contains transforms t1, t2, and t3, and</span>
+<span class="sd">        given a set of points x, the following should be true:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            y1 = t1.compose(t2, t3).transform(x)</span>
+<span class="sd">            y2 = t3.transform(t2.transform(t1.transform(x)))</span>
+<span class="sd">            y1.get_matrix() == y2.get_matrix()</span>
+
+<span class="sd">        Where necessary, those transforms are broadcast against each other.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: A (N, 4, 4) batch of transformation matrices representing</span>
+<span class="sd">                the stored transforms. See the class documentation for the conventions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+        <span class="n">composed_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">other</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">:</span>
+                <span class="n">other_matrix</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">composed_matrix</span><span class="p">)</span>
+                <span class="c1"># [points, 1] @ M1.transpose(-1,-2) @ M2.transpose(-1,-2)</span>
+                <span class="c1"># is equivalent to</span>
+                <span class="c1"># [points, 1] @ (M2 @ M1).transpose(-1,-2)</span>
+                <span class="c1"># so next matrix should be applied left to the previous one</span>
+                <span class="n">composed_matrix</span> <span class="o">=</span> <span class="n">_broadcast_bmm</span><span class="p">(</span><span class="n">other_matrix</span><span class="p">,</span> <span class="n">composed_matrix</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">composed_matrix</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.get_translation">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.get_translation">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_translation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the translation component of the transformation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A (N, 3) tensor representing the translation component</span>
+<span class="sd">            of the stored transforms.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.get_rotation_quaternion">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.get_rotation_quaternion">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_rotation_quaternion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the rotation component of the transformation as quaternions.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            normalize: If True, the output quaternions will be normalized</span>
+<span class="sd">                to unit length. This is useful if the input rotation matrices</span>
+<span class="sd">                are not guaranteed to be valid rotation matrices.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A (N, 4) tensor representing the rotation component</span>
+<span class="sd">            of the stored transforms.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PYTORCH3D_CHECK_ROTATION_MATRICES&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+            <span class="c1"># Note: aten::all_close in the check is computationally slow, so we</span>
+            <span class="c1"># only run the check when PYTORCH3D_CHECK_ROTATION_MATRICES is on.</span>
+            <span class="n">_check_valid_rotation_matrix</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">matrix_to_quaternion</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">normalize_output</span><span class="o">=</span><span class="n">normalize</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.get_rotation_axis_angle">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.get_rotation_axis_angle">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_rotation_axis_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the rotation component of the transformation as axis-angle.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A (N, 3) tensor representing the rotation component</span>
+<span class="sd">            of the stored transforms.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PYTORCH3D_CHECK_ROTATION_MATRICES&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+            <span class="c1"># Note: aten::all_close in the check is computationally slow, so we</span>
+            <span class="c1"># only run the check when PYTORCH3D_CHECK_ROTATION_MATRICES is on.</span>
+            <span class="n">_check_valid_rotation_matrix</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">matrix_to_axis_angle</span><span class="p">(</span><span class="n">R</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.get_se3_log">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.get_se3_log">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_se3_log</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="n">cos_bound</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a 6D SE(3) log vector corresponding to each transform in the batch.</span>
+
+<span class="sd">        In the SE(3) logarithmic representation SE(3) matrices are</span>
+<span class="sd">        represented as 6-dimensional vectors `[log_translation | log_rotation]`,</span>
+<span class="sd">        i.e. a concatenation of two 3D vectors `log_translation` and `log_rotation`.</span>
+
+<span class="sd">        The conversion from the 4x4 SE(3) matrix `transform` to the</span>
+<span class="sd">        6D representation `log_transform = [log_translation | log_rotation]`</span>
+<span class="sd">        is done as follows::</span>
+
+<span class="sd">            log_transform = log(transform.get_matrix())</span>
+<span class="sd">            log_translation = log_transform[:3, 3]</span>
+<span class="sd">            log_rotation = inv_hat(log_transform[:3, :3])</span>
+
+<span class="sd">        where `log` is the matrix logarithm</span>
+<span class="sd">        and `inv_hat` is the inverse of the Hat operator [2].</span>
+
+<span class="sd">        See the docstring for `se3.se3_log_map` and [1], Sec 9.4.2. for more</span>
+<span class="sd">        detailed description.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            eps: A threshold for clipping the squared norm of the rotation logarithm</span>
+<span class="sd">                to avoid division by zero in the singular case.</span>
+<span class="sd">            cos_bound: Clamps the cosine of the rotation angle to</span>
+<span class="sd">                [-1 + cos_bound, 3 - cos_bound] to avoid non-finite outputs.</span>
+<span class="sd">                The non-finite outputs can be caused by passing small rotation angles</span>
+<span class="sd">                to the `acos` function in `so3_rotation_angle` of `so3_log_map`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A (N, 6) tensor, rows of which represent the individual transforms</span>
+<span class="sd">            stored in the object as SE(3) logarithms.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError if the stored transform is not Euclidean (e.g. R is not a rotation</span>
+<span class="sd">                matrix or the last column has non-zeros in the first three places).</span>
+
+<span class="sd">        [1] https://jinyongjeong.github.io/Download/SE3/jlblanco2010geometry3d_techrep.pdf</span>
+<span class="sd">        [2] https://en.wikipedia.org/wiki/Hat_operator</span>
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+        <span class="k">return</span> <span class="n">se3_log_map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(),</span> <span class="n">eps</span><span class="p">,</span> <span class="n">cos_bound</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_get_matrix_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the inverse of self._matrix.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Transform3D_M.inverse">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.inverse">[docs]</a>
+    <span class="k">def</span> <span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invert_composed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transform3D_M</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a new Transform3D_M object that represents an inverse of the current transformation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            invert_composed:</span>
+<span class="sd">                - True: First compose the list of stored transformations</span>
+<span class="sd">                  and then apply inverse to the result. This is</span>
+<span class="sd">                  potentially slower for classes of transformations</span>
+<span class="sd">                  with inverses that can be computed efficiently</span>
+<span class="sd">                  (e.g. rotations and translations).</span>
+<span class="sd">                - False: Invert the individual stored transformations</span>
+<span class="sd">                  independently without composing them.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Transform3D_M: A new Transform3D_M object containing the inverse of the original transformation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+
+        <span class="n">tinv</span> <span class="o">=</span> <span class="n">Transform3D_M</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">invert_composed</span><span class="p">:</span>
+            <span class="c1"># first compose then invert</span>
+            <span class="n">tinv</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># self._get_matrix_inverse() implements efficient inverse</span>
+            <span class="c1"># of self._matrix</span>
+            <span class="n">i_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_matrix_inverse</span><span class="p">()</span>
+
+            <span class="c1"># 2 cases:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># a) Either we have a non-empty list of transforms:</span>
+                <span class="c1"># Here we take self._matrix and append its inverse at the</span>
+                <span class="c1"># end of the reverted _transforms list. After composing</span>
+                <span class="c1"># the transformations with get_matrix(), this correctly</span>
+                <span class="c1"># right-multiplies by the inverse of self._matrix</span>
+                <span class="c1"># at the end of the composition.</span>
+                <span class="n">tinv</span><span class="o">.</span><span class="n">_transforms</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">t</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">)</span>
+                <span class="p">]</span>
+                <span class="n">last</span> <span class="o">=</span> <span class="n">Transform3D_M</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+                <span class="n">last</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">i_matrix</span>
+                <span class="n">tinv</span><span class="o">.</span><span class="n">_transforms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">last</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># b) Or there are no stored transformations</span>
+                <span class="c1"># we just set inverted matrix</span>
+                <span class="n">tinv</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">i_matrix</span>
+
+        <span class="k">return</span> <span class="n">tinv</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.stack">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.stack">[docs]</a>
+    <span class="k">def</span> <span class="nf">stack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">others</span><span class="p">:</span> <span class="n">Transform3D_M</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transform3D_M</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a new batched Transform3d representing the batch elements from self and all the given other transforms all batched together.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *others: Any number of Transform3d objects</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Transform3D_M: A new Transform3d.</span>
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+        <span class="n">transforms</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">others</span><span class="p">)</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">transforms</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">Transform3D_M</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">matrix</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.transform_points">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.transform_points">[docs]</a>
+    <span class="k">def</span> <span class="nf">transform_points</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use this transform to transform a set of 3D points.</span>
+
+<span class="sd">        Assumes row major ordering of the input points.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            points: Tensor of shape (P, 3) or (N, P, 3)</span>
+<span class="sd">            eps: If eps!=None, the argument is used to clamp the</span>
+<span class="sd">                last coordinate before performing the final division.</span>
+<span class="sd">                The clamping corresponds to:</span>
+<span class="sd">                last_coord := (last_coord.sign() + (last_coord==0)) *</span>
+<span class="sd">                torch.clamp(last_coord.abs(), eps),</span>
+<span class="sd">                i.e. the last coordinates that are exactly 0 will</span>
+<span class="sd">                be clamped to +eps.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            points_out: points of shape (N, P, 3) or (P, 3) depending</span>
+<span class="sd">            on the dimensions of the transform</span>
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+
+        <span class="k">return</span> <span class="n">transform_points_3d</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(),</span> <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.transform_normals">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.transform_normals">[docs]</a>
+    <span class="k">def</span> <span class="nf">transform_normals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">normals</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use this transform to transform a set of normal vectors.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            normals: Tensor of shape (P, 3) or (N, P, 3)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            normals_out: Tensor of shape (P, 3) or (N, P, 3) depending</span>
+<span class="sd">            on the dimensions of the transform</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">normals</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Expected normals to have dim = 2 or dim = 3: got shape </span><span class="si">%r</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">normals</span><span class="o">.</span><span class="n">shape</span><span class="p">,))</span>
+        <span class="n">composed_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()</span>
+
+        <span class="c1"># TODO: inverse is bad! Solve a linear system instead</span>
+        <span class="n">mat</span> <span class="o">=</span> <span class="n">composed_matrix</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">normals_out</span> <span class="o">=</span> <span class="n">_broadcast_bmm</span><span class="p">(</span><span class="n">normals</span><span class="p">,</span> <span class="n">mat</span><span class="o">.</span><span class="n">inverse</span><span class="p">())</span>
+
+        <span class="c1"># This doesn&#39;t pass unit tests. TODO investigate further</span>
+        <span class="c1"># if self._lu is None:</span>
+        <span class="c1">#     self._lu = self._matrix[:, :3, :3].transpose(1, 2).lu()</span>
+        <span class="c1"># normals_out = normals.lu_solve(*self._lu)</span>
+
+        <span class="c1"># When transform is (1, 4, 4) and normals is (P, 3) return</span>
+        <span class="c1"># normals_out of shape (P, 3)</span>
+        <span class="k">if</span> <span class="n">normals_out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">normals</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">normals_out</span> <span class="o">=</span> <span class="n">normals_out</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">normals</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">normals_out</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.translate">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.translate">[docs]</a>
+    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Transform3D_M&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
+            <span class="n">Translate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.scale">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.scale">[docs]</a>
+    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Transform3D_M&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
+            <span class="n">Scale</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.rotate">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.rotate">[docs]</a>
+    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Transform3D_M&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
+            <span class="n">Rotate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.rotate_axis_angle">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.rotate_axis_angle">[docs]</a>
+    <span class="k">def</span> <span class="nf">rotate_axis_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Transform3D_M&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
+            <span class="n">RotateAxisAngle</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.clone">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.clone">[docs]</a>
+    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Transform3D_M&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Deep copy of Transforms object.</span>
+
+<span class="sd">        All internal tensors are cloned individually.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Transform3D_M: New Transforms object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="n">Transform3D_M</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lu</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">_lu</span> <span class="o">=</span> <span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lu</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+        <span class="n">other</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="n">other</span><span class="o">.</span><span class="n">_transforms</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transforms</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">other</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.to">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.to">[docs]</a>
+    <span class="k">def</span> <span class="nf">to</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">:</span> <span class="n">Device</span><span class="p">,</span>
+        <span class="n">copy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Transform3D_M&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Match functionality of torch.Tensor.to().</span>
+
+<span class="sd">        If copy = True or the self Tensor is on a different device, the</span>
+<span class="sd">        returned tensor is a copy of self with the desired torch.device.</span>
+<span class="sd">        If copy = False and the self Tensor already has the correct torch.device,</span>
+<span class="sd">        then self is returned.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            device: Device (as str or torch.device) for the new tensor.</span>
+<span class="sd">            copy: Boolean indicator whether or not to clone self. Default False.</span>
+<span class="sd">            dtype: If not None, casts the internal tensor variables</span>
+<span class="sd">                to a given torch.dtype.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Transform3D_M: New Transforms object move to device.</span>
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+        <span class="n">device_</span> <span class="o">=</span> <span class="n">make_device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">dtype_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">dtype</span>
+        <span class="n">skip_to</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">==</span> <span class="n">device_</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">dtype_</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">copy</span> <span class="ow">and</span> <span class="n">skip_to</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+
+        <span class="n">other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">skip_to</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">other</span>
+
+        <span class="n">other</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device_</span>
+        <span class="n">other</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype_</span>
+        <span class="n">other</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">_matrix</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device_</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype_</span><span class="p">)</span>
+        <span class="n">other</span><span class="o">.</span><span class="n">_transforms</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device_</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="n">copy</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype_</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">_transforms</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">other</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.cpu">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.cpu">[docs]</a>
+    <span class="k">def</span> <span class="nf">cpu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Transform3D_M&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Transform3D_M.cuda">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Transform3D_M.cuda">[docs]</a>
+    <span class="k">def</span> <span class="nf">cuda</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Transform3D_M&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Translate">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Translate">[docs]</a>
+<span class="k">class</span> <span class="nc">Translate</span><span class="p">(</span><span class="n">Transform3D_M</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new Transform3D_M representing 3D translations.</span>
+
+<span class="sd">    Option I: Translate(xyz, dtype=torch.float32, device=&#39;cpu&#39;)</span>
+<span class="sd">        xyz should be a tensor of shape (N, 3)</span>
+
+<span class="sd">    Option II: Translate(x, y, z, dtype=torch.float32, device=&#39;cpu&#39;)</span>
+<span class="sd">        Here x, y, and z will be broadcast against each other and</span>
+<span class="sd">        concatenated to form the translation. Each can be:</span>
+<span class="sd">        - A python scalar</span>
+<span class="sd">        - A torch scalar</span>
+<span class="sd">        - A 1D torch tensor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Device</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">xyz</span> <span class="o">=</span> <span class="n">_handle_input</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;Translate&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">xyz</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">xyz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">mat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">mat</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">mat</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">xyz</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">mat</span>
+
+    <span class="k">def</span> <span class="nf">_get_matrix_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the inverse of self._matrix.&quot;&quot;&quot;</span>
+        <span class="n">inv_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="o">.</span><span class="n">new_ones</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+        <span class="n">inv_mask</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+        <span class="n">i_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">*</span> <span class="n">inv_mask</span>
+        <span class="k">return</span> <span class="n">i_matrix</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">slice</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">BoolTensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span>
+        <span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Transform3D_M&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get item.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index: Specifying the index of the transform to retrieve.</span>
+<span class="sd">                Can be an int, slice, list of ints, boolean, long tensor.</span>
+<span class="sd">                Supports negative indices.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Transform3D_M object with selected transforms. The tensors are not cloned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()[</span><span class="n">index</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="Scale">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Scale">[docs]</a>
+<span class="k">class</span> <span class="nc">Scale</span><span class="p">(</span><span class="n">Transform3D_M</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A Transform3D_M representing a scaling operation, with different scale factors along each coordinate axis.</span>
+
+<span class="sd">    Option I: Scale(s, dtype=torch.float32, device=&#39;cpu&#39;)</span>
+<span class="sd">        s can be one of</span>
+<span class="sd">            - Python scalar or torch scalar: Single uniform scale</span>
+<span class="sd">            - 1D torch tensor of shape (N,): A batch of uniform scale</span>
+<span class="sd">            - 2D torch tensor of shape (N, 3): Scale differently along each axis</span>
+
+<span class="sd">    Option II: Scale(x, y, z, dtype=torch.float32, device=&#39;cpu&#39;)</span>
+<span class="sd">        Each of x, y, and z can be one of</span>
+<span class="sd">            - python scalar</span>
+<span class="sd">            - torch scalar</span>
+<span class="sd">            - 1D torch tensor</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Device</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">xyz</span> <span class="o">=</span> <span class="n">_handle_input</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;scale&quot;</span><span class="p">,</span> <span class="n">allow_singleton</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">xyz</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">xyz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># TODO: Can we do this all in one go somehow?</span>
+        <span class="n">mat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">mat</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">mat</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">mat</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">mat</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">mat</span>
+
+    <span class="k">def</span> <span class="nf">_get_matrix_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the inverse of self._matrix.&quot;&quot;&quot;</span>
+        <span class="n">xyz</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># pyre-fixme[58]: `/` is not supported for operand types `float` and `Tensor`.  # noqa: E501</span>
+        <span class="n">ixyz</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">xyz</span>
+        <span class="c1"># pyre-fixme[6]: For 1st param expected `Tensor` but got `float`.</span>
+        <span class="n">imat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag_embed</span><span class="p">(</span><span class="n">ixyz</span><span class="p">,</span> <span class="n">dim1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim2</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">imat</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">slice</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">BoolTensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span>
+        <span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Transform3D_M&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get item.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index: Specifying the index of the transform to retrieve.</span>
+<span class="sd">                Can be an int, slice, list of ints, boolean, long tensor.</span>
+<span class="sd">                Supports negative indices.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Transform3D_M: Object with selected transforms. The tensors are not cloned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">mat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Rotate">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.Rotate">[docs]</a>
+<span class="k">class</span> <span class="nc">Rotate</span><span class="p">(</span><span class="n">Transform3D_M</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new Transform3D_M representing 3D rotation using a rotation matrix as the input.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        R: a tensor of shape (3, 3) or (N, 3, 3)</span>
+<span class="sd">        orthogonal_tol: tolerance for the test of the orthogonality of R</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">R</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Device</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">orthogonal_tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">device_</span> <span class="o">=</span> <span class="n">get_device</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device_</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">R</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;R must have shape (3, 3) or (N, 3, 3); got </span><span class="si">%s</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="nb">repr</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device_</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PYTORCH3D_CHECK_ROTATION_MATRICES&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+            <span class="c1"># Note: aten::all_close in the check is computationally slow, so we</span>
+            <span class="c1"># only run the check when PYTORCH3D_CHECK_ROTATION_MATRICES is on.</span>
+            <span class="n">_check_valid_rotation_matrix</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">orthogonal_tol</span><span class="p">)</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">mat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device_</span><span class="p">)</span>
+        <span class="n">mat</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">mat</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">R</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span> <span class="o">=</span> <span class="n">mat</span>
+
+    <span class="k">def</span> <span class="nf">_get_matrix_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the inverse of self._matrix.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_matrix</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">slice</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">BoolTensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span>
+        <span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Transform3D_M&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get item.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index: Specifying the index of the transform to retrieve.</span>
+<span class="sd">                Can be an int, slice, list of ints, boolean, long tensor.</span>
+<span class="sd">                Supports negative indices.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Transform3D_M object with selected transforms. The tensors are not cloned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()[</span><span class="n">index</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="RotateAxisAngle">
+<a class="viewcode-back" href="../../../../../autoapi/robo_orchard_core/utils/math/transform/transform3d/index.html#robo_orchard_core.utils.math.transform.transform3d.RotateAxisAngle">[docs]</a>
+<span class="k">class</span> <span class="nc">RotateAxisAngle</span><span class="p">(</span><span class="n">Rotate</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a new Transform3D_M representing 3D rotation about an axis by an angle.</span>
+
+<span class="sd">    Assuming a right-hand coordinate system, positive rotation angles result</span>
+<span class="sd">    in a counter clockwise rotation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        angle:</span>
+<span class="sd">            - A torch tensor of shape (N,)</span>
+<span class="sd">            - A python scalar</span>
+<span class="sd">            - A torch scalar</span>
+<span class="sd">        axis:</span>
+<span class="sd">            string: one of [&quot;X&quot;, &quot;Y&quot;, &quot;Z&quot;] indicating the axis about which</span>
+<span class="sd">            to rotate.</span>
+<span class="sd">            NOTE: All batch elements are rotated about the same axis.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">angle</span><span class="p">,</span>
+        <span class="n">axis</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span>
+        <span class="n">degrees</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Device</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">axis</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;Z&quot;</span><span class="p">]:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Expected axis to be one of [&#39;X&#39;, &#39;Y&#39;, &#39;Z&#39;]; got </span><span class="si">%s</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">axis</span><span class="p">)</span>
+        <span class="n">angle</span> <span class="o">=</span> <span class="n">_handle_angle_input</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="s2">&quot;RotateAxisAngle&quot;</span><span class="p">)</span>
+        <span class="n">angle</span> <span class="o">=</span> <span class="p">(</span><span class="n">angle</span> <span class="o">/</span> <span class="mf">180.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="k">if</span> <span class="n">degrees</span> <span class="k">else</span> <span class="n">angle</span>
+        <span class="c1"># We assume the points on which this transformation will be applied</span>
+        <span class="c1"># are row vectors. The rotation matrix returned from</span>
+        <span class="c1"># _axis_angle_rotation is for transforming column vectors.</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">_axis_angle_rotation</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">angle</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="n">R</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_handle_coord</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper function for _handle_input.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        c: Python scalar, torch scalar, or 1D torch tensor</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        c_vec: 1D torch tensor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_tensor</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">device</span> <span class="o">!=</span> <span class="n">device</span> <span class="ow">or</span> <span class="n">c</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="n">dtype</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">c</span>
+
+
+<span class="k">def</span> <span class="nf">_handle_input</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">,</span>
+    <span class="n">z</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+    <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Device</span><span class="p">],</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">allow_singleton</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper function to handle parsing logic for building transforms.</span>
+
+<span class="sd">    The output is always a tensor of shape (N, 3), but there are several</span>
+<span class="sd">    types of allowed input.</span>
+
+<span class="sd">    Case I: Single Matrix</span>
+<span class="sd">        In this case x is a tensor of shape (N, 3), and y and z are None. Here</span>
+<span class="sd">        just return x.</span>
+
+<span class="sd">    Case II: Vectors and Scalars</span>
+<span class="sd">        In this case each of x, y, and z can be one of the following</span>
+<span class="sd">            - Python scalar</span>
+<span class="sd">            - Torch scalar</span>
+<span class="sd">            - Torch tensor of shape (N, 1) or (1, 1)</span>
+<span class="sd">        In this case x, y and z are broadcast to tensors of shape (N, 1)</span>
+<span class="sd">        and concatenated to a tensor of shape (N, 3)</span>
+
+<span class="sd">    Case III: Singleton (only if allow_singleton=True)</span>
+<span class="sd">        In this case y and z are None, and x can be one of the following:</span>
+<span class="sd">            - Python scalar</span>
+<span class="sd">            - Torch scalar</span>
+<span class="sd">            - Torch tensor of shape (N, 1) or (1, 1)</span>
+<span class="sd">        Here x will be duplicated 3 times, and we return a tensor of shape (N, 3)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        xyz: Tensor of shape (N, 3)</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="n">device_</span> <span class="o">=</span> <span class="n">get_device</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+    <span class="c1"># If x is actually a tensor of shape (N, 3) then just return it</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_tensor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Expected tensor of shape (N, 3); got </span><span class="si">%r</span><span class="s2"> (in </span><span class="si">%s</span><span class="s2">)&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Expected y and z to be None (in </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">name</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device_</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">allow_singleton</span> <span class="ow">and</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">z</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">x</span>
+
+    <span class="c1"># Convert all to 1D tensors</span>
+    <span class="n">xyz</span> <span class="o">=</span> <span class="p">[</span><span class="n">_handle_coord</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">device_</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">]]</span>
+
+    <span class="c1"># Broadcast and concatenate</span>
+    <span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">xyz</span><span class="p">]</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">xyz</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">N</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Got non-broadcastable sizes </span><span class="si">%r</span><span class="s2"> (in </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sizes</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">xyz</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">xyz</span><span class="p">]</span>
+    <span class="n">xyz</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">xyz</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">xyz</span>
+
+
+<span class="k">def</span> <span class="nf">_handle_angle_input</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Device</span><span class="p">],</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper function for building a rotation function using angles.</span>
+
+<span class="sd">    The output is always of shape (N,).</span>
+
+<span class="sd">    The input can be one of:</span>
+<span class="sd">        - Torch tensor of shape (N,)</span>
+<span class="sd">        - Python scalar</span>
+<span class="sd">        - Torch scalar</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">device_</span> <span class="o">=</span> <span class="n">get_device</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_tensor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Expected tensor of shape (N,); got </span><span class="si">%r</span><span class="s2"> (in </span><span class="si">%s</span><span class="s2">)&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_handle_coord</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">device_</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_broadcast_bmm</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Batch multiply two matrices and broadcast if necessary.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: torch tensor of shape (P, K) or (M, P, K)</span>
+<span class="sd">        b: torch tensor of shape (N, K, K)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        a and b broadcast multiplied. The output batch dimension is max(N, M).</span>
+
+<span class="sd">    To broadcast transforms across a batch dimension if M != N then</span>
+<span class="sd">    expect that either M = 1 or N = 1. The tensor with batch dimension 1 is</span>
+<span class="sd">    expanded to have shape N or M.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Expected batch dim for bmm to be equal or 1; got </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+
+<span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">_check_valid_rotation_matrix</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Determine if R is a valid rotation matrix by checking it satisfies the following conditions.</span>
+
+<span class="sd">    ``RR^T = I and det(R) = 1``</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        R: an (N, 3, 3) matrix</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    Emits a warning if R is an invalid rotation matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">eye</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">R</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">R</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">eye</span> <span class="o">=</span> <span class="n">eye</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">orthogonal</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="n">eye</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span>
+    <span class="n">det_R</span> <span class="o">=</span> <span class="n">_safe_det_3x3</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    <span class="n">no_distortion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">det_R</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">det_R</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">orthogonal</span> <span class="ow">and</span> <span class="n">no_distortion</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;R is not a valid rotation matrix&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">return</span>
+
+
+<span class="k">def</span> <span class="nf">transform_points_3d</span><span class="p">(</span>
+    <span class="n">points</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">proj_mat</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use this transform to transform a set of 3D points.</span>
+
+<span class="sd">    Assumes row major ordering of the input points.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        points: Tensor of shape (P, 3) or (N, P, 3).</span>
+<span class="sd">        proj_mat: Tensor of shape (4, 4) or (N, 4, 4) or (3, 4)</span>
+<span class="sd">            or (N, 3, 4). If proj_mat has shape (3, 4) or (N, 3, 4),</span>
+<span class="sd">            the last row [0, 0, 0, 1] is assumed.</span>
+<span class="sd">        eps: If eps!=None, the argument is used to clamp the</span>
+<span class="sd">            last coordinate before performing the final division.</span>
+<span class="sd">            The clamping corresponds to:</span>
+<span class="sd">            last_coord := (last_coord.sign() + (last_coord==0)) *</span>
+<span class="sd">            torch.clamp(last_coord.abs(), eps),</span>
+<span class="sd">            i.e. the last coordinates that are exactly 0 will</span>
+<span class="sd">            be clamped to +eps.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        points_out: points of shape (N, P, 3) or (P, 3) depending</span>
+<span class="sd">        on the dimensions of the transform</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+
+    <span class="n">old_shape</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">old_dim</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span>
+
+    <span class="c1"># points_batch = points.clone()</span>
+    <span class="n">points_batch</span> <span class="o">=</span> <span class="n">points</span>
+
+    <span class="k">if</span> <span class="n">points_batch</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">points_batch</span> <span class="o">=</span> <span class="n">points_batch</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span>  <span class="c1"># (P, 3) -&gt; (1, P, 3)</span>
+    <span class="k">if</span> <span class="n">points_batch</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Expected points to have dim = 2 or dim = 3: got shape </span><span class="si">%r</span><span class="s2">&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="nb">repr</span><span class="p">(</span><span class="n">old_shape</span><span class="p">))</span>
+
+    <span class="n">N</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">_3</span> <span class="o">=</span> <span class="n">points_batch</span><span class="o">.</span><span class="n">shape</span>
+    <span class="c1"># Convert points to homogeneous coordinates</span>
+    <span class="n">ones</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">points</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">points</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">points_batch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">points_batch</span><span class="p">,</span> <span class="n">ones</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># transform composed matrix and then apply</span>
+    <span class="n">composed_matrix</span> <span class="o">=</span> <span class="n">proj_mat</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">points_out</span> <span class="o">=</span> <span class="n">_broadcast_bmm</span><span class="p">(</span><span class="n">points_batch</span><span class="p">,</span> <span class="n">composed_matrix</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">points_out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;The last dimension of transformed points should be 3 or 4; &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;got </span><span class="si">{</span><span class="n">points_out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="c1"># for transformation with only rotation and translation,</span>
+    <span class="c1"># the last coordinate will always be 1, so no division is needed.</span>
+    <span class="c1"># However, we keep the division here to support more general</span>
+    <span class="c1"># transformations.</span>
+    <span class="c1"># when the matrix is 3x4, we assume the last row is [0, 0, 0, 1] in</span>
+    <span class="c1"># 4x4 matrix, so no division is needed.</span>
+    <span class="k">if</span> <span class="n">points_out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="n">points_out</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">:]</span>  <span class="c1"># denominator</span>
+        <span class="k">if</span> <span class="n">eps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">denom_sign</span> <span class="o">=</span> <span class="n">denom</span><span class="o">.</span><span class="n">sign</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="n">denom</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">type_as</span><span class="p">(</span><span class="n">denom</span><span class="p">)</span>
+            <span class="n">denom</span> <span class="o">=</span> <span class="n">denom_sign</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">denom</span><span class="o">.</span><span class="n">abs</span><span class="p">(),</span> <span class="n">eps</span><span class="p">)</span>
+        <span class="n">points_out</span> <span class="o">=</span> <span class="n">points_out</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">/</span> <span class="n">denom</span>
+
+    <span class="c1"># When transform is (1, 4, 4) and points is (P, 3) return</span>
+    <span class="c1"># points_out of shape (P, 3)</span>
+    <span class="k">if</span> <span class="n">points_out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">old_dim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">points_out</span> <span class="o">=</span> <span class="n">points_out</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">old_shape</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">points_out</span>
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024-2025, Horizon Robotics Developers
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/HorizonRobotics/robo_orchard_core" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../../../_static/documentation_options.js?v=1437fa6d"></script>
+    <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../../_static/google_analytics.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

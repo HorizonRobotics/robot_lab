@@ -1,0 +1,118 @@
+torch_utils
+===========
+
+.. py:module:: robo_orchard_core.utils.torch_utils
+
+.. autoapi-nested-parse::
+
+   Helper functions for working with PyTorch tensors.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.torch_utils.Device
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.torch_utils.get_device
+   robo_orchard_core.utils.torch_utils.make_device
+   robo_orchard_core.utils.torch_utils.format_tensor
+   robo_orchard_core.utils.torch_utils.convert_to_tensors_and_broadcast
+   robo_orchard_core.utils.torch_utils.dtype_str2torch
+
+
+Module Contents
+---------------
+
+.. py:data:: Device
+
+.. py:function:: get_device(x, device: Device | None = None) -> torch.device
+
+   Get the device of the specified variable x if it is a tensor.
+
+   Gets the device of the specified variable x if it is a tensor, or
+   falls back to a default CPU device otherwise. Allows overriding by
+   providing an explicit device.
+
+   :param x: a torch.Tensor to get the device from or another type
+   :param device: Device (as str or torch.device) to fall back to
+
+   :returns: A matching torch.device object
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/common/datatypes.py
+
+
+.. py:function:: make_device(device: Device) -> torch.device
+
+   Make a torch.device object from a string or torch.device object.
+
+   Makes an actual torch.device object from the device specified as
+   either a string or torch.device object. If the device is `cuda` without
+   a specific index, the index of the current device is assigned.
+
+   :param device: Device (as str or torch.device)
+
+   :returns: A matching torch.device object
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/common/datatypes.py#L17
+
+
+.. py:function:: format_tensor(input, dtype: torch.dtype = torch.float32, device: Device = 'cpu') -> torch.Tensor
+
+   Helper function for converting a scalar value to a tensor.
+
+   :param input: Python scalar, Python list/tuple, torch scalar, 1D torch tensor
+   :param dtype: data type for the input
+   :param device: Device (as str or torch.device) on which the tensor should
+                  be placed.
+
+   :returns: torch tensor with optional added batch dimension.
+   :rtype: input_vec
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/renderer/utils.py#L284
+
+
+
+.. py:function:: convert_to_tensors_and_broadcast(*args, dtype: torch.dtype = torch.float32, device: Device = 'cpu')
+
+   Convert inputs to tensors and broadcast them.
+
+   Helper function to handle parsing an arbitrary number of inputs (args)
+   which all need to have the same batch dimension. The output is a list of tensors.
+
+   :param args: an arbitrary number of inputs. Each of the values in `args` can be one of the following
+
+                - Python scalar
+
+                - Torch scalar
+
+                - Torch tensor of shape (N, K_i) or (1, K_i) where K_i are
+                  an arbitrary number of dimensions which can vary for each
+                  value in args. In this case each input is broadcast to a
+                  tensor of shape (N, K_i)
+   :param dtype: data type to use when creating new tensors.
+   :param device: torch device on which the tensors should be placed.
+
+   Output:
+       list(torch.Tensor): A list of tensors of shape (N, K_i)
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/renderer/utils.py#L314
+
+
+.. py:function:: dtype_str2torch(dtype_str: str) -> torch.dtype
+
+   Convert a string representation of a dtype to a torch.dtype.
+
+

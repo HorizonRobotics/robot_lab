@@ -338,7 +338,7 @@ handle callbacks and class types in the configuration:
 
  .. code-block:: none
 
-    id=1 name='test' class_type=<class '__main__.MyConfig'> callback=<function callback_func at 0x7f5c983f8430>
+    id=1 name='test' class_type=<class '__main__.MyConfig'> callback=<function callback_func at 0x7f7b0f9e0430>
     {"__config_type__":"__main__:ConfigWithCallback","id":1,"name":"test","class_type":"__main__:MyConfig","callback":"__main__:callback_func"}
 
 
@@ -490,7 +490,7 @@ helps you understand the design of the Config class and how to use it.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.575 seconds)
+   **Total running time of the script:** (0 minutes 1.582 seconds)
 
 
 .. _sphx_glr_download_build_gallery_tutorials_system_overview_nonb-01_config_design.py:

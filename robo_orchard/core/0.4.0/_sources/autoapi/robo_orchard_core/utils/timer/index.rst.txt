@@ -1,0 +1,105 @@
+timer
+=====
+
+.. py:module:: robo_orchard_core.utils.timer
+
+.. autoapi-nested-parse::
+
+   Timer utilities for timing function execution.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.timer.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.timer.Timer
+   robo_orchard_core.utils.timer.FPSCounter
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: Timer(name_or_func: Any = None, unit: str = 'auto', logger: logging.Logger = logger)
+
+   Bases: :py:obj:`object`
+
+
+   Timer class for timing function execution.
+
+   Modify from https://github.com/LucienShui/timer .
+
+
+   :param name_or_func: name of function, or function itself,
+                        user should not care about this parameter. Defaults to None.
+   :type name_or_func: Any
+   :param unit: time's unit, should be one of 's', 'ms' or 'auto'.
+                Defaults to 'auto'.
+   :type unit: str
+   :param logger: logger object. Defaults to logger.
+   :type logger: logging.Logger
+
+   Example:
+   >>> with Timer():
+   ...     print("hello")
+   cost 0.001 s
+
+   >>> @Timer()
+   ... def foo():
+   ...     print("hello")
+   >>> foo()
+   cost 0.001 s
+
+   >>> @Timer("foo")
+   ... def bar():
+   ...     print("hello")
+   >>> bar()
+   cost 0.001 s
+
+
+
+   .. py:property:: elapse
+      :type: float
+
+
+      Return the time cost in seconds.
+
+
+   .. py:method:: set_level(new_level: int)
+      :classmethod:
+
+
+
+.. py:class:: FPSCounter(window_size_sec: float = 1)
+
+   A simple class to count the frames per second.
+
+
+   .. py:method:: reset()
+
+      Reset the frame counter.
+
+
+
+   .. py:property:: fps
+      :type: float
+
+
+
+   .. py:method:: update()
+
+      Update the frame counter.
+
+
+

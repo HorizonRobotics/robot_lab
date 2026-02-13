@@ -1,0 +1,130 @@
+action_term
+===========
+
+.. py:module:: robo_orchard_core.envs.managers.actions.action_term
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.actions.action_term.EntityCfgType_co
+   robo_orchard_core.envs.managers.actions.action_term.ActionTermCfgType_co
+   robo_orchard_core.envs.managers.actions.action_term.ActionTermBaseType_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.actions.action_term.ActionTermBase
+   robo_orchard_core.envs.managers.actions.action_term.ActionTermCfg
+
+
+Module Contents
+---------------
+
+.. py:data:: EntityCfgType_co
+
+.. py:data:: ActionTermCfgType_co
+
+.. py:class:: ActionTermBase(cfg: ActionTermCfgType_co, env: robo_orchard_core.envs.managers.manager_base.EnvType_co)
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.manager_term_base.ManagerTermBase`\ [\ :py:obj:`robo_orchard_core.envs.managers.manager_base.EnvType_co`\ , :py:obj:`ActionTermCfgType_co`\ ]
+
+
+   The base class for all action terms.
+
+   An action term is a class that generates the action from the environment.
+
+   :param cfg: The configuration of the action term.
+   :type cfg: ActionTermCfg
+   :param env: The environment.
+   :type env: EnvBase
+
+
+   .. py:property:: action_space
+      :type: gymnasium.Space[Any]
+
+      :abstractmethod:
+
+
+      The action space of the action term.
+
+      The space describes the valid input actions(raw_actions to be
+      processed) that can be sent to the action term.
+
+      :returns: The action space of the action term.
+      :rtype: gym.Space
+
+
+   .. py:property:: raw_actions
+      :type: torch.Tensor
+
+
+      The raw actions.
+
+
+   .. py:property:: processed_actions
+      :type: torch.Tensor
+
+
+      The processed actions.
+
+
+   .. py:method:: apply()
+      :abstractmethod:
+
+
+      Apply the processed actions to the asset.
+
+      This function is called at every simulation step or when timer is
+      triggered.
+
+
+
+   .. py:method:: process(raw_actions: torch.Tensor)
+
+      Process the raw input actions to generate the processed actions.
+
+      This function is called when actions are sent to the environment. The
+      raw actions are stored in the `_raw_actions` attribute and the
+      processed actions are stored in the `_processed_actions` attribute.
+
+      User should implement the `_process_actions_impl` function to process
+      the raw actions and return the processed actions.
+
+
+
+
+.. py:data:: ActionTermBaseType_co
+
+.. py:class:: ActionTermCfg
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.manager_term_base.ManagerTermBaseCfg`\ [\ :py:obj:`ActionTermBaseType_co`\ ], :py:obj:`Generic`\ [\ :py:obj:`ActionTermBaseType_co`\ , :py:obj:`EntityCfgType_co`\ ]
+
+
+   The base configuration for all action terms.
+
+   Template Args:
+       ActionTermBaseType_co: The type of the term transform configuration.
+       EntityCfgType_co: The type of the entity configuration.
+
+
+
+   .. py:attribute:: asset_cfg
+      :type:  EntityCfgType_co
+
+      The scene entity configuration for the asset.
+
+
+   .. py:attribute:: debug_vis
+      :type:  bool
+      :value: False
+
+
+      Whether to visualize debug information. Defaults to False.
+
+

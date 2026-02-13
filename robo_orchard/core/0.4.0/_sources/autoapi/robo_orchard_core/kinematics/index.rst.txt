@@ -1,0 +1,22 @@
+kinematics
+==========
+
+.. py:module:: robo_orchard_core.kinematics
+
+.. autoapi-nested-parse::
+
+   Sub-package for kinematics.
+
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_core/kinematics/chain/index
+
+

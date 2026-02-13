@@ -1,0 +1,182 @@
+simple_file_server
+==================
+
+.. py:module:: robo_orchard_core.tools.simple_file_server
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.tools.simple_file_server.app
+   robo_orchard_core.tools.simple_file_server.BYTE_RANGE_RE
+   robo_orchard_core.tools.simple_file_server.CORS_HEADERS
+   robo_orchard_core.tools.simple_file_server.BASE_DIR
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.tools.simple_file_server.parse_byte_range
+   robo_orchard_core.tools.simple_file_server.copy_byte_range
+   robo_orchard_core.tools.simple_file_server.guess_content_type
+   robo_orchard_core.tools.simple_file_server.get_base_headers
+   robo_orchard_core.tools.simple_file_server.generate_directory_listing
+   robo_orchard_core.tools.simple_file_server.http_exception_handler
+   robo_orchard_core.tools.simple_file_server.options_handler
+   robo_orchard_core.tools.simple_file_server.serve_file
+   robo_orchard_core.tools.simple_file_server.head_file
+   robo_orchard_core.tools.simple_file_server.start_server
+
+
+Module Contents
+---------------
+
+.. py:data:: app
+
+.. py:data:: BYTE_RANGE_RE
+
+.. py:data:: CORS_HEADERS
+
+.. py:data:: BASE_DIR
+
+.. py:function:: parse_byte_range(byte_range: str) -> tuple[Optional[int], Optional[int]]
+
+   Parse the byte range from the Range header.
+
+   :param byte_range: The Range header value (e.g., "bytes=0-1023").
+   :type byte_range: str
+
+   :returns:
+
+             A tuple of (start, stop) byte positions, where
+                 either can be None.
+   :rtype: tuple
+
+   :raises ValueError: If the byte range is invalid.
+
+
+.. py:function:: copy_byte_range(infile, start: int, stop: int, chunk_size: int = 16 * 1024)
+   :async:
+
+
+   Asynchronously read a specific byte range from a file.
+
+   :param infile: Path to the file.
+   :type infile: str
+   :param start: Starting byte position.
+   :type start: int
+   :param stop: Ending byte position.
+   :type stop: int
+   :param chunk_size: Size of chunks to read at a time (default: 16KB).
+   :type chunk_size: int
+
+   :Yields: *bytes* -- Chunks of the file content within the specified range.
+
+
+.. py:function:: guess_content_type(filepath: str) -> str
+
+   Guess the MIME type of a file based on its extension.
+
+   :param filepath: Path to the file.
+   :type filepath: str
+
+   :returns: The guessed MIME type (defaults to "application/octet-stream").
+   :rtype: str
+
+
+.. py:function:: get_base_headers(file_stat=None) -> dict
+
+   Generate base HTTP headers for responses.
+
+   :param file_stat: File stat object for
+                     additional metadata.
+   :type file_stat: os.stat_result, optional
+
+   :returns: A dictionary of HTTP headers.
+   :rtype: dict
+
+
+.. py:function:: generate_directory_listing(path: str, request_url: str) -> str | None
+
+   Generate an HTML directory listing for the given path.
+
+   :param path: The relative path within the base directory.
+   :type path: str
+   :param request_url: The full request URL.
+   :type request_url: str
+
+   :returns: HTML content for the directory listing, or None if the path is
+             not a directory.
+   :rtype: str
+
+
+.. py:function:: http_exception_handler(request: fastapi.Request, exc: fastapi.HTTPException)
+   :async:
+
+
+   Handle HTTP exceptions and return a response with CORS headers.
+
+   :param request: The incoming request.
+   :type request: Request
+   :param exc: The exception to handle.
+   :type exc: HTTPException
+
+   :returns: A response with the exception details and CORS headers.
+   :rtype: Response
+
+
+.. py:function:: options_handler(filepath: str)
+   :async:
+
+
+   Handle OPTIONS requests for CORS preflight.
+
+   :param filepath: The requested file path.
+   :type filepath: str
+
+   :returns: A 200 response with CORS headers.
+   :rtype: Response
+
+
+.. py:function:: serve_file(request: fastapi.Request, filepath: str)
+   :async:
+
+
+   Serve a file or directory listing.
+
+   :param request: The incoming request.
+   :type request: Request
+   :param filepath: The requested file path.
+   :type filepath: str
+
+   :returns: A file response, directory listing, or streaming response
+             for partial content.
+   :rtype: Response
+
+   :raises HTTPException: If the file or directory is not found, or if the
+   :raises range is invalid.:
+
+
+.. py:function:: head_file(request: fastapi.Request, filepath: str)
+   :async:
+
+
+   Handle HEAD requests to return file metadata.
+
+   :param request: The incoming request.
+   :type request: Request
+   :param filepath: The requested file path.
+   :type filepath: str
+
+   :returns: A response with file metadata headers.
+   :rtype: Response
+
+   :raises HTTPException: If the file or directory is not found.
+
+
+.. py:function:: start_server(host: str, port: int, directory: str)
+

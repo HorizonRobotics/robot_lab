@@ -1,0 +1,492 @@
+transform3d
+===========
+
+.. py:module:: robo_orchard_core.utils.math.transform.transform3d
+
+.. autoapi-nested-parse::
+
+   3D transformations.
+
+   This file is modified from pytorch3d.transforms.transform3d.py to follow
+   the column-major convention of rotation matrix.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.math.transform.transform3d.Transform3D_M
+   robo_orchard_core.utils.math.transform.transform3d.Translate
+   robo_orchard_core.utils.math.transform.transform3d.Scale
+   robo_orchard_core.utils.math.transform.transform3d.Rotate
+   robo_orchard_core.utils.math.transform.transform3d.RotateAxisAngle
+
+
+Module Contents
+---------------
+
+.. py:class:: Transform3D_M(dtype: torch.dtype = torch.float32, device: robo_orchard_core.utils.torch_utils.Device = 'cpu', matrix: Optional[torch.Tensor] = None)
+
+   The general transform3d using Matrix representation.
+
+   A Transform3d object encapsulates a batch of N 3D transformations, and knows
+   how to transform points and normal vectors. Suppose that t is a Transform3d;
+   then we can do the following:
+
+   .. code-block:: python
+
+       N = len(t)
+       points = torch.randn(N, P, 3)
+       normals = torch.randn(N, P, 3)
+       points_transformed = t.transform_points(points)  # => (N, P, 3)
+       normals_transformed = t.transform_normals(normals)  # => (N, P, 3)
+
+
+   BROADCASTING
+   Transform3d objects supports broadcasting. Suppose that t1 and tN are
+   Transform3d objects with len(t1) == 1 and len(tN) == N respectively. Then we
+   can broadcast transforms like this:
+
+   .. code-block:: python
+
+       t1.transform_points(torch.randn(P, 3))  # => (P, 3)
+       t1.transform_points(torch.randn(1, P, 3))  # => (1, P, 3)
+       t1.transform_points(torch.randn(M, P, 3))  # => (M, P, 3)
+       tN.transform_points(torch.randn(P, 3))  # => (N, P, 3)
+       tN.transform_points(torch.randn(1, P, 3))  # => (N, P, 3)
+
+
+   COMBINING TRANSFORMS
+   Transform3D_M objects can be combined in two ways: composing and stacking.
+   Composing is function composition. Given Transform3D_M objects t1, t2, t3,
+   the following all compute the same thing:
+
+   .. code-block:: python
+
+       y1 = t3.transform_points(t2.transform_points(t1.transform_points(x)))
+       y2 = t1.compose(t2).compose(t3).transform_points(x)
+       y3 = t1.compose(t2, t3).transform_points(x)
+
+
+   Composing transforms should broadcast.
+
+   if len(t1) == 1 and len(t2) == N, then len(t1.compose(t2)) == N.
+   We can also stack a sequence of Transform3D_M objects, which represents
+   composition along the batch dimension; then the following should compute
+   the same thing.
+
+   .. code-block:: python
+
+       N, M = len(tN), len(tM)
+       xN = torch.randn(N, P, 3)
+       xM = torch.randn(M, P, 3)
+       y1 = torch.cat(
+           [tN.transform_points(xN), tM.transform_points(xM)], dim=0
+       )
+       y2 = tN.stack(tM).transform_points(torch.cat([xN, xM], dim=0))
+
+   BUILDING TRANSFORMS
+   We provide convenience methods for easily building Transform3D_M objects
+   as compositions of basic transforms.
+
+   .. code-block:: python
+
+       # Scale by 0.5, then translate by (1, 2, 3)
+       t1 = Transform3D_M().scale(0.5).translate(1, 2, 3)
+
+       # Scale each axis by a different amount, then translate, then scale
+       t2 = Transform3D_M().scale(1, 3, 3).translate(2, 3, 1).scale(2.0)
+
+       t3 = t1.compose(t2)
+       tN = t1.stack(t3, t3)
+
+
+   BACKPROP THROUGH TRANSFORMS
+   When building transforms, we can also parameterize them by Torch tensors;
+   in this case we can backprop through the construction and application of
+   Transform objects, so they could be learned via gradient descent or
+   predicted by a neural network.
+
+   .. code-block:: python
+
+       s1_params = torch.randn(N, requires_grad=True)
+       t_params = torch.randn(N, 3, requires_grad=True)
+       s2_params = torch.randn(N, 3, requires_grad=True)
+
+       t = (
+           Transform3D_M()
+           .scale(s1_params)
+           .translate(t_params)
+           .scale(s2_params)
+       )
+       x = torch.randn(N, 3)
+       y = t.transform_points(x)
+       loss = compute_loss(y)
+       loss.backward()
+
+       with torch.no_grad():
+           s1_params -= lr * s1_params.grad
+           t_params -= lr * t_params.grad
+           s2_params -= lr * s2_params.grad
+
+   CONVENTIONS
+   We adopt a right-hand coordinate system, meaning that rotation about an axis
+   with a positive angle results in a counter clockwise rotation.
+
+   This class assumes that transformations are applied on inputs which
+   are column vectors (different from pytorch3d!). The internal representation
+   of the Nx4x4 transformation matrix is of the form:
+
+   .. code-block:: python
+
+       M = [
+           [Rxx, Rxy, Rxz, Tx],
+           [Ryx, Ryy, Ryz, Ty],
+           [Rzx, Rzy, Rzz, Tz],
+           [0, 0, 0, 1],
+       ]
+
+   To apply the transformation to points, which are row vectors, the latter are
+   converted to homogeneous (4D) coordinates and right-multiplied by the
+   transposed M matrix:
+
+   .. code-block::
+
+       points = [[0, 1, 2]]  # (1 x 3) xyz coordinates of a point
+       [transformed_points, 1] ∝  M @ [points, 1].transpose(-1,-2)
+       [transformed_points, 1] ∝  [points, 1] @ M.transpose(-1,-2)
+
+
+   .. note::
+
+      Be careful that this class uses the column-major convention for SE(3)
+      matrices, which is different from the row-major convention used in
+      PyTorch3D!
+
+
+   .. py:attribute:: device
+
+
+   .. py:attribute:: dtype
+      :value: Ellipsis
+
+
+
+   .. py:method:: from_rot_trans(R: torch.Tensor, T: torch.Tensor) -> Transform3D_M
+      :classmethod:
+
+
+      Create a Transform3d Matrix from rotation and translation tensors.
+
+      :param R: A tensor of shape (N, 3, 3) representing the rotation.
+      :param T: A tensor of shape (N, 3) representing the translation.
+
+      :returns: A Transform3d Matrix with the rotation and translation.
+
+
+
+   .. py:method:: from_quat_trans(Q: torch.Tensor, T: torch.Tensor) -> Transform3D_M
+      :classmethod:
+
+
+      Create a Transform3d Matrix from quaternion and translation tensors.
+
+      :param Q: A tensor of shape (N, 4) representing the quaternion
+                in (x, y, z, w) format.
+      :param T: A tensor of shape (N, 3) representing the translation.
+
+      :returns: A Transform3d Matrix with the rotation and translation.
+
+
+
+   .. py:method:: compose(*others: Transform3D_M) -> Transform3D_M
+
+      Return a new Transform3D_M representing the composition of self with the given other transforms, which will be stored as an internal list.
+
+      The new transform will apply current transform first, and then the others
+      in the order they are given. In matrix form:
+
+      A.compose(B, C).matrix == C.matrix @ B.matrix @ A.matrix
+
+      :param \*others: Any number of Transform3D_M objects
+
+      :returns: A new Transform3D_M with the stored transforms
+      :rtype: Transform3D_M
+
+
+
+   .. py:method:: get_matrix() -> torch.Tensor
+
+      Returns a 4x4 matrix corresponding to each transform in the batch.
+
+      If the transform was composed from others, the matrix for the composite
+      transform will be returned.
+      For example, if self.transforms contains transforms t1, t2, and t3, and
+      given a set of points x, the following should be true:
+
+      .. code-block:: python
+
+          y1 = t1.compose(t2, t3).transform(x)
+          y2 = t3.transform(t2.transform(t1.transform(x)))
+          y1.get_matrix() == y2.get_matrix()
+
+      Where necessary, those transforms are broadcast against each other.
+
+      :returns:
+
+                A (N, 4, 4) batch of transformation matrices representing
+                    the stored transforms. See the class documentation for the conventions.
+      :rtype: torch.Tensor
+
+
+
+   .. py:method:: get_translation() -> torch.Tensor
+
+      Returns the translation component of the transformation.
+
+      :returns: A (N, 3) tensor representing the translation component
+                of the stored transforms.
+
+
+
+   .. py:method:: get_rotation_quaternion(normalize: bool = False) -> torch.Tensor
+
+      Returns the rotation component of the transformation as quaternions.
+
+      :param normalize: If True, the output quaternions will be normalized
+                        to unit length. This is useful if the input rotation matrices
+                        are not guaranteed to be valid rotation matrices.
+
+      :returns: A (N, 4) tensor representing the rotation component
+                of the stored transforms.
+
+
+
+   .. py:method:: get_rotation_axis_angle() -> torch.Tensor
+
+      Returns the rotation component of the transformation as axis-angle.
+
+      :returns: A (N, 3) tensor representing the rotation component
+                of the stored transforms.
+
+
+
+   .. py:method:: get_se3_log(eps: float = 0.0001, cos_bound: float = 0.0001) -> torch.Tensor
+
+      Returns a 6D SE(3) log vector corresponding to each transform in the batch.
+
+      In the SE(3) logarithmic representation SE(3) matrices are
+      represented as 6-dimensional vectors `[log_translation | log_rotation]`,
+      i.e. a concatenation of two 3D vectors `log_translation` and `log_rotation`.
+
+      The conversion from the 4x4 SE(3) matrix `transform` to the
+      6D representation `log_transform = [log_translation | log_rotation]`
+      is done as follows::
+
+          log_transform = log(transform.get_matrix())
+          log_translation = log_transform[:3, 3]
+          log_rotation = inv_hat(log_transform[:3, :3])
+
+      where `log` is the matrix logarithm
+      and `inv_hat` is the inverse of the Hat operator [2].
+
+      See the docstring for `se3.se3_log_map` and [1], Sec 9.4.2. for more
+      detailed description.
+
+      :param eps: A threshold for clipping the squared norm of the rotation logarithm
+                  to avoid division by zero in the singular case.
+      :param cos_bound: Clamps the cosine of the rotation angle to
+                        [-1 + cos_bound, 3 - cos_bound] to avoid non-finite outputs.
+                        The non-finite outputs can be caused by passing small rotation angles
+                        to the `acos` function in `so3_rotation_angle` of `so3_log_map`.
+
+      :returns: A (N, 6) tensor, rows of which represent the individual transforms
+                stored in the object as SE(3) logarithms.
+
+      :raises ValueError if the stored transform is not Euclidean (e.g. R is not a rotation: matrix or the last column has non-zeros in the first three places).
+
+      [1] https://jinyongjeong.github.io/Download/SE3/jlblanco2010geometry3d_techrep.pdf
+      [2] https://en.wikipedia.org/wiki/Hat_operator
+
+
+
+   .. py:method:: inverse(invert_composed: bool = False) -> Transform3D_M
+
+      Returns a new Transform3D_M object that represents an inverse of the current transformation.
+
+      :param invert_composed:
+                              - True: First compose the list of stored transformations
+                                and then apply inverse to the result. This is
+                                potentially slower for classes of transformations
+                                with inverses that can be computed efficiently
+                                (e.g. rotations and translations).
+                              - False: Invert the individual stored transformations
+                                independently without composing them.
+
+      :returns: A new Transform3D_M object containing the inverse of the original transformation.
+      :rtype: Transform3D_M
+
+
+
+   .. py:method:: stack(*others: Transform3D_M) -> Transform3D_M
+
+      Return a new batched Transform3d representing the batch elements from self and all the given other transforms all batched together.
+
+      :param \*others: Any number of Transform3d objects
+
+      :returns: A new Transform3d.
+      :rtype: Transform3D_M
+
+
+
+   .. py:method:: transform_points(points: torch.Tensor, eps: Optional[float] = None) -> torch.Tensor
+
+      Use this transform to transform a set of 3D points.
+
+      Assumes row major ordering of the input points.
+
+      :param points: Tensor of shape (P, 3) or (N, P, 3)
+      :param eps: If eps!=None, the argument is used to clamp the
+                  last coordinate before performing the final division.
+                  The clamping corresponds to:
+                  last_coord := (last_coord.sign() + (last_coord==0)) *
+                  torch.clamp(last_coord.abs(), eps),
+                  i.e. the last coordinates that are exactly 0 will
+                  be clamped to +eps.
+
+      :returns: points of shape (N, P, 3) or (P, 3) depending
+                on the dimensions of the transform
+      :rtype: points_out
+
+
+
+   .. py:method:: transform_normals(normals) -> torch.Tensor
+
+      Use this transform to transform a set of normal vectors.
+
+      :param normals: Tensor of shape (P, 3) or (N, P, 3)
+
+      :returns: Tensor of shape (P, 3) or (N, P, 3) depending
+                on the dimensions of the transform
+      :rtype: normals_out
+
+
+
+   .. py:method:: translate(*args, **kwargs) -> Transform3D_M
+
+
+   .. py:method:: scale(*args, **kwargs) -> Transform3D_M
+
+
+   .. py:method:: rotate(*args, **kwargs) -> Transform3D_M
+
+
+   .. py:method:: rotate_axis_angle(*args, **kwargs) -> Transform3D_M
+
+
+   .. py:method:: clone() -> Transform3D_M
+
+      Deep copy of Transforms object.
+
+      All internal tensors are cloned individually.
+
+      :returns: New Transforms object.
+      :rtype: Transform3D_M
+
+
+
+   .. py:method:: to(device: robo_orchard_core.utils.torch_utils.Device, copy: bool = False, dtype: Optional[torch.dtype] = None) -> Transform3D_M
+
+      Match functionality of torch.Tensor.to().
+
+      If copy = True or the self Tensor is on a different device, the
+      returned tensor is a copy of self with the desired torch.device.
+      If copy = False and the self Tensor already has the correct torch.device,
+      then self is returned.
+
+      :param device: Device (as str or torch.device) for the new tensor.
+      :param copy: Boolean indicator whether or not to clone self. Default False.
+      :param dtype: If not None, casts the internal tensor variables
+                    to a given torch.dtype.
+
+      :returns: New Transforms object move to device.
+      :rtype: Transform3D_M
+
+
+
+   .. py:method:: cpu() -> Transform3D_M
+
+
+   .. py:method:: cuda() -> Transform3D_M
+
+
+.. py:class:: Translate(x, y=None, z=None, dtype: torch.dtype = torch.float32, device: Optional[robo_orchard_core.utils.torch_utils.Device] = None)
+
+   Bases: :py:obj:`Transform3D_M`
+
+
+   Create a new Transform3D_M representing 3D translations.
+
+   Option I: Translate(xyz, dtype=torch.float32, device='cpu')
+       xyz should be a tensor of shape (N, 3)
+
+   Option II: Translate(x, y, z, dtype=torch.float32, device='cpu')
+       Here x, y, and z will be broadcast against each other and
+       concatenated to form the translation. Each can be:
+       - A python scalar
+       - A torch scalar
+       - A 1D torch tensor
+
+
+.. py:class:: Scale(x, y=None, z=None, dtype: torch.dtype = torch.float32, device: Optional[robo_orchard_core.utils.torch_utils.Device] = None)
+
+   Bases: :py:obj:`Transform3D_M`
+
+
+   A Transform3D_M representing a scaling operation, with different scale factors along each coordinate axis.
+
+   Option I: Scale(s, dtype=torch.float32, device='cpu')
+       s can be one of
+           - Python scalar or torch scalar: Single uniform scale
+           - 1D torch tensor of shape (N,): A batch of uniform scale
+           - 2D torch tensor of shape (N, 3): Scale differently along each axis
+
+   Option II: Scale(x, y, z, dtype=torch.float32, device='cpu')
+       Each of x, y, and z can be one of
+           - python scalar
+           - torch scalar
+           - 1D torch tensor
+
+
+.. py:class:: Rotate(R: torch.Tensor, dtype: torch.dtype = torch.float32, device: Optional[robo_orchard_core.utils.torch_utils.Device] = None, orthogonal_tol: float = 1e-05)
+
+   Bases: :py:obj:`Transform3D_M`
+
+
+   Create a new Transform3D_M representing 3D rotation using a rotation matrix as the input.
+
+   :param R: a tensor of shape (3, 3) or (N, 3, 3)
+   :param orthogonal_tol: tolerance for the test of the orthogonality of R
+
+
+.. py:class:: RotateAxisAngle(angle, axis: str = 'X', degrees: bool = True, dtype: torch.dtype = torch.float32, device: Optional[robo_orchard_core.utils.torch_utils.Device] = None)
+
+   Bases: :py:obj:`Rotate`
+
+
+   Create a new Transform3D_M representing 3D rotation about an axis by an angle.
+
+   Assuming a right-hand coordinate system, positive rotation angles result
+   in a counter clockwise rotation.
+
+   :param angle:
+                 - A torch tensor of shape (N,)
+                 - A python scalar
+                 - A torch scalar
+   :param axis: string: one of ["X", "Y", "Z"] indicating the axis about which
+                to rotate.
+                NOTE: All batch elements are rotated about the same axis.
+
+

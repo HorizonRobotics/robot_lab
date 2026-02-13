@@ -1,0 +1,145 @@
+joint_state
+===========
+
+.. py:module:: robo_orchard_core.datatypes.joint_state
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.datatypes.joint_state.BatchJointsState
+
+
+Module Contents
+---------------
+
+.. py:class:: BatchJointsState(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.dataclass.DataClass`, :py:obj:`robo_orchard_core.datatypes.dataclass.TensorToMixin`
+
+
+   The base data class that extends pydantic's BaseModel.
+
+   This class is used to define data classes that are used to store data
+   and validate the data. It extends pydantic's BaseModel and adds a
+   :py:meth:`__post_init__` method that can be used to perform additional
+   initialization after the model is constructed.
+
+   .. note::
+
+      Serialization and deserialization using pydantic's methods are not
+      recommended for performance reasons, as data classes can be used to
+      store large tensors or other data that are not easily serialized.
+      
+      User should implement the proper serialization and deserialization
+      methods when needed.
+
+
+   .. py:attribute:: position
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+      The position of the joint in radians or meters.
+
+      It should be a tensor of shape (B, D), where D is the number of joints and
+      B is the batch size.
+
+
+   .. py:attribute:: velocity
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+      The velocity of the joint in radians or meters per second.
+
+      It should be a tensor of shape (B, D), where D is the number of joints and
+      B is the batch size.
+
+
+   .. py:attribute:: effort
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+      The effort/torque applied to the joint in Newton-meters or Newtons.
+
+      It should be a tensor of shape (B, D), where D is the number of joints and
+      B is the batch size.
+
+
+   .. py:attribute:: names
+      :type:  list[str] | None
+      :value: None
+
+
+      The names of the joints. The names are identical to the
+      joint names in the robot description file (e.g., URDF or SDF).
+      In this case, the name is also referred as frame_id.
+
+      We recommand using the frame_id of the joint in the robot description
+      file as the name. If the name and frame_id are not the same,
+      use the name field from JointState message in ROS.
+
+      The size of the names list should match the number of joints D.
+
+
+   .. py:attribute:: timestamps
+      :type:  list[int] | None
+      :value: None
+
+
+      Timestamps of the camera data in nanoseconds(1e-9 seconds).
+
+
+   .. py:property:: joint_num
+      :type: int
+
+
+      Get the number of joints in the joint state.
+
+
+   .. py:property:: batch_size
+      :type: int
+
+
+      Get the batch size of the joint state.
+
+
+   .. py:method:: check_shape()
+
+
+   .. py:method:: concat(all: Sequence[typing_extensions.Self], dim: int) -> typing_extensions.Self
+      :classmethod:
+
+
+      Concatenate two BatchJointsState objects along a given dimension.
+
+      :param all: The other BatchJointsState
+                  to concatenate.
+      :type all: BatchJointsState
+      :param dim: The dimension along which to concatenate. This can be
+                  0 (batch dimension), -1 (joint dimension), or 1 (joint
+                  dimension).
+      :type dim: int
+
+      :returns: A new BatchJointsState with concatenated data.
+      :rtype: BatchJointsState
+
+
+
+   .. py:method:: update_velocity(override: bool = False) -> bool
+
+      Update the velocity of the joint state from the position and timestamps.
+
+      :param override: If True, override the existing velocity. If False,
+                       only update if velocity is not already set.
+      :type override: bool
+
+      :returns: True if velocity was updated, False otherwise.
+      :rtype: bool
+
+
+

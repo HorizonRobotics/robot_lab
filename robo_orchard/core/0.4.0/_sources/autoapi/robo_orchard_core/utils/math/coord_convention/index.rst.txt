@@ -1,0 +1,210 @@
+coord_convention
+================
+
+.. py:module:: robo_orchard_core.utils.math.coord_convention
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.math.coord_convention.CoordConventionType
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.math.coord_convention.CoordAxis
+   robo_orchard_core.utils.math.coord_convention.CoordAxisWorld
+   robo_orchard_core.utils.math.coord_convention.CoordAxisCamera
+   robo_orchard_core.utils.math.coord_convention.CoordAxisOpenGL
+
+
+Module Contents
+---------------
+
+.. py:data:: CoordConventionType
+
+.. py:class:: CoordAxis(dtype: torch.dtype = torch.float32, device: robo_orchard_core.utils.torch_utils.Device = 'cpu')
+
+   Abstract class for coordinate axis.
+
+
+   .. py:attribute:: device
+      :value: 'cpu'
+
+
+
+   .. py:attribute:: dtype
+      :value: Ellipsis
+
+
+
+   .. py:property:: convention
+      :type: CoordConventionType
+
+      :abstractmethod:
+
+
+      Get the coordinate convention.
+
+
+   .. py:property:: forward
+      :type: torch.Tensor
+
+      :abstractmethod:
+
+
+      Get the forward direction.
+
+
+   .. py:property:: backward
+      :type: torch.Tensor
+
+
+      Get the backward direction.
+
+
+   .. py:property:: left
+      :type: torch.Tensor
+
+      :abstractmethod:
+
+
+      Get the left direction.
+
+
+   .. py:property:: right
+      :type: torch.Tensor
+
+
+      Get the right direction.
+
+
+   .. py:property:: up
+      :type: torch.Tensor
+
+      :abstractmethod:
+
+
+      Get the up direction.
+
+
+   .. py:property:: down
+      :type: torch.Tensor
+
+
+      Get the down direction.
+
+
+.. py:class:: CoordAxisWorld(dtype: torch.dtype = torch.float32, device: robo_orchard_core.utils.torch_utils.Device = 'cpu')
+
+   Bases: :py:obj:`CoordAxis`
+
+
+   Coordinate axis for world frame.
+
+
+   .. py:property:: convention
+      :type: CoordConventionType
+
+
+      Get the coordinate convention.
+
+
+   .. py:property:: forward
+      :type: torch.Tensor
+
+
+      Get the forward direction (+z-axis).
+
+
+   .. py:property:: left
+      :type: torch.Tensor
+
+
+      Get the left direction (+y-axis).
+
+
+   .. py:property:: up
+      :type: torch.Tensor
+
+
+      Get the up direction (+z-axis).
+
+
+.. py:class:: CoordAxisCamera(dtype: torch.dtype = torch.float32, device: robo_orchard_core.utils.torch_utils.Device = 'cpu')
+
+   Bases: :py:obj:`CoordAxis`
+
+
+   Coordinate axis for Camera frame.
+
+
+   .. py:property:: convention
+      :type: CoordConventionType
+
+
+      Get the coordinate convention.
+
+
+   .. py:property:: forward
+      :type: torch.Tensor
+
+
+      Get the forward direction (+Z-axis).
+
+
+   .. py:property:: left
+      :type: torch.Tensor
+
+
+      Get the left direction (-X-axis).
+
+
+   .. py:property:: up
+      :type: torch.Tensor
+
+
+      Get the up direction (-Y-axis).
+
+
+.. py:class:: CoordAxisOpenGL(dtype: torch.dtype = torch.float32, device: robo_orchard_core.utils.torch_utils.Device = 'cpu')
+
+   Bases: :py:obj:`CoordAxis`
+
+
+   Coordinate axis for OpenGL frame.
+
+
+   .. py:property:: convention
+      :type: CoordConventionType
+
+
+      Get the coordinate convention.
+
+
+   .. py:property:: forward
+      :type: torch.Tensor
+
+
+      Get the forward direction (-Z-axis).
+
+
+   .. py:property:: left
+      :type: torch.Tensor
+
+
+      Get the left direction (-X-axis).
+
+
+   .. py:property:: up
+      :type: torch.Tensor
+
+
+      Get the up direction (+Y-axis).
+
+

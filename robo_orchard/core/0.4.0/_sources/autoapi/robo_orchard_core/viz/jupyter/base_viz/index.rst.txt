@@ -1,0 +1,161 @@
+base_viz
+========
+
+.. py:module:: robo_orchard_core.viz.jupyter.base_viz
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.viz.jupyter.base_viz.DomEvent
+   robo_orchard_core.viz.jupyter.base_viz.BaseIpyViz
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.viz.jupyter.base_viz.is_left_click
+   robo_orchard_core.viz.jupyter.base_viz.is_right_click
+   robo_orchard_core.viz.jupyter.base_viz.is_middle_click
+   robo_orchard_core.viz.jupyter.base_viz.draw_image
+
+
+Module Contents
+---------------
+
+.. py:function:: is_left_click(event: DomEvent) -> bool
+
+.. py:function:: is_right_click(event: DomEvent) -> bool
+
+.. py:function:: is_middle_click(event: DomEvent) -> bool
+
+.. py:function:: draw_image(canvas: ipycanvas.Canvas, image: numpy.ndarray, format='PNG', quality=100)
+
+.. py:class:: DomEvent
+
+   Bases: :py:obj:`TypedDict`
+
+
+   Dom event.
+
+
+   .. py:attribute:: target
+      :type:  dict
+
+
+   .. py:attribute:: altKey
+      :type:  bool
+
+
+   .. py:attribute:: metaKey
+      :type:  bool
+
+
+   .. py:attribute:: shiftKey
+      :type:  bool
+
+
+   .. py:attribute:: ctrlKey
+      :type:  bool
+
+
+   .. py:attribute:: type
+      :type:  str
+
+
+   .. py:attribute:: event
+      :type:  str
+
+
+   .. py:attribute:: buttons
+      :type:  int
+
+      0 means no button, 1 means left button,
+      2 means right button, 4 means middle button.
+      Bitwise, can be combined.
+
+
+   .. py:attribute:: clientX
+      :type:  int
+
+
+   .. py:attribute:: clientY
+      :type:  int
+
+
+   .. py:attribute:: offsetX
+      :type:  int
+
+
+   .. py:attribute:: offsetY
+      :type:  int
+
+
+   .. py:attribute:: pageX
+      :type:  int
+
+
+   .. py:attribute:: pageY
+      :type:  int
+
+
+   .. py:attribute:: screenX
+      :type:  int
+
+
+   .. py:attribute:: screenY
+      :type:  int
+
+
+   .. py:attribute:: x
+      :type:  int
+
+
+   .. py:attribute:: y
+      :type:  int
+
+
+   .. py:attribute:: relativeX
+      :type:  int
+
+
+   .. py:attribute:: relativeY
+      :type:  int
+
+
+   .. py:attribute:: deltaY
+      :type:  int
+
+
+.. py:class:: BaseIpyViz(height: int, width: int, watched_events: list[str], canvas: ipycanvas.Canvas | None = None, max_fps: int = 20)
+
+   .. py:attribute:: height
+
+
+   .. py:attribute:: width
+
+
+   .. py:attribute:: canvas
+      :type:  ipycanvas.Canvas
+      :value: None
+
+
+
+   .. py:attribute:: output
+
+
+   .. py:attribute:: event
+
+
+   .. py:method:: display()
+
+      Display the canvas and output.
+
+      This function should only be called in Jupyter notebook.
+
+
+

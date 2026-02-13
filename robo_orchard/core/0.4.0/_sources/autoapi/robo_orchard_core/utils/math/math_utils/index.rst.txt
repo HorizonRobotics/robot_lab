@@ -1,0 +1,641 @@
+math_utils
+==========
+
+.. py:module:: robo_orchard_core.utils.math.math_utils
+
+.. autoapi-nested-parse::
+
+   Math utilities for transformations and conversions.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.math.math_utils.torch_jit_compile
+   robo_orchard_core.utils.math.math_utils.check_valid_rotation_matrix
+   robo_orchard_core.utils.math.math_utils.normalize
+   robo_orchard_core.utils.math.math_utils.quaternion_standardize
+   robo_orchard_core.utils.math.math_utils.quaternion_raw_multiply
+   robo_orchard_core.utils.math.math_utils.quaternion_multiply
+   robo_orchard_core.utils.math.math_utils.quaternion_invert
+   robo_orchard_core.utils.math.math_utils.quaternion_apply_point
+   robo_orchard_core.utils.math.math_utils.quaternion_apply_frame
+   robo_orchard_core.utils.math.math_utils.quaternion_left_division
+   robo_orchard_core.utils.math.math_utils.quaternion_right_division
+   robo_orchard_core.utils.math.math_utils.quaternion_to_axis_angle
+   robo_orchard_core.utils.math.math_utils.quaternion_to_matrix
+   robo_orchard_core.utils.math.math_utils.axis_angle_to_matrix
+   robo_orchard_core.utils.math.math_utils.rotation_6d_to_matrix
+   robo_orchard_core.utils.math.math_utils.matrix_to_rotation_6d
+   robo_orchard_core.utils.math.math_utils.matrix_to_quaternion
+   robo_orchard_core.utils.math.math_utils.matrix_to_axis_angle
+   robo_orchard_core.utils.math.math_utils.make_axis_angle
+   robo_orchard_core.utils.math.math_utils.get_axis_and_angle_from_axis_angle
+   robo_orchard_core.utils.math.math_utils.axis_angle_to_quaternion
+   robo_orchard_core.utils.math.math_utils.matrix_to_euler_angles
+   robo_orchard_core.utils.math.math_utils.euler_angles_to_matrix
+   robo_orchard_core.utils.math.math_utils.convert_orientation_convention
+   robo_orchard_core.utils.math.math_utils.rotation_matrix_from_view
+   robo_orchard_core.utils.math.math_utils.skew_symmetric_matrix
+   robo_orchard_core.utils.math.math_utils.frame_transform_combine
+   robo_orchard_core.utils.math.math_utils.frame_transform_subtract
+   robo_orchard_core.utils.math.math_utils.pose_diff
+
+
+Module Contents
+---------------
+
+.. py:function:: torch_jit_compile(f)
+
+   Decorator to compile a function with torch.jit.script.
+
+   This decorator will keep the function signature and docstring intact.
+
+
+.. py:function:: check_valid_rotation_matrix(R, tol: float = 1e-07) -> bool
+
+   Determine if R is a valid rotation matrix by checking it satisfies the following conditions.
+
+   ``RR^T = I and det(R) = 1``
+
+
+   This is a copy of the function from PyTorch3D.
+
+   :param R: an (N, 3, 3) matrix
+
+   :returns: bool
+
+   Emits a warning if R is an invalid rotation matrix.
+
+
+.. py:function:: normalize(x: torch.Tensor, dim: int = -1, eps: float = 1e-09) -> torch.Tensor
+
+   Normalize a tensor along a given dimension.
+
+   :param x: The tensor to normalize, of shape (N, dims).
+   :param dim: The dimension along which to normalize. Defaults to -1.
+   :param eps: A small value to avoid division by zero. Defaults to 1e-8.
+
+   :returns: The normalized tensor.
+
+
+.. py:function:: quaternion_standardize(quaternions: torch.Tensor) -> torch.Tensor
+
+   Convert a unit quaternion to a standard form.
+
+   The standard form is the one in which the real part is non negative.
+
+   .. note::
+
+      Quaternion representations have a singularity since ``q`` and ``-q``
+      represent the same rotation. This function ensures the real part of
+      the quaternion is non-negative.
+
+   :param quaternions: The quaternion orientation in (w, x, y, z).
+                       Shape is (..., 4).
+
+   :returns: Standardized quaternions as tensor of shape (..., 4).
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py#L373C1-L385C77
+
+
+
+.. py:function:: quaternion_raw_multiply(a: torch.Tensor, b: torch.Tensor, batch_mode: bool = False) -> torch.Tensor
+
+   Multiply two quaternions.
+
+   Usual torch rules for broadcasting apply. If the input tensors are in
+   batch mode, the first dimension is the batch size.
+
+   :param a: Quaternions as tensor of shape (..., 4) or (B, ..., 4), real part first.
+   :param b: Quaternions as tensor of shape (..., 4) or (B, ..., 4), real part first.
+   :param batch_mode: If True, the input tensors are in batch mode, which means the
+                      first dimension is the batch size. Defaults to False.
+
+   :returns: The product of a and b, a tensor of quaternions shape (..., 4) or or (B, ..., 4).
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py
+
+
+
+.. py:function:: quaternion_multiply(a: torch.Tensor, b: torch.Tensor, batch_mode: bool = False) -> torch.Tensor
+
+   Multiply two quaternions.
+
+   Multiply two quaternions representing rotations, returning the quaternion
+   representing their composition, i.e. the versor with nonnegative real part.
+   Usual torch rules for broadcasting apply.
+
+   :param a: Quaternions as tensor of shape (..., 4) or (B, ..., 4), real part first.
+   :param b: Quaternions as tensor of shape (..., 4) or (B, ..., 4), real part first.
+   :param batch_mode: If True, the input tensors are in batch mode, which means the
+                      first dimension is the batch size. Defaults to False.
+
+   :returns: The product of a and b, a tensor of quaternions shape (..., 4) or or (B, ..., 4).
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py
+
+
+.. py:function:: quaternion_invert(quaternion: torch.Tensor) -> torch.Tensor
+
+   Compute the inverse of a quaternion.
+
+   Given a quaternion representing rotation, get the quaternion representing
+   its inverse.
+
+   :param quaternion: Quaternions as tensor of shape (..., 4), with real part
+                      first, which must be versors (unit quaternions).
+
+   :returns: The inverse, a tensor of quaternions of shape (..., 4).
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py
+
+
+.. py:function:: quaternion_apply_point(quaternion: torch.Tensor, point: torch.Tensor, batch_mode: bool = False) -> torch.Tensor
+
+   Rotates a point or vector relative to a fixed coordinate frame.
+
+   This function applies :math:`p' = q \times p \times q^{-1}`
+   where p is the point and q is the quaternion.
+
+   :param quaternion: Tensor of quaternions, real part first, of shape (..., 4)
+                      or (B, ..., 4).
+   :param point: Tensor of 3D points of shape (..., 3) or (B, ..., 3).
+
+   :returns: Tensor of rotated points or vectors of shape (..., 3) or (B, ..., 3).
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py
+
+
+.. py:function:: quaternion_apply_frame(quaternion: torch.Tensor, point: torch.Tensor, batch_mode: bool = False)
+
+   Rotates the coordinate frame while keeping the vector/point fixed.
+
+   This function applies :math:`p' = q^{-1} \times p \times q`
+   where p is the point and q is the quaternion.
+
+   :param quaternion: Tensor of quaternions, real part first, of shape (..., 4)
+                      or (B, ..., 4).
+   :param point: Tensor of 3D points of shape (..., 3) or (B, ..., 3).
+
+   :returns: Tensor of rotated points or vectors of shape (..., 3) or (B, ..., 3).
+
+
+.. py:function:: quaternion_left_division(qa: torch.Tensor, qb: torch.Tensor) -> torch.Tensor
+
+   Compute the difference between two quaternions.
+
+   It performs the operation :math:`q = q_a^{-1} \times q_b`, which means
+   :math:`q_a \times q = q_b`. The result is an identity quaternion if
+   the two quaternions are the same. This operator is also known as the
+   left division of q_b by q_a.
+
+   :param qa: The first quaternion, unit quaternions.
+   :type qa: torch.Tensor
+   :param qb: The second quaternion, unit quaternions.
+   :type qb: torch.Tensor
+
+   :returns: The relative difference from q_a to q_b.
+   :rtype: torch.Tensor
+
+
+.. py:function:: quaternion_right_division(qa: torch.Tensor, qb: torch.Tensor) -> torch.Tensor
+
+   Compute the difference between two quaternions.
+
+   It performs the operation :math:`q = q_a \times q_b^{-1}`, which means
+   :math:`q \times q_b = q_a`. The result is an identity quaternion if
+   the two quaternions are the same. This operator is also known as the
+   right division of q_a by q_b.
+
+   :param qa: The first quaternion, unit quaternions.
+   :type qa: torch.Tensor
+   :param qb: The second quaternion, unit quaternions.
+   :type qb: torch.Tensor
+
+   :returns: The relative difference from q_a to q_b.
+   :rtype: torch.Tensor
+
+
+.. py:function:: quaternion_to_axis_angle(quaternions: torch.Tensor) -> torch.Tensor
+
+   Convert rotations given as quaternions to axis/angle.
+
+   :param quaternions: quaternions with real part first, as tensor of
+                       shape (..., 4).
+
+   :returns:
+
+             Rotations given as a vector in axis angle form, as a tensor
+                 of shape (..., 3), where the magnitude is the angle
+                 turned anticlockwise in radians around the vector's
+                 direction.
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py
+
+
+.. py:function:: quaternion_to_matrix(quaternions: torch.Tensor) -> torch.Tensor
+
+   Convert rotations given as quaternions to rotation matrices.
+
+   The rotation matrix is expected of the form:
+
+   .. code-block:: python
+
+       R = [[Rxx, Rxy, Rxz], [Ryx, Ryy, Ryz], [Rzx, Rzy, Rzz]]
+
+   You can construct SE(3) matrices by concatenating the rotation
+   matrix with the translation vector like:
+
+   .. code-block:: text
+
+           [R, T]
+           [0, 1],
+       or
+           [inv(R), 0]
+           [T,      1]
+
+   :param quaternions: quaternions in (w, x, y, z),
+                       as tensor of shape (..., 4).
+
+   :returns: Rotation matrices as tensor of shape (..., 3, 3).
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py
+
+
+.. py:function:: axis_angle_to_matrix(axis_angle: torch.Tensor) -> torch.Tensor
+
+   Convert rotations given as axis/angle to rotation matrices.
+
+   :param axis_angle: Rotations given as a vector in axis angle form,
+                      as a tensor of shape (..., 3), where the magnitude is
+                      the angle turned anticlockwise in radians around the
+                      vector's direction.
+
+   :returns: Rotation matrices as tensor of shape (..., 3, 3). Each matrix is
+             expected of the form:
+
+             .. code-block:: python
+
+                 M = [
+                     [Rxx, Rxy, Rxz],
+                     [Ryx, Ryy, Ryz],
+                     [Rzx, Rzy, Rzz],
+                 ]
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py
+
+
+.. py:function:: rotation_6d_to_matrix(d6: torch.Tensor) -> torch.Tensor
+
+   Converts 6D rotation representation by Zhou et al. [1] to rotation matrix
+   using Gram--Schmidt orthogonalization per Section B of [1].
+
+   :param d6: 6D rotation representation, of size (..., 6)
+
+   :returns: batch of rotation matrices of size (..., 3, 3)
+
+   [1] Zhou, Y., Barnes, C., Lu, J., Yang, J., & Li, H.
+   On the Continuity of Rotation Representations in Neural Networks.
+   IEEE Conference on Computer Vision and Pattern Recognition, 2019.
+   Retrieved from http://arxiv.org/abs/1812.07035
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py
+
+
+.. py:function:: matrix_to_rotation_6d(matrix: torch.Tensor) -> torch.Tensor
+
+   Converts rotation matrices to 6D rotation representation by Zhou et al. [1]
+   by dropping the last row. Note that 6D representation is not unique.
+
+   :param matrix: batch of rotation matrices of size (..., 3, 3)
+
+   :returns: 6D rotation representation, of size (..., 6)
+
+   [1] Zhou, Y., Barnes, C., Lu, J., Yang, J., & Li, H.
+   On the Continuity of Rotation Representations in Neural Networks.
+   IEEE Conference on Computer Vision and Pattern Recognition, 2019.
+   Retrieved from http://arxiv.org/abs/1812.07035
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py
+
+
+
+.. py:function:: matrix_to_quaternion(matrix: torch.Tensor, normalize_output: bool = False) -> torch.Tensor
+
+   Convert rotations given as rotation matrices to quaternions.
+
+   This function is copied from PyTorch3D to avoid dependency:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py#L107
+
+
+   :param matrix: Rotation matrices as tensor of shape (..., 3, 3).
+   :param normalize_output: If True, the output quaternions will be normalized
+                            to unit quaternions. Defaults to False.
+
+   :returns: quaternions in (w, x, y, z), as tensor of shape (..., 4).
+
+
+.. py:function:: matrix_to_axis_angle(matrix: torch.Tensor) -> torch.Tensor
+
+   Convert rotations given as rotation matrices to axis/angle.
+
+   The rotation matrix is expected of the form:
+
+   .. code-block:: python
+
+       R = [[Rxx, Rxy, Rxz], [Ryx, Ryy, Ryz], [Rzx, Rzy, Rzz]]
+
+   You can construct SE(3) matrices by concatenating the rotation
+   matrix with the translation vector like:
+
+   .. code-block:: text
+
+           [R, T]
+           [0, 1],
+       or
+           [inv(R), 0]
+           [T,      1]
+
+   :param matrix: Rotation matrices as tensor of shape (..., 3, 3).
+
+   :returns:
+
+             Rotations given as a vector in axis angle form, as a tensor
+                 of shape (..., 3), where the magnitude is the angle
+                 turned anticlockwise in radians around the vector's
+                 direction.
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py
+
+
+.. py:function:: make_axis_angle(axis: torch.Tensor, angle: torch.Tensor | float) -> torch.Tensor
+
+   Create rotations given as axis/angle.
+
+   :param axis: The axis of rotation as a tensor of shape (..., 3).
+   :param angle: The angle of rotation in radians as a tensor of shape (...,).
+
+   :returns:
+
+             Rotations given as a vector in axis angle form, as a tensor
+                 of shape (..., 3), where the magnitude is the angle
+                 turned anticlockwise in radians around the vector's
+                 direction.
+
+
+.. py:function:: get_axis_and_angle_from_axis_angle(axis_angle: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]
+
+   Get the axis and angle from axis/angle representation.
+
+   :param axis_angle: The axis/angle representation of the rotation as a
+                      tensor of shape (..., 3).
+
+   :returns:
+
+             A tuple containing the axis and angle as tensors of shape (..., 3)
+                 and (...,).
+
+
+.. py:function:: axis_angle_to_quaternion(axis_angle: torch.Tensor) -> torch.Tensor
+
+   Convert rotations given as axis/angle to quaternions.
+
+   :param axis_angle: Rotations given as a vector in axis angle form,
+                      as a tensor of shape (..., 3), where the magnitude is
+                      the angle turned anticlockwise in radians around the
+                      vector's direction.
+   :param eps: The tolerance for Taylor approximation. Defaults to 1.0e-6.
+
+   :returns: quaternions with real part first, as tensor of shape (..., 4).
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py
+
+
+.. py:function:: matrix_to_euler_angles(matrix: torch.Tensor, convention: str) -> torch.Tensor
+
+   Convert rotations given as rotation matrices to Euler angles in radians.
+
+   :param matrix: Rotation matrices as tensor of shape (..., 3, 3).
+   :param convention: Convention string of three uppercase letters.
+
+   :returns: Euler angles in radians as tensor of shape (..., 3).
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py
+
+
+.. py:function:: euler_angles_to_matrix(euler_angles: torch.Tensor, convention: str) -> torch.Tensor
+
+   Convert rotations given as Euler angles in radians to rotation matrices.
+
+   The rotation matrix is expected of the form:
+
+   .. code-block:: python
+
+       R = [
+           [Rxx, Rxy, Rxz],
+           [Ryx, Ryy, Ryz],
+           [Rzx, Rzy, Rzz],
+       ]
+
+   You can construct SE(3) matrices by concatenating the rotation
+   matrix with the translation vector like:
+
+   .. code-block:: text
+
+       R =[[R, T],
+           [0, 1]]
+
+       or
+
+       R =[[inv(R), 0],
+           [T,      1]]
+
+   :param euler_angles: Euler angles in radians as tensor of shape (..., 3).
+   :param convention: Convention string of three uppercase letters from
+                      {"X", "Y", and "Z"}, for intrinsic rotations.
+
+   :returns: Rotation matrices as tensor of shape (..., 3, 3).
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py#L199
+
+
+
+.. py:function:: convert_orientation_convention(orientation: torch.Tensor, origin: robo_orchard_core.utils.math.coord_convention.CoordConventionType = 'opengl', target: robo_orchard_core.utils.math.coord_convention.CoordConventionType = 'cam') -> torch.Tensor
+
+   Convert orientation from one convention to another.
+
+   The orientation conventions are defined as follows:
+
+   - ``"opengl"`` - forward axis: ``-Z`` - up axis: ``+Y`` - Applied
+     in the OpenGL (Usd.Camera) convention. OpenGL uses a right-handed
+     coordinate system.
+
+   - ``"cam"``    - forward axis: ``+Z`` - up axis: ``-Y`` - Applied
+     in the cam convention. It is a right-handed coordinate system.
+
+   - ``"world"``  - forward axis: ``+X`` - up axis: ``+Z`` - Applied
+     in the World Frame convention.
+
+
+   :param orientation: The orientation as a quaternion in (w, x, y, z).
+                       Shape is (..., 4).
+   :param origin: The origin convention. One of "opengl", "cam", "world".
+                  Defaults to "opengl".
+   :param target: The target convention. One of "opengl", "cam", "world".
+                  Defaults to "cam".
+
+   :returns:
+
+             The orientation in the target convention as a quaternion
+                 in (w, x, y, z). Shape is (..., 4).
+
+   Reference:
+       https://github.com/isaac-sim/IsaacLab/blob/main/source/isaaclab/isaaclab/utils/math.py
+
+
+
+.. py:function:: rotation_matrix_from_view(camera_position, at=((0, 0, 0), ), up=((0, 0, 1), ), device: robo_orchard_core.utils.torch_utils.Device = 'cpu', view_convention: robo_orchard_core.utils.math.coord_convention.CoordConventionType = 'opengl') -> torch.Tensor
+
+   Create a rotation matrix from a camera position and view direction.
+
+   This function takes a vector 'camera_position' which specifies the location
+   of the camera in local coordinates and two vectors `at` and `up` which
+   indicate the position of the object and the up directions of the local
+   coordinate system respectively.
+
+   The output is a rotation matrix representing the rotation matix of view
+   coordinates (such as openGL convension, -Z forward, +Y up, +X right) to
+   world coordinates.
+
+   .. warning::
+
+      When the camera are facing down or up along the world Up axis, the
+      right axis is not well defined.
+
+   :param camera_position: position of the camera in local coordinates.
+   :param at: position of the object in local coordinates
+   :param up: vector specifying the up direction in the world coordinate frame.
+              default is +Z axis.
+   :param view_convention: The convention of the view. One of "opengl", "cam",
+                           "world". Defaults to "opengl".
+
+   The inputs camera_position, at and up can each be a
+       - 3 element tuple/list
+       - torch tensor of shape (1, 3)
+       - torch tensor of shape (N, 3)
+
+   The vectors are broadcast against each other so they all have shape (N, 3).
+
+   :returns: (N, 3, 3) batched rotation matrices
+   :rtype: R
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/renderer/cameras.py#L1637
+
+
+
+.. py:function:: skew_symmetric_matrix(vec: torch.Tensor) -> torch.Tensor
+
+   Computes the skew-symmetric matrix of a vector.
+
+   This is also known as the Hat operator of 3D vectors.
+
+   :param vec: The input vector. Shape is (3,) or (N, 3).
+
+   :returns: The skew-symmetric matrix. Shape is (1, 3, 3) or (N, 3, 3).
+
+   :raises ValueError: If input tensor is not of shape (..., 3).
+
+   Reference:
+       https://github.com/isaac-sim/IsaacLab/blob/main/source/isaaclab/isaaclab/utils/math.py
+
+
+
+.. py:function:: frame_transform_combine(t01: torch.Tensor, q01: torch.Tensor, t12: torch.Tensor | None = None, q12: torch.Tensor | None = None) -> tuple[torch.Tensor, torch.Tensor]
+
+   Combine two frame transformations of coordinates.
+
+   Frame transform rotates the coordinate frame while keeping the vector
+   or point fixed.
+
+   It performs the following transformation operation:
+   :math:`T_{02} = T_{01} \times T_{12}`, where :math:`T_{AB}` is the
+   homogeneous transformation matrix from frame A to B.
+
+
+   :param t01: The translation of frame 1 w.r.t. frame 0, of shape (..., 3).
+   :param q01: The rotation of frame 1 w.r.t. frame 0, of shape (..., 4).
+   :param t12: The translation 2 w.r.t. frame 1.
+               Defaults to None, in which case it is set to zeros.
+   :param q12: The rotation 2 w.r.t. frame 1.
+               Defaults to None, in which case it is set to zeros.
+
+   :returns:
+
+             The combined translation and
+                 rotation of frame 2 w.r.t. frame 0. The translation is of
+                 shape (..., 3) and the rotation is of shape (..., 4). The return
+                 order is (t02, q02).
+   :rtype: Tuple[torch.Tensor, torch.Tensor]
+
+
+.. py:function:: frame_transform_subtract(t01: torch.Tensor, q01: torch.Tensor, t02: torch.Tensor | None = None, q02: torch.Tensor | None = None) -> tuple[torch.Tensor, torch.Tensor]
+
+   Subtract two frame transformations of coordinates.
+
+   It performs the following transformation operation:
+   :math:`T_{12} = T_{01}^{-1} \times T_{02}`, where :math:`T_{AB}` is the
+   homogeneous transformation matrix of frame B w.r.t. A.
+
+
+   :param t01: The translation of frame 1 w.r.t. frame 0, of shape (..., 3).
+   :param q01: The rotation of frame 1 w.r.t. frame 0, of shape (..., 4).
+   :param t02: The translation frame 2 w.r.t. frame 0.
+               Defaults to None, in which case it is set to identity.
+   :param q02: The rotation frame 2 w.r.t. frame 0.
+               Defaults to None, in which case it is set to identity.
+
+   :returns:
+
+             The combined translation and rotation
+                 of frame 2 w.r.t. frame 1. The translation is of shape (..., 3) and the
+                 rotation is of shape (..., 4). The return order is (t12, q12).
+   :rtype: Tuple[torch.Tensor, torch.Tensor]
+
+
+.. py:function:: pose_diff(ta: torch.Tensor, qa: torch.Tensor, tb: torch.Tensor, qb: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]
+
+   Compute the difference between two poses in the same frame.
+
+   It performs the following transformation operation:
+   :math:`t_{diff} = t_a - t_b`, and :math:`q_{diff} = q_a \times q_b^{-1}`,
+   so that :math:`q_{diff} \times q_b = q_a`, and :math:`t_{diff} + t_b = t_a`.
+
+   :param ta: The translation of the second pose, of shape (..., 3).
+   :param qa: The rotation of the second pose, of shape (..., 4).
+   :param tb: The translation of the first pose, of shape (..., 3).
+   :param qb: The rotation of the first pose, of shape (..., 4).
+
+   :returns: The difference in translation and rotation between the two poses.
+             The translation is of shape (..., 3) and the rotation is of
+             shape (..., 4).
+
+

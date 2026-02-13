@@ -1,0 +1,612 @@
+camera_data
+===========
+
+.. py:module:: robo_orchard_core.datatypes.camera_data
+
+.. autoapi-nested-parse::
+
+   Data classes for camera sensor data.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.datatypes.camera_data.EncoderType
+   robo_orchard_core.datatypes.camera_data.DecoderType
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.datatypes.camera_data.ImageMode
+   robo_orchard_core.datatypes.camera_data.Distortion
+   robo_orchard_core.datatypes.camera_data.BatchCameraInfo
+   robo_orchard_core.datatypes.camera_data.BatchImageData
+   robo_orchard_core.datatypes.camera_data.BatchCameraData
+   robo_orchard_core.datatypes.camera_data.BatchCameraDataEncoded
+
+
+Module Contents
+---------------
+
+.. py:class:: ImageMode
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.enum.StrEnum`
+
+
+   Image mode describing the pixel format of the image.
+
+   We use `PIL Image mode <https://pillow.readthedocs.io/en/stable/handbook/concepts.html#concept-modes>`__ as the reference.
+
+   We also extend the mode to support other formats that are commonly used in
+   computer vision, such as BGR.
+
+
+   .. py:attribute:: BIT
+      :value: '1'
+
+
+      1-bit pixels, black and white, stored with one pixel per byte.
+
+
+   .. py:attribute:: L
+      :value: 'L'
+
+
+      8-bit pixels, grayscale.
+
+
+   .. py:attribute:: LA
+      :value: 'LA'
+
+
+      L with alpha.
+
+
+   .. py:attribute:: RGB
+      :value: 'RGB'
+
+
+      3x8-bit pixels, true color
+
+
+   .. py:attribute:: RGBA
+      :value: 'RGBA'
+
+
+      4x8-bit pixels, true color with transparency mask
+
+
+   .. py:attribute:: I
+      :value: 'I'
+
+
+      32-bit signed integer pixels
+
+
+   .. py:attribute:: I16
+      :value: 'I;16'
+
+
+      16-bit unsigned integer pixels
+
+
+   .. py:attribute:: F
+      :value: 'F'
+
+
+      32-bit floating point pixels
+
+
+   .. py:attribute:: BGR
+      :value: 'BGR'
+
+
+      3x8-bit pixels, true color
+
+
+.. py:class:: Distortion(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.dataclass.DataClass`, :py:obj:`robo_orchard_core.datatypes.dataclass.TensorToMixin`
+
+
+   The base data class that extends pydantic's BaseModel.
+
+   This class is used to define data classes that are used to store data
+   and validate the data. It extends pydantic's BaseModel and adds a
+   :py:meth:`__post_init__` method that can be used to perform additional
+   initialization after the model is constructed.
+
+   .. note::
+
+      Serialization and deserialization using pydantic's methods are not
+      recommended for performance reasons, as data classes can be used to
+      store large tensors or other data that are not easily serialized.
+      
+      User should implement the proper serialization and deserialization
+      methods when needed.
+
+
+   .. py:attribute:: model
+      :type:  Literal['plumb_bob', 'rational_polynomial', 'equidistant'] | None
+      :value: None
+
+
+      The distortion model of the camera.
+
+      If None, no distortion model is applied. The distortion model follows ROS2
+      convention, see:
+
+      - http://docs.ros.org/en/api/image_geometry/html/c++/pinhole__camera__model_8cpp.html
+
+      - http://docs.ros.org/en/rolling/p/camera_calibration/doc/index.html
+
+
+   .. py:attribute:: coefficients
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+      Distortion coefficients of the camera.
+
+      It should be 1D tensor with 4, 5, or 8 elements depending on the
+      distortion model.
+
+
+   .. py:method:: copy() -> Distortion
+
+      Copy the distortion model.
+
+      :returns: A copy of the distortion model.
+      :rtype: Distortion
+
+
+
+.. py:class:: BatchCameraInfo(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.dataclass.DataClass`, :py:obj:`robo_orchard_core.datatypes.dataclass.TensorToMixin`
+
+
+   Data class for batched camera sensor data information.
+
+   A batch of camera data shares the same image shape, distortion model.
+   The intrinsic matrices and TransformFrame(Pose, also known as the inverse
+   extrinsic matrix) of the cameras can be different.
+
+
+   .. py:attribute:: topic
+      :type:  str | None
+      :value: None
+
+
+      The topic of the camera sensor.
+
+
+   .. py:attribute:: frame_id
+      :type:  str | None
+      :value: None
+
+
+      Coordinate frame ID for the camera sensor.
+
+      This is NOT the frame number or index of the image frame!
+
+      frame_id is typically used to identify the coordinate frame in which the
+      camera data is expressed. It can be useful for visualization or
+      transformation purposes.
+      If not provided, it defaults to None.
+
+
+   .. py:attribute:: image_shape
+      :type:  tuple[int, int] | None
+      :value: None
+
+
+      A tuple containing (height, width) of the camera sensor.
+
+
+   .. py:attribute:: intrinsic_matrices
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+      The intrinsic matrices for all camera.
+
+      Shape is (B, 3, 3), where B is the batch size.
+
+
+   .. py:attribute:: transform_matrices
+      :type:  robo_orchard_core.utils.config.TorchTensor | None
+      :value: None
+
+
+      The 2D transform matrices for image.
+
+      This field is optional. If provided, it represents the 2D
+      transformation applied to the image after projection. For
+      example, it can represent image cropping, resizing, or rotation.
+
+      This field should be properly set when the image data is transformed
+      using 2D transformations.
+
+      Shape is (B, 3, 3), where B is the batch size.
+
+
+   .. py:attribute:: distortion
+      :type:  Distortion | None
+      :value: None
+
+
+
+   .. py:attribute:: pose
+      :type:  robo_orchard_core.datatypes.geometry.BatchFrameTransform | None
+      :value: None
+
+
+      Frame transform of the camera sensor.
+
+      Usually the frame transform are camera frame w.r.t. the world frame,
+      or known as the cam2World transformation, they are the same.
+
+      The inverse of the pose transformation is the extrinsic matrix
+      (world w.r.t cam), which are widely used in computer vision.
+
+
+   .. py:property:: extrinsics
+      :type: robo_orchard_core.utils.config.TorchTensor | None
+
+
+      Get the extrinsic matrix of the cameras.
+
+      Pose6D describes the transformation from the camera frame to the
+      world frame, while the extrinsic matrix describes the transformation
+      from the world frame to the camera frame, which is the inverse of
+      the pose transformation (cam w.r.t world).
+
+      The extrinsic matrix is a Bx4x4 matrix:
+
+      .. code-block:: text
+
+          [[[R, t],
+            [0, 1]],
+            ...
+           [[R, t],
+            [0, 1]]]
+          ]
+
+      Where R is a 3x3 rotation matrix and t is a 3x1 translation vector.
+
+      :returns: The extrinsic matrices of the cameras.
+                If no pose is provided, returns None.
+      :rtype: TorchTensor | None
+
+
+   .. py:property:: distorsion_coefficients
+      :type: robo_orchard_core.utils.config.TorchTensor | None
+
+
+      Get the distortion coefficients of the camera.
+
+      :returns: The distortion coefficients of the camera.
+                If no distortion model is applied, returns None.
+      :rtype: TorchTensor | None
+
+
+   .. py:property:: distortion_model
+      :type: Literal['plumb_bob', 'rational_polynomial', 'equidistant'] | None
+
+
+      Get the distortion model of the camera.
+
+      :returns: The distortion model of the camera. If no distortion model is
+                applied, returns None.
+      :rtype: Literal["plumb_bob", "rational_polynomial", "equidistant"] | None
+
+
+   .. py:method:: concat(all: Sequence[typing_extensions.Self]) -> typing_extensions.Self
+      :classmethod:
+
+
+      Concatenate two BatchCameraInfo objects.
+
+      :param others: Sequence[BatchCameraInfo]: The other BatchCameraInfo
+                     objects to concatenate with.
+
+      :returns: The concatenated BatchCameraInfo object.
+      :rtype: BatchCameraInfo
+
+
+
+   .. py:method:: project_points_to_image(points: torch.Tensor, frame_id: str) -> torch.Tensor
+
+      Project 3D points to 2D image plane.
+
+      :param points: A tensor of shape (P, 3) or (B, P, 3)
+                     representing the 3D points in the specified frame_id.
+      :type points: torch.Tensor
+      :param frame_id: The frame_id in which the points are expressed.
+                       If the frame_id matches the camera frame_id, the points are
+                       assumed to be in the camera frame, and the intrinsic matrix is
+                       used directly for projection. If the frame_id matches the
+                       parent_frame_id of the camera pose, the points are first
+                       transformed to the camera frame using the camera pose, and
+                       then projected to the image plane.
+      :type frame_id: str
+
+      :returns:
+
+                A tensor of shape (B, P, 3) representing the
+                    projected 2D points with depth (u, v, depth) in the image
+                    plane. The depth is orthogonal distance from the camera's
+                    image plane to the 3D point.
+      :rtype: torch.Tensor
+
+
+
+   .. py:method:: unproject_image_points(uvd: torch.Tensor, frame_id: str) -> torch.Tensor
+
+      Unproject 2D image points with depth to 3D points in camera frame.
+
+      :param uvd: A tensor of shape (P, 3) or (B, P, 3)
+                  representing the 2D points with depth (u, v, depth) in the
+                  image plane. The depth is orthogonal distance from the camera's
+                  image plane to the 3D point.
+      :type uvd: torch.Tensor
+      :param frame_id: The frame_id in which the points are to be
+                       unprojected. Can be either the camera frame_id or the
+                       parent_frame_id of the camera pose.
+      :type frame_id: str
+
+      :returns:
+
+                A tensor of shape (B, P, 3) representing the
+                    unprojected 3D points in the camera frame.
+      :rtype: torch.Tensor
+
+
+
+.. py:class:: BatchImageData(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.dataclass.DataClass`
+
+
+   Data class for batched camera sensor data.
+
+   BatchCameraDataMixin includes the actual sensor data in tensor format.
+
+
+   .. py:attribute:: sensor_data
+      :type:  robo_orchard_core.utils.config.TorchTensor
+
+      The sensor data from all cameras.
+
+      Shape is (B, H, W, C) for raw data, where B is the batch size, C is the
+      number of channels, H is the height of the image, and W is the width
+      of the image. For traning, the shape is usually (B, C, H, W).
+
+      Note that sensor_data does not restrict the channel layout, it can be
+      in HWC or CHW format.
+
+
+   .. py:attribute:: pix_fmt
+      :type:  ImageMode | None
+      :value: None
+
+
+      Pixel format.
+
+
+   .. py:attribute:: timestamps
+      :type:  list[int] | None
+      :value: None
+
+
+      Timestamps of the camera data in nanoseconds(1e-9 seconds).
+
+
+   .. py:method:: concat(all: Sequence[typing_extensions.Self]) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:property:: channel_layout
+      :type: robo_orchard_core.utils.image.ImageChannelLayout
+
+
+      Try to get the channel layout of the sensor data.
+
+
+   .. py:method:: apply_transform2d(transform: robo_orchard_core.utils.math.transform.Transform2D_M, target_hw: tuple[int, int] | None = None, inter_mode: Literal['bilinear', 'nearest', 'bicubic'] = 'bicubic', padding_mode: Literal['zeros'] = 'zeros') -> typing_extensions.Self
+
+      Apply a 2D transformation to the camera data.
+
+      :param transform: The transformation to apply.
+      :type transform: Transform2D_M
+
+      :returns: The transformed camera data.
+      :rtype: BatchCameraData
+
+
+
+   .. py:method:: as_pil_images() -> list[PIL.Image.Image]
+
+      Convert BatchCameraData to a list of PIL images.
+
+
+
+.. py:class:: BatchCameraData(*args, **kwargs)
+
+   Bases: :py:obj:`BatchCameraInfo`, :py:obj:`BatchImageData`
+
+
+   Data class for batched camera sensor data.
+
+   BatchCameraData extends BatchCameraDataInfo to include the actual
+   sensor data in tensor format.
+
+   A batch of camera data shares the same image shape, distortion model.
+   The intrinsic matrices and extrinsic matrices (pose) of the cameras
+   can be different.
+
+
+
+   .. py:property:: batch_size
+      :type: int
+
+
+      Get the batch size.
+
+      The batch size is the number of cameras in the batch.
+
+      :returns: The batch size.
+      :rtype: int
+
+
+   .. py:method:: concat(all: Sequence[typing_extensions.Self]) -> typing_extensions.Self
+      :classmethod:
+
+
+      Concatenate two BatchCameraInfo objects.
+
+      :param others: Sequence[BatchCameraInfo]: The other BatchCameraInfo
+                     objects to concatenate with.
+
+      :returns: The concatenated BatchCameraInfo object.
+      :rtype: BatchCameraInfo
+
+
+
+   .. py:method:: apply_transform2d(transform: robo_orchard_core.utils.math.transform.Transform2D_M, target_hw: tuple[int, int] | None = None, inter_mode: Literal['bilinear', 'nearest', 'bicubic'] = 'bicubic', padding_mode: Literal['zeros'] = 'zeros') -> typing_extensions.Self
+
+      Apply a 2D transformation to the camera data.
+
+      This method record the 2D transformation to the transform matrices
+      as well to keep the projection matrix (world to pixel) consistent
+      with the transformed sensor data.
+
+      .. note::
+
+         User should not directly modify the transform_matrices field,
+         neither resize or crop the sensor_data without using this method,
+         otherwise the projection matrix will be incorrect. Always use
+         this method to transform the sensor_data.
+
+      :param transform: The transformation to apply.
+      :type transform: Transform2D_M
+
+      :returns: The transformed camera data.
+      :rtype: BatchCameraData
+
+
+
+   .. py:method:: encode(format: Literal['jpeg', 'png'], encoder: EncoderType | None = None) -> BatchCameraDataEncoded
+
+      Encode the BatchCameraData to a BatchCameraDataEncoded.
+
+      :param format: The target format to encode
+                     the data.
+      :type format: Literal["jpeg", "png"]
+      :param encoder: The encoder
+                      function to encode the data. It should take a tensor and
+                      the format as input and return a list of byte strings.
+      :type encoder: EncoderType | None, optional
+      :param format: The format to encode the data.
+      :type format: Literal["jpeg", "png"]
+
+      :returns: The encoded camera data.
+      :rtype: BatchCameraDataEncoded
+
+
+
+.. py:class:: BatchCameraDataEncoded(*args, **kwargs)
+
+   Bases: :py:obj:`BatchCameraInfo`
+
+
+   Data class for batched compressed camera sensor data.
+
+   BatchCameraCompressedData extends BatchCameraDataInfo to include the
+   actual compressed sensor data in tensor format.
+
+   A batch of camera data shares the same image shape, distortion model.
+   The intrinsic matrices and extrinsic matrices (pose) of the cameras
+   can be different.
+
+
+   .. py:attribute:: sensor_data
+      :type:  list[bytes]
+
+      The sensor data in compressed bytes.
+
+
+   .. py:attribute:: format
+      :type:  Literal['jpeg', 'png']
+
+      The format of the compressed sensor data.
+
+
+   .. py:attribute:: timestamps
+      :type:  list[int] | None
+      :value: None
+
+
+      Timestamps of the camera data in nanoseconds(1e-9 seconds).
+
+
+   .. py:property:: batch_size
+      :type: int
+
+
+      Get the batch size.
+
+      The batch size is the number of cameras in the batch.
+
+      :returns: The batch size.
+      :rtype: int
+
+
+   .. py:method:: decode(decoder: DecoderType | None = None, device: robo_orchard_core.utils.torch_utils.Device = 'cpu') -> BatchCameraData
+
+      Decode the compressed sensor data to a BatchCameraData.
+
+      :param decoder: The decoder
+                      function to decode the compressed data. It should take
+                      a byte string and the format as input and return
+                      BatchImageData. If None, use the pillow-based default decoder.
+      :type decoder: DecoderType|None, optional
+      :param device: The device to put the decoded data on.
+                     Defaults to "cpu".
+      :type device: Device, optional
+
+      :returns: The decoded camera data.
+      :rtype: BatchCameraData
+
+
+
+   .. py:method:: concat(all: Sequence[typing_extensions.Self]) -> typing_extensions.Self
+      :classmethod:
+
+
+      Concatenate two BatchCameraInfo objects.
+
+      :param others: Sequence[BatchCameraInfo]: The other BatchCameraInfo
+                     objects to concatenate with.
+
+      :returns: The concatenated BatchCameraInfo object.
+      :rtype: BatchCameraInfo
+
+
+
+.. py:type:: EncoderType
+   :canonical: Callable[[str, BatchImageData], list[bytes]]
+
+
+.. py:type:: DecoderType
+   :canonical: Callable[[list[bytes], str], BatchImageData]
+
+

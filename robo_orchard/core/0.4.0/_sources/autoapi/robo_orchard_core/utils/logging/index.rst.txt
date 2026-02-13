@@ -1,0 +1,142 @@
+logging
+=======
+
+.. py:module:: robo_orchard_core.utils.logging
+
+.. autoapi-nested-parse::
+
+   The logging module.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.logging.DEFAULT_LOG_FORMAT
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.logging.LoggerManager
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.logging.wrap_log_fmt_with_rank
+   robo_orchard_core.utils.logging.singleton
+
+
+Module Contents
+---------------
+
+.. py:data:: DEFAULT_LOG_FORMAT
+   :value: '%rank %(asctime)-15s %(levelname)s | %(process)d | %(threadName)s | %(name)s:L%(lineno)d %(message)s'
+
+
+.. py:function:: wrap_log_fmt_with_rank(format: str) -> str
+
+   Wrap the log format with the rank of the process.
+
+
+.. py:function:: singleton(cls)
+
+   A singleton decorator for a class.
+
+
+.. py:class:: LoggerManager(format: str = DEFAULT_LOG_FORMAT, level: int = logging.INFO, handlers: typing_extensions.Optional[list[logging.Handler]] = None, **kwargs)
+
+   A logger manager that manages the logger.
+
+   This class is a singleton class that manages the logger. It provides
+   methods to get the logger and its child logger. You can use the logger
+   manager to handle all loggers in the project.
+
+   Note that this class is a singleton class, so if you create multiple
+   instances of this class, only the first instance will be used! Passing
+   different arguments to the constructor will have no effect after the
+   first instantiation.
+
+   Example:
+
+   .. code-block:: python
+
+       # To get a child logger
+       from robo_orchard_core.utils.logging import LoggerManager
+
+       logger = LoggerManager().get_child(__name__)
+
+
+   :param format: The format of the log. Defaults to
+                  DEFAULT_LOG_FORMAT.
+   :type format: str, optional
+   :param level: The level of the log. Defaults to logging.INFO.
+   :type level: int, optional
+   :param handlers: The handlers of
+                    the log. Defaults to None.
+   :type handlers: Optional[list[logging.Handler]], optional
+
+
+   .. py:method:: get_logger() -> logging.Logger
+
+      Get the global logger.
+
+
+
+   .. py:method:: get_child(name: str) -> logging.Logger
+
+      Get the child logger.
+
+      :param name: The name of the child logger.
+      :type name: str
+
+      :returns: The child logger.
+      :rtype: logging.Logger
+
+
+
+   .. py:method:: set_level(level: int) -> typing_extensions.Self
+
+      Set the level of the logger.
+
+      :param level: The level of the logger.
+      :type level: int
+
+      :returns: The logger manager.
+      :rtype: Self
+
+
+
+   .. py:method:: set_format(format: str) -> typing_extensions.Self
+
+      Set the format of the logger.
+
+      This method set the format of all handlers of the logger.
+
+      :param format: The format of the logger.
+      :type format: str
+
+      :returns: The logger manager.
+      :rtype: Self
+
+
+
+   .. py:method:: set_handlers(handlers: list[logging.Handler]) -> typing_extensions.Self
+
+      Set the handlers of the logger.
+
+      :param handlers: The handlers to set.
+      :type handlers: list[logging.Handler]
+
+      :returns: The logger manager.
+      :rtype: Self
+
+
+

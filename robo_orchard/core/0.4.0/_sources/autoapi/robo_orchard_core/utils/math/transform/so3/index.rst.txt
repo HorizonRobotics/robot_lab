@@ -1,0 +1,207 @@
+so3
+===
+
+.. py:module:: robo_orchard_core.utils.math.transform.so3
+
+.. autoapi-nested-parse::
+
+   SO(3) rotation functions.
+
+   This file is copied from pytorch3d.transforms.so3.py to avoid the dependency
+   on pytorch3d. Once pytorch3d can be installed by pip, this file should be
+   removed and the dependency should be added to the requirements.txt file.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.math.transform.so3.acos_linear_extrapolation
+   robo_orchard_core.utils.math.transform.so3.so3_relative_angle
+   robo_orchard_core.utils.math.transform.so3.so3_rotation_angle
+   robo_orchard_core.utils.math.transform.so3.so3_exp_map
+   robo_orchard_core.utils.math.transform.so3.so3_log_map
+   robo_orchard_core.utils.math.transform.so3.hat_inv
+   robo_orchard_core.utils.math.transform.so3.hat
+
+
+Module Contents
+---------------
+
+.. py:function:: acos_linear_extrapolation(x: torch.Tensor, bounds: tuple[float, float] = (-DEFAULT_ACOS_BOUND, DEFAULT_ACOS_BOUND)) -> torch.Tensor
+
+   `arccos(x)` with stable backpropagation.
+
+   Implements `arccos(x)` which is linearly extrapolated outside `x`'s
+   original domain of `(-1, 1)`. This allows for stable backpropagation
+   in case `x` is not guaranteed to be strictly within `(-1, 1)`.
+
+   More specifically::
+
+       bounds=(lower_bound, upper_bound)
+       if lower_bound <= x <= upper_bound:
+           acos_linear_extrapolation(x) = acos(x)
+       elif x <= lower_bound: # 1st order Taylor approximation
+           acos_linear_extrapolation(x)
+               = acos(lower_bound) + dacos/dx(lower_bound) * (x - lower_bound)
+       else:  # x >= upper_bound
+           acos_linear_extrapolation(x)
+               = acos(upper_bound) + dacos/dx(upper_bound) * (x - upper_bound)
+
+   :param x: Input `Tensor`.
+   :param bounds: A float 2-tuple defining the region for the
+                  linear extrapolation of `acos`.
+                  The first/second element of `bound`
+                  describes the lower/upper bound that defines the lower/upper
+                  extrapolation region, i.e. the region where
+                  `x <= bound[0]`/`bound[1] <= x`.
+                  Note that all elements of `bound` have to be within (-1, 1).
+
+   :returns:
+
+             `Tensor` containing the extrapolated
+                 `arccos(x)`.
+   :rtype: acos_linear_extrapolation
+
+   Reference:
+       https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/math.py
+
+
+
+.. py:function:: so3_relative_angle(R1: torch.Tensor, R2: torch.Tensor, cos_angle: bool = False, cos_bound: float = 0.0001, eps: float = 0.0001) -> torch.Tensor
+
+   Calculates the relative angle (in radians) between pairs of rotation matrices `R1` and `R2` with `angle = acos(0.5 * (Trace(R1 R2^T)-1))`.
+
+   .. note::
+
+       This corresponds to a geodesic distance on the 3D manifold of rotation
+       matrices.
+
+   :param R1: Batch of rotation matrices of shape `(minibatch, 3, 3)`.
+   :param R2: Batch of rotation matrices of shape `(minibatch, 3, 3)`.
+   :param cos_angle: If==True return cosine of the relative angle rather than
+                     the angle itself. This can avoid the unstable calculation of `acos`.
+   :param cos_bound: Clamps the cosine of the relative rotation angle to
+                     [-1 + cos_bound, 1 - cos_bound] to avoid non-finite outputs/gradients
+                     of the `acos` call. Note that the non-finite outputs/gradients
+                     are returned when the angle is requested (i.e. `cos_angle==False`)
+                     and the rotation angle is close to 0 or π.
+   :param eps: Tolerance for the valid trace check of the relative rotation matrix
+               in `so3_rotation_angle`.
+
+   :returns:
+
+             Corresponding rotation angles of shape `(minibatch,)`.
+                 If `cos_angle==True`, returns the cosine of the angles.
+   :rtype: torch.Tensor
+
+   :raises ValueError: If `R1` or `R2` is of incorrect shape.
+   :raises ValueError: If `R1` or `R2` has an unexpected trace.
+
+
+.. py:function:: so3_rotation_angle(R: torch.Tensor, eps: float = 0.0001, cos_angle: bool = False, cos_bound: float = 0.0001) -> torch.Tensor
+
+   Calculates angles (in radians) of a batch of rotation matrices `R` with `angle = acos(0.5 * (Trace(R)-1))`.
+
+   The trace of the input matrices is checked to be in the valid range `[-1-eps,3+eps]`.
+   The `eps` argument is a small constant that allows for small errors
+   caused by limited machine precision.
+
+   :param R: Batch of rotation matrices of shape `(minibatch, 3, 3)`.
+   :param eps: Tolerance for the valid trace check.
+   :param cos_angle: If==True return cosine of the rotation angles rather than
+                     the angle itself. This can avoid the unstable
+                     calculation of `acos`.
+   :param cos_bound: Clamps the cosine of the rotation angle to
+                     [-1 + cos_bound, 1 - cos_bound] to avoid non-finite outputs/gradients
+                     of the `acos` call. Note that the non-finite outputs/gradients
+                     are returned when the angle is requested (i.e. `cos_angle==False`)
+                     and the rotation angle is close to 0 or π.
+
+   :returns:
+
+             Corresponding rotation angles of shape `(minibatch,)`.
+                 If `cos_angle==True`, returns the cosine of the angles.
+   :rtype: torch.Tensor
+
+   :raises ValueError: If `R` is of incorrect shape.
+   :raises ValueError: If `R` has an unexpected trace.
+
+
+.. py:function:: so3_exp_map(log_rot: torch.Tensor, eps: float = 0.0001) -> torch.Tensor
+
+   Convert a batch of logarithmic representations of rotation matrices `log_rot` to a batch of 3x3 rotation matrices using Rodrigues formula [1].
+
+   In the logarithmic representation, each rotation matrix is represented as
+   a 3-dimensional vector (`log_rot`) who's l2-norm and direction correspond
+   to the magnitude of the rotation angle and the axis of rotation respectively.
+
+   The conversion has a singularity around `log(R) = 0`
+   which is handled by clamping controlled with the `eps` argument.
+
+   :param log_rot: Batch of vectors of shape `(minibatch, 3)`.
+   :param eps: A float constant handling the conversion singularity.
+
+   :returns: Batch of rotation matrices of shape `(minibatch, 3, 3)`.
+
+   :raises ValueError if `log_rot` is of incorrect shape.:
+
+   [1] https://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula
+
+
+.. py:function:: so3_log_map(R: torch.Tensor, eps: float = 0.0001, cos_bound: float = 0.0001) -> torch.Tensor
+
+   Convert a batch of 3x3 rotation matrices `R` to a batch of 3-dimensional matrix logarithms of rotation matrices.
+
+   The conversion has a singularity around `(R=I)`.
+
+   :param R: batch of rotation matrices of shape `(minibatch, 3, 3)`.
+   :param eps: (unused, for backward compatibility)
+   :param cos_bound: (unused, for backward compatibility)
+
+   :returns:
+
+             Batch of logarithms of input rotation matrices
+                 of shape `(minibatch, 3)`.
+   :rtype: torch.Tensor
+
+
+.. py:function:: hat_inv(h: torch.Tensor) -> torch.Tensor
+
+   Compute the inverse Hat operator [1] of a batch of 3x3 matrices.
+
+   :param h: Batch of skew-symmetric matrices of shape `(minibatch, 3, 3)`.
+
+   :returns: Batch of 3d vectors of shape `(minibatch, 3, 3)`.
+
+   :raises ValueError: If `h` is of incorrect shape.
+   :raises ValueError: If `h` not skew-symmetric.
+
+   [1] https://en.wikipedia.org/wiki/Hat_operator
+
+
+.. py:function:: hat(v: torch.Tensor) -> torch.Tensor
+
+   Compute the Hat operator [1] of a batch of 3D vectors.
+
+   :param v: Batch of vectors of shape `(minibatch , 3)`.
+
+   :returns:
+
+             Batch of skew-symmetric matrices of shape `(minibatch, 3 , 3)`,
+                 where each matrix is of the form:
+
+                 .. code-block:: text
+
+                     [    0  -v_z   v_y ]
+                     [  v_z     0  -v_x ]
+                     [ -v_y   v_x     0 ]
+   :rtype: torch.Tensor
+
+   :raises ValueError if `v` is of incorrect shape.:
+
+   [1] https://en.wikipedia.org/wiki/Hat_operator
+
+

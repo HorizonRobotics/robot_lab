@@ -1,0 +1,23 @@
+observations
+============
+
+.. py:module:: robo_orchard_core.envs.managers.observations
+
+.. autoapi-nested-parse::
+
+   The managers that return the observations of the environment.
+
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_core/envs/managers/observations/observation_manager/index
+   /autoapi/robo_orchard_core/envs/managers/observations/observation_term/index
+
+

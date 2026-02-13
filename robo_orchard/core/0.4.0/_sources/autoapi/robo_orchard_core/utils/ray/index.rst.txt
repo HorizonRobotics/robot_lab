@@ -1,0 +1,191 @@
+ray
+===
+
+.. py:module:: robo_orchard_core.utils.ray
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.ray.DEFAULT_RAY_INIT_CONFIG
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.ray.RayActorDiedError
+   robo_orchard_core.utils.ray.RayActorNotAliveError
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.ray.RayRemoteClassConfig
+   robo_orchard_core.utils.ray.RayRemoteInstanceConfig
+   robo_orchard_core.utils.ray.RayRemoteInstance
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.ray.ray_init
+   robo_orchard_core.utils.ray.is_ray_actor_alive
+
+
+Module Contents
+---------------
+
+.. py:data:: DEFAULT_RAY_INIT_CONFIG
+
+.. py:function:: ray_init(ray_init_config: dict[str, Any] | None = None)
+
+   Initialize Ray with the given configuration.
+
+   In multi-process scenarios, this function still may create multiple
+   ray instances because ray.is_initialized() seems to not be process-safe.
+   If in such scenarios, please start ray from command line!
+
+
+
+.. py:exception:: RayActorDiedError
+
+   Bases: :py:obj:`Exception`
+
+
+   Exception raised when a Ray actor has died unexpectedly.
+
+
+.. py:exception:: RayActorNotAliveError
+
+   Bases: :py:obj:`Exception`
+
+
+   Exception raised when a Ray actor is not alive.
+
+
+.. py:function:: is_ray_actor_alive(remote, timeout: int = 10, error_info: dict | None = None) -> bool
+
+   Check if a Ray actor is alive within a timeout period.
+
+   If the actor is died, it raises a RayActorDiedError.
+
+
+.. py:class:: RayRemoteClassConfig(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.Config`
+
+
+   Base class for configuration classes.
+
+
+   .. py:attribute:: num_cpus
+      :type:  float | int | None
+      :value: 0.5
+
+
+      Number of CPU cores to allocate to the remote actor.
+
+
+   .. py:attribute:: num_gpus
+      :type:  float | int | None
+      :value: None
+
+
+      Number of GPUs to allocate to the remote actor.
+
+
+   .. py:attribute:: memory
+      :type:  int
+      :value: 1073741824
+
+
+      heap memory request in bytes. Default to 1GB.
+
+
+   .. py:attribute:: runtime_env
+      :type:  dict[str, Any] | None
+      :value: None
+
+
+      The runtime environment for the remote actor.
+
+      See https://docs.ray.io/en/latest/ray-core/handling-dependencies.html#concepts
+
+
+.. py:class:: RayRemoteInstanceConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`T`\ ], :py:obj:`typing_extensions.Generic`\ [\ :py:obj:`T`\ , :py:obj:`ClassConfigType_co`\ ]
+
+
+   Configuration for creating a Ray remote instance.
+
+   Template parameters:
+       T: The type of the remote instance.
+       ClassConfigType_co: The type of the configuration for the class to be instantiated remotely.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType[T]
+
+
+   .. py:attribute:: remote_class_config
+      :type:  RayRemoteClassConfig
+
+      The configuration for the remote class.
+
+
+   .. py:attribute:: ray_init_config
+      :type:  dict[str, Any] | None
+      :value: None
+
+
+      The configuration for initializing Ray. If None, use default.
+
+
+   .. py:attribute:: check_init_timeout
+      :type:  int
+      :value: 60
+
+
+      Timeout in seconds for checking if the remote actor is initialized.
+
+
+   .. py:attribute:: instance_config
+      :type:  robo_orchard_core.utils.config.ConfigInstanceOf[ClassConfigType_co]
+
+
+.. py:class:: RayRemoteInstance(cfg: RayRemoteInstanceConfig, **kwargs)
+
+   Bases: :py:obj:`typing_extensions.Generic`\ [\ :py:obj:`T`\ ]
+
+
+   A class that manages a Ray remote actor instance.
+
+
+   .. py:attribute:: cfg
+      :type:  RayRemoteInstanceConfig[RayRemoteInstance, robo_orchard_core.utils.config.ClassConfig[T]]
+
+
+   .. py:attribute:: remote_cls
+      :type:  Any
+
+      The Ray remote class.
+
+
+   .. py:property:: remote
+      :type: ray.actor.ActorProxy[T]
+
+
+      Get the Ray remote actor instance.
+
+      :raises RayActorNotAliveError: If the Ray actor is not alive.
+
+

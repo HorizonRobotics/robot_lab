@@ -1,0 +1,439 @@
+config
+======
+
+.. py:module:: robo_orchard_core.utils.config
+
+.. autoapi-nested-parse::
+
+   Configuration class that extends Pydantic's model type.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.config.logger
+   robo_orchard_core.utils.config.T
+   robo_orchard_core.utils.config.T_co
+   robo_orchard_core.utils.config.T_contra
+   robo_orchard_core.utils.config.V
+   robo_orchard_core.utils.config.TYPE_LIST
+   robo_orchard_core.utils.config.PYDANTIC_CONFIGCLASS
+   robo_orchard_core.utils.config.TOML_NULL
+   robo_orchard_core.utils.config.ClassType_co
+   robo_orchard_core.utils.config.ClassType
+   robo_orchard_core.utils.config.CallableType
+   robo_orchard_core.utils.config.SliceType
+   robo_orchard_core.utils.config.TorchTensor
+   robo_orchard_core.utils.config.NumpyTensor
+   robo_orchard_core.utils.config.ConfigT
+   robo_orchard_core.utils.config.ConfigInstanceOf
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.config.Config
+   robo_orchard_core.utils.config.ClassConfig
+   robo_orchard_core.utils.config.CallableConfig
+   robo_orchard_core.utils.config.ClassInitFromConfigMixin
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.config.is_lambda_expression
+   robo_orchard_core.utils.config.callable_to_string
+   robo_orchard_core.utils.config.string_to_callable
+   robo_orchard_core.utils.config.load_config_class
+   robo_orchard_core.utils.config.load_from
+   robo_orchard_core.utils.config.add_cfg_type_ser_wrap
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:data:: T
+
+.. py:data:: T_co
+
+.. py:data:: T_contra
+
+.. py:data:: V
+
+.. py:data:: TYPE_LIST
+
+.. py:data:: PYDANTIC_CONFIGCLASS
+
+.. py:data:: TOML_NULL
+   :value: 'null'
+
+
+.. py:function:: is_lambda_expression(name: str) -> bool
+
+   Checks if the input string is a lambda expression.
+
+   A copy of omni.isaac.lab.utils.config.is_lambda_expression.
+
+   :param name: The input string.
+
+   :returns: Whether the input string is a lambda expression.
+
+
+.. py:function:: callable_to_string(value: typing_extensions.Callable) -> str
+
+   Converts a callable object to a string.
+
+   A copy of omni.isaac.lab.utils.config.callable_to_string.
+
+   .. note::
+
+      This function only works for the following types of callable objects:
+      - Class type
+      - Function type, should be imported from a module.
+      - Lambda function, should be defined in the same file. Once lambda
+      function is deserialized from string, this function will not work!
+
+   :param value: A callable object.
+
+   :raises ValueError: When the input argument is not a callable object.
+
+   :returns: A string representation of the callable object.
+   :rtype: str
+
+
+.. py:function:: string_to_callable(name: str) -> typing_extensions.Callable
+
+   Resolves the module and function names to return the function.
+
+   A copy of omni.isaac.lab.utils.config.string_to_callable.
+
+   :param name: The function name. The format should be 'module:attribute_name'
+                or a lambda expression of format: 'lambda x: x'.
+
+   .. note::
+
+      This function only works for the following types of callable objects:
+      
+      - Class type
+      - Function type, should be imported from a module.
+      - Lambda function, should be defined in the same file. Once lambda
+        function is deserialized from string, this function will
+        not work!
+
+   :raises ValueError: When the resolved attribute is not a function.
+   :raises ValueError: When the module cannot be found.
+
+   :returns: The function loaded from the module.
+
+
+.. py:data:: ClassType_co
+
+.. py:data:: ClassType
+
+.. py:data:: CallableType
+
+.. py:data:: SliceType
+
+.. py:data:: TorchTensor
+
+.. py:data:: NumpyTensor
+
+.. py:class:: Config(/, **data: Any)
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+
+   Base class for configuration classes.
+
+
+   .. py:attribute:: model_config
+
+      Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
+
+
+   .. py:method:: wrapped_model_ser(handler: pydantic.SerializerFunctionWrapHandler, info: pydantic.SerializationInfo)
+
+      Serializes the configuration to a dictionary.
+
+      This wrapper function is used when the configuration is serialized.
+      It adds the `__config_type__` key to the dictionary.
+
+      `__config_type__` is the string representation of the class type. It
+      is used to determine the class type when deserializing the JSON string
+      instead of using pydantic's default behavior.
+
+      If a configuration class does not need the `__config_type__` key, set
+      `__exclude_config_type__` to True in the configuration class.
+
+      For builtin types, the `__config_type__` key will not be added to the
+      dictionary.
+
+      The `context` argument in the `model_dump` method is used to
+      determine whether to include the `__config_type__` key in the
+      serialized dictionary. If context['exclude_config_type'] is True,
+      the `__config_type__` key will not be added to the dictionary.
+
+
+
+
+   .. py:method:: wrapped_model_val(data: Any, handler: pydantic.ValidatorFunctionWrapHandler)
+      :classmethod:
+
+
+
+   .. py:method:: model_post_init(*args, **kwargs)
+
+      Post init method for the model.
+
+      Perform additional initialization after __init__ and model_construct.
+      This is useful if you want to do some validation that requires the
+      entire model to be initialized.
+
+      To be consistent with configclass, this method is implemented by
+      calling the `__post_init__` method.
+
+
+
+
+   .. py:method:: to_dict(mode: Literal['python', 'json'] = 'python', exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, include_config_type: bool = False, **kwargs) -> dict
+
+      Converts the configuration to a dictionary.
+
+      This method will call pydanitc's `model_dump` method to convert the
+      configuration to a dictionary. The `__config_type__` key will be added
+      to the dictionary if `include_config_type` is True.
+
+      .. note::
+
+         This method is not designed for serialization. Use the
+         :py:meth:`to_str` method for serialization!
+
+      :param mode: The mode of the output
+                   dictionary. If 'python', the output will be a Python
+                   dictionary. If 'json', the output will be a JSON serializable
+                   dictionary. Default is 'python'.
+      :type mode: Literal["python", "json"]
+      :param exclude_unset: Whether to exclude unset values from the
+                            dictionary. Default is False.
+      :type exclude_unset: bool
+      :param exclude_defaults: Whether to exclude default values from the
+                               dictionary. Default is False.
+      :type exclude_defaults: bool
+      :param exclude_none: Whether to exclude None values from the
+                           dictionary. Default is False.
+      :type exclude_none: bool
+      :param include_config_type: Whether to include the
+                                  `__config_type__` key in the dictionary. If False, the
+                                  deserialization will use the class type defined in the class
+                                  annotation, not the acaual deserialized class type! This will
+                                  break the consistency of serialization and deserialization.
+                                  Default is False.
+      :type include_config_type: bool
+
+
+
+   .. py:method:: to_str(format: Literal['json', 'toml', 'yaml'] = 'json', exclude_unset: bool = False, exclude_defaults: bool = False, exclude_none: bool = False, include_config_type: bool = True, round_trip: bool = False, **kwargs) -> str
+
+      Converts the configuration to a string.
+
+      Different from the `to_dict` method, this method adds the
+      '__config_type__' key to the dictionary and converts the dictionary
+      to a string by default.
+
+      For config that does not need '__config_type__' key, set
+      `__exclude_config_type__` to True in the config class or
+      set `include_config_type` to False in the method call.
+
+      :param format: The format of the output string. Can be 'json',
+                     'yaml' or 'toml'. Default is 'json'.
+      :type format: str
+      :param exclude_unset: Whether to exclude unset values from the
+                            dictionary. Default is False.
+      :type exclude_unset: bool
+      :param exclude_defaults: Whether to exclude default values from the
+                               dictionary. Default is False.
+      :type exclude_defaults: bool
+      :param exclude_none: Whether to exclude None values from the
+                           dictionary. Default is False.
+      :type exclude_none: bool
+      :param include_config_type: Whether to include the
+                                  `__config_type__` key in the string. If False, the
+                                  deserialization will use the class type defined in the class
+                                  annotation, not the actual deserialized class type! This will
+                                  break the consistency of serialization and deserialization.
+                                  Default is True.
+      :type include_config_type: bool
+      :param round_trip: If True, the serialization will
+                         preserve the original data types as much as possible. This is
+                         useful for round-trip serialization and deserialization.
+                         Default is False.
+      :type round_trip: bool, optional
+      :param \*\*kwargs: Additional keyword arguments to be passed to the
+                         serialization method :meth:`BaseModel.model_dump_json`.
+
+      :returns: The string representation of the configuration.
+      :rtype: str
+
+
+
+   .. py:method:: from_dict(data: dict, **kwargs) -> typing_extensions.Self
+      :classmethod:
+
+
+
+   .. py:method:: from_str(data: str, format: Literal['json', 'toml', 'yaml'] = 'json', **kwargs) -> typing_extensions.Self
+      :classmethod:
+
+
+      Creates a configuration object from a string.
+
+      If the input string is not in JSON format, it will be converted to a
+      JSON string before deserialization.
+
+      :param data: The input string data.
+      :type data: str
+      :param format: The format of the input string. Can be 'json',
+                     'yaml' or 'toml'. Default is 'json'.
+      :type format: str
+      :param \*\*kwargs: Additional keyword arguments to be passed to the
+                         deserialization method :meth:`BaseModel.model_validate_json`.
+
+
+
+   .. py:method:: copy() -> typing_extensions.Self
+
+      Returns a copy of the configuration.
+
+
+
+   .. py:method:: replace(**kwargs) -> typing_extensions.Self
+
+
+   .. py:method:: content_equal(other: typing_extensions.Self) -> bool
+
+      Check if the content of the configuration is equal to another.
+
+      This method relies on the `to_json` method to convert the
+      configuration to json dictionaries and compare them.
+
+
+
+.. py:class:: ClassConfig(/, **data: Any)
+
+   Bases: :py:obj:`Config`, :py:obj:`Generic`\ [\ :py:obj:`T_co`\ ]
+
+
+   Configuration for a class type.
+
+   This configuration class is used to store the initialization data
+   for a class type.
+
+
+
+   .. py:attribute:: class_type
+      :type:  ClassType_co[T_co]
+
+
+   .. py:method:: create_instance_by_kwargs(*args, **kwargs) -> T_co
+
+      Creates an instance of the class type.
+
+      This method is used to create an instance of the class type by
+      passing the keyword arguments from the configuration data to the
+      class constructor.
+
+      The returned instance will be initialized with the configuration data.
+
+      :param \*args: Additional positional arguments to be passed to the class
+                     constructor.
+      :param \*\*kwargs: Additional keyword arguments to be passed to the class
+                         constructor. These will override the configuration data.
+
+      :returns: An instance of the class type.
+      :rtype: T
+
+
+
+   .. py:method:: create_instance_by_cfg(*args, **kwargs) -> T_co
+
+      Creates an instance of the class type.
+
+      This method is used to create an instance of the class type by
+      passing the configuration object, not the keyword arguments.
+      Any positional arguments will be passed to the class constructor after
+      the configuration object.
+
+      :param \*args: Additional positional arguments to be passed to the class
+                     constructor after the configuration object.
+      :param \*\*kwargs: Additional keyword arguments to be passed to the class
+                         constructor. These will override the configuration data.
+
+      :returns: An instance of the class type.
+      :rtype: T
+
+
+
+.. py:class:: CallableConfig(/, **data: Any)
+
+   Bases: :py:obj:`Config`, :py:obj:`Generic`\ [\ :py:obj:`T_co`\ ]
+
+
+   Configuration for a callable type.
+
+   This configuration class is used to store parameters for a callable type.
+
+
+
+
+   .. py:attribute:: func
+      :type:  CallableType[Ellipsis, T_co]
+
+
+.. py:data:: ConfigT
+
+.. py:function:: load_config_class(data: str | dict, format: Literal['json', 'toml', 'yaml'] = 'json') -> Any
+
+   Loads the configuration class from a JSON string or dictionary.
+
+   :param data: The string data or dictionary.
+   :type data: str | dict
+   :param format: The format of the string input data. Can be 'json',
+                  'yaml' or 'toml'. Default is 'json'.
+   :type format: str
+
+
+.. py:function:: load_from(path: str, ensure_type: None = None) -> Any
+                 load_from(path: str, ensure_type: type[ConfigT]) -> ConfigT
+
+   Loads the configuration class from a file.
+
+
+.. py:class:: ClassInitFromConfigMixin
+
+   Mixin class for the configuration class that initializes from config.
+
+
+   .. py:attribute:: InitFromConfig
+      :type:  bool
+      :value: True
+
+
+
+.. py:function:: add_cfg_type_ser_wrap(v: Any, nxt: pydantic.SerializerFunctionWrapHandler) -> Any
+
+   Wraps the serialization function to add the `__config_type__` key.
+
+
+.. py:data:: ConfigInstanceOf
+
+   Type annotation template for any config class instance.
+

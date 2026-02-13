@@ -1,0 +1,23 @@
+events
+======
+
+.. py:module:: robo_orchard_core.envs.managers.events
+
+.. autoapi-nested-parse::
+
+   The managers to handle the events in the environment.
+
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_core/envs/managers/events/event_manager/index
+   /autoapi/robo_orchard_core/envs/managers/events/event_term/index
+
+

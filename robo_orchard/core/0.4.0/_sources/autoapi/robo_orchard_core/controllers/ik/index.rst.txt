@@ -1,0 +1,111 @@
+ik
+==
+
+.. py:module:: robo_orchard_core.controllers.ik
+
+.. autoapi-nested-parse::
+
+   The config and base class of IK Controller.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.controllers.ik.IKControllerConfigType_co
+   robo_orchard_core.controllers.ik.IKControllerBaseType_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.controllers.ik.IKControllerBase
+   robo_orchard_core.controllers.ik.IKControllerConfig
+
+
+Module Contents
+---------------
+
+.. py:data:: IKControllerConfigType_co
+
+.. py:class:: IKControllerBase(cfg: IKControllerConfigType_co, env: robo_orchard_core.envs.env_base.EnvType_co | None)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`, :py:obj:`Generic`\ [\ :py:obj:`IKControllerConfigType_co`\ , :py:obj:`robo_orchard_core.envs.env_base.EnvType_co`\ ]
+
+
+   The Inverse Kinematics Controller abstraction.
+
+   Implementations of subclasses should provide:
+
+   - set_goal: Set the target end-effector goal for the controller.
+   - calculate: Calculate the joint angles to reach the goal.
+
+   Template Args:
+       IKControllerConfigType_co: The type of the configuration class.
+       EnvType_co: The type of the environment class.
+
+
+
+   .. py:method:: set_goal(target_pos: torch.Tensor, target_quat: torch.Tensor) -> None
+
+      Set the target body goal for the controller.
+
+      .. note::
+
+         The target position and quaternion should be in the root frame, NOT
+         the world frame!
+
+      :param target_pos: The target position of the body.
+                         It should be a tensor of shape (num_envs, 3).
+      :type target_pos: torch.Tensor
+      :param target_quat: The target quaternion of
+                          the body. It should be a tensor of shape (num_envs, 4).
+      :type target_quat: torch.Tensor
+
+
+
+   .. py:method:: calculate(cur_body_pos: torch.Tensor, cur_bocy_quat: torch.Tensor) -> torch.Tensor
+      :abstractmethod:
+
+
+      Calculate the joint angles to reach the goal.
+
+      :param cur_body_pos: The current position of the body.
+      :type cur_body_pos: torch.Tensor
+      :param cur_body_quat: The current quaternion of the body.
+      :type cur_body_quat: torch.Tensor
+
+      :returns: The joint angles to reach the goal.
+      :rtype: torch.Tensor
+
+
+
+.. py:data:: IKControllerBaseType_co
+
+.. py:class:: IKControllerConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`IKControllerBaseType_co`\ ]
+
+
+   The base configuration for the IK Controller.
+
+   Template Args:
+       IKControllerBaseType_co: The type of the IK controller class.
+
+
+   .. py:attribute:: num_envs
+      :type:  int
+
+      The number of environments.
+
+
+   .. py:attribute:: device
+      :type:  str
+
+      The device to use for torch tensors.
+
+

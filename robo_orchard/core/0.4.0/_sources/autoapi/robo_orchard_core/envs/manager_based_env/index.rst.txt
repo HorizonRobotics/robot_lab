@@ -1,0 +1,266 @@
+manager_based_env
+=================
+
+.. py:module:: robo_orchard_core.envs.manager_based_env
+
+.. autoapi-nested-parse::
+
+   The environment class which use term managers to interact.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.manager_based_env.logger
+   robo_orchard_core.envs.manager_based_env.TermManagerBasedEnvCfgType_co
+   robo_orchard_core.envs.manager_based_env.TermManagerBasedEnvType_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.manager_based_env.ResetEvent
+   robo_orchard_core.envs.manager_based_env.StepEvent
+   robo_orchard_core.envs.manager_based_env.TermManagerBasedEnv
+   robo_orchard_core.envs.manager_based_env.TermManagerBasedEnvCfg
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:data:: TermManagerBasedEnvCfgType_co
+
+.. py:class:: ResetEvent(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.events.EventMsg`
+
+
+   The reset event message.
+
+   The reset event message is used to trigger the reset event.
+
+
+
+   .. py:attribute:: env_ids
+      :type:  collections.abc.Sequence[int] | None
+
+
+   .. py:attribute:: seed
+      :type:  Optional[int]
+      :value: None
+
+
+
+.. py:class:: StepEvent(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.events.EventMsg`
+
+
+   The step event message.
+
+   The step event message is used to trigger the step event.
+
+
+
+   .. py:attribute:: step_id
+      :type:  int
+
+      The step id.
+
+      If the environment is a vectorized environment, the step id
+      is the global step id of vectorized the environment. There may be
+      multiple different step ids for each environment instance of the
+      vectorized environment.
+
+
+   .. py:attribute:: step_time
+      :type:  float
+
+      The step time of the environment in seconds.
+
+      The step time is the time elapsed since last step.
+
+
+.. py:class:: TermManagerBasedEnv(cfg: TermManagerBasedEnvCfgType_co)
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvBase`\ [\ :py:obj:`robo_orchard_core.envs.managers.observations.ObsReturnType`\ , :py:obj:`robo_orchard_core.envs.env_base.RewardsType`\ ], :py:obj:`Generic`\ [\ :py:obj:`TermManagerBasedEnvCfgType_co`\ , :py:obj:`robo_orchard_core.envs.env_base.RewardsType`\ ]
+
+
+   The environment class which use term managers to interact.
+
+   This class provides the basic structure and template for environments
+   and term managers to interact with each other.
+
+   There are three term managers in the environment:
+
+   - Observation manager: The observation manager generates the observations
+       of the environment.
+   - Action manager: The action manager processes the actions from the agents.
+   - Event manager: The event manager processes the events from the
+       environment.
+
+   The environment class also defines the basic event topics:
+
+   - START_UP: The start up event message. This event is triggered when the
+       environment creation is completed.
+   - RESET: The reset event message. This event is triggered when the
+       environment finishes resetting.
+   - STEP: The step event message. This event is triggered when the
+       environment steps. Specifically, the step event is triggered after
+       the environment scene is updated.
+
+   .. note:: The event notification should be implemented in the inherited class!
+
+
+   .. py:attribute:: START_UP
+      :type:  tuple[str, type[robo_orchard_core.envs.managers.events.EventMsg]]
+
+
+   .. py:attribute:: RESET
+      :type:  tuple[str, type[ResetEvent]]
+
+
+   .. py:attribute:: STEP
+      :type:  tuple[str, type[StepEvent]]
+
+
+   .. py:attribute:: cfg
+
+
+   .. py:property:: observation_space
+      :type: gymnasium.spaces.Dict
+
+
+      The observation space of the environment.
+
+      :returns:
+
+                The observation space of the
+                    environment.
+      :rtype: gym.spaces.Dict
+
+
+   .. py:property:: action_space
+      :type: gymnasium.spaces.Dict
+
+
+      The action space of the environment.
+
+      :returns:
+
+                The action space of the
+                    environment.
+      :rtype: gym.spaces.Dict
+
+
+   .. py:property:: event_topics
+      :type: set[str]
+
+
+
+   .. py:method:: step(actions: dict[str, torch.Tensor] | None) -> robo_orchard_core.envs.env_base.EnvStepReturn[robo_orchard_core.envs.managers.observations.ObsReturnType, robo_orchard_core.envs.env_base.RewardsType]
+      :abstractmethod:
+
+
+      Execute one step of the environment.
+
+      The step function is the main function to interact with the
+      environment. One step takes an action as input, and returns the
+      observations of the environment.
+
+      The process of the step function is as follows:
+
+      1. Process the action.
+      2. Apply the action to the environment.
+      3. Update the state of the environment.
+      4. Notify the step event.
+      5. Return the observations.
+
+      Example implementation:
+
+      .. code-block:: python
+
+          def step(self, action):
+              if action is not None:
+                  self.action_manager.process(action)
+              self.action_manager.apply()
+              # update the state of the environment
+              ...
+              self.event_manager.notify("step", StepEvent(...))
+              return (self.observation_manager.get_observations(),)
+
+
+
+
+   .. py:method:: reset(seed: int | None = None, env_ids: collections.abc.Sequence[int] | None = None, **kwargs) -> tuple[robo_orchard_core.envs.managers.observations.ObsReturnType, dict]
+      :abstractmethod:
+
+
+      Reset the environment.
+
+      This function will call the reset function of the environment and
+      the term managers. After the reset, the reset event will be
+      triggered.
+
+      Example implementation:
+
+      .. code-block:: python
+
+              def reset(self, env_ids=None):
+                  if env_ids is None:
+                      env_ids = range(self.num_envs)
+                  # reset the environment
+                  ...
+                  # reset the managers
+                  self._reset_managers(env_ids)
+                  # return the observations
+                  return (self.observation_manager.get_observations(),)
+
+      :param env_ids: The indices of the environments to
+                      reset.
+      :type env_ids: Sequence[int] | None
+      :param \*\*kwargs: Additional keyword arguments.
+
+      :returns: The observations of the environment after reset.
+      :rtype: StepReturnType
+
+
+
+.. py:data:: TermManagerBasedEnvType_co
+
+.. py:class:: TermManagerBasedEnvCfg
+
+   Bases: :py:obj:`robo_orchard_core.envs.env_base.EnvBaseCfg`\ [\ :py:obj:`TermManagerBasedEnvType_co`\ ], :py:obj:`Generic`\ [\ :py:obj:`TermManagerBasedEnvType_co`\ ]
+
+
+   The configuration for the term manager based environment.
+
+   Template Args:
+       TermManagerBasedEnvType_co: The type of the term manager based
+           environment.
+
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType_co[TermManagerBasedEnvType_co]
+
+
+   .. py:attribute:: observations
+      :type:  robo_orchard_core.envs.managers.observations.ObservationManagerCfg
+
+
+   .. py:attribute:: actions
+      :type:  robo_orchard_core.envs.managers.actions.ActionManagerCfg[robo_orchard_core.envs.managers.actions.action_term.ActionTermCfg]
+
+
+   .. py:attribute:: events
+      :type:  robo_orchard_core.envs.managers.events.EventManagerCfg[robo_orchard_core.envs.managers.events.event_term.EventTermBaseCfg]
+
+

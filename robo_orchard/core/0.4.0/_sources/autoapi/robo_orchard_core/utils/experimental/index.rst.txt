@@ -1,0 +1,55 @@
+experimental
+============
+
+.. py:module:: robo_orchard_core.utils.experimental
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.experimental.ExperimentalWarning
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.experimental.experimental
+
+
+Module Contents
+---------------
+
+.. py:exception:: ExperimentalWarning
+
+   Bases: :py:obj:`UserWarning`
+
+
+   Custom warning for experimental features.
+
+   This warning is used to indicate that a feature is experimental
+   and may be subject to breaking changes in the future.
+   It inherits from `UserWarning` to allow for easy filtering or
+   handling by users.
+
+
+.. py:function:: experimental(fn: Callable) -> Callable
+
+   Decorator to mark a function as experimental.
+
+   Applying this decorator will issue a warning when the function is called,
+   indicating that the function is experimental and may change in the future.
+
+   .. code-block:: python
+
+       from robo_orchard_core.utils.experimental import experimental
+
+
+       @experimental
+       def my_experimental_function():
+           pass
+
+

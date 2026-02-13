@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:01.575** total execution time for 2 files **from build/gallery/tutorials/system_overview**:
+**00:01.582** total execution time for 2 files **from build/gallery/tutorials/system_overview**:
 
 .. container::
 
@@ -33,7 +33,7 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_build_gallery_tutorials_system_overview_nonb-01_config_design.py` (``nonb-01_config_design.py``)
-     - 00:01.575
+     - 00:01.582
      - 0.0
    * - :ref:`sphx_glr_build_gallery_tutorials_system_overview_nonb-02_env_and_managers.py` (``nonb-02_env_and_managers.py``)
      - 00:00.000

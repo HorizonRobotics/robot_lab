@@ -1,0 +1,41 @@
+managers
+========
+
+.. py:module:: robo_orchard_core.envs.managers
+
+.. autoapi-nested-parse::
+
+   The managers to interact with the environment.
+
+   `Manager` is a design pattern that handles multiple entities of the same type
+   and provides a unified interface to interact with them. For example, in the
+   context of the environment, the manager can be responsible for certain
+   aspects of the environment, such as managing the actions, observations, and
+   events.
+
+   Managers are used to manage ManagerTerms, which are the basic blocks to
+   interact with the environment. Each manager term is responsible for a specific
+   implementation, such as observations, rewards, etc.
+
+   Manager handles all activities related to the environment, and it also
+   follows the `Observer` design pattern to notify the agents about the changes
+   in the environment and trigger the events.
+
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/robo_orchard_core/envs/managers/actions/index
+   /autoapi/robo_orchard_core/envs/managers/events/index
+   /autoapi/robo_orchard_core/envs/managers/manager_base/index
+   /autoapi/robo_orchard_core/envs/managers/manager_term_base/index
+   /autoapi/robo_orchard_core/envs/managers/observations/index
+   /autoapi/robo_orchard_core/envs/managers/scene_entity_cfg/index
+
+

@@ -1,0 +1,99 @@
+ipy_cam
+=======
+
+.. py:module:: robo_orchard_core.viz.jupyter.ipy_cam
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.viz.jupyter.ipy_cam.IpyFPVCameraViz
+
+
+Module Contents
+---------------
+
+.. py:class:: IpyFPVCameraViz(height: int, width: int, local_coord_axis: robo_orchard_core.utils.math.coord_convention.CoordAxis, additional_watched_events: list[str] | None = None, canvas: ipycanvas.Canvas | None = None, max_fps: int = 20, initial_move_scale: float = 2.5, forward_sensitivity: float = 0.01, translation_sensitivity: float = 1.0, rotation_sensitivity: float = 0.1)
+
+   Bases: :py:obj:`robo_orchard_core.viz.jupyter.base_viz.BaseIpyViz`, :py:obj:`robo_orchard_core.viz.cam.CameraMoveMixin`, :py:obj:`robo_orchard_core.viz.cam.CameraMixin`
+
+
+   A first person view camera visualization in Jupyter notebook.
+
+   Camera control:
+       - Left click and drag to rotate the camera.
+       - Right click and drag to move the camera.
+       - Scroll to move forward/backward.
+       - Ctrl + scroll to change move scale.
+
+   :param height: The height of the canvas.
+   :type height: int
+   :param width: The width of the canvas.
+   :type width: int
+   :param local_coord_axis: The local coordinate axis of the camera.
+   :type local_coord_axis: CoordAxis
+   :param additional_watched_events: The list of additional
+                                     watched events. Default is None.
+   :type additional_watched_events: list[str]|None
+   :param canvas: The canvas to render the camera view. If None,
+                  a new canvas will be created. Default is None.
+   :type canvas: Canvas | None
+   :param max_fps: The maximum frame per second. Default is 20.
+   :type max_fps: int
+   :param initial_move_scale: The initial move scale. Default is 2.5.
+   :type initial_move_scale: float
+   :param forward_sensitivity: The sensitivity of moving
+                               forward/backward. Default is 0.01.
+   :type forward_sensitivity: float
+   :param translation_sensitivity: The sensitivity of translation.
+                                   Default is 1.0.
+   :type translation_sensitivity: float
+   :param rotation_sensitivity: The sensitivity of rotation.
+                                Default is 0.1.
+   :type rotation_sensitivity: float
+
+
+   .. py:attribute:: move_scale
+      :value: 2.5
+
+
+
+   .. py:attribute:: forward_sensitivity
+      :value: 0.01
+
+
+
+   .. py:attribute:: translation_sensitivity
+      :value: 1.0
+
+
+
+   .. py:attribute:: rotation_sensitivity
+      :value: 0.1
+
+
+
+   .. py:method:: display()
+
+      Display the canvas and output.
+
+      This function should only be called in Jupyter notebook.
+
+
+
+   .. py:method:: increase_move_scale(amount: float)
+
+      Increase the move scale by the given amount.
+
+
+
+   .. py:method:: get_pose_view_world() -> robo_orchard_core.datatypes.geometry.BatchPose6D
+      :abstractmethod:
+
+
+      Get the camera pose in the world frame.
+
+
+

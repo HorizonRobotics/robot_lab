@@ -1,0 +1,163 @@
+se3
+===
+
+.. py:module:: robo_orchard_core.utils.math.transform.se3
+
+.. autoapi-nested-parse::
+
+   SE(3) transformation functions.
+
+   This file is copied from pytorch3d.transforms.se3.py to follow the column-major
+   convention of rotation matrix.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.math.transform.se3.se3_exp_map
+   robo_orchard_core.utils.math.transform.se3.se3_log_map
+
+
+Module Contents
+---------------
+
+.. py:function:: se3_exp_map(log_transform: torch.Tensor, eps: float = 0.0001) -> torch.Tensor
+
+   se(3) Exponential Map.
+
+   Convert a batch of logarithmic representations of SE(3) matrices `log_transform`
+   to a batch of 4x4 SE(3) matrices using the exponential map.
+   See e.g. [1], Sec 9.4.2. for more detailed description.
+
+   A SE(3) matrix has the following form:
+
+   .. code-block:: text
+
+       [ R T ]
+       [ 0 1 ]
+
+   where `R` is a 3x3 rotation matrix and `T` is a 3-D translation vector.
+   SE(3) matrices are commonly used to represent rigid motions or camera extrinsics.
+
+   In the SE(3) logarithmic representation SE(3) matrices are
+   represented as 6-dimensional vectors `[log_translation | log_rotation]`,
+   i.e. a concatenation of two 3D vectors `log_translation` and `log_rotation`.
+
+   The conversion from the 6D representation to a 4x4 SE(3) matrix `transform`
+   is done as follows:
+
+   .. code-block:: text
+
+       transform = exp( [ hat(log_rotation) log_translation ]
+                        [   0                    1          ] )
+
+   where `exp` is the matrix exponential and `hat` is the Hat operator [2].
+
+   Note that for any `log_transform` with `0 <= ||log_rotation|| < 2pi`
+   (i.e. the rotation angle is between 0 and 2pi), the following identity holds:
+
+   .. code-block:: text
+
+       se3_log_map(se3_exponential_map(log_transform)) == log_transform
+
+   The conversion has a singularity around `||log(transform)|| = 0`
+   which is handled by clamping controlled with the `eps` argument.
+
+   .. note::
+
+      Different from pytorch3d, the rotation is represented in column-major
+      convention, which means the SE(3) matrix has the following form:
+      
+      .. code-block:: text
+      
+          [ R T ]
+          [ 0 1 ]
+
+   :param log_transform: Batch of vectors of shape `(minibatch, 6)`.
+   :param eps: A threshold for clipping the squared norm of the rotation logarithm
+               to avoid unstable gradients in the singular case.
+
+   :returns: Batch of transformation matrices of shape `(minibatch, 4, 4)`.
+
+   :raises ValueError if `log_transform` is of incorrect shape.:
+
+   [1] https://jinyongjeong.github.io/Download/SE3/jlblanco2010geometry3d_techrep.pdf
+
+   [2] https://en.wikipedia.org/wiki/Hat_operator
+
+
+.. py:function:: se3_log_map(transform: torch.Tensor, eps: float = 0.0001, cos_bound: float = 0.0001) -> torch.Tensor
+
+   SE(3) logarithm Map.
+
+   Convert a batch of 4x4 transformation matrices `transform`
+   to a batch of 6-dimensional SE(3) logarithms of the SE(3) matrices.
+   See e.g. [1], Sec 9.4.2. for more detailed description.
+
+   A SE(3) matrix has the following form:
+
+   .. code-block:: text
+
+       [ R T ]
+       [ 0 1 ]
+
+   where `R` is an orthonormal 3x3 rotation matrix and `T` is a 3-D translation vector.
+   SE(3) matrices are commonly used to represent rigid motions or camera extrinsics.
+
+   In the SE(3) logarithmic representation SE(3) matrices are
+   represented as 6-dimensional vectors `[log_translation | log_rotation]`,
+   i.e. a concatenation of two 3D vectors `log_translation` and `log_rotation`.
+
+   The conversion from the 4x4 SE(3) matrix `transform` to the
+   6D representation `log_transform = [log_translation | log_rotation]`
+   is done as follows:
+
+   .. code-block:: python
+
+       log_transform = log(transform)
+       log_translation = log_transform[:3, 3]
+       log_rotation = inv_hat(log_transform[:3, :3])
+
+   where `log` is the matrix logarithm
+   and `inv_hat` is the inverse of the Hat operator [2].
+
+   Note that for any valid 4x4 `transform` matrix, the following identity holds:
+
+   .. code-block:: text
+
+       se3_exp_map(se3_log_map(transform)) == transform
+
+   The conversion has a singularity around `(transform=I)` which is handled
+   by clamping controlled with the `eps` and `cos_bound` arguments.
+
+   .. note::
+
+      Different from pytorch3d, the rotation is represented in column-major
+      convention, which means the SE(3) matrix has the following form:
+      
+      .. code-block:: text
+      
+          [ R T ]
+          [ 0 1 ]
+
+   :param transform: batch of SE(3) matrices of shape `(minibatch, 4, 4)`.
+   :param eps: A threshold for clipping the squared norm of the rotation logarithm
+               to avoid division by zero in the singular case.
+   :param cos_bound: Clamps the cosine of the rotation angle to
+                     [-1 + cos_bound, 3 - cos_bound] to avoid non-finite outputs.
+                     The non-finite outputs can be caused by passing small rotation angles
+                     to the `acos` function in `so3_rotation_angle` of `so3_log_map`.
+
+   :returns: Batch of logarithms of input SE(3) matrices of shape `(minibatch, 6)`.
+
+   :raises ValueError if `transform` is of incorrect shape.:
+   :raises ValueError if `R` has an unexpected trace.:
+
+   [1] https://jinyongjeong.github.io/Download/SE3/jlblanco2010geometry3d_techrep.pdf
+
+   [2] https://en.wikipedia.org/wiki/Hat_operator
+
+

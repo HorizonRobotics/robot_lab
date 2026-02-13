@@ -1,0 +1,104 @@
+remote
+======
+
+.. py:module:: robo_orchard_core.policy.remote
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.policy.remote.RemotePolicy
+   robo_orchard_core.policy.remote.RemotePolicyConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: RemotePolicy(cfg: RemotePolicyConfig, observation_space: gymnasium.Space | None = None, action_space: gymnasium.Space | None = None)
+
+   Bases: :py:obj:`robo_orchard_core.utils.ray.RayRemoteInstance`\ [\ :py:obj:`robo_orchard_core.policy.base.PolicyMixin`\ ], :py:obj:`robo_orchard_core.policy.base.PolicyMixin`
+
+
+   The policy class which runs the policy in ray remote actor.
+
+   :param cfg: The configuration for the Ray policy.
+   :type cfg: RayPolicyConfig
+   :param observation_space: The observation space of the
+                             policy. Default is None.
+   :type observation_space: gym.Space | None
+   :param action_space: The action space of the policy.
+                        Default is None.
+   :type action_space: gym.Space | None
+
+   :raises RayActorNotAliveError: If the Ray actor fails to be alive within the
+       specified timeout.
+
+
+   .. py:attribute:: cfg
+      :type:  RemotePolicyConfig
+
+
+   .. py:method:: act(*args, **kwargs) -> Any
+
+      Return an action based on the given observation.
+
+      :param obs: The observation from the environment.
+
+      :returns: An action or a callable that returns an action.
+
+
+
+   .. py:method:: async_act(*args, **kwargs) -> concurrent.futures.Future
+
+
+   .. py:method:: reset(*args, **kwargs) -> Any
+
+      Reset the policy to its initial state.
+
+      This method is called at the beginning of an episode or when the
+      environment is reset. It allows the policy to prepare for a new
+      sequence of observations and actions.
+
+
+
+   .. py:method:: async_reset(*args, **kwargs) -> concurrent.futures.Future
+
+
+.. py:class:: RemotePolicyConfig
+
+   Bases: :py:obj:`robo_orchard_core.policy.base.PolicyConfig`\ [\ :py:obj:`RemotePolicy`\ ], :py:obj:`robo_orchard_core.utils.ray.RayRemoteInstanceConfig`\ [\ :py:obj:`RemotePolicy`\ , :py:obj:`robo_orchard_core.policy.base.PolicyConfigType_co`\ ], :py:obj:`Generic`\ [\ :py:obj:`robo_orchard_core.policy.base.PolicyConfigType_co`\ ]
+
+
+   Abstract base class for generic types.
+
+   A generic type is typically declared by inheriting from
+   this class parameterized with one or more type variables.
+   For example, a generic mapping type might be defined as::
+
+     class Mapping(Generic[KT, VT]):
+         def __getitem__(self, key: KT) -> VT:
+             ...
+         # Etc.
+
+   This class can then be used as follows::
+
+     def lookup_name(mapping: Mapping[KT, VT], key: KT, default: VT) -> VT:
+         try:
+             return mapping[key]
+         except KeyError:
+             return default
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType[RemotePolicy]
+
+
+   .. py:attribute:: instance_config
+      :type:  robo_orchard_core.utils.config.ConfigInstanceOf[robo_orchard_core.policy.base.PolicyConfigType_co]
+
+
+   .. py:method:: as_remote(remote_class_config: robo_orchard_core.utils.ray.RayRemoteClassConfig | None = None, ray_init_config: dict[str, Any] | None = None, check_init_timeout: int = 60) -> RemotePolicyConfig[robo_orchard_core.policy.base.PolicyConfigType_co]
+
+

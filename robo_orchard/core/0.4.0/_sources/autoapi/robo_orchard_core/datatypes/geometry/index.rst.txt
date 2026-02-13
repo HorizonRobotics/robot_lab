@@ -1,0 +1,499 @@
+geometry
+========
+
+.. py:module:: robo_orchard_core.datatypes.geometry
+
+.. autoapi-nested-parse::
+
+   The geometry dataclass for 3D transformations and poses.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.datatypes.geometry.BatchPose6D
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.datatypes.geometry.BatchTransform3D
+   robo_orchard_core.datatypes.geometry.BatchPose
+   robo_orchard_core.datatypes.geometry.BatchFrameTransform
+
+
+Module Contents
+---------------
+
+.. py:class:: BatchTransform3D(*args, **kwargs)
+
+   Bases: :py:obj:`robo_orchard_core.datatypes.dataclass.DataClass`, :py:obj:`robo_orchard_core.datatypes.dataclass.TensorToMixin`
+
+
+   A batch of 3D rotation and translation transformations.
+
+   This class is used to represent a batch of 3D transformations. It is
+   useful when dealing with multiple objects or poses at once.
+
+   The transformation is represented by a 3D translation and a quaternion
+   rotation, and can be converted to a 4x4 transformation matrix.
+
+   Note: This class can only represent rotations and translations. For
+   general 3D transformations please use Transform3D_M.
+
+
+
+   .. py:attribute:: xyz
+      :type:  robo_orchard_core.utils.config.TorchTensor
+      :value: None
+
+
+      3D Translation or points. Shape is (N, 3) where N is the batch size.
+
+
+   .. py:attribute:: quat
+      :type:  robo_orchard_core.utils.config.TorchTensor
+      :value: None
+
+
+      Quaternion rotation/orientation (w, x, y, z).
+
+      Shape is (N, 4) where N is the batch size.
+
+
+   .. py:attribute:: timestamps
+      :type:  list[int] | None
+      :value: None
+
+
+      Timestamps of the camera data in nanoseconds(1e-9 seconds).
+
+
+   .. py:method:: identity(batch_size: int, device: robo_orchard_core.utils.torch_utils.Device = 'cpu') -> BatchTransform3D
+      :staticmethod:
+
+
+      Get a batch of identity transformations.
+
+      :param batch_size: The batch size.
+      :type batch_size: int
+      :param device: The device to put the tensors on.
+      :type device: Device
+
+      :returns: A batch of identity transformations.
+      :rtype: BatchTransform3D
+
+
+
+   .. py:method:: from_view(position: robo_orchard_core.utils.config.TorchTensor, look_at: robo_orchard_core.utils.config.TorchTensor, device: robo_orchard_core.utils.torch_utils.Device = 'cpu', view_convention: robo_orchard_core.utils.math.CoordConventionType = 'world') -> typing_extensions.Self
+      :classmethod:
+
+
+      Create a batch of transformations from view.
+
+      :param position: The position of the camera in local frame.
+      :type position: TorchTensor
+      :param look_at: The target to look at in local frame.
+      :type look_at: TorchTensor
+      :param view_convention: The view convention to
+                              apply.
+      :type view_convention: CoordConventionType
+
+      :returns: A batch of transformations.
+      :rtype: BatchTransform3D
+
+
+
+   .. py:property:: rot
+      :type: torch.Tensor
+
+
+
+   .. py:property:: trans
+      :type: torch.Tensor
+
+
+
+   .. py:property:: batch_size
+      :type: int
+
+
+      Get the batch size.
+
+      The batch size is the number of poses/transforms in the batch.
+
+      :returns: The batch size.
+      :rtype: int
+
+
+   .. py:method:: check_shape()
+
+      Check the shape of the translation and rotation tensors.
+
+      :raises ValueError: If the shapes of the translation and rotation tensors
+          are not valid.
+
+
+
+   .. py:method:: as_Transform3D_M() -> robo_orchard_core.utils.math.transform.transform3d.Transform3D_M
+
+      Convert the BatchTransform3D to matrix form.
+
+      :returns: A batch of Transform3D_M objects.
+      :rtype: Transform3D_M
+
+
+
+   .. py:method:: transform_points(points: torch.Tensor) -> torch.Tensor
+
+      Transform a batch of points by the batch of transformations.
+
+      :param points: A tensor of shape (N, P, 3) or (P, 3)
+                     representing the batch of points to transform. If shape is
+                     (P, 3), it will be treated as a single batch (N=1). When
+                     shape is (N, P, 3), N must match the batch size of the
+                     transformations.
+      :type points: torch.Tensor
+
+      :returns:
+
+                A tensor of shape (N, P, 3) representing
+                    the transformed points, where N is the batch size and P is
+                    the number of points.
+      :rtype: torch.Tensor
+
+
+
+   .. py:method:: cls_compose(*others)
+      :classmethod:
+
+
+
+   .. py:method:: compose(*others: typing_extensions.Self) -> typing_extensions.Self
+
+      Compose transformations with other transformations.
+
+      The transformations are applied in the order they are passed.
+      The following two lines are equivalent:
+
+      .. code-block:: python
+
+          t = t1.compose(t2, t3)
+          t = t1.compose(t2).compose(t3)
+          t = BatchFrameTransform.cls_compose(t1, t2, t3)
+
+      :param other: The other batch of transformations.
+      :type other: Self
+
+      :returns:
+
+                A new object with the
+                    composed transformations.
+      :rtype: Self
+
+
+
+   .. py:method:: subtract(other: typing_extensions.Self) -> typing_extensions.Self
+
+      Subtract transformations with another.
+
+      .. code-block:: python
+
+          t = t2.subtract(t1)
+          t_ = t2.compose(t1.inverse())
+          t == t_
+
+          t2_ = t.compose(t1)
+          t2 == t2_
+
+      :param other: The other transformation.
+      :type other: Self
+
+      :returns: The difference between the two transformations.
+      :rtype: Self
+
+
+
+   .. py:method:: inverse() -> typing_extensions.Self
+
+      Get the inverse of the transformations.
+
+      :returns: A new object with the inverse transformations.
+      :rtype: Self
+
+
+
+   .. py:method:: translate(translation: robo_orchard_core.utils.config.TorchTensor) -> typing_extensions.Self
+
+      Apply translation to the transformations.
+
+      :param translation: The translation to apply to.
+                          Shape should be (3,) or (N, 3) where N is the batch size.
+      :type translation: TorchTensor
+
+
+
+   .. py:method:: rotate(axis_angle: robo_orchard_core.utils.config.TorchTensor) -> typing_extensions.Self
+
+      Rotate the transformations by an axis-angle rotation.
+
+      :param axis_angle: The axis-angle rotation to apply to.
+                         Shape should be (3,) or (N, 3) where N is the batch size.
+      :type axis_angle: TorchTensor
+
+
+
+   .. py:method:: repeat(batch_size: int, timestamps: list[int] | None = None) -> typing_extensions.Self
+
+      Repeat the transformation with batch size 1 to batch size N.
+
+      :param batch_size: The number of times to repeat the transformation.
+      :type batch_size: int
+
+      :returns: A batch of transformations.
+      :rtype: BatchFrameTransform
+
+
+
+   .. py:method:: concat(all: Sequence[typing_extensions.Self]) -> typing_extensions.Self
+      :classmethod:
+
+
+      Concatenate two BatchTransform3D objects along batch dimension.
+
+      :param other: The other BatchTransform3D
+                    to concatenate.
+      :type other: BatchTransform3D
+
+      :returns: A new BatchTransform3D with concatenated data.
+      :rtype: BatchTransform3D
+
+
+
+.. py:class:: BatchPose(*args, **kwargs)
+
+   Bases: :py:obj:`BatchTransform3D`
+
+
+   A batch of 6D poses.
+
+   This class is used to represent a batch of 6D poses. It is useful when
+   dealing with multiple objects or poses at once.
+
+   Different from BatchTransform3D, BatchPose6D is composed of a 3D position
+   and a 3D orientation. Although the position and orientation share the
+   same underlying data in Transform3D, it is more intuitive to use the
+   position property when dealing with poses.
+
+   In addition, the Pose also has a frame_id attribute, which is used to
+   specify the coordinate frame ID of reference for the pose.
+
+
+
+   .. py:attribute:: frame_id
+      :type:  str | None
+      :value: None
+
+
+      The coordinate frame ID of reference for the pose.
+
+
+   .. py:property:: pos
+      :type: robo_orchard_core.utils.config.TorchTensor
+
+
+
+   .. py:property:: orientation
+      :type: robo_orchard_core.utils.config.TorchTensor
+
+
+
+   .. py:method:: as_BatchFrameTransform(child_frame_id: str, parent_frame_id: str | None = None) -> BatchFrameTransform
+
+      Convert the BatchPose to BatchFrameTransform.
+
+      :param child_frame_id: The coordinate frame ID of the child frame.
+      :type child_frame_id: str
+      :param parent_frame_id: The coordinate frame ID of
+                              the parent frame. If None, it will use the frame_id of the
+                              BatchPose. Defaults to None.
+      :type parent_frame_id: str | None, optional
+
+      :returns:
+
+                A BatchFrameTransform object with the same
+                    position and orientation as the BatchPose.
+      :rtype: BatchFrameTransform
+
+
+
+   .. py:method:: inverse(frame_id: str | None = None) -> typing_extensions.Self
+
+      Get the inverse of the transformations.
+
+      :param frame_id: The coordinate frame ID of the
+                       inverse pose. This argument is required if the current
+                       BatchPose has a frame_id. Defaults to None.
+      :type frame_id: str | None, optional
+
+      :returns: A new object with the inverse transformations.
+      :rtype: Self
+
+
+
+   .. py:method:: concat(all: list[typing_extensions.Self]) -> typing_extensions.Self
+      :classmethod:
+
+
+      Concatenate two BatchPose objects along batch dimension.
+
+      :param all: The BatchPose to concatenate.
+      :type all: BatchPose
+
+      :returns: A new BatchPose with concatenated data.
+      :rtype: BatchPose
+
+
+
+.. py:class:: BatchFrameTransform(*args, **kwargs)
+
+   Bases: :py:obj:`BatchTransform3D`
+
+
+   A batch of transformations between two coordinate frames in 3D space.
+
+   A transformation must specify the parent and child frames it connects,
+   and all sample should share the same parent and child frames.
+
+   The transform can also be interpreted as transformation matrix of
+   child frame to/w.r.t. parent frame.
+
+
+
+   .. py:attribute:: parent_frame_id
+      :type:  str
+
+      The coordinate frame ID of the parent frame.
+
+
+   .. py:attribute:: child_frame_id
+      :type:  str
+
+      The coordinate frame ID of the child frame.
+
+
+   .. py:method:: identity(parent_frame_id: str, child_frame_id: str, batch_size: int, device: robo_orchard_core.utils.torch_utils.Device = 'cpu') -> BatchFrameTransform
+      :staticmethod:
+
+
+      Get a batch of identity transformations.
+
+      :param batch_size: The batch size.
+      :type batch_size: int
+      :param device: The device to put the tensors on.
+      :type device: Device
+
+      :returns: A batch of identity transformations.
+      :rtype: BatchTransform3D
+
+
+
+   .. py:method:: repeat(batch_size: int, timestamps: list[int] | None = None) -> BatchFrameTransform
+
+      Repeat the transformation to create a batch of transformations.
+
+      :param batch_size: The number of times to repeat the transformation.
+      :type batch_size: int
+
+      :returns:
+
+                A batch of transformations with the same
+                    parent and child frames.
+      :rtype: BatchFrameTransform
+
+
+
+   .. py:method:: cls_compose(*others)
+      :classmethod:
+
+
+      Compose BatchFrameTransform chains.
+
+      The transformations are applied in the order they are passed.
+      The following two lines are equivalent:
+      .. code-block:: python
+
+          t = BatchFrameTransform.cls_compose(t1, t2, t3)
+          t = BatchFrameTransform.cls_compose(t1, t2).compose(t3)
+
+      The chain must be continuous from child to parent frame, which
+      means the child_frame_id of the next transform must match the
+      parent_frame_id of the previous transform.
+
+
+
+   .. py:method:: compose(*others: typing_extensions.Self) -> typing_extensions.Self
+
+      Compose BatchFrameTransform chains.
+
+      The transformations are applied in the order they are passed.
+      The following two lines are equivalent:
+      .. code-block:: python
+
+          t = t1.compose(t2, t3)
+          t = t1.compose(t2).compose(t3)
+
+      The chain must be continuous from child to parent frame, which
+      means the child_frame_id of the next transform must match the
+      parent_frame_id of the previous transform.
+
+
+
+   .. py:method:: as_BatchPose() -> BatchPose
+
+      Convert the BatchFrameTransform to BatchPose.
+
+      :returns:
+
+                A BatchPose object with the same
+                    position and orientation as the BatchFrameTransform.
+      :rtype: BatchPose
+
+
+
+   .. py:method:: inverse() -> typing_extensions.Self
+
+      Get the inverse of the transformations.
+
+      Note that this method will reverse the parent and child frame IDs.
+
+      :returns: A new object with the inverse transformations.
+      :rtype: Self
+
+
+
+   .. py:method:: concat(all: Sequence[typing_extensions.Self]) -> typing_extensions.Self
+      :classmethod:
+
+
+      Concatenate two BatchFrameTransform objects along batch dimension.
+
+      :param all: The all BatchFrameTransform
+                  to concatenate.
+      :type all: BatchFrameTransform
+
+      :returns:
+
+                A new BatchFrameTransform with concatenated
+                    data.
+      :rtype: BatchFrameTransform
+
+
+
+.. py:data:: BatchPose6D
+

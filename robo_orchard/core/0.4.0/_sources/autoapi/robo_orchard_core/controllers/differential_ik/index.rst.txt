@@ -1,0 +1,203 @@
+differential_ik
+===============
+
+.. py:module:: robo_orchard_core.controllers.differential_ik
+
+.. autoapi-nested-parse::
+
+   Differential IK Controller.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.controllers.differential_ik.DifferentialIKControllerCfgType_co
+   robo_orchard_core.controllers.differential_ik.DifferentialIKControllerType_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.controllers.differential_ik.DifferentialIKSolver
+   robo_orchard_core.controllers.differential_ik.DifferentialIKSolverConfig
+   robo_orchard_core.controllers.differential_ik.DifferentialIKController
+   robo_orchard_core.controllers.differential_ik.DifferentialIKControllerCfg
+
+
+Module Contents
+---------------
+
+.. py:class:: DifferentialIKSolver(cfg: DifferentialIKSolverConfig)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`
+
+
+   Differential Inverse Kinematics Solver.
+
+   This solver is based on the concept of differential inverse
+   kinematics [1, 2] which is a method for computing the change in joint
+   positions that yields the desired change in pose. It uses the
+   Isaac Lab implementation [3] as a reference.
+
+   .. math::
+
+       \Delta \mathbf{q} &= \mathbf{J}^{\dagger} \Delta \mathbf{x} \\
+       \mathbf{q}_{\text{desired}} &= \mathbf{q}_{\text{current}} + \
+           \Delta \mathbf{q}
+
+   where :math:`\mathbf{J}^{\dagger}` is the pseudo-inverse of the
+   Jacobian matrix :math:`\mathbf{J}`, :math:`\Delta \mathbf{x}` is the
+   desired change in pose, and :math:`\mathbf{q}_{\text{current}}` is the
+   current joint positions.
+
+   Reference:
+
+   1. `Robot Dynamics Lecture Notes <https://ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/rsl-dam/documents/RobotDynamics2017/RD_HS2017script.pdf>`_
+      by Marco Hutter (ETH Zurich)
+   2. `Introduction to Inverse Kinematics <https://www.cs.cmu.edu/~15464-s13/lectures/lecture6/iksurvey.pdf>`_
+      by Samuel R. Buss (University of California, San Diego)
+   3. Isaac Lab implementation:
+      https://github.com/isaac-sim/IsaacLab/blob/main/source/isaaclab/isaaclab/controllers/differential_ik.py
+
+
+   .. py:attribute:: cfg
+
+
+   .. py:method:: calculate_delta_joint_pos(delta_pose: torch.Tensor, jacobian: torch.Tensor) -> torch.Tensor
+
+      Computes delta joint position that yields change in target pose.
+
+      The method uses the Jacobian mapping from joint-space velocities
+      to end-effector velocities to compute the delta-change in the
+      joint-space that moves the robot closer to a desired end-effector
+      position.
+
+      :param delta_pose: The desired delta pose in shape (N, 3) or (N, 6).
+                         The delta pose is defined as the difference between the
+                         desired pose and the current pose, where the translation
+                         is :math:`\Delta \mathbf{t} = \mathbf{t}_{\text{desired}}
+                         - \mathbf{t}_{\text{current}}`, and the rotation is
+                         :math:`\Delta \mathbf{R} = ToAxisAngle(
+                         \mathbf{q}_{\text{desired}}
+                         * \mathbf{q}_{\text{current}}^{-1})`.
+      :param jacobian: The geometric jacobian matrix in shape (N, 3, num_joints)
+                       or (N, 6, num_joints).
+
+      :returns: The desired delta in joint space. Shape is (N, num-joints).
+
+
+
+.. py:class:: DifferentialIKSolverConfig
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`DifferentialIKSolver`\ ]
+
+
+   Config for the DifferentialIKSolver.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType_co[DifferentialIKSolver]
+
+
+   .. py:attribute:: ik_method
+      :type:  Literal['pinv', 'svd', 'trans', 'dls']
+
+      Method for computing inverse of Jacobian.
+
+
+   .. py:attribute:: ik_params
+      :type:  dict[str, float]
+      :value: None
+
+
+      Parameters for the inverse-kinematics method.
+
+      Defaults to None, in which case the default parameters
+      for the method are used.
+
+      - Moore-Penrose pseudo-inverse ("pinv"):
+          - "k_val": Scaling of computed delta-joint positions (default: 1.0).
+
+      - Adaptive Singular Value Decomposition ("svd"):
+          - "k_val": Scaling of computed delta-joint positions (default: 1.0).
+          - "min_singular_value": Single values less than this are suppressed to
+            zero (default: 1e-5).
+
+      - Jacobian transpose ("trans"):
+          - "k_val": Scaling of computed delta-joint positions (default: 1.0).
+
+      - Damped Moore-Penrose pseudo-inverse ("dls"):
+          - "lambda_val": Damping coefficient (default: 0.01).
+
+
+.. py:data:: DifferentialIKControllerCfgType_co
+
+.. py:class:: DifferentialIKController(cfg: DifferentialIKControllerCfgType_co, env: robo_orchard_core.envs.env_base.EnvType_co | None)
+
+   Bases: :py:obj:`robo_orchard_core.controllers.ik.IKControllerBase`\ [\ :py:obj:`DifferentialIKControllerCfgType_co`\ , :py:obj:`robo_orchard_core.envs.env_base.EnvType_co`\ ]
+
+
+   The Differential Inverse Kinematics Controller.
+
+   Implementations of subclasses should provide:
+
+   - _get_joint_positions: Get the current joint positions.
+   - _get_jacobian: Get the geometric jacobian matrix.
+
+   The controller uses a differential IK solver to calculate the joint
+   angles to reach the goal. The differential IK solver computes the
+   velocity in joint space that yields the desired velocity in the
+   end-effector/body space.
+
+   User should set a target position and quaternion using the set_goal
+   method before calling the calculate method.
+
+   .. note::
+
+      This is a very naive IK controller implementation. The target
+      position and quaternion should be close to the current position
+      and quaternion to follows the local linearization assumption!
+
+
+   .. py:method:: calculate(body_pos: torch.Tensor, body_quat: torch.Tensor) -> torch.Tensor
+
+      Calculate the joint angles to reach the goal.
+
+      .. note::
+
+         The current body position and quaternion should be in the root
+         frame, NOT the world frame!
+
+      :param body_pos: The current position of the body with
+                       respect to the root.
+      :type body_pos: torch.Tensor
+      :param body_quat: The current quaternion of the body with
+                        respect to the root.
+      :type body_quat: torch.Tensor
+
+      :returns: The joint angles.
+      :rtype: torch.Tensor
+
+
+
+.. py:data:: DifferentialIKControllerType_co
+
+.. py:class:: DifferentialIKControllerCfg
+
+   Bases: :py:obj:`robo_orchard_core.controllers.ik.IKControllerConfig`\ [\ :py:obj:`DifferentialIKControllerType_co`\ ]
+
+
+   The configuration for DifferentialIKController.
+
+
+   .. py:attribute:: diff_ik_solver_cfg
+      :type:  DifferentialIKSolverConfig
+
+      Configuration for the differential IK solver.
+
+

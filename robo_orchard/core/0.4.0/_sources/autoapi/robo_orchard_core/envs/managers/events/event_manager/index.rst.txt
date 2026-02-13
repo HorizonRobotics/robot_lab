@@ -1,0 +1,265 @@
+event_manager
+=============
+
+.. py:module:: robo_orchard_core.envs.managers.events.event_manager
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.events.event_manager.logger
+   robo_orchard_core.envs.managers.events.event_manager.EventTermConfigType_co
+   robo_orchard_core.envs.managers.events.event_manager.EventManagerConfigType_co
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.events.event_manager.UnregisteredEventChannelError
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.events.event_manager.EventChannel
+   robo_orchard_core.envs.managers.events.event_manager.EventChannelHub
+   robo_orchard_core.envs.managers.events.event_manager.EventManager
+   robo_orchard_core.envs.managers.events.event_manager.EventManagerCfg
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:data:: EventTermConfigType_co
+
+.. py:data:: EventManagerConfigType_co
+
+.. py:exception:: UnregisteredEventChannelError(topic: str)
+
+   Bases: :py:obj:`Exception`
+
+
+   Raised when an unregistered event channel is accessed.
+
+
+   .. py:attribute:: topic
+
+
+.. py:class:: EventChannel(topic: str, event_msg_type: type[robo_orchard_core.envs.managers.events.event_term.EventMsgType])
+
+   Bases: :py:obj:`robo_orchard_core.utils.hook.HookHandler`\ [\ :py:obj:`robo_orchard_core.envs.managers.events.event_term.EventTermBase`\ [\ :py:obj:`robo_orchard_core.envs.managers.events.event_term.EventMsgType`\ , :py:obj:`Any`\ , :py:obj:`Any`\ ]\ ], :py:obj:`Generic`\ [\ :py:obj:`robo_orchard_core.envs.managers.events.event_term.EventMsgType`\ ]
+
+
+   The event channel for publishing and subscribing to events.
+
+   The event channel is a communication channel for publishing and subscribing
+   to events. The event channel is identified by a topic. The subscribers can
+   subscribe to the event channel by providing a callback function. Once the
+   event is published, the subscribers will be called in the order they
+   subscribed.
+
+   Template Args:
+       EventMsgType: The type of the event message.
+
+   :param topic: The topic of the event channel.
+   :type topic: str
+
+
+   .. py:method:: subscribe(term: robo_orchard_core.envs.managers.events.event_term.EventTermBase[robo_orchard_core.envs.managers.events.event_term.EventMsgType, Any, Any]) -> robo_orchard_core.utils.hook.RemoveableHandle[Callable[[], None]]
+
+      Subscribe to the event channel.
+
+      :param term: The term to subscribe.
+      :type term: EventTermBase
+
+      :returns: The callback function to unsubscribe.
+
+      :raises ValueError: If the term's event message type does not match the
+          event channel's event message type.
+
+
+
+   .. py:method:: notify(msg: robo_orchard_core.envs.managers.events.event_term.EventMsgType) -> None
+
+      Notify the subscribers of the event channel.
+
+      The message will be sent to all the subscribers. The subscribers
+      will be called in the order they subscribed.
+
+      :param msg: The message to publish.
+      :type msg: EventMsgType
+
+
+
+   .. py:method:: unsubscribe_all() -> None
+
+      Unsubscribe all the subscribers.
+
+
+
+.. py:class:: EventChannelHub
+
+   The event channel hub for managing event channels.
+
+
+   .. py:property:: topics
+      :type: set[str]
+
+
+      Return the topics of the registered event channels.
+
+
+   .. py:method:: register_channel(topic: str, msg_type: Type[robo_orchard_core.envs.managers.events.event_term.EventMsgType]) -> EventChannel[robo_orchard_core.envs.managers.events.event_term.EventMsgType]
+
+      Register an event channel.
+
+      :param topic: The topic of the event channel.
+      :type topic: str
+      :param msg_type: The type of the event message.
+      :type msg_type: Type[EventMsgType]
+
+      :returns: The event channel.
+      :rtype: EventChannel
+
+      :raises ValueError: If msg_type is not a type.
+
+
+
+   .. py:method:: unregister_channel(topic: str) -> EventChannel | None
+
+      Unregister an event channel.
+
+
+
+   .. py:method:: subscribe(topic: str, term: robo_orchard_core.envs.managers.events.event_term.EventTermBase[robo_orchard_core.envs.managers.events.event_term.EventMsgType, Any, Any], auto_register: bool = False) -> Callable[[], None]
+
+      Subscribe to an event channel.
+
+      :param topic: The topic of the event channel.
+      :type topic: str
+      :param term: The term to subscribe.
+      :type term: EventTermBase
+      :param auto_register: Whether to automatically register the event
+                            channel if it does not exist. Defaults to False.
+      :type auto_register: bool
+
+      :returns: The callback function to unsubscribe.
+      :rtype: Callable[[], None]
+
+      :raises UnregisteredEventChannelError: If the event channel is not
+          registered and auto_register is False.
+
+
+
+   .. py:method:: notify(topic: str, msg: robo_orchard_core.envs.managers.events.event_term.EventMsg) -> None
+
+      Notify the subscribers of the event channel.
+
+      :param topic: The topic of the event channel.
+      :type topic: str
+      :param msg: The message to publish.
+      :type msg: EventMsgType
+
+      :raises UnregisteredEventChannelError: If the event channel is not
+          registered.
+
+
+
+   .. py:method:: unsubscribe(topic: str | None) -> None
+
+      Unsubscribe all the subscribers of the event channel.
+
+      :param topic: The topic of the event channel. If None, all
+                    event channels will be unsubscribed.
+      :type topic: str | None
+
+
+
+.. py:class:: EventManager(cfg: EventManagerConfigType_co, env: robo_orchard_core.envs.managers.manager_base.EnvType_co)
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.manager_base.ManagerBase`\ [\ :py:obj:`robo_orchard_core.envs.managers.manager_base.EnvType_co`\ , :py:obj:`EventManagerConfigType_co`\ ]
+
+
+   The event manager for managing event terms.
+
+
+   .. py:method:: register(topic: str, msg_type: Type[robo_orchard_core.envs.managers.events.event_term.EventMsgType]) -> EventChannel[robo_orchard_core.envs.managers.events.event_term.EventMsgType]
+
+      Register an event channel.
+
+      :param topic: The topic of the event channel.
+      :type topic: str
+      :param msg_type: The type of the event message.
+      :type msg_type: Type[EventMsgType]
+
+      :returns: The event channel.
+      :rtype: EventChannel
+
+      :raises ValueError: If msg_type is not a type.
+
+
+
+   .. py:property:: active_terms
+      :type: List[str]
+
+
+      Returns the active terms.
+
+
+   .. py:property:: event_topics
+      :type: set[str]
+
+
+      Returns the event topics.
+
+
+   .. py:method:: notify(topic: str, msg: Any) -> None
+
+      Notify the subscribers of the event channel.
+
+      :param topic: The topic of the event channel.
+      :type topic: str
+      :param msg: The message to publish.
+      :type msg: EventMsgType
+
+
+
+   .. py:method:: reset(env_ids: Sequence[int] | None = None) -> None
+
+      Resets the manager.
+
+      :param env_ids: The environment ids. Defaults to None, in which case
+                      all environments are considered.
+
+
+
+.. py:class:: EventManagerCfg
+
+   Bases: :py:obj:`robo_orchard_core.envs.managers.manager_base.ManagerBaseCfg`\ [\ :py:obj:`EventManager`\ ], :py:obj:`Generic`\ [\ :py:obj:`EventTermConfigType_co`\ ]
+
+
+   The configuration for the event manager.
+
+   Template Args:
+       EventTermConfigType_co: The type of the event term configuration.
+
+
+   .. py:attribute:: class_type
+      :type:  robo_orchard_core.utils.config.ClassType_co[EventManager]
+
+
+   .. py:attribute:: terms
+      :type:  Mapping[str, EventTermConfigType_co]
+
+
+   .. py:method:: create_terms(env: Any) -> Dict[str, robo_orchard_core.envs.managers.events.event_term.EventTermBase]
+
+

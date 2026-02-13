@@ -1,0 +1,77 @@
+manager_base
+============
+
+.. py:module:: robo_orchard_core.envs.managers.manager_base
+
+.. autoapi-nested-parse::
+
+   The base class and interface for managers and their configurations.
+
+   You can refer to :py:mod:`robo_orchard_core.envs.managers.manager_term_base`
+   for more information about the manager term.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.manager_base.ManagerConfigType_co
+   robo_orchard_core.envs.managers.manager_base.ManagerType_co
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.envs.managers.manager_base.ManagerBase
+   robo_orchard_core.envs.managers.manager_base.ManagerBaseCfg
+
+
+Module Contents
+---------------
+
+.. py:data:: ManagerConfigType_co
+
+.. py:data:: ManagerType_co
+
+.. py:class:: ManagerBase(cfg: ManagerConfigType_co, env: robo_orchard_core.envs.env_base.EnvType_co)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassInitFromConfigMixin`, :py:obj:`Generic`\ [\ :py:obj:`robo_orchard_core.envs.env_base.EnvType_co`\ , :py:obj:`ManagerConfigType_co`\ ]
+
+
+   Base class for managers that manage multiple terms.
+
+   Similar to `ManagerTermBase` in Isaac Lab but independent of simulation
+   frameworks. Use `pydantic` style configuration as well.
+
+   :param cfg: The configuration of the manager.
+   :type cfg: ManagerBaseCfg
+   :param env: The environment that the manager is associated with.
+   :type env: EnvType_co
+
+
+   .. py:attribute:: cfg
+
+
+   .. py:method:: reset(env_ids: Sequence[int] | None = None) -> Any
+      :abstractmethod:
+
+
+      Resets the manager.
+
+      :param env_ids: The environment ids. Defaults to None, in which case
+                      all environments are considered.
+
+
+
+.. py:class:: ManagerBaseCfg
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.ClassConfig`\ [\ :py:obj:`ManagerType_co`\ ], :py:obj:`Generic`\ [\ :py:obj:`ManagerType_co`\ ]
+
+
+   Configuration class for the manager.
+
+

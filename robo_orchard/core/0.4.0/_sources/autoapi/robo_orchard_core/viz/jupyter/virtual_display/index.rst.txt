@@ -1,0 +1,30 @@
+virtual_display
+===============
+
+.. py:module:: robo_orchard_core.viz.jupyter.virtual_display
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.viz.jupyter.virtual_display.IpyVirtualDisplay
+
+
+Module Contents
+---------------
+
+.. py:class:: IpyVirtualDisplay(height: int, width: int, virtual_display: pyvirtualdisplay.smartdisplay.SmartDisplay, additional_watched_events: list[str] | None = None, canvas: ipycanvas.Canvas | None = None, max_fps: int = 20, format='jpeg', quality=80)
+
+   Bases: :py:obj:`robo_orchard_core.viz.jupyter.base_viz.BaseIpyViz`
+
+
+   .. py:method:: display()
+
+      Display the canvas and output.
+
+      This function should only be called in Jupyter notebook.
+
+
+

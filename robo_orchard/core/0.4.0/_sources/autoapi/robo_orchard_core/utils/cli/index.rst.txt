@@ -1,0 +1,66 @@
+cli
+===
+
+.. py:module:: robo_orchard_core.utils.cli
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.cli.PydanticBaseSettings
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.cli.SettingConfig
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   robo_orchard_core.utils.cli.pydantic_from_argparse
+
+
+Module Contents
+---------------
+
+.. py:class:: SettingConfig(/, **data: Any)
+
+   Bases: :py:obj:`robo_orchard_core.utils.config.Config`, :py:obj:`pydantic_settings.BaseSettings`
+
+
+   Base class for configuration classes.
+
+
+.. py:data:: PydanticBaseSettings
+
+.. py:function:: pydantic_from_argparse(cls: type[PydanticBaseSettings], parser: argparse.ArgumentParser, cli_enforce_required: Optional[bool] = True, cli_avoid_json: Optional[bool] = True, **kwargs) -> PydanticBaseSettings
+
+   Parse command line arguments using Pydantic and return the settings object.
+
+   :param cls: The Pydantic settings class to parse.
+   :type cls: type[PydanticBaseSettings]
+   :param parser: The argument parser to use.
+   :type parser: argparse.ArgumentParser
+   :param cli_enforce_required: Whether to enforce required
+                                arguments. Manually set to None if you want to leave it to the
+                                default behavior of CliSettingsSource. Defaults to True.
+   :type cli_enforce_required: Optional[bool], optional
+   :param cli_avoid_json: Whether to avoid JSON format.
+                          Manually set to None if you want to leave it to the
+                          default behavior of CliSettingsSource. Defaults to True.
+   :type cli_avoid_json: Optional[bool], optional
+   :param \*\*kwargs: Additional keyword arguments to pass to the
+                      CliSettingsSource constructor.
+
+   :returns: The parsed settings object.
+   :rtype: PydanticBaseSettings
+
+
