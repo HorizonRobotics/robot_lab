@@ -12,6 +12,8 @@ Together with Horizon's computing platform, we wish to empower the future of rob
 News
 --------------------
 
+* [2026.02] HoloBrain V0.0 released!
+
 * [2025.11] 3 papers accepted to AAAI26
 
 * [2025.11] HoloMotion V1.0 released!
@@ -47,6 +49,10 @@ RoboOrchard
      - **RoboOrchard** is a collection of tools and frameworks designed to streamline the entire process of robotics research and development,
        from simulation to real-world application.
 
+* **RoboOrchard**: The real robot system integration suite for Horizon Robotics Robot Lab, providing a comprehensive framework for robotic manipulation, teleoperation, inference, and data management
+
+  `Code <https://github.com/HorizonRobotics/RoboOrchard>`__
+
 * **RoboOrchardBuild**: A set of tools designed to simplify the build process for the RoboOrchard project.
 
   `Code <https://github.com/HorizonRobotics/robo_orchard_build>`__ | `Pypi <https://pypi.org/project/robo-orchard-build>`__
@@ -67,13 +73,24 @@ RoboOrchard
 
   `Code <https://github.com/HorizonRobotics/robo_orchard_grasp_label>`__
 
-* **RoboOrchardDataRecorder**: A comprehensive and robust suite of tools designed for high-fidelity data acquisition in robotics, with a primary focus on the ROS 2 ecosystem.
 
-  `Code <https://github.com/HorizonRobotics/robo_orchard_data_recorder>`__
+HoloBrain
+^^^^^^^^^^^^^^
 
-* **RoboOrchardDeploy**: A set of tools for deploy, including calibration and model inference.
+.. list-table::
+   :widths: 20 80
+   :class: publication-table
 
-  `Code <https://github.com/HorizonRobotics/robo_orchard_deploy_ros2>`__
+   * - .. image:: _static/projects/holobrain/logo.png
+          :class: publication-thumbnail
+          :alt: HoloBrain Logo
+          :target: _static/projects/holobrain/logo.png
+
+     - **HoloBrain** is a foundation model for general embodied manipulation
+
+- **HoloBrain-0**: A foundation model for general embodied manipulation
+
+  `Webpage <https://horizonrobotics.github.io/robot_lab/holobrain/>`__ | `Technical Report <https://arxiv.org/pdf/2602.12062>`__
 
 
 Publications
