@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HoloAgent-0 - A Unified Embodied Agent Framework</title>
+    <meta
+      name="description"
+      content="HoloAgent-0 is a unified embodied agent framework for real-world robot deployment, connecting Embodied AgentOS, 3D spatial memory, and embodied skills through closed-loop execution."
+    />
+    <meta name="google-site-verification" content="Ebi4tAlWXdBItWuTnAxAUbxWXhnF0abp7DvFRMuQTnI" />
+    <link rel="icon" href="./assets/holoagent_icon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="./assets/holoagent_icon.png" />
+    <style>
+      @font-face {
+        font-family: Outfit;
+        src: url("./assets/Outfit-Regular.ttf") format("truetype");
+        font-display: swap;
+      }
+
+      :root {
+        --ink: #071426;
+        --muted: #56657a;
+        --paper: #ffffff;
+        --soft: #f5f8fb;
+        --line: #dbe4ef;
+        --blue: #1367d8;
+        --blue-dark: #083b84;
+        --teal: #008b8b;
+        --green: #198754;
+        --amber: #b86a00;
+        --shadow: 0 18px 52px rgba(9, 28, 60, 0.12);
+        color: var(--ink);
+        font-family: Outfit, Inter, "Helvetica Neue", Arial, sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        scroll-behavior: smooth;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background:
+          linear-gradient(180deg, rgba(245, 250, 255, 0.95), rgba(255, 255, 255, 1) 38rem),
+          #fff;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .research-bar {
+        align-items: center;
+        background: rgba(255, 255, 255, 0.9);
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        justify-content: center;
+        padding: 0.95rem 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(16px);
+      }
+
+      .research-title {
+        color: var(--blue-dark);
+        font-size: 0.78rem;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .research-link {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: #183a66;
+        font-size: 0.9rem;
+        font-weight: 800;
+        padding: 0.48rem 0.82rem;
+        text-decoration: none;
+        transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      }
+
+      .research-link span {
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 700;
+      }
+
+      .research-link:hover,
+      .button:hover,
+      .module-card:hover,
+      .task-card:hover {
+        border-color: rgba(19, 103, 216, 0.45);
+        box-shadow: 0 12px 30px rgba(19, 103, 216, 0.16);
+        transform: translateY(-2px);
+      }
+
+      .page {
+        margin: 0 auto;
+        max-width: 1320px;
+        padding: 2rem 1.2rem 4rem;
+      }
+
+      .hero,
+      .section {
+        background: rgba(255, 255, 255, 0.84);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero {
+        overflow: hidden;
+        padding: clamp(1.4rem, 3.2vw, 3.2rem);
+        text-align: center;
+      }
+
+      .hero-copy {
+        margin: 0 auto;
+        max-width: 1180px;
+      }
+
+      .brand {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.35rem;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+      }
+
+      .brand img {
+        display: block;
+        height: clamp(2.2rem, 4vw, 3.3rem);
+        object-fit: contain;
+        width: auto;
+      }
+
+      .brand img:first-child {
+        max-width: min(14rem, 34vw);
+      }
+
+      .brand img:last-child {
+        max-width: min(12.5rem, 31vw);
+      }
+
+      .hero h1 {
+        font-size: clamp(2.2rem, 4.4vw, 4.2rem);
+        letter-spacing: 0;
+        line-height: 1;
+        margin: 0;
+      }
+
+      .title-logo {
+        display: block;
+        height: auto;
+        margin: 0 auto;
+        max-width: min(28rem, 76vw);
+        width: 100%;
+      }
+
+      .hero h2 {
+        color: #25415f;
+        font-size: clamp(1.25rem, 2.15vw, 2.15rem);
+        font-weight: 900;
+        line-height: 1.22;
+        margin: 1.05rem 0 0;
+        max-width: none;
+      }
+
+      .hero p,
+      .section-heading p,
+      .module-card p,
+      .task-card p,
+      .caption,
+      .body-text {
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.65;
+      }
+
+      .hero p {
+        color: #34495f;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 52rem;
+      }
+
+      .authors {
+        color: #2b4055;
+        font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+        font-weight: 800;
+        line-height: 1.55;
+        margin: 1rem auto 0;
+        max-width: 64rem;
+      }
+
+      .affiliations {
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.55;
+        margin: 0.45rem auto 0;
+        max-width: 58rem;
+      }
+
+      .authors sup,
+      .affiliations sup {
+        color: var(--blue-dark);
+        font-size: 0.72em;
+        font-weight: 900;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+        margin-top: 1.6rem;
+      }
+
+      .button {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        display: inline-flex;
+        font-weight: 900;
+        justify-content: center;
+        min-width: 8.6rem;
+        padding: 0.9rem 1.15rem;
+        text-decoration: none;
+        transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      }
+
+      .button.primary {
+        background: var(--blue);
+        border-color: var(--blue);
+        color: #fff;
+      }
+
+      .button.secondary {
+        background: #fff;
+        color: var(--blue-dark);
+      }
+
+      .hero-visual {
+        background: linear-gradient(135deg, #fff, #f6f9fc);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        padding: 0.65rem;
+      }
+
+      .hero-visual {
+        margin: 2rem auto 0;
+        max-width: 1180px;
+      }
+
+      .hero-abstract {
+        margin: 2rem auto 0;
+        max-width: 1180px;
+        text-align: left;
+      }
+
+      .figure {
+        margin: 0;
+      }
+
+      .hero-visual img,
+      .hero-video video,
+      .figure img {
+        display: block;
+        height: auto;
+        width: 100%;
+      }
+
+      .hero-visual img {
+        border-radius: 6px;
+      }
+
+      .hero-video {
+        background: #071426;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        margin: 1.4rem auto 0;
+        max-width: 1180px;
+        overflow: hidden;
+        padding: 0.65rem;
+      }
+
+      .hero-video video {
+        border-radius: 6px;
+      }
+
+      .figure img {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .caption {
+        font-size: 0.92rem;
+        margin: 0.75rem 0 0;
+        text-align: left;
+      }
+
+      .section {
+        margin-top: 1.25rem;
+        padding: clamp(1.2rem, 2.6vw, 2.4rem);
+      }
+
+      .section-heading {
+        align-items: end;
+        display: grid;
+        gap: 1.1rem;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        margin-bottom: 1.2rem;
+      }
+
+      .section-heading.compact {
+        display: block;
+        max-width: none;
+      }
+
+      .kicker,
+      .module-card span,
+      .task-card span,
+      .metric span {
+        color: var(--blue);
+        display: block;
+        font-size: 0.78rem;
+        font-weight: 900;
+        letter-spacing: 0.15em;
+        margin-bottom: 0.55rem;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        font-size: clamp(1.45rem, 2.35vw, 2.35rem);
+        letter-spacing: -0.01em;
+        line-height: 1.12;
+        margin: 0;
+      }
+
+      h3 {
+        color: var(--ink);
+        font-size: 1.25rem;
+        line-height: 1.18;
+        margin: 0.35rem 0 0;
+      }
+
+      .body-text {
+        color: #2d3b4b;
+        margin: 0;
+        text-align: justify;
+      }
+
+      .abstract-layout {
+        max-width: none;
+      }
+
+      .module-grid,
+      .task-grid,
+      .metric-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .module-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      #future .module-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .hero-visual + .module-grid,
+      .module-grid + .task-grid {
+        margin-top: 1rem;
+      }
+
+      .task-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .metric-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: 1rem;
+      }
+
+      .module-card,
+      .task-card,
+      .metric {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 1rem;
+        transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      }
+
+      .module-card:nth-child(2) span,
+      .task-card:nth-child(2) span {
+        color: var(--teal);
+      }
+
+      .module-card:nth-child(3) span,
+      .task-card:nth-child(3) span {
+        color: var(--green);
+      }
+
+      .task-card:nth-child(4) span {
+        color: var(--green);
+      }
+
+      .module-card:nth-child(4) span {
+        color: var(--amber);
+      }
+
+      .flow {
+        align-items: stretch;
+        display: grid;
+        gap: 0.8rem;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: 1rem;
+      }
+
+      .flow div {
+        background: #f9fbfd;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 1rem;
+      }
+
+      .flow strong {
+        color: var(--blue-dark);
+        display: block;
+        margin-bottom: 0.35rem;
+      }
+
+      .demo-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 1rem;
+      }
+
+      .demo-card {
+        align-items: center;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        display: grid;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .demo-card video {
+        aspect-ratio: 16 / 9;
+        border-radius: 6px;
+        display: block;
+        height: auto;
+        object-fit: cover;
+        width: 100%;
+      }
+
+      .demo-copy h3 {
+        color: var(--blue-dark);
+        font-size: clamp(1.15rem, 1.75vw, 1.65rem);
+        line-height: 1.12;
+        margin: 0;
+      }
+
+      .demo-card p {
+        color: var(--muted);
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.55;
+        margin: 0.8rem 0 0;
+      }
+
+      .split {
+        display: grid;
+        gap: 1.25rem;
+        grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      }
+
+      .split .task-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .figure-stack {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr;
+      }
+
+      .figure-stack.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .full-width-figure {
+        margin-top: 1rem;
+      }
+
+      .compact-figure {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 80%;
+      }
+
+      .metric strong {
+        color: var(--blue-dark);
+        display: block;
+        font-size: 2.5rem;
+        line-height: 1;
+      }
+
+      .metric p {
+        color: var(--muted);
+        line-height: 1.55;
+        margin: 0.6rem 0 0;
+      }
+
+      pre {
+        background: #071426;
+        border-radius: 8px;
+        color: #dbeafe;
+        margin: 1rem 0 0;
+        overflow-x: auto;
+        padding: 1rem;
+      }
+
+      code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 0.9rem;
+      }
+
+      footer {
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.5;
+        margin: 2rem auto 0;
+        max-width: 900px;
+        text-align: center;
+      }
+
+      @media (max-width: 1080px) {
+        .hero,
+        .section-heading,
+        .split {
+          grid-template-columns: 1fr;
+        }
+
+        .module-grid,
+        .metric-grid,
+        .flow {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        .page {
+          padding: 1rem 0.7rem 3rem;
+        }
+
+        .hero,
+        .section {
+          padding: 1rem;
+        }
+
+        .actions,
+        .brand {
+          align-items: stretch;
+        }
+
+        .brand {
+          align-items: center;
+        }
+
+        .button,
+        .research-link {
+          width: 100%;
+        }
+
+        .research-bar {
+          position: static;
+        }
+
+        .module-grid,
+        .abstract-layout,
+        .task-grid,
+        .metric-grid,
+        .flow,
+        .demo-grid,
+        .figure-stack,
+        .figure-stack.two {
+          grid-template-columns: 1fr;
+        }
+
+        .compact-figure {
+          max-width: 100%;
+        }
+
+        .demo-card {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="research-bar" aria-label="Related robot lab projects">
+      <span class="research-title">Robot Lab</span>
+      <a class="research-link" href="../holobrain/">HoloBrain <span>Manipulation</span></a>
+      <a class="research-link" href="../holomotion/">HoloMotion <span>Motion</span></a>
+      <a class="research-link" href="../robo_orchard/">RoboOrchard <span>Platform</span></a>
+      <a class="research-link" href="../">Home</a>
+    </nav>
+
+    <main class="page">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="brand">
+            <img src="./assets/horizon_logo.png" alt="Horizon Robotics" />
+            <img src="./assets/d-robotic_logo.png" alt="D-Robotics" />
+          </div>
+          <h1><img class="title-logo" src="./assets/holoagent_logo_text.png" alt="HoloAgent-0" /></h1>
+          <h2>HoloAgent-0: A Unified Embodied Agent Framework with 3D Spatial Memory</h2>
+          <p class="authors">
+            Xiaolin Zhou<sup>*1</sup>, Liu Liu<sup>*1†</sup>, Tingyang Xiao<sup>*1</sup>, Wei Feng<sup>*1</sup>,
+            Fa Fu<sup>2</sup>, Xinrui Meng<sup>2</sup>,<br />
+            Xinjie Wang<sup>1</sup>, Jialiang Han<sup>1</sup>, Boyang Yu<sup>1</sup>, Yun Du<sup>1</sup>,
+            Wei Sui<sup>2</sup>, Zhizhong Su<sup>1</sup>
+          </p>
+          <p class="affiliations">
+            <sup>1</sup>Horizon Robotics &nbsp;&nbsp; <sup>2</sup>D-Robotics Robotics<br />
+            <sup>*</sup>Equal contribution &nbsp;&nbsp; <sup>†</sup>Corresponding: Liu Liu (nemo.liu@horizon.auto)
+          </p>
+          <p>
+            A unified embodied agent framework that converts language instructions into executable skill graphs,
+            grounds them in persistent 3D memory, and monitors real-world robot execution for feedback-driven recovery.
+          </p>
+          <div class="actions">
+            <!-- <a class="button primary" href="./assets/holoagent_paper.pdf">Paper</a> -->
+            <a class="button secondary" href="https://github.com/HorizonRobotics/HoloAgent">Code</a>
+            <a class="button secondary" href="#real-robot-demos">Demo</a>
+            <a class="button secondary" href="#agentos">Framework</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="abstract">
+        <div class="section-heading compact abstract-heading">
+          <span class="kicker">Abstract</span>
+          <h2>From Digital Agents to Physical Robots</h2>
+        </div>
+        <div class="abstract-layout">
+          <p class="body-text">
+            HoloAgent-0 narrows the embodiment gap between digital LLM agents and real-world robots, where physical
+            execution is continuous, embodiment-dependent, uncertain, and safety-constrained. The system organizes
+            heterogeneous robot models and controllers through three coupled layers: Embodied AgentOS for planning,
+            scheduling, monitoring, and re-planning; 3D spatial memory for physical-world grounding; and embodied
+            skills for executable robot action. Together, these layers make long-horizon physical skills composable,
+            observable, and verifiable.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="real-robot-demos">
+        <div class="section-heading compact">
+          <div>
+            <span class="kicker">Real-Robot Demonstrations</span>
+            <h2>Closed-Loop Execution in Physical Scenes</h2>
+          </div>
+          <p>
+            These demonstrations show HoloAgent-0 deployed on real hardware across motion generation, object search,
+            cross-robot coordination, and mobile manipulation. The videos highlight how monitored skills, spatial
+            memory, and runtime feedback support closed-loop execution in physical scenes.
+          </p>
+        </div>
+        <div class="demo-grid" aria-label="Real-robot demonstration videos">
+          <article class="demo-card">
+            <div class="demo-copy">
+              <h3>Navigation and Dance Coordination</h3>
+              <p>
+                Heterogeneous robots share task context through the framework while combining mobile navigation, execution monitoring, and expressive humanoid motion.
+              </p>
+            </div>
+            <video controls preload="metadata" playsinline>
+              <source src="./video/web/navi-dance-619-4mbps.mp4" type="video/mp4" />
+            </video>
+          </article>
+          <article class="demo-card">
+            <div class="demo-copy">
+              <h3>Long-Horizon Mobile Manipulation</h3>
+              <p>
+                The framework decomposes long-horizon mobile manipulation into navigation, grasping, placement, verification, and recovery steps.
+              </p>
+            </div>
+            <video controls preload="metadata" playsinline>
+              <source src="./video/web/manipulation_demo.mp4" type="video/mp4" />
+            </video>
+          </article>
+          <article class="demo-card">
+            <div class="demo-copy">
+              <h3>Active Exploration in a New Environment</h3>
+              <p>
+                The robot enters an unseen environment, actively explores reachable space, expands 3D memory online, and updates the scene graph for later navigation and search.
+              </p>
+            </div>
+            <video controls preload="metadata" playsinline>
+              <source src="./video/web/exploration_demo-1-4mbps.mp4" type="video/mp4" />
+            </video>
+          </article>
+          <article class="demo-card">
+            <div class="demo-copy">
+              <h3>Interactive Humanoid Command Execution</h3>
+              <p>
+                A humanoid robot follows open-ended human commands, freely navigating the environment and executing corresponding embodied actions.
+              </p>
+            </div>
+            <video controls preload="metadata" playsinline>
+              <source src="./video/web/instruction_follow-1-4mbps.mp4" type="video/mp4" />
+            </video>
+          </article>
+          <article class="demo-card">
+            <div class="demo-copy">
+              <h3>A Day with a Robot Companion</h3>
+              <p>
+                Powered by a multimodal agent brain and a full-stack robot skill library, the system brings large models into the physical world. The robot understands language, reasons over 3D space, navigates autonomously, communicates naturally, and turns human intent into long-horizon physical action.
+              </p>
+            </div>
+            <video controls preload="metadata" playsinline>
+              <source src="./video/web/hts-4mbps.mp4" type="video/mp4" />
+            </video>
+          </article>
+          <article class="demo-card">
+            <div class="demo-copy">
+              <h3>A Day in the Life of a Robot Guide</h3>
+              <p>
+                A robot guide provides natural-language workspace assistance, leading users to destinations, answering intent-driven requests, and adapting its route through spatial memory.
+              </p>
+            </div>
+            <video controls preload="metadata" playsinline>
+              <source src="./video/web/one_day_for_robotic-4mbps.mp4" type="video/mp4" />
+            </video>
+          </article>
+        </div>
+        <div class="flow">
+          <div>
+            <strong>Prompt Motion Control</strong>
+            Execute and verify short-horizon whole-body commands.
+          </div>
+          <div>
+            <strong>Active Object Search</strong>
+            Explore, build the map, and verify the target coffee machine.
+          </div>
+          <div>
+            <strong>Cross-Robot Coordination</strong>
+            Route one robot while another performs a dance skill.
+          </div>
+          <div>
+            <strong>Long-Horizon Mobile Manipulation</strong>
+            Decompose laundry folding into navigation, pick-and-place, motion, and manipulation steps.
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="agentos">
+        <div class="section-heading compact">
+          <div>
+            <span class="kicker">Embodied Agent Framework</span>
+            <h2>Framework for Closed-Loop Robot Execution</h2>
+          </div>
+          <p>
+            Embodied AgentOS converts natural-language instructions into executable skill graphs, schedules robot
+            resources, monitors execution, and triggers clarification or re-planning from runtime feedback. Through a
+            ROS2 command/status bus, it closes the loop between spatial retrieval, skill-graph planning, execution
+            monitoring, memory updates, and feedback-driven recovery.
+          </p>
+        </div>
+        <div class="hero-visual">
+          <img src="./assets/framework.png?v=20260619-framework-619" alt="Overview of the HoloAgent-0 framework" />
+        </div>
+      </section>
+
+      <section class="section" id="skills">
+        <div class="section-heading compact">
+          <div>
+            <span class="kicker">Skill Layer</span>
+            <h2>Embodied Skills as Executable Robot Interfaces</h2>
+          </div>
+          <p>
+            The Skill Layer exposes executable robot capabilities as typed, monitored interfaces rather than low-level
+            controls. Navigation, perception, manipulation, whole-body motion, interaction, and cross-embodiment
+            coordination backends bind task intent to specific robot embodiments while reporting progress, failure
+            modes, safety state, and recoverability for verification and online recovery.
+          </p>
+        </div>
+        <div class="task-grid">
+          <article class="task-card">
+            <span>Interaction</span>
+            <h3>Speech and Perception</h3>
+            <p>Speech, perception, detection, localization, and verification connect human intent with runtime visual evidence.</p>
+          </article>
+          <article class="task-card">
+            <span>HoloNavi</span>
+            <h3>Spatial Navigation</h3>
+            <p>Memory-grounded navigation retrieves candidate places and objects, selects viewpoints, verifies progress online, and updates task state from feedback.</p>
+          </article>
+          <article class="task-card">
+            <span>HoloBrain</span>
+            <h3>Manipulation</h3>
+            <p>Pick, place, open, hand-over, push, fold, and grasp-anything skills combine task intent, visual observations, embodiment priors, and semantic memory.</p>
+          </article>
+          <article class="task-card">
+            <span>HoloMotion</span>
+            <h3>Whole-Body Control</h3>
+            <p>Reference tracking, velocity control, posture adjustment, expressive motion, and recovery provide monitored whole-body control for humanoids.</p>
+          </article>
+          <article class="task-card">
+            <span>Collaboration</span>
+            <h3>Cross-Embodiment</h3>
+            <p>Heterogeneous robots share memory records, typed skill calls, and status events while preserving platform-specific sensing, actuation, safety, and recovery constraints.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="memory">
+        <div class="section-heading compact">
+          <div>
+            <span class="kicker">Memory Layer</span>
+            <h2>Spatial and Temporal Memory for Embodied Agents</h2>
+          </div>
+          <p>
+            The Memory Layer provides spatial and temporal memory for HoloAgent-0. Spatial memory converts sensor
+            streams into a persistent 3D world representation for grounding, localization, navigation, and manipulation,
+            including geometry, topology, occupancy, robot pose, open-vocabulary semantic instances, and a hierarchical
+            multimodal scene graph. Temporal memory records goals, plan state, execution and recovery traces, and
+            outcome summaries so AgentOS can retrieve current world state, task history, and recent execution evidence.
+          </p>
+        </div>
+        <div class="module-grid">
+          <article class="module-card">
+            <span>Geometry</span>
+            <h3>Metric Geometry and Localization</h3>
+            <p>Maintains coordinate frames, robot pose, dense geometry, topology, occupancy, traversability evidence, and localization indices for embodied skills.</p>
+          </article>
+          <article class="module-card">
+            <span>Semantics</span>
+            <h3>Open-Vocabulary 3D Semantic Mapping</h3>
+            <p>Lifts 2D foundation-model features onto geometry memory and associates observations with persistent language-queryable 3D instances.</p>
+          </article>
+          <article class="module-card">
+            <span>HMSG</span>
+            <h3>Hierarchical Multimodal Scene Graph</h3>
+            <p>Organizes floors, rooms, views, and objects for room-, view-, and object-level grounding, verification, and reasoning.</p>
+          </article>
+          <article class="module-card">
+            <span>Temporal</span>
+            <h3>Task State and Memory Update</h3>
+            <p>Records goals, plan state, status events, verification results, recovery decisions, and updates affected spatial records after execution.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="experiments">
+        <div class="section-heading compact">
+          <div>
+            <span class="kicker">Experiments</span>
+            <h2>Navigation, Memory, and Real-Robot Execution</h2>
+          </div>
+          <p>
+            The evaluation covers spatial memory, long-horizon navigation, and closed-loop execution. Quantitative
+            experiments test semantic mapping and the HoloAgent-Nav navigation stack, while real-robot deployments show
+            the same AgentOS runtime composing humanoid motion, object search, cross-robot coordination, and mobile
+            manipulation through monitored skills.
+          </p>
+        </div>
+        <div class="metric-grid">
+          <article class="metric">
+            <strong>82.6%</strong>
+            <span>HM3D-ObjNav SR</span>
+            <p>The AgentOS-wrapped navigation stack reaches the strongest simulated success rate under the HM3D-ObjNav protocol.</p>
+          </article>
+          <article class="metric">
+            <strong>42.8%</strong>
+            <span>HM3D-ObjNav SPL</span>
+            <p>Feedback-driven execution improves path efficiency over the slow-reasoning FSR-VLN reference baseline.</p>
+          </article>
+          <article class="metric">
+            <strong>97.70%</strong>
+            <span>Real Top-1@1m</span>
+            <p>Real-robot goal reaching succeeds under the strict 1.0 m physical-apartment threshold.</p>
+          </article>
+          <article class="metric">
+            <strong>98.90%</strong>
+            <span>Real Top-5@1m</span>
+            <p>Top-5 candidate retrieval and monitored execution remain strong under the same strict threshold.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="future">
+        <div class="section-heading compact">
+          <div>
+            <span class="kicker">Future Work</span>
+            <h2>Embodiment-Aware Robot-Agent Stack</h2>
+          </div>
+          <p>
+            HoloAgent-0 is an early step toward full-stack robot-agent systems that connect language-level reasoning,
+            embodied execution, persistent memory, and safe evaluation. Its current limitations point toward
+            instruction-aligned robot foundation models, broader embodiment support with full-stack humanoid skills,
+            and code generation for robot evolution.
+          </p>
+        </div>
+        <div class="module-grid">
+          <article class="module-card">
+            <span>Action Models</span>
+            <h3>Instruction-Aligned Robot Foundation Models</h3>
+            <p>Future robot foundation models should expose language-aligned, composable action spaces that AgentOS can schedule, monitor, and verify.</p>
+          </article>
+          <article class="module-card">
+            <span>Embodiments</span>
+            <h3>Broader Embodiment and Humanoid Skills</h3>
+            <p>AgentOS should coordinate sensing, actuation, safety, mobility, object-centric navigation, manipulation, interaction, and recovery across platforms.</p>
+          </article>
+          <article class="module-card">
+            <span>Code Generation</span>
+            <h3>Robot Evolution with Digital-Twin Validation</h3>
+            <p>Coding agents can generate robot actions and execution policies from task intent, robot APIs, and environment context, while EmbodiedGen-style digital twins validate them before real-world deployment.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="citation">
+        <div class="section-heading compact">
+          <span class="kicker">Citation</span>
+          <h2>BibTeX</h2>
+        </div>
+        <pre><code>@article{holoagent2026,
+  title   = {HoloAgent-0: A Unified Embodied Agent Framework with 3D Spatial Memory},
+  author  = {Zhou, Xiaolin and Liu, Liu and Xiao, Tingyang and Feng, Wei and Fu, Fa and Meng, Xinrui and Wang, Xinjie and Han, Jialiang and Yu, Boyang and Du, Yun and Lin, Tianwei and Sui, Wei and Su, Zhizhong},
+  journal = {Technical Report},
+  year    = {2026},
+  url     = {https://github.com/HorizonRobotics/HoloAgent}
+}</code></pre>
+      </section>
+
+      <footer>
+        HoloAgent-0 is part of the Horizon Robotics and D-Robotics embodied intelligence stack, alongside HoloBrain
+        for manipulation and HoloMotion for whole-body motion.
+      </footer>
+    </main>
+  </body>
+</html>
