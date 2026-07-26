@@ -646,11 +646,16 @@
             grounds them in persistent 3D memory, and monitors real-world robot execution for feedback-driven recovery.
           </p>
           <div class="actions">
-            <!-- <a class="button primary" href="./assets/holoagent_paper.pdf">Paper</a> -->
+            <a class="button primary" href="https://arxiv.org/abs/2606.23565">Paper</a>
             <a class="button secondary" href="https://github.com/HorizonRobotics/HoloAgent">Code</a>
             <a class="button secondary" href="#real-robot-demos">Demo</a>
             <a class="button secondary" href="#agentos">Framework</a>
           </div>
+        </div>
+      <div class="hero-video">
+          <video controls preload="metadata" playsinline>
+            <source src="./video/Holoagent-4for1+end.mp4" type="video/mp4" />
+          </video>
         </div>
       </section>
 
@@ -668,6 +673,24 @@
             skills for executable robot action. Together, these layers make long-horizon physical skills composable,
             observable, and verifiable.
           </p>
+        </div>
+      </section>
+
+      <section class="section" id="agentos">
+        <div class="section-heading compact">
+          <div>
+            <span class="kicker">Embodied Agent Framework</span>
+            <h2>Framework for Closed-Loop Robot Execution</h2>
+          </div>
+          <p>
+            Embodied AgentOS converts natural-language instructions into executable skill graphs, schedules robot
+            resources, monitors execution, and triggers clarification or re-planning from runtime feedback. Through a
+            ROS2 command/status bus, it closes the loop between spatial retrieval, skill-graph planning, execution
+            monitoring, memory updates, and feedback-driven recovery.
+          </p>
+        </div>
+        <div class="hero-visual">
+          <img src="./assets/framework.png?v=20260619-framework-619" alt="Overview of the HoloAgent-0 framework" />
         </div>
       </section>
 
@@ -768,24 +791,6 @@
             <strong>Long-Horizon Mobile Manipulation</strong>
             Decompose laundry folding into navigation, pick-and-place, motion, and manipulation steps.
           </div>
-        </div>
-      </section>
-
-      <section class="section" id="agentos">
-        <div class="section-heading compact">
-          <div>
-            <span class="kicker">Embodied Agent Framework</span>
-            <h2>Framework for Closed-Loop Robot Execution</h2>
-          </div>
-          <p>
-            Embodied AgentOS converts natural-language instructions into executable skill graphs, schedules robot
-            resources, monitors execution, and triggers clarification or re-planning from runtime feedback. Through a
-            ROS2 command/status bus, it closes the loop between spatial retrieval, skill-graph planning, execution
-            monitoring, memory updates, and feedback-driven recovery.
-          </p>
-        </div>
-        <div class="hero-visual">
-          <img src="./assets/framework.png?v=20260619-framework-619" alt="Overview of the HoloAgent-0 framework" />
         </div>
       </section>
 
@@ -943,12 +948,14 @@
           <span class="kicker">Citation</span>
           <h2>BibTeX</h2>
         </div>
-        <pre><code>@article{holoagent2026,
-  title   = {HoloAgent-0: A Unified Embodied Agent Framework with 3D Spatial Memory},
-  author  = {Zhou, Xiaolin and Liu, Liu and Xiao, Tingyang and Feng, Wei and Fu, Fa and Meng, Xinrui and Wang, Xinjie and Han, Jialiang and Yu, Boyang and Du, Yun and Lin, Tianwei and Sui, Wei and Su, Zhizhong},
-  journal = {Technical Report},
-  year    = {2026},
-  url     = {https://github.com/HorizonRobotics/HoloAgent}
+        <pre><code>@misc{holoagent2026holoagent0,
+  title        = {HoloAgent-0: A Unified Embodied Agent Framework with 3D Spatial Memory},
+  author       = {Zhou, Xiaolin and Liu, Liu and Xiao, Tingyang and Feng, Wei and Fu, Fa and Meng, Xinrui and Wang, Xinjie and Han, Jialiang and Yu, Boyang and Du, Yun and Sui, Wei and Su, Zhizhong},
+  year         = {2026},
+  eprint       = {2606.23565},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.RO},
+  url          = {https://arxiv.org/abs/2606.23565},
 }</code></pre>
       </section>
 
