@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf9f6">
+  <meta name="description" content="LoFT reconstructs 3D scenes from RGB video using a looped transformer for visual aggregation and camera refinement.">
+  <title>LoFT — Looped Foundation Transformer for Video Geometry</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/page.css">
+  <link rel="stylesheet" href="assets/viewer.css">
+  <script defer src="assets/page.js"></script>
+  <script defer src="assets/viewer.js"></script>
+</head>
+<body>
+  <svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></symbol>
+    <symbol id="down" viewBox="0 0 24 24"><path d="M12 4v15m-6-6 6 6 6-6"/></symbol>
+    <symbol id="expand" viewBox="0 0 24 24"><path d="M14 4h6v6m0-6-7 7M10 20H4v-6m0 6 7-7"/></symbol>
+    <symbol id="doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6m-6 4h6"/></symbol>
+    <symbol id="code" viewBox="0 0 24 24"><path d="m7 7-5 5 5 5m10-10 5 5-5 5m-4-13-3 20"/></symbol>
+    <symbol id="model" viewBox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7zM3 7l9 5 9-5m-9 5v10M7.5 4.5l9 5"/></symbol>
+    <symbol id="close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  </svg>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap navrow">
+      <a class="brand" href="#top" aria-label="LoFT home"><img src="assets/mark.svg" width="34" height="34" alt="">LoFT</a>
+      <span class="site-kind">Research project</span>
+      <nav aria-label="Sections">
+        <a href="#overview">Overview</a><a href="#method">Method</a><a href="#results">Results</a><a href="#demo">Demo</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="wrap hero" id="top" aria-labelledby="project-title">
+      <div class="intro">
+        <p class="kicker"><span></span>Video geometry</p>
+        <h1 id="project-title">LoFT</h1>
+        <p class="paper-title">Looped Foundation Transformer for Video Geometry</p>
+        <p class="summary">Reconstructing 3D scenes from RGB video through temporal attention and iterative camera refinement.</p>
+        <div class="actions">
+          <a class="primary" href="#method">Explore method <svg class="icon"><use href="#down"/></svg></a>
+          <a class="text-action" href="#demo"><svg class="icon"><use href="#play"/></svg>Demo viewer</a>
+        </div>
+      </div>
+      <figure class="sequence">
+        <div class="sequence-stage">
+          <div class="stage-heading"><span class="figure-num">Fig. 1</span> <span id="stage-name">Street reconstruction</span></div>
+          <img id="stage-image" width="1385" height="789" src="assets/figures/reconstruction.webp" alt="LoFT point-cloud reconstruction of a street lined with brick buildings" fetchpriority="high">
+        </div>
+        <figcaption class="sequence-controls">
+          <div class="sequence-menu">
+            <button class="cloud-option" type="button" data-scene="cloud" aria-pressed="true" aria-label="Show 3D reconstruction"><svg class="icon"><use href="#model"/></svg>3D</button>
+            <div class="frames" role="group" aria-label="Show an RGB input frame">
+              <button type="button" data-scene="0" aria-label="Show input frame at 0 seconds" aria-pressed="false"><img width="80" height="45" alt="" src="assets/figures/frame-0.webp"><span>0 s</span></button>
+              <button type="button" data-scene="18" aria-label="Show input frame at 18 seconds" aria-pressed="false"><img width="80" height="45" alt="" src="assets/figures/frame-18.webp"><span>18 s</span></button>
+              <button type="button" data-scene="36" aria-label="Show input frame at 36 seconds" aria-pressed="false"><img width="80" height="45" alt="" src="assets/figures/frame-36.webp"><span>36 s</span></button>
+              <button type="button" data-scene="54" aria-label="Show input frame at 54 seconds" aria-pressed="false"><img width="80" height="45" alt="" src="assets/figures/frame-54.webp"><span>54 s</span></button>
+            </div>
+          </div>
+          <a class="figure-link" href="assets/figures/teaser.webp" data-figure="teaser">Full teaser <svg class="icon"><use href="#expand"/></svg></a>
+        </figcaption>
+      </figure>
+    </section>
+    <div class="resources">
+      <div class="wrap resource-row" aria-label="Project resources">
+        <div class="resource"><svg class="icon"><use href="#doc"/></svg><span>Paper</span><small>Coming soon</small></div>
+        <div class="resource"><svg class="icon"><use href="#code"/></svg><span>Code</span><small>Coming soon</small></div>
+        <div class="resource"><svg class="icon"><use href="#model"/></svg><span>Hugging Face</span><small>Coming soon</small></div>
+      </div>
+    </div>
+    <section class="wrap content-section overview" id="overview" aria-labelledby="overview-title">
+      <div class="section-side"><p class="kicker"><span></span>Overview</p><h2 id="overview-title">From video<br> to 3D.</h2></div>
+      <div class="overview-body">
+        <p class="lead">Adjacent video frames often see the same surface. Views farther apart reveal how that surface sits in 3D.</p>
+        <p>LoFT uses both. One loop gathers visual evidence across an ordered clip. A second loop refines each camera using its previous estimate. The resulting cameras place per-frame depth maps in a shared coordinate system.</p>
+        <dl class="stats" aria-label="Training data"><div><dt>Training datasets</dt><dd>80</dd></div><div><dt>Sequences</dt><dd>2.97M</dd></div><div><dt>Images</dt><dd>961.8M</dd></div></dl>
+      </div>
+    </section>
+    <section class="method-section" id="method" aria-labelledby="method-title">
+      <div class="wrap">
+        <p class="kicker"><span></span>Method</p>
+        <h2 id="method-title">Two loops for video geometry.</h2>
+        <figure class="method-figure">
+          <a href="assets/figures/method.webp" data-figure="method" aria-label="Enlarge architecture diagram"><img src="assets/figures/method.webp" width="2400" height="1170" loading="lazy" alt="LoFT architecture with a visual aggregation loop followed by a camera refinement loop and per-frame depth decoding."></a>
+          <figcaption><span><b class="figure-num">Fig. 2</b> Architecture of LoFT</span><a class="figure-link" href="assets/figures/method.webp" data-figure="method">Enlarge figure <svg class="icon"><use href="#expand"/></svg></a></figcaption>
+        </figure>
+        <div class="loop-pair">
+          <div><h3>Visual aggregation</h3><p>Local attention expands from 3 to 5, 9, and 17 frames. Between these local steps, every frame attends to the full clip, including distant views of the same place.</p></div>
+          <div><h3>Camera refinement</h3><p>Each iteration predicts pose and field of view, then feeds the updated camera state into the next iteration. A dense head decodes depth and confidence once per frame.</p></div>
+        </div>
+      </div>
+    </section>
+    <section class="wrap content-section results" id="results" aria-labelledby="results-title">
+      <div class="section-side"><p class="kicker"><span></span>Results</p><h2 id="results-title">Reconstruction<br> benchmarks.</h2>
+        <a class="teaser-preview" href="assets/figures/teaser.webp" data-figure="teaser">
+          <img src="assets/figures/teaser.webp" width="2600" height="1482" alt="Full LoFT teaser showing benchmark comparisons alongside a reconstructed street." loading="lazy">
+          <span>View full teaser <svg class="icon"><use href="#expand"/></svg></span>
+        </a>
+      </div>
+      <div class="result-body">
+        <p>LoFT achieves the lowest depth AbsRel and highest pose AUC at 30° among the ranked methods on each of the four evaluation splits.</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="LoFT benchmark results">
+          <table><caption class="visually-hidden">LoFT depth, pose, and trajectory scores. Arrows indicate the better direction.</caption>
+            <thead><tr><th scope="col">Benchmark</th><th scope="col">AbsRel ↓</th><th scope="col">δ<sub>1.03</sub> ↑</th><th scope="col">AUC@3° ↑</th><th scope="col">AUC@30° ↑</th><th scope="col">ATE ↓</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">SpatialBench <small>Full</small></th><td>0.0637</td><td>0.6959</td><td>0.4767</td><td>0.8341</td><td>0.5041</td></tr>
+              <tr><th scope="row">SpatialBench <small>Continuous</small></th><td>0.0734</td><td>0.6765</td><td>0.4757</td><td>0.8342</td><td>0.2131</td></tr>
+              <tr><th scope="row">ClassicBench</th><td>0.1316</td><td>0.5464</td><td>0.3506</td><td>0.7623</td><td>0.5015</td></tr>
+              <tr><th scope="row">VRBench</th><td>0.0852</td><td>0.5751</td><td>0.3879</td><td>0.8271</td><td>0.2973</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">SpatialBench uses the Medium set. AbsRel and δ measure depth accuracy, AUC measures relative camera pose, and ATE measures trajectory error.</p>
+      </div>
+    </section>
+    <section class="demo-section" id="demo" aria-labelledby="demo-title">
+      <div class="wrap"><p class="kicker"><span></span>Demo</p><h2 id="demo-title">Interactive point clouds.</h2>
+        <div class="loft-viewer" data-loft-viewer></div>
+        <noscript>The interactive viewer requires JavaScript. Demo sequences are coming soon.</noscript>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap"><a class="brand" href="#top" aria-label="LoFT home"><img src="assets/mark.svg" width="26" height="26" alt="">LoFT</a><a href="#top" class="back-top">Back to top ↑</a></footer>
+  <dialog id="figure-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-tools"><h2 id="dialog-title">Figure</h2><button id="zoom-button" type="button" aria-pressed="false">Zoom in</button><button id="close-dialog" type="button" aria-label="Close figure"><svg class="icon"><use href="#close"/></svg></button></div>
+    <div class="dialog-pane" tabindex="0" aria-label="Figure detail"><img id="detail-image" alt=""></div>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,65 @@
+.loft-viewer {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #d8d8d3;
+  border-radius: 12px;
+  background: #f9f9f6;
+  color: #303534;
+  font-family: inherit;
+}
+.loft-viewer [hidden] { display: none !important; }
+.loft-viewer button, .loft-viewer select { font: inherit; }
+.lv-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  height: clamp(230px, 34vw, 400px);
+  color: #eeeeea;
+  background-color: #1d2223;
+  background-image: linear-gradient(to right, #ffffff06 1px, transparent 1px), linear-gradient(to bottom, #ffffff06 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.lv-top {
+  position: absolute; z-index: 2; top: 18px; left: 22px; right: 22px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  color: #c4c9c6; pointer-events: none;
+}
+.lv-title, .lv-scene, .lv-scenes, .lv-hint, .lv-counter {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 11px; letter-spacing: .04em; line-height: 1.5;
+}
+.lv-title { display: inline-flex; align-items: center; gap: 9px; }
+.lv-dot { width: 5px; height: 5px; border-radius: 50%; background: #d38966; }
+.lv-scenes { max-width: 51%; color: #eee; background: #282d2d; border: 1px solid #5a6060; padding: 5px 7px; border-radius: 4px; pointer-events: auto; }
+.lv-scene { max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lv-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; padding: 50px 20px; text-align: center; }
+.lv-symbol { display: flex; color: #a6aaa6; }
+.lv-message { font-size: 15px; color: #cdd0ca; font-weight: 480; letter-spacing: .01em; }
+.lv-retry { border: 1px solid #7c827f; border-radius: 5px; padding: 4px 12px; color: #eee; background: transparent; cursor: pointer; }
+.lv-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+.lv-canvas:active { cursor: grabbing; }
+.lv-hint { position: absolute; z-index: 1; pointer-events: none; bottom: 12px; left: 16px; background: #202425cc; border-radius: 4px; padding: 2px 6px; color: #d8dcd7; letter-spacing: 0; }
+.lv-transport { display: flex; gap: 15px; align-items: center; padding: 7px 14px; min-height: 54px; background: #f9f9f6; }
+.lv-transport button {
+  display: inline-grid; place-items: center; flex: none;
+  height: 38px; width: 38px; border: 0; border-radius: 5px; color: #333a37; background: transparent; cursor: pointer;
+}
+.lv-transport .lv-play { color: white; background: #84482d; width: 34px; height: 34px; }
+.lv-transport button:disabled { color: #9b9f99; cursor: default; }
+.lv-transport .lv-play:disabled { color: #979c95; background: #e6e8e2; }
+.lv-transport button:not(:disabled):hover { background: #e6e7df; }
+.lv-transport .lv-play:not(:disabled):hover { background: #693a25; }
+.lv-timeline { flex: 1; min-width: 0; height: 26px; accent-color: #9c5b3d; cursor: pointer; }
+.lv-timeline:disabled { cursor: default; }
+.lv-counter { white-space: nowrap; color: #636961; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.lv-separator { height: 20px; width: 1px; background: #d6d9d3; }
+.loft-viewer :focus-visible { outline: 2px solid #b46f49; outline-offset: 2px; }
+.loft-viewer .lv-canvas:focus-visible { outline-offset: -4px; }
+.loft-viewer:fullscreen { display: flex; flex-direction: column; border: 0; border-radius: 0; background: #1d2223; }
+.loft-viewer:fullscreen .lv-stage { height: auto; flex: 1; }
+@media (max-width: 560px) {
+  .lv-transport { gap: 7px; padding: 5px 8px; }
+  .lv-transport button { width: 32px; }
+  .lv-top { left: 15px; right: 15px; top: 14px; }
+  .lv-counter, .lv-title, .lv-hint { font-size: 10px; }
+}
