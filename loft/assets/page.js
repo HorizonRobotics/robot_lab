@@ -1,26 +1,3 @@
-const stage = document.querySelector(".sequence-stage");
-const stageImage = document.querySelector("#stage-image");
-const stageName = document.querySelector("#stage-name");
-const reconstruction = {src: stageImage.src, alt: stageImage.alt, title: stageName.textContent};
-const sceneControls = document.querySelectorAll("[data-scene]");
-
-for (const control of sceneControls) {
-  control.addEventListener("click", () => {
-    const time = control.dataset.scene;
-    const isFrame = time !== "cloud";
-    const view = isFrame ? {
-      src: control.querySelector("img").src,
-      alt: `RGB input from the street sequence at ${time} seconds`,
-      title: `Input frame · ${time} s`
-    } : reconstruction;
-    stageImage.src = view.src;
-    stageImage.alt = view.alt;
-    stageName.textContent = view.title;
-    stage.classList.toggle("input", isFrame);
-    for (const other of sceneControls) other.setAttribute("aria-pressed", String(control === other));
-  });
-}
-
 const dialog = document.querySelector("#figure-dialog");
 const pane = dialog.querySelector(".dialog-pane");
 const zoom = document.querySelector("#zoom-button");

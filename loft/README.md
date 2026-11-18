@@ -4,24 +4,25 @@
 
 ## 本地预览
 
-在仓库根目录运行以下命令，打开 [本地预览](http://localhost:8000/)。
+在仓库根目录使用支持 HTTP Range 请求的静态服务器预览，视频进度条可按时间跳转。安装 Node.js 后运行以下命令，打开 [本地预览](http://localhost:8000/)。
 
 ```sh
-python3 -m http.server 8000 --bind 127.0.0.1 --directory loft
+npx live-server loft --host=127.0.0.1 --port=8000 --no-browser
+```
+
+## 添加首页视频对
+
+每组视频放在 `data/videos/video{n}/` 下。左侧读取 `input_view.mp4`（也支持 `input_video.mp4`），右侧读取 `point.mp4`。两段视频应从同一时刻开始，共用的时间轴以秒对齐，在较短的视频末尾停止。推荐使用 H.264 MP4。可选的首帧缩略图为 `input-poster.jpg`、`point-poster.jpg`。
+
+添加或移除视频组后，从仓库根目录运行以下命令。将更新后的 `catalog.js` 和视频一起部署，页面按文件夹编号排序。多组视频通过左右箭头手动切换，到达首尾后可用箭头循环选择。切换后从首帧暂停，播放结束时停在当前组。
+
+```sh
+python3 loft/data/videos/update_catalog.py
 ```
 
 ## 更新论文插图
 
-在 `assets/figures/` 替换同名的 WebP 文件，页面将自动使用新版。
-
-| 文件 | 网页位置 |
-| --- | --- |
-| `teaser.webp` | 首页 Full teaser 和 Results 区的完整对比图 |
-| `method.webp` | Method 区的模型架构图 |
-| `reconstruction.webp` | 首页默认显示的街景重建静态图 |
-| `frame-0.webp`、`frame-18.webp`、`frame-36.webp`、`frame-54.webp` | 首页可切换的 RGB 输入帧 |
-
-完整插图建议用白底 PDF 导出为长边约 2400–2600 像素的 WebP。首页街景和输入帧为独立文件，可以单独更新。更换示例场景或采样时间时，同步更新 `index.html` 中的图片说明、时间按钮及 `assets/page.js` 中的放大图说明。
+在 `assets/figures/` 同名替换 `teaser.webp`（首页视频之后、Abstract 上方）和 `method.webp`（Method 区）。完整插图建议用白底 PDF 导出为长边约 2400–2600 像素的 WebP。
 
 ## 添加点云
 
@@ -29,4 +30,4 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory loft
 
 ## 开放资源链接
 
-Paper、Code、Hugging Face 的入口在 `index.html` 的 `.resource-row` 中。开放资源时，将对应的 `<div class="resource">` 改为带有目标地址的 `<a class="resource" href="…">`，对应的闭合标签改成 `</a>`，并移除其中的 `<small>Coming soon</small>`。
+Paper、Code、Hugging Face 集中在 `index.html` 的 `.resource-row` 中，共用一个 Coming soon 标签。开放资源时，把对应名称改为链接，并将 Coming soon 标签留给仍待发布的条目。全部开放后即可移除状态标签，并将分组的 `aria-labelledby` 改成 `aria-label="Project resources"`。

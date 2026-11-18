@@ -9,6 +9,8 @@
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/page.css">
   <link rel="stylesheet" href="assets/viewer.css">
+  <script defer src="data/videos/catalog.js"></script>
+  <script defer src="assets/video-pairs.js"></script>
   <script defer src="assets/page.js"></script>
   <script defer src="assets/viewer.js"></script>
 </head>
@@ -26,7 +28,6 @@
   <header class="site-header">
     <div class="wrap navrow">
       <a class="brand" href="#top" aria-label="LoFT home"><img src="assets/mark.svg" width="34" height="34" alt="">LoFT</a>
-      <span class="site-kind">Research project</span>
       <nav aria-label="Sections">
         <a href="#overview">Overview</a><a href="#method">Method</a><a href="#results">Results</a><a href="#demo">Demo</a>
       </nav>
@@ -35,47 +36,70 @@
   <main id="main">
     <section class="wrap hero" id="top" aria-labelledby="project-title">
       <div class="intro">
-        <p class="kicker"><span></span>Video geometry</p>
-        <h1 id="project-title">LoFT</h1>
-        <p class="paper-title">Looped Foundation Transformer for Video Geometry</p>
-        <p class="summary">Reconstructing 3D scenes from RGB video through temporal attention and iterative camera refinement.</p>
-        <div class="actions">
-          <a class="primary" href="#method">Explore method <svg class="icon"><use href="#down"/></svg></a>
-          <a class="text-action" href="#demo"><svg class="icon"><use href="#play"/></svg>Demo viewer</a>
+        <div class="project-info">
+          <div class="hero-heading">
+            <div><p class="kicker"><span></span>Video geometry</p><h1 id="project-title">LoFT</h1></div>
+            <p class="paper-title">Looped Foundation Transformer for Video Geometry</p>
+          </div>
+          <div class="resource-row" role="group" aria-labelledby="resource-status">
+            <span id="resource-status">Coming soon</span>
+            <ul class="resource-list">
+              <li><svg class="icon" aria-hidden="true"><use href="#doc"/></svg>Paper</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#code"/></svg>Code</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#model"/></svg>Hugging Face</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hero-description">
+          <p class="summary">Reconstructing 3D scenes from RGB video through temporal attention and iterative camera refinement.</p>
+          <div class="actions">
+            <a class="primary" href="#method">Explore method <svg class="icon"><use href="#down"/></svg></a>
+            <a class="text-action" href="#demo"><svg class="icon"><use href="#play"/></svg>Demo viewer</a>
+          </div>
         </div>
       </div>
-      <figure class="sequence">
-        <div class="sequence-stage">
-          <div class="stage-heading"><span class="figure-num">Fig. 1</span> <span id="stage-name">Street reconstruction</span></div>
-          <img id="stage-image" width="1385" height="789" src="assets/figures/reconstruction.webp" alt="LoFT point-cloud reconstruction of a street lined with brick buildings" fetchpriority="high">
+      <div class="video-pairs" role="group" aria-label="Paired input and reconstruction videos">
+        <div class="pair-panes">
+          <figure><figcaption id="input-label">Input video</figcaption><video id="pair-input" aria-labelledby="input-label" preload="metadata" muted playsinline></video></figure>
+          <figure><figcaption id="point-label">3D reconstruction</figcaption><video id="pair-point" aria-labelledby="point-label" preload="metadata" muted playsinline></video></figure>
         </div>
-        <figcaption class="sequence-controls">
-          <div class="sequence-menu">
-            <button class="cloud-option" type="button" data-scene="cloud" aria-pressed="true" aria-label="Show 3D reconstruction"><svg class="icon"><use href="#model"/></svg>3D</button>
-            <div class="frames" role="group" aria-label="Show an RGB input frame">
-              <button type="button" data-scene="0" aria-label="Show input frame at 0 seconds" aria-pressed="false"><img width="80" height="45" alt="" src="assets/figures/frame-0.webp"><span>0 s</span></button>
-              <button type="button" data-scene="18" aria-label="Show input frame at 18 seconds" aria-pressed="false"><img width="80" height="45" alt="" src="assets/figures/frame-18.webp"><span>18 s</span></button>
-              <button type="button" data-scene="36" aria-label="Show input frame at 36 seconds" aria-pressed="false"><img width="80" height="45" alt="" src="assets/figures/frame-36.webp"><span>36 s</span></button>
-              <button type="button" data-scene="54" aria-label="Show input frame at 54 seconds" aria-pressed="false"><img width="80" height="45" alt="" src="assets/figures/frame-54.webp"><span>54 s</span></button>
-            </div>
+        <div class="pair-toolbar">
+          <button type="button" id="pair-play" disabled>Play</button>
+          <input type="range" id="pair-seek" aria-label="Video time" min="0" max="0" step="0.01" value="0" disabled>
+          <span id="pair-time">0:00 / 0:00</span>
+          <div class="pair-navigation" role="group" aria-label="Video pairs" hidden>
+            <button type="button" id="pair-prev" aria-label="Previous video pair" title="Previous video pair" hidden><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+            <span id="pair-name" aria-live="polite" aria-atomic="true"></span>
+            <button type="button" id="pair-next" aria-label="Next video pair" title="Next video pair" hidden><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
           </div>
-          <a class="figure-link" href="assets/figures/teaser.webp" data-figure="teaser">Full teaser <svg class="icon"><use href="#expand"/></svg></a>
+          <button type="button" id="pair-fullscreen" aria-label="Full screen" title="Full screen" hidden><svg class="icon"><use href="#expand"/></svg></button>
+        </div>
+        <p id="pair-status" role="status" hidden></p>
+        <noscript>Enable JavaScript to play the paired videos.</noscript>
+      </div>
+    </section>
+    <section class="wrap paper-overview" id="overview" aria-labelledby="abstract-title">
+      <figure class="paper-teaser">
+        <a href="assets/figures/teaser.webp" data-figure="teaser" aria-label="Enlarge the teaser figure">
+          <img src="assets/figures/teaser.webp" width="2600" height="1482" alt="A street reconstructed from RGB video, four sampled input frames, and radar plots comparing five methods on three benchmarks." loading="lazy">
+        </a>
+        <figcaption>
+          <div><b class="figure-num">Fig. 1</b> LoFT reconstructs the street scene from an RGB video (sampled frames at bottom right). The radar plots compare depth, pose, and trajectory accuracy, with larger radii indicating better performance. SpatialBench<sup>†</sup> denotes the continuous-video subset of SpatialBench, and VGGT-Ω<sup>*</sup> denotes the officially retrained version of VGGT-Ω.</div>
+          <a class="figure-link" href="assets/figures/teaser.webp" data-figure="teaser">Enlarge figure <svg class="icon"><use href="#expand"/></svg></a>
         </figcaption>
       </figure>
-    </section>
-    <div class="resources">
-      <div class="wrap resource-row" aria-label="Project resources">
-        <div class="resource"><svg class="icon"><use href="#doc"/></svg><span>Paper</span><small>Coming soon</small></div>
-        <div class="resource"><svg class="icon"><use href="#code"/></svg><span>Code</span><small>Coming soon</small></div>
-        <div class="resource"><svg class="icon"><use href="#model"/></svg><span>Hugging Face</span><small>Coming soon</small></div>
-      </div>
-    </div>
-    <section class="wrap content-section overview" id="overview" aria-labelledby="overview-title">
-      <div class="section-side"><p class="kicker"><span></span>Overview</p><h2 id="overview-title">From video<br> to 3D.</h2></div>
-      <div class="overview-body">
-        <p class="lead">Adjacent video frames often see the same surface. Views farther apart reveal how that surface sits in 3D.</p>
-        <p>LoFT uses both. One loop gathers visual evidence across an ordered clip. A second loop refines each camera using its previous estimate. The resulting cameras place per-frame depth maps in a shared coordinate system.</p>
-        <dl class="stats" aria-label="Training data"><div><dt>Training datasets</dt><dd>80</dd></div><div><dt>Sequences</dt><dd>2.97M</dd></div><div><dt>Images</dt><dd>961.8M</dd></div></dl>
+      <div class="abstract">
+        <h2 id="abstract-title">Abstract</h2>
+        <div class="abstract-body">
+          <p>3D reconstruction has seen profound changes in data scaling and model iteration, and recent models have shown significant gains in both reconstruction accuracy and generalization. We focus on video reconstruction because a large proportion of real-world visual data, particularly data from dynamic scenes, takes the form of continuous video. We propose LoFT, a transformer with a two-loop architecture. The first loop aggregates visual features over progressively wider temporal windows, alternating these local steps with attention over the full clip to exploit the temporal continuity prior. The second loop predicts a camera pose for each frame and explicitly feeds the updated camera state back into the next feature update. Each loop reuses its own weights across iterations, allowing a single model to run at different refinement depths.</p>
+          <p>We train LoFT on a mixture of 80 public datasets. On the public reconstruction benchmark SpatialBench and two benchmarks we curated from both public and self-collected data (ClassicBench and VRBench), LoFT achieves competitive results in both depth and camera pose estimation. We keep the model design and training pipeline as simple as possible to support a wider range of downstream extensions and preserve LoFT’s potential to learn general-purpose video representations.</p>
+          <dl class="stats" aria-label="Model and training data">
+            <div><dt>Model parameters</dt><dd>514.5M</dd></div>
+            <div><dt>Training datasets</dt><dd>80</dd></div>
+            <div><dt>Sequences</dt><dd>2.97M</dd></div>
+            <div><dt>Images</dt><dd>961.8M</dd></div>
+          </dl>
+        </div>
       </div>
     </section>
     <section class="method-section" id="method" aria-labelledby="method-title">
@@ -92,27 +116,67 @@
         </div>
       </div>
     </section>
-    <section class="wrap content-section results" id="results" aria-labelledby="results-title">
-      <div class="section-side"><p class="kicker"><span></span>Results</p><h2 id="results-title">Reconstruction<br> benchmarks.</h2>
-        <a class="teaser-preview" href="assets/figures/teaser.webp" data-figure="teaser">
-          <img src="assets/figures/teaser.webp" width="2600" height="1482" alt="Full LoFT teaser showing benchmark comparisons alongside a reconstructed street." loading="lazy">
-          <span>View full teaser <svg class="icon"><use href="#expand"/></svg></span>
-        </a>
-      </div>
-      <div class="result-body">
-        <p>LoFT achieves the lowest depth AbsRel and highest pose AUC at 30° among the ranked methods on each of the four evaluation splits.</p>
-        <div class="table-scroll" tabindex="0" role="region" aria-label="LoFT benchmark results">
-          <table><caption class="visually-hidden">LoFT depth, pose, and trajectory scores. Arrows indicate the better direction.</caption>
-            <thead><tr><th scope="col">Benchmark</th><th scope="col">AbsRel ↓</th><th scope="col">δ<sub>1.03</sub> ↑</th><th scope="col">AUC@3° ↑</th><th scope="col">AUC@30° ↑</th><th scope="col">ATE ↓</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">SpatialBench <small>Full</small></th><td>0.0637</td><td>0.6959</td><td>0.4767</td><td>0.8341</td><td>0.5041</td></tr>
-              <tr><th scope="row">SpatialBench <small>Continuous</small></th><td>0.0734</td><td>0.6765</td><td>0.4757</td><td>0.8342</td><td>0.2131</td></tr>
-              <tr><th scope="row">ClassicBench</th><td>0.1316</td><td>0.5464</td><td>0.3506</td><td>0.7623</td><td>0.5015</td></tr>
-              <tr><th scope="row">VRBench</th><td>0.0852</td><td>0.5751</td><td>0.3879</td><td>0.8271</td><td>0.2973</td></tr>
-            </tbody>
-          </table>
+    <section class="wrap results" id="results" aria-labelledby="results-title">
+      <p class="kicker"><span></span>Results</p>
+      <h2 id="results-title">Reconstruction benchmarks.</h2>
+      <dl class="benchmark-guide" aria-label="Evaluation datasets">
+        <div>
+          <dt>SpatialBench Medium</dt>
+          <dd>The Full split contains 129 sequences. The Continuous subset uses the 98 sequences with uninterrupted observations to evaluate reconstruction from continuous video.</dd>
         </div>
-        <p class="table-note">SpatialBench uses the Medium set. AbsRel and δ measure depth accuracy, AUC measures relative camera pose, and ATE measures trajectory error.</p>
+        <div>
+          <dt>ClassicBench</dt>
+          <dd>We compare reconstruction accuracy across seven established datasets, including 7-Scenes, Neural RGB-D, Bonn, TUM Dynamic, Sintel, DyCheck, and KITTI.</dd>
+        </div>
+        <div>
+          <dt>VRBench</dt>
+          <dd>The Video Reconstruction Benchmark combines 12 public datasets with two we collected. It covers indoor and outdoor scenes, autonomous driving, and robotic manipulation.</dd>
+        </div>
+      </dl>
+      <p class="table-note" id="benchmark-ranking-note">Arrows indicate the better direction for each metric. AbsRel and δ<sub>1.03</sub> measure depth, AUC measures relative camera pose, and ATE measures trajectory error. <strong>Bold</strong> marks the best ranked result in each column and <u>underlining</u> marks the second best. The public VGGT-Ω checkpoint is excluded from the rankings because its authors report potential data contamination.</p>
+      <div class="table-scroll benchmark-scroll" role="region" tabindex="0" aria-labelledby="benchmark-caption-1">
+        <table class="benchmark-table" id="benchmark-table-1" aria-describedby="benchmark-ranking-note">
+          <caption id="benchmark-caption-1">Table 1. Quantitative results on SpatialBench Medium.</caption>
+          <colgroup><col></colgroup><colgroup span="5"></colgroup><colgroup span="5"></colgroup>
+          <thead>
+            <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="5">SpatialBench Full</th><th scope="colgroup" colspan="5">SpatialBench Continuous</th></tr>
+            <tr><th scope="col">AbsRel ↓</th><th scope="col">δ<sub>1.03</sub> ↑</th><th scope="col">AUC@3 ↑</th><th scope="col">AUC@30 ↑</th><th scope="col">ATE ↓</th><th scope="col">AbsRel ↓</th><th scope="col">δ<sub>1.03</sub> ↑</th><th scope="col">AUC@3 ↑</th><th scope="col">AUC@30 ↑</th><th scope="col">ATE ↓</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">MapAnything</th><td>0.1450</td><td>0.3504</td><td>0.1964</td><td>0.6285</td><td>1.6331</td><td>0.1772</td><td>0.2854</td><td>0.1710</td><td>0.5808</td><td>1.8061</td></tr>
+            <tr><th scope="row">VGGT</th><td>0.1273</td><td>0.4968</td><td>0.3854</td><td>0.7066</td><td>0.6003</td><td>0.1552</td><td>0.4617</td><td>0.3776</td><td>0.6806</td><td>0.4108</td></tr>
+            <tr><th scope="row">4RC</th><td>0.0875</td><td>0.6130</td><td>0.4242</td><td>0.7570</td><td>0.9581</td><td>0.1073</td><td>0.5494</td><td>0.3696</td><td>0.7207</td><td>0.8225</td></tr>
+            <tr><th scope="row">π<sup>3</sup></th><td><u>0.0843</u></td><td>0.5692</td><td>0.3969</td><td>0.7759</td><td>0.6019</td><td><u>0.1019</u></td><td>0.5217</td><td>0.3591</td><td>0.7538</td><td>0.3680</td></tr>
+            <tr><th scope="row">DA3-Giant</th><td>0.0851</td><td>0.5865</td><td>0.4866</td><td>0.7978</td><td>0.8733</td><td>0.1033</td><td>0.5359</td><td>0.4328</td><td>0.7670</td><td>0.7690</td></tr>
+            <tr><th scope="row">DVLT</th><td>0.1184</td><td>0.5674</td><td>0.4716</td><td>0.8158</td><td><strong>0.4011</strong></td><td>0.1452</td><td>0.5200</td><td>0.4587</td><td>0.7930</td><td><strong>0.1987</strong></td></tr>
+            <tr><th scope="row">Solv3R</th><td>0.1240</td><td>0.5542</td><td><u>0.4901</u></td><td>0.8118</td><td>0.4742</td><td>0.1523</td><td>0.5031</td><td><strong>0.4798</strong></td><td>0.7890</td><td><u>0.2106</u></td></tr>
+            <tr><th scope="row">Retrained VGGT-Ω</th><td>0.0936</td><td><u>0.6197</u></td><td><strong>0.5082</strong></td><td><u>0.8254</u></td><td><u>0.4483</u></td><td>0.1136</td><td><u>0.5722</u></td><td>0.4738</td><td><u>0.8079</u></td><td>0.2305</td></tr>
+            <tr class="unranked"><th scope="row">Public VGGT-Ω</th><td>0.0661</td><td>0.6272</td><td>0.4894</td><td>0.8208</td><td>0.5513</td><td>0.0779</td><td>0.5802</td><td>0.4552</td><td>0.8001</td><td>0.2291</td></tr>
+            <tr class="ours"><th scope="row">Ours (LoFT)</th><td><strong>0.0637</strong></td><td><strong>0.6959</strong></td><td>0.4767</td><td><strong>0.8341</strong></td><td>0.5041</td><td><strong>0.0734</strong></td><td><strong>0.6765</strong></td><td><u>0.4757</u></td><td><strong>0.8342</strong></td><td>0.2131</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-scroll benchmark-scroll" role="region" tabindex="0" aria-labelledby="benchmark-caption-2">
+        <table class="benchmark-table" id="benchmark-table-2" aria-describedby="benchmark-ranking-note">
+          <caption id="benchmark-caption-2">Table 2. Quantitative results on ClassicBench and VRBench.</caption>
+          <colgroup><col></colgroup><colgroup span="5"></colgroup><colgroup span="5"></colgroup>
+          <thead>
+            <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="5">ClassicBench</th><th scope="colgroup" colspan="5">VRBench</th></tr>
+            <tr><th scope="col">AbsRel ↓</th><th scope="col">δ<sub>1.03</sub> ↑</th><th scope="col">AUC@3 ↑</th><th scope="col">AUC@30 ↑</th><th scope="col">ATE ↓</th><th scope="col">AbsRel ↓</th><th scope="col">δ<sub>1.03</sub> ↑</th><th scope="col">AUC@3 ↑</th><th scope="col">AUC@30 ↑</th><th scope="col">ATE ↓</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">MapAnything</th><td>0.1739</td><td>0.3522</td><td>0.1171</td><td>0.5539</td><td>3.7913</td><td>0.1421</td><td>0.3231</td><td>0.1141</td><td>0.5859</td><td>1.9336</td></tr>
+            <tr><th scope="row">VGGT</th><td>0.1713</td><td>0.3770</td><td>0.2300</td><td>0.6599</td><td>0.9471</td><td>0.1406</td><td>0.3848</td><td>0.2317</td><td>0.6970</td><td>0.7321</td></tr>
+            <tr><th scope="row">4RC</th><td>0.1852</td><td>0.4532</td><td>0.2706</td><td>0.7004</td><td>1.3776</td><td>0.1157</td><td>0.4972</td><td>0.3546</td><td>0.7719</td><td>1.1361</td></tr>
+            <tr><th scope="row">π<sup>3</sup></th><td>0.1536</td><td>0.4856</td><td>0.2499</td><td>0.6795</td><td>1.0273</td><td><u>0.1012</u></td><td>0.4759</td><td>0.2851</td><td>0.7471</td><td>0.6573</td></tr>
+            <tr><th scope="row">DA3-Giant</th><td>0.1566</td><td>0.4690</td><td>0.2758</td><td>0.6999</td><td>0.8492</td><td>0.1093</td><td>0.4741</td><td>0.3393</td><td>0.7775</td><td>0.8503</td></tr>
+            <tr><th scope="row">DVLT</th><td>0.1599</td><td>0.4638</td><td>0.2877</td><td>0.7123</td><td><u>0.3381</u></td><td>0.1238</td><td>0.4514</td><td>0.3263</td><td>0.7936</td><td><strong>0.2472</strong></td></tr>
+            <tr><th scope="row">Solv3R</th><td>0.1520</td><td>0.4671</td><td>0.3100</td><td>0.7368</td><td><strong>0.3203</strong></td><td>0.1208</td><td>0.4435</td><td>0.3534</td><td>0.8055</td><td><u>0.2726</u></td></tr>
+            <tr><th scope="row">Retrained VGGT-Ω</th><td><u>0.1427</u></td><td><u>0.4930</u></td><td><u>0.3112</u></td><td><u>0.7397</u></td><td>0.4052</td><td>0.1069</td><td><u>0.4980</u></td><td><u>0.3793</u></td><td><u>0.8202</u></td><td>0.2786</td></tr>
+            <tr class="unranked"><th scope="row">Public VGGT-Ω</th><td>0.0910</td><td>0.6231</td><td>0.3576</td><td>0.7758</td><td>0.3066</td><td>0.0844</td><td>0.5337</td><td>0.3518</td><td>0.8093</td><td>0.2849</td></tr>
+            <tr class="ours"><th scope="row">Ours (LoFT)</th><td><strong>0.1316</strong></td><td><strong>0.5464</strong></td><td><strong>0.3506</strong></td><td><strong>0.7623</strong></td><td>0.5015</td><td><strong>0.0852</strong></td><td><strong>0.5751</strong></td><td><strong>0.3879</strong></td><td><strong>0.8271</strong></td><td>0.2973</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
     <section class="demo-section" id="demo" aria-labelledby="demo-title">
