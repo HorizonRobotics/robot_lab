@@ -1,65 +1,51 @@
-.loft-viewer {
-  width: 100%;
-  overflow: hidden;
-  border: 1px solid #d8d8d3;
-  border-radius: 12px;
-  background: #f9f9f6;
-  color: #303534;
-  font-family: inherit;
+.loft-viewer {width: 100%;}
+.lv-layout {display: grid; gap: 1px; background: var(--line);}
+.lv-has-media .lv-layout {grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);}
+.lv-cloud-panel, .lv-media figure {display: flex; flex-direction: column; min-width: 0; min-height: 0; background: #fff;}
+.lv-panel-heading {display: flex; align-items: center; justify-content: space-between; gap: 6px; background: #fff;}
+.lv-view-controls {display: inline-flex; align-items: center; gap: 6px; padding-right: 10px;}
+.lv-global {min-height: 28px;}
+.lv-global:enabled:hover, .lv-retry:enabled:hover {color: var(--accent); border-color: var(--accent);}
+.lv-reset:disabled {opacity: .5;}
+.lv-media {display: grid; grid-template-rows: repeat(2, minmax(0, 1fr)); min-width: 0; gap: 1px;}
+.lv-media canvas {display: block; width: 100%; height: auto; object-fit: contain; visibility: hidden;}
+.lv-media.lv-ready canvas {visibility: visible;}
+
+.lv-stage, .lv-global-stage {position: relative; overflow: hidden; background: #fff;}
+.lv-stage {min-height: clamp(220px, 32vw, 400px);}
+.lv-has-media .lv-stage {flex: 1; min-height: 0;}
+.lv-canvas, .lv-global-canvas {position: absolute; inset: 0; display: block; width: 100%; height: 100%; touch-action: none; cursor: grab;}
+.lv-canvas:active, .lv-global-canvas:active {cursor: grabbing;}
+.lv-canvas:focus-visible, .lv-global-canvas:focus-visible {outline-offset: -3px;}
+.lv-placeholder {position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 10px; padding: 16px; text-align: center; color: var(--muted); font: 13px/1.5 var(--sans);}
+.lv-hint {padding: 7px 14px; color: var(--muted); font: 11px/1.4 var(--mono); background: #fff;}
+.lv-pinch {display: none;}
+@media (pointer: coarse) {
+  .lv-wheel {display: none;}
+  .lv-pinch {display: inline;}
 }
-.loft-viewer [hidden] { display: none !important; }
-.loft-viewer button, .loft-viewer select { font: inherit; }
-.lv-stage {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  height: clamp(230px, 34vw, 400px);
-  color: #eeeeea;
-  background-color: #1d2223;
-  background-image: linear-gradient(to right, #ffffff06 1px, transparent 1px), linear-gradient(to bottom, #ffffff06 1px, transparent 1px);
-  background-size: 40px 40px;
+.lv-camera-mode {margin-right: 8px; padding-right: 8px; border-right: 1px solid var(--line);}
+.lv-counter {font-variant-numeric: tabular-nums;}
+.lv-timeline:disabled {cursor: default;}
+
+.lv-global-dialog {width: min(1120px, 95vw);}
+.lv-global-stage {height: min(68dvh, 100vw, 650px); min-height: 0;}
+.lv-global-dialog .player-icon-button {padding: 0;}
+.loft-viewer:fullscreen {display: flex; flex-direction: column;}
+.loft-viewer:fullscreen .lv-layout {flex: 1; min-height: 0; grid-template-rows: minmax(0,1fr);}
+.loft-viewer:fullscreen .lv-stage {flex: 1; min-height: 0;}
+.loft-viewer:fullscreen .lv-media canvas {flex: 1; min-height: 0; height: 0;}
+.loft-viewer:fullscreen .lv-transport {flex: none;}
+
+@media (max-width: 700px) {
+  .lv-has-media .lv-layout {grid-template-columns: minmax(0, 1fr);}
+  .lv-has-media .lv-stage {flex: none; aspect-ratio: 16 / 9;}
+  .lv-media {grid-template: auto / repeat(2, minmax(0, 1fr));}
+  .loft-viewer.lv-has-media:fullscreen .lv-layout {grid-template-rows: minmax(0, 1fr) auto;}
+  .loft-viewer.lv-has-media:fullscreen .lv-stage {flex: 1; aspect-ratio: auto;}
+  .loft-viewer.lv-has-media:fullscreen .lv-media canvas {flex: none; height: auto; max-height: 24dvh;}
 }
-.lv-top {
-  position: absolute; z-index: 2; top: 18px; left: 22px; right: 22px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  color: #c4c9c6; pointer-events: none;
-}
-.lv-title, .lv-scene, .lv-scenes, .lv-hint, .lv-counter {
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 11px; letter-spacing: .04em; line-height: 1.5;
-}
-.lv-title { display: inline-flex; align-items: center; gap: 9px; }
-.lv-dot { width: 5px; height: 5px; border-radius: 50%; background: #d38966; }
-.lv-scenes { max-width: 51%; color: #eee; background: #282d2d; border: 1px solid #5a6060; padding: 5px 7px; border-radius: 4px; pointer-events: auto; }
-.lv-scene { max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.lv-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; padding: 50px 20px; text-align: center; }
-.lv-symbol { display: flex; color: #a6aaa6; }
-.lv-message { font-size: 15px; color: #cdd0ca; font-weight: 480; letter-spacing: .01em; }
-.lv-retry { border: 1px solid #7c827f; border-radius: 5px; padding: 4px 12px; color: #eee; background: transparent; cursor: pointer; }
-.lv-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; }
-.lv-canvas:active { cursor: grabbing; }
-.lv-hint { position: absolute; z-index: 1; pointer-events: none; bottom: 12px; left: 16px; background: #202425cc; border-radius: 4px; padding: 2px 6px; color: #d8dcd7; letter-spacing: 0; }
-.lv-transport { display: flex; gap: 15px; align-items: center; padding: 7px 14px; min-height: 54px; background: #f9f9f6; }
-.lv-transport button {
-  display: inline-grid; place-items: center; flex: none;
-  height: 38px; width: 38px; border: 0; border-radius: 5px; color: #333a37; background: transparent; cursor: pointer;
-}
-.lv-transport .lv-play { color: white; background: #84482d; width: 34px; height: 34px; }
-.lv-transport button:disabled { color: #9b9f99; cursor: default; }
-.lv-transport .lv-play:disabled { color: #979c95; background: #e6e8e2; }
-.lv-transport button:not(:disabled):hover { background: #e6e7df; }
-.lv-transport .lv-play:not(:disabled):hover { background: #693a25; }
-.lv-timeline { flex: 1; min-width: 0; height: 26px; accent-color: #9c5b3d; cursor: pointer; }
-.lv-timeline:disabled { cursor: default; }
-.lv-counter { white-space: nowrap; color: #636961; letter-spacing: 0; font-variant-numeric: tabular-nums; }
-.lv-separator { height: 20px; width: 1px; background: #d6d9d3; }
-.loft-viewer :focus-visible { outline: 2px solid #b46f49; outline-offset: 2px; }
-.loft-viewer .lv-canvas:focus-visible { outline-offset: -4px; }
-.loft-viewer:fullscreen { display: flex; flex-direction: column; border: 0; border-radius: 0; background: #1d2223; }
-.loft-viewer:fullscreen .lv-stage { height: auto; flex: 1; }
-@media (max-width: 560px) {
-  .lv-transport { gap: 7px; padding: 5px 8px; }
-  .lv-transport button { width: 32px; }
-  .lv-top { left: 15px; right: 15px; top: 14px; }
-  .lv-counter, .lv-title, .lv-hint { font-size: 10px; }
+@media (max-width: 580px) {
+  .lv-view-controls {gap: 4px; padding-right: 6px;}
+  .lv-hint {padding: 6px 7px; font-size: 10px;}
 }

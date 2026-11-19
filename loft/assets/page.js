@@ -58,3 +58,29 @@ window.addEventListener("scroll", queueNavigation, {passive: true});
 window.addEventListener("resize", queueNavigation);
 window.addEventListener("load", updateNavigation);
 updateNavigation();
+
+for (const root of document.querySelectorAll('[data-loft-viewer]')) {
+  const button = root.querySelector('button');
+  let observer;
+  async function startViewer() {
+    if (button.disabled) return;
+    observer?.disconnect();
+    button.disabled = true;
+    button.textContent = 'Loading point cloud…';
+    try {
+      const url = new URL(root.dataset.loftViewer, document.baseURI);
+      const {mountViewer} = await import(url.href);
+      mountViewer(root);
+    } catch {
+      button.disabled = false;
+      button.textContent = 'Retry loading the viewer';
+    }
+  }
+  button.addEventListener('click', startViewer);
+  if ('IntersectionObserver' in window) {
+    observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) startViewer();
+    });
+    observer.observe(root.closest('section') || root);
+  }
+}

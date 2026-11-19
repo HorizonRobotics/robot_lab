@@ -162,26 +162,25 @@ body:has(dialog[open]) {overflow: hidden;}
 .hero .paper-title {max-width: 390px; font-size: clamp(26px,2.45vw,40px);}
 .hero .summary {margin: 0; font-size: 15px;}
 .hero .actions {margin-top: 14px;}
-.video-pairs {border: 1px solid var(--line); border-radius: 6px; background: #fff; overflow: hidden;}
+.player-card {border: 1px solid var(--line); border-radius: 6px; background: #fff; overflow: hidden;}
 .pair-panes {display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1px; background: var(--line);}
 .pair-panes figure {min-width: 0; background: #fff;}
-.pair-panes figcaption {padding: 9px 14px; color: var(--ink); font: 500 12px/1.4 var(--mono);}
+.player-caption {padding: 9px 14px; background: #fff; color: var(--ink); font: 500 12px/1.4 var(--mono);}
 .pair-panes video {display: block; width: 100%; aspect-ratio: 16/9; object-fit: contain; background: #fff;}
-.pair-toolbar {display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-top: 1px solid var(--line);}
-.pair-toolbar button {border: 1px solid var(--line); border-radius: 4px; background: var(--paper); padding: 6px 8px; color: var(--ink); font-size: 12px;}
-#pair-play {background: var(--accent); color: white; border-color: var(--accent); min-width: 60px; min-height: 32px;}
-#pair-play:disabled {opacity: .6;}
-#pair-seek {flex: 1; min-width: 28px; accent-color: var(--accent); cursor: pointer;}
-#pair-time, #pair-name {font: 11px/1.4 var(--mono); color: var(--muted); white-space: nowrap;}
-.pair-navigation {display: inline-flex; align-items: center; gap: 6px; border-left: 1px solid var(--line); padding-left: 10px;}
-.pair-navigation button {display: grid; place-items: center; min-width: 32px; min-height: 32px; padding: 0;}
-.pair-navigation button:hover {color: var(--accent); border-color: var(--accent);}
-.pair-navigation .icon {width: 15px; height: 15px;}
-#pair-fullscreen {display: grid; place-items: center; width: 32px; height: 32px;}
+.player-toolbar {display: flex; background: #fff; align-items: center; gap: 12px; padding: 10px 14px; border-top: 1px solid var(--line);}
+.player-button {border: 1px solid var(--line); border-radius: 4px; background: var(--paper); padding: 6px 8px; color: var(--ink); font-size: 12px;}
+.player-play {background: var(--accent); color: white; border-color: var(--accent); min-width: 60px; min-height: 32px;}
+.player-play:disabled {opacity: .6;}
+.player-seek {flex: 1; min-width: 28px; accent-color: var(--accent); cursor: pointer;}
+.player-label {font: 11px/1.4 var(--mono); color: var(--muted); white-space: nowrap;}
+.player-switcher {display: inline-flex; flex: none; align-items: center; gap: 6px; border-left: 1px solid var(--line); padding-left: 10px;}
+.player-icon-button:enabled:hover {color: var(--accent); border-color: var(--accent);}
+.player-switcher .icon {width: 15px; height: 15px;}
+.player-icon-button {display: inline-grid; place-items: center; flex: 0 0 32px; width: 32px; height: 32px; padding: 0;}
 #pair-status {padding: 0 14px 10px; color: var(--muted); font-size: 13px;}
-.video-pairs:fullscreen {display: flex; flex-direction: column; justify-content: center; background: #fff; border: 0;}
+.player-card:fullscreen {border: 0; border-radius: 0; background: #fff;}
+.video-pairs:fullscreen {display: flex; flex-direction: column; justify-content: center;}
 .video-pairs:fullscreen video {max-height: calc(100dvh - 110px);}
-.video-pairs:fullscreen .pair-toolbar {background: #fff;}
 @media (max-width: 880px) {
   .intro {grid-template-columns: 1fr; gap: 15px;}
   .hero .paper-title {max-width: 480px;}
@@ -197,9 +196,15 @@ body:has(dialog[open]) {overflow: hidden;}
   .hero .paper-title {font-size: clamp(19px, 5vw, 27px); text-wrap: initial;}
   .hero-description {display: block;}
   .hero .actions {margin-top: 15px;}
-  .pair-panes figcaption {padding: 7px; font-size: 10px;}
-  .pair-toolbar {padding: 6px; gap: 6px; flex-wrap: wrap;}
-  #pair-time, #pair-name {font-size: 10px;}
-  #pair-play {min-width: 46px;}
-  .pair-navigation {gap: 3px; padding-left: 4px;}
+  .player-caption {padding: 7px; font-size: 10px;}
+  .player-toolbar {padding: 6px; gap: 6px; flex-wrap: wrap;}
+  .player-label {font-size: 10px;}
+  .player-play {min-width: 46px;}
+  .player-switcher {gap: 3px; padding-left: 4px;}
+}
+@media (max-width: 360px) {
+  .player-toolbar {display: grid; grid-template-columns: auto minmax(0, 1fr) auto;}
+  .player-seek {width: 100%; margin-inline: 0;}
+  .player-switcher {grid-column: 1 / 3; justify-self: end; padding: 0; border: 0;}
+  .player-toolbar > .player-icon-button {grid-column: 3; justify-self: end;}
 }

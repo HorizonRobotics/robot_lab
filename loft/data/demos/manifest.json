@@ -1,3 +1,72 @@
 {
-  "sequences": []
+  "sequences": [
+    {
+      "title": "2NXxujDMbGc_0066690_0070290_01",
+      "fps": 5,
+      "confidence_thresh": 2.0,
+      "point_size": 2.0,
+      "follow_setback_ratio": 0.14,
+      "follow_tilt_degrees": 5,
+      "source": "https://huggingface.co/datasets/Svithjod/loft_demo/resolve/7c088cfaf52f304ffe65c3879986320a6a6cc79f/demos/2NXxujDMbGc_0066690_0070290_01/preview/frames.json"
+    },
+    {
+      "title": "0-sg5aVE_7U_0005490_0007184_01",
+      "confidence_thresh": 3.0,
+      "point_size": 2.0,
+      "follow_setback_ratio": 0.14,
+      "follow_tilt_degrees": 5,
+      "scene_id": "0-sg5aVE_7U_0005490_0007184_01",
+      "source": "https://huggingface.co/datasets/Svithjod/loft_demo/resolve/a357fc6b6739d1e5053b98881b63663ad418fb86/demos/0-sg5aVE_7U_0005490_0007184_01/preview/frames.json",
+      "fps": 5.0
+    },
+    {
+      "title": "01QgNRm2OYg_0021976_0023121_01",
+      "confidence_thresh": 2.0,
+      "point_size": 2.0,
+      "follow_setback_ratio": 0.14,
+      "follow_tilt_degrees": 5,
+      "scene_id": "01QgNRm2OYg_0021976_0023121_01",
+      "source": "https://huggingface.co/datasets/Svithjod/loft_demo/resolve/1c7189b9882ad454383e6ea0df462369907af9b3/demos/01QgNRm2OYg_0021976_0023121_01/preview/frames.json",
+      "fps": 5.0
+    },
+    {
+      "title": "0-sg5aVE_7U_0007365_0010965_01",
+      "confidence_thresh": 2.0,
+      "point_size": 2.0,
+      "follow_setback_ratio": 0.14,
+      "follow_tilt_degrees": 5,
+      "scene_id": "0-sg5aVE_7U_0007365_0010965_01",
+      "source": "https://huggingface.co/datasets/Svithjod/loft_demo/resolve/8a898bc48cb0fd17ce1892c9b3e17addcafc699c/demos/0-sg5aVE_7U_0007365_0010965_01/preview/frames.json",
+      "fps": 5.0
+    },
+    {
+      "title": "0sgnLQOQmok_0019890_0023490_01",
+      "fps": 5,
+      "confidence_thresh": 2.0,
+      "point_size": 2.0,
+      "follow_setback_ratio": 0.14,
+      "follow_tilt_degrees": 5,
+      "source": "https://huggingface.co/datasets/Svithjod/loft_demo/resolve/3c5840cfb827b736aaa0ce1a264c92ca3afba41e/demos/0sgnLQOQmok_0019890_0023490_01/preview/frames.json"
+    },
+    {
+      "title": "0-yPhlzV7Ak_0068886_0072486_01",
+      "confidence_thresh": 2.0,
+      "point_size": 2.0,
+      "follow_setback_ratio": 0.14,
+      "follow_tilt_degrees": 5,
+      "scene_id": "0-yPhlzV7Ak_0068886_0072486_01",
+      "source": "https://huggingface.co/datasets/Svithjod/loft_demo/resolve/6c7075f6f8e8dfc3bcc6a133474aef5ffa9aead8/demos/0-yPhlzV7Ak_0068886_0072486_01/preview/frames.json",
+      "fps": 5.0
+    },
+    {
+      "title": "0-sg5aVE_7U_0029315_0032915_01",
+      "confidence_thresh": 7.0,
+      "point_size": 2.0,
+      "follow_setback_ratio": 0.14,
+      "follow_tilt_degrees": 5,
+      "scene_id": "0-sg5aVE_7U_0029315_0032915_01",
+      "source": "https://huggingface.co/datasets/Svithjod/loft_demo/resolve/e07d13ad87d42941d4a1b383e7756bd15c53305e/demos/0-sg5aVE_7U_0029315_0032915_01/preview/frames.json",
+      "fps": 5.0
+    }
+  ]
 }

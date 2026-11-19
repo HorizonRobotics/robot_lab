@@ -1,0 +1,6 @@
+{
+  "scene_id": "0-sg5aVE_7U_0007365_0010965_01",
+  "input": "https://huggingface.co/datasets/Svithjod/loft_demo/resolve/8a898bc48cb0fd17ce1892c9b3e17addcafc699c/videos/video7/input_video.mp4",
+  "point": "https://huggingface.co/datasets/Svithjod/loft_demo/resolve/8a898bc48cb0fd17ce1892c9b3e17addcafc699c/videos/video7/point.mp4",
+  "enabled": false
+}
